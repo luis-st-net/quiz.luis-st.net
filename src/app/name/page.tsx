@@ -12,8 +12,9 @@ import { useToast } from "@/lib/hooks/use-toast";
 
 export default function NamePage() {
 	const { toast } = useToast();
-	const [inputName, setInputName] = useState("");
-	const { setName } = useNameContext();
+	const { setName, getName } = useNameContext();
+	
+	const [inputName, setInputName] = useState(getName() || "");
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	
