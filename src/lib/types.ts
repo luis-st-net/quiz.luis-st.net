@@ -47,6 +47,12 @@ export interface QuestionProvider {
 	storageKey?: string;
 }
 
+export interface Quiz {
+	id: string;
+	name: string;
+	href?: string;
+}
+
 export interface Question {
 	id: string;
 	index: number;
