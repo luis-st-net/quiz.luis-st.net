@@ -1,4 +1,16 @@
 import React from "react";
+import { z } from "zod";
+import { ControllerFieldState, ControllerRenderProps, UseFormStateReturn } from "react-hook-form";
+
+export const nameFormSchema = z.object({
+	name: z.string().max(50, { message: "Name must be less than 50 characters." })
+});
+export type NameFormValues = z.infer<typeof nameFormSchema>;
+export type NameFormFieldRendererProps<T extends keyof NameFormValues = keyof NameFormValues> = {
+	field: ControllerRenderProps<NameFormValues, T>;
+	fieldState: ControllerFieldState;
+	formState: UseFormStateReturn<NameFormValues>;
+};
 
 export interface NameContext {
 	setName: (name: string) => void;

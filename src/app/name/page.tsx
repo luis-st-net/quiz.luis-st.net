@@ -1,10 +1,17 @@
 "use client";
 
+import * as Ui from "@/lib/components/ui/";
 import React, { useState } from "react";
 import { useNameContext } from "@/lib/contexts/name-context";
 import { useRouter, useSearchParams } from "next/navigation";
+import ContentPane from "@/lib/components/content-pane";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { NameFormFieldRendererProps, nameFormSchema, NameFormValues } from "@/lib/types";
+import { useToast } from "@/lib/hooks/use-toast";
 
 export default function NamePage() {
+	const { toast } = useToast();
 	const [inputName, setInputName] = useState("");
 	const { setName } = useNameContext();
 	const router = useRouter();
@@ -12,33 +19,69 @@ export default function NamePage() {
 	
 	const redirect = decodeURIComponent(searchParams.get("redirect") || "/");
 	
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
+	const form = useForm<NameFormValues>({
+		resolver: zodResolver(nameFormSchema),
+		defaultValues: {
+			name: inputName,
+		},
+	});
+	
+	const onSubmit = (data: NameFormValues) => {
+		const result = nameFormSchema.safeParse(data);
+		if (!result.success) {
+			toast({
+				title: "Error",
+				description: "Form validation failed",
+				variant: "destructive",
+			});
+			return;
+		}
 		
-		setName(inputName.trim());
+		setName(result.data.name.trim());
 		router.push(redirect);
 	};
 	
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen p-4">
-			<div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-				<h1 className="text-2xl font-bold mb-6 text-center">
-					What's your name?
-				</h1>
-				
-				<form onSubmit={handleSubmit}>
-					<div className="mb-4">
-						<label htmlFor="name" className="block text-sm font-medium mb-2">
-							Your Name
-						</label>
-						<input type="text" id="name" className="w-full px-3 py-2 border rounded-md" value={inputName} onChange={(e) => setInputName(e.target.value)} placeholder="Enter your name" autoFocus/>
-					</div>
+		<ContentPane defaultColor={true} className="w-4/5 lg:w-2/3 2xl:w-1/3">
+			<h1 className="text-2xl font-bold mb-6">
+				Enter your name
+			</h1>
+			
+			<Ui.Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+					<Ui.FormField control={form.control} name="name" render={NameFormFieldRenderer}/>
 					
-					<button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+					<Ui.Button type="submit" className="w-full">
 						Continue
-					</button>
+					</Ui.Button>
 				</form>
-			</div>
-		</div>
+			</Ui.Form>
+		</ContentPane>
+	);
+}
+
+function NameFormFieldRenderer(
+	{ field }: NameFormFieldRendererProps<"name">,
+) {
+	return (
+		<FormFieldRenderer label="Name (Optional)">
+			<Ui.Input placeholder="Enter your name" autoFocus {...field}/>
+		</FormFieldRenderer>
+	);
+}
+
+function FormFieldRenderer(
+	{ label, children }: { label: string, children: React.ReactNode },
+) {
+	return (
+		<Ui.FormItem>
+			<Ui.FormLabel>
+				{label}
+			</Ui.FormLabel>
+			<Ui.FormControl>
+				{children}
+			</Ui.FormControl>
+			<Ui.FormMessage/>
+		</Ui.FormItem>
 	);
 }
