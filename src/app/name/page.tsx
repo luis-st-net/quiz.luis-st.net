@@ -10,13 +10,13 @@ export default function NamePage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	
-	const returnTo = decodeURIComponent(searchParams.get("returnTo") || "/");
+	const redirect = decodeURIComponent(searchParams.get("redirect") || "/");
 	
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		
 		setName(inputName.trim());
-		router.push(returnTo);
+		router.push(redirect);
 	};
 	
 	return (

@@ -44,7 +44,7 @@ export function NameProvider(
 		if (!currentName) {
 			const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
 			const returnPath = redirectPath || currentPath;
-			router.push(`/name?returnTo=${encodeURIComponent(returnPath)}`);
+			router.push(`/name?redirect=${encodeURIComponent(returnPath)}`);
 			return undefined;
 		}
 		return currentName;
