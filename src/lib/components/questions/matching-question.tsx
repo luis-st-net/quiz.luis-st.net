@@ -38,7 +38,7 @@ export default function MatchingQuestion(
 			{question.items.map((item) => (
 				<div key={item.id} className="flex flex-col gap-2 sm:flex-row sm:items-center">
 					<div className="w-full sm:w-1/2 p-2 border rounded">
-						{item.text}
+						{item.answer}
 					</div>
 					<div className="flex-shrink-0 flex items-center justify-center">
 						<Icons.ArrowRight className="h-4 w-4 mx-2"/>
@@ -51,7 +51,7 @@ export default function MatchingQuestion(
 							<Ui.SelectItem value="">Choose a match...</Ui.SelectItem>
 							{question.matches.map((match) => (
 								<Ui.SelectItem key={match.id} value={match.id}>
-									{match.text}
+									{match.answer}
 								</Ui.SelectItem>
 							))}
 						</Ui.SelectContent>

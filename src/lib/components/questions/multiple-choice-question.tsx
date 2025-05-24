@@ -36,7 +36,7 @@ export default function MultipleChoiceQuestion(
 				<div key={answer.id} className="flex items-center space-x-2">
 					<Ui.Checkbox id={answer.id} checked={selectedOptions.includes(answer.id)} onCheckedChange={() => toggleOption(answer.id)}/>
 					<Ui.Label htmlFor={answer.id}>
-						{answer.text}
+						{answer.answer}
 					</Ui.Label>
 				</div>
 			))}

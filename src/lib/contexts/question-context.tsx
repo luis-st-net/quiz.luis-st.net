@@ -76,6 +76,7 @@ export function QuestionProvider(
 	}, [answers]);
 	
 	const contextValue = {
+		questions,
 		getQuestionByIndex,
 		getMaxNumberOfQuestions,
 		currentQuestionIndex,

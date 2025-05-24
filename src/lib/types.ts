@@ -24,6 +24,7 @@ export interface NameProvider {
 }
 
 export interface QuestionContext {
+	questions: Question[];
 	getQuestionByIndex: (index: number) => Question | undefined;
 	getMaxNumberOfQuestions: () => number;
 	currentQuestionIndex: number;
@@ -56,12 +57,13 @@ export interface Quiz {
 export interface Question {
 	id: string;
 	index: number;
-	text: string;
+	shortDescription: string;
+	question: string;
 }
 
 export interface Answer {
 	id: string;
-	text: string;
+	answer: string;
 }
 
 export interface TrueFalseQuestion extends Question {
@@ -79,7 +81,7 @@ export interface TextAnswerQuestion extends Question {
 }
 
 export interface SingleChoiceQuestion extends Question {
-	correctAnswer: Answer | number;
+	correctAnswerIndex: Answer | number;
 	answers: Answer[];
 }
 

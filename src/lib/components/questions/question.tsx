@@ -47,7 +47,7 @@ export default function Question(
 						Question {questionPosition} of {maxNumberOfQuestions}
 					</Ui.CardTitle>
 					<Ui.CardDescription>
-						{question.text}
+						{question.question}
 					</Ui.CardDescription>
 					<Ui.Progress value={progress} className="h-2"/>
 				</Ui.CardHeader>

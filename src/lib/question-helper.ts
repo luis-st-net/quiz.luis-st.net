@@ -13,7 +13,7 @@ export function isTextAnswerQuestion(question: Question): question is TextAnswer
 }
 
 export function isSingleChoiceQuestion(question: Question): question is SingleChoiceQuestion {
-	return "answers" in question && Array.isArray((question as any).answers) && "correctAnswer" in question && !(question as any).answers.some((answer: any) => "isCorrect" in answer);
+	return "answers" in question && Array.isArray((question as any).answers) && "correctAnswerIndex" in question && !(question as any).answers.some((answer: any) => "isCorrect" in answer);
 }
 
 export function isMultipleChoiceQuestion(question: Question): question is MultipleChoiceQuestion {

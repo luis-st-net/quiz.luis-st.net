@@ -29,7 +29,7 @@ export default function SingleChoiceQuestion(
 					<div key={answer.id} className="flex items-center space-x-2">
 						<Ui.RadioGroupItem value={answer.id} id={answer.id}/>
 						<Ui.Label htmlFor={answer.id}>
-							{answer.text}
+							{answer.answer}
 						</Ui.Label>
 					</div>
 				))}
