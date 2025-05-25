@@ -48,7 +48,6 @@ export default function MatchingQuestion(
 							<Ui.SelectValue placeholder="Select a match"/>
 						</Ui.SelectTrigger>
 						<Ui.SelectContent>
-							<Ui.SelectItem value="">Choose a match...</Ui.SelectItem>
 							{question.matches.map((match) => (
 								<Ui.SelectItem key={match.id} value={match.id}>
 									{match.answer}

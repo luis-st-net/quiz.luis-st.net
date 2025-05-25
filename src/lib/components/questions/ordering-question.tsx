@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
-import { GripVertical } from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
 import { type OrderingQuestion } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
@@ -13,7 +12,14 @@ export default function OrderingQuestion(
 	const { saveAnswer, getAnswer } = useQuestionContext();
 	const [orderedItems, setOrderedItems] = useState<Array<{ id: string; text: string; correctPosition?: number }>>(() => {
 		const savedAnswer = getAnswer(question.id);
-		return savedAnswer ? JSON.parse(savedAnswer) : [...question.items];
+		if (savedAnswer) {
+			return JSON.parse(savedAnswer);
+		}
+		return question.items.map(item => ({
+			id: item.id,
+			text: item.answer,
+			correctPosition: item.correctPosition,
+		}));
 	});
 	
 	useEffect(() => {
@@ -21,10 +27,17 @@ export default function OrderingQuestion(
 		if (savedAnswer) {
 			setOrderedItems(JSON.parse(savedAnswer));
 		} else {
-			const shuffledItems = [...question.items]
+			const mappedItems = question.items.map(item => ({
+				id: item.id,
+				text: item.answer,
+				correctPosition: item.correctPosition,
+			}));
+			
+			const shuffledItems = [...mappedItems]
 				.map(value => ({ value, sort: Math.random() }))
 				.sort((a, b) => a.sort - b.sort)
 				.map(({ value }) => value);
+			
 			setOrderedItems(shuffledItems);
 		}
 	}, [question.id, question.items, getAnswer]);
@@ -66,7 +79,7 @@ export default function OrderingQuestion(
 						<Ui.Button variant="ghost" size="icon" onClick={() => handleMoveDown(index)} disabled={index === orderedItems.length - 1}>
 							<Icons.ChevronDown className="h-4 w-4"/>
 						</Ui.Button>
-						<GripVertical className="h-4 w-4 text-muted-foreground"/>
+						<Icons.GripVertical className="h-4 w-4 text-muted-foreground"/>
 					</div>
 				</div>
 			))}
