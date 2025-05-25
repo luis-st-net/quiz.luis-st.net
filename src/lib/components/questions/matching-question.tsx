@@ -10,7 +10,7 @@ import { cn } from "@/lib/utility";
 export default function MatchingQuestion(
 	{ question }: { question: MatchingQuestion },
 ) {
-	const { saveAnswer, getAnswer } = useQuestionContext();
+	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	const [matches, setMatches] = useState<Record<string, string>>(() => {
 		const savedAnswer = getAnswer(question.id);
 		return savedAnswer ? JSON.parse(savedAnswer) : {};
@@ -23,31 +23,25 @@ export default function MatchingQuestion(
 		const savedAnswer = getAnswer(question.id);
 		if (savedAnswer) {
 			setMatches(JSON.parse(savedAnswer));
-			updateAvailableMatches(JSON.parse(savedAnswer));
 		} else {
 			setMatches({});
 		}
-	}, [question.id, question.matches, getAnswer]);
-	
-	const updateAvailableMatches = (currentMatches: Record<string, string>) => {
-		const matchedIds = Object.values(currentMatches);
-		const filtered = question.matches.filter(match => !matchedIds.includes(match.id));
-	};
+	}, [question.id, question.matches]);
 	
 	const handleMatch = (itemId: string, matchId: string) => {
 		const newMatches = { ...matches };
-		
 		if (dragSourceItemId && dragSourceItemId !== itemId) {
 			delete newMatches[dragSourceItemId];
 		}
-		
-		if (newMatches[itemId] && newMatches[itemId] !== matchId) {}
-		
 		newMatches[itemId] = matchId;
 		
 		setMatches(newMatches);
-		saveAnswer(question.id, JSON.stringify(newMatches));
-		updateAvailableMatches(newMatches);
+		
+		if (Object.keys(newMatches).length === question.items.length) {
+			saveAnswer(question.id, JSON.stringify(newMatches));
+		} else {
+			removeAnswer(question.id);
+		}
 	};
 	
 	const removeMatch = (itemId: string) => {
@@ -55,8 +49,12 @@ export default function MatchingQuestion(
 		const removedMatchId = newMatches[itemId];
 		delete newMatches[itemId];
 		setMatches(newMatches);
-		saveAnswer(question.id, JSON.stringify(newMatches));
-		updateAvailableMatches(newMatches);
+		
+		if (Object.keys(newMatches).length === question.items.length) {
+			saveAnswer(question.id, JSON.stringify(newMatches));
+		} else {
+			removeAnswer(question.id);
+		}
 		
 		if (draggedMatch === removedMatchId) {
 			setDraggedMatch(null);

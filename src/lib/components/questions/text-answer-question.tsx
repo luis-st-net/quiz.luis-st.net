@@ -8,10 +8,8 @@ import { useQuestionContext } from "@/lib/contexts/question-context";
 export default function TextAnswerQuestion(
 	{ question }: { question: TextAnswerQuestion },
 ) {
-	const { saveAnswer, getAnswer } = useQuestionContext();
-	const [answer, setAnswer] = useState<string>(
-		getAnswer(question.id) || "",
-	);
+	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
+	const [answer, setAnswer] = useState<string>("");
 	const [charCount, setCharCount] = useState(0);
 	
 	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,13 +17,16 @@ export default function TextAnswerQuestion(
 		setAnswer(newValue);
 		setCharCount(newValue.length);
 		saveAnswer(question.id, newValue);
+		if (newValue.length === 0) {
+			removeAnswer(question.id);
+		}
 	};
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id) || "";
 		setAnswer(savedAnswer);
 		setCharCount(savedAnswer.length);
-	}, [question.id, getAnswer]);
+	}, [question.id]);
 	
 	const isValidLength = (!question.minLength || charCount >= question.minLength) && (!question.maxLength || charCount <= question.maxLength);
 	

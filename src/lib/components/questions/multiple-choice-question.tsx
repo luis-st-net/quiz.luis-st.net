@@ -8,7 +8,7 @@ import { useQuestionContext } from "@/lib/contexts/question-context";
 export default function MultipleChoiceQuestion(
 	{ question }: { question: MultipleChoiceQuestion },
 ) {
-	const { saveAnswer, getAnswer } = useQuestionContext();
+	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	const [selectedOptions, setSelectedOptions] = useState<string[]>(() => {
 		const savedAnswer = getAnswer(question.id);
 		return savedAnswer ? JSON.parse(savedAnswer) : [];
@@ -18,7 +18,11 @@ export default function MultipleChoiceQuestion(
 		const updatedSelection = selectedOptions.includes(answerId) ? selectedOptions.filter(id => id !== answerId) : [...selectedOptions, answerId];
 		
 		setSelectedOptions(updatedSelection);
-		saveAnswer(question.id, JSON.stringify(updatedSelection));
+		if (updatedSelection.length === 0) {
+			removeAnswer(question.id);
+		} else {
+			saveAnswer(question.id, JSON.stringify(updatedSelection));
+		}
 	};
 	
 	useEffect(() => {

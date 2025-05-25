@@ -15,7 +15,7 @@ import NumericQuestion from "@/lib/components/questions/numeric-question";
 import ContentPane from "@/lib/components/content-pane";
 
 export default function Question(
-	{ questionId, className, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "children"> & { questionId: string },
+	{ questionId }: { questionId: string },
 ) {
 	const {
 		getIndexOfQuestion,
@@ -24,7 +24,7 @@ export default function Question(
 		previousQuestion,
 		nextQuestion,
 		getNumberOfAnsweredQuestions,
-		areAllQuestionsAnswered
+		areAllQuestionsAnswered,
 	} = useQuestionContext();
 	
 	const question = getQuestionById(questionId);

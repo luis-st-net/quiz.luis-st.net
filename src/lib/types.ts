@@ -49,6 +49,7 @@ export interface QuestionContext {
 	saveAnswer: (questionId: string, answer: string) => void;
 	getAnswer: (questionId: string) => string | undefined;
 	hasAnswer: (questionId: string) => boolean;
+	removeAnswer: (questionId: string) => void;
 	getNumberOfAnsweredQuestions: () => number;
 	getAllAnswers: () => Record<string, string>;
 	areAllQuestionsAnswered: () => boolean;

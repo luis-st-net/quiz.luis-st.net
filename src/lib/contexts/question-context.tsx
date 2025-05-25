@@ -28,6 +28,8 @@ export function QuestionProvider(
 	useEffect(() => {
 		if (Object.keys(answers).length > 0) {
 			sessionStorage.setItem(storageKey, JSON.stringify(answers));
+		} else {
+			sessionStorage.removeItem(storageKey);
 		}
 	}, [answers, storageKey]);
 	
@@ -74,7 +76,7 @@ export function QuestionProvider(
 			...previousAnswers,
 			[questionId]: answer,
 		}));
-	}, []);
+	}, [setAnswers]);
 	
 	const getAnswer = useCallback((questionId: string) => {
 		return answers[questionId];
@@ -83,6 +85,14 @@ export function QuestionProvider(
 	const hasAnswer = useCallback((questionId: string) => {
 		return !!answers[questionId];
 	}, [answers]);
+	
+	const removeAnswer = useCallback((questionId: string) => {
+		setAnswers(previousAnswers => {
+			const newAnswers = { ...previousAnswers };
+			delete newAnswers[questionId];
+			return newAnswers;
+		});
+	}, [setAnswers]);
 	
 	const getNumberOfAnsweredQuestions = useCallback(() => {
 		return Object.keys(answers).length;
@@ -111,6 +121,7 @@ export function QuestionProvider(
 		saveAnswer,
 		getAnswer,
 		hasAnswer,
+		removeAnswer,
 		getNumberOfAnsweredQuestions,
 		getAllAnswers,
 		areAllQuestionsAnswered,

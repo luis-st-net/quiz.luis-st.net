@@ -8,7 +8,7 @@ import { useQuestionContext } from "@/lib/contexts/question-context";
 export default function NumericQuestion(
 	{ question }: { question: NumericQuestion },
 ) {
-	const { saveAnswer, getAnswer } = useQuestionContext();
+	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	const [answer, setAnswer] = useState<string>(
 		getAnswer(question.id) || "",
 	);
@@ -18,6 +18,8 @@ export default function NumericQuestion(
 		setAnswer(newValue);
 		if (newValue.trim()) {
 			saveAnswer(question.id, newValue);
+		} else {
+			removeAnswer(question.id);
 		}
 	};
 	
