@@ -5,6 +5,9 @@ import React from "react";
 import NavigationBar from "@/lib/components/navigation-bar";
 import Footer from "@/lib/components/footer";
 import { NameProvider } from "@/lib/contexts/name-context";
+import { QuizProvider } from "@/lib/contexts/quiz-context";
+import { onComplete } from "@/app/actions";
+import { quizzes } from "@/lib/quizzes";
 
 export const metadata: Metadata = {
 	title: "Quiz Website for HFU",
@@ -22,13 +25,15 @@ export default function (
 		<body className="min-w-64">
 		<Ui.ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
 			<NameProvider>
-				<div className="flex flex-col h-screen w-full">
-					<NavigationBar/>
-					<main className="flex flex-col items-center flex-1 overflow-hidden overflow-y-auto">
-						{children}
-					</main>
-					<Footer/>
-				</div>
+				<QuizProvider quizzes={quizzes} onCompleteAction={onComplete}>
+					<div className="flex flex-col h-screen w-full">
+						<NavigationBar/>
+						<main className="flex flex-col items-center flex-1 overflow-hidden overflow-y-auto">
+							{children}
+						</main>
+						<Footer/>
+					</div>
+				</QuizProvider>
 			</NameProvider>
 			<Ui.ToasterProvider/>
 		</Ui.ThemeProvider>

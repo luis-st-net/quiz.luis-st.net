@@ -12,6 +12,18 @@ export type NameFormFieldRendererProps<T extends keyof NameFormValues = keyof Na
 	formState: UseFormStateReturn<NameFormValues>;
 };
 
+export interface QuizContext {
+	quizzes: Quiz[];
+	getQuizById: (id: string) => Quiz | undefined;
+	finishQuiz: (quizId: string, answers: Record<string, string>) => Promise<void>;
+}
+
+export interface QuizProvider {
+	quizzes: Quiz[];
+	onCompleteAction: (quizId: string, answers: Record<string, string>) => Promise<void>;
+	children: React.ReactNode;
+}
+
 export interface NameContext {
 	setName: (name: string) => void;
 	getName: () => string | undefined;
