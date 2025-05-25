@@ -66,7 +66,7 @@ function NameFormFieldRenderer(
 ) {
 	return (
 		<FormFieldRenderer label="Name (Optional)">
-			<Ui.Input placeholder="Enter your name" autoFocus {...field}/>
+			<Ui.Input placeholder="Enter your name" autoComplete="off" autoFocus {...field}/>
 		</FormFieldRenderer>
 	);
 }

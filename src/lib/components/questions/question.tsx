@@ -15,36 +15,34 @@ import MatchingQuestion from "@/lib/components/questions/matching-question";
 import NumericQuestion from "@/lib/components/questions/numeric-question";
 
 export default function Question(
-	{ className, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "children">,
+	{ questionId, className, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "children"> & { questionId: string },
 ) {
 	const {
-		getQuestionByIndex,
+		getIndexOfQuestion,
+		getQuestionById,
 		getMaxNumberOfQuestions,
-		currentQuestionIndex,
-		goToPreviousQuestion,
-		goToNextQuestion,
-		finishQuestions,
-		hasAnswer,
+		previousQuestion,
+		nextQuestion,
+		getNumberOfAnsweredQuestions,
+		areAllQuestionsAnswered
 	} = useQuestionContext();
 	
-	const question = getQuestionByIndex(currentQuestionIndex);
-	
-	if (!question) {
+	const question = getQuestionById(questionId);
+	const questionIndex = question ? getIndexOfQuestion(question.id) : -1;
+	if (!question || questionIndex === undefined || questionIndex === -1) {
 		return null;
 	}
 	
-	const maxNumberOfQuestions = getMaxNumberOfQuestions();
-	const questionPosition = question.index + 1;
-	const progress = (100 / maxNumberOfQuestions) * questionPosition;
-	const isLastQuestion = currentQuestionIndex === maxNumberOfQuestions - 1;
-	const currentQuestionHasAnswer = hasAnswer(question.id);
+	const isFirstQuestion = questionIndex === 0;
+	const isLastQuestion = questionIndex === getMaxNumberOfQuestions() - 1;
+	const progress = (100 / getMaxNumberOfQuestions()) * getNumberOfAnsweredQuestions();
 	
 	return (
 		<div className={cn(className)} {...props}>
 			<Ui.Card className="w-full max-w-3xl mx-auto">
 				<Ui.CardHeader>
 					<Ui.CardTitle>
-						Question {questionPosition} of {maxNumberOfQuestions}
+						Question {questionIndex + 1} of {getMaxNumberOfQuestions()}
 					</Ui.CardTitle>
 					<Ui.CardDescription>
 						{question.question}
@@ -55,12 +53,14 @@ export default function Question(
 					<DynamicQuestion question={question}/>
 				</Ui.CardContent>
 				<Ui.CardFooter className="flex justify-between">
-					<Ui.Button variant="outline" onClick={goToPreviousQuestion} disabled={currentQuestionIndex === 0}>
-						Previous
-					</Ui.Button>
-					<Ui.Button onClick={isLastQuestion ? finishQuestions : goToNextQuestion} disabled={!currentQuestionHasAnswer}>
-						{isLastQuestion ? "Finish" : "Next"}
-					</Ui.Button>
+					<Ui.CardFooter className="flex justify-between">
+						<Ui.Button variant="outline" onClick={() => previousQuestion(questionIndex)} disabled={isFirstQuestion} className="mr-2">
+							Previous
+						</Ui.Button>
+						<Ui.Button onClick={() => nextQuestion(questionIndex)} disabled={isLastQuestion && !areAllQuestionsAnswered()}>
+							{isLastQuestion ? "Finish" : "Next"}
+						</Ui.Button>
+					</Ui.CardFooter>
 				</Ui.CardFooter>
 			</Ui.Card>
 		</div>

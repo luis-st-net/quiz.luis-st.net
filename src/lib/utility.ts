@@ -12,7 +12,3 @@ export function isProduction(): boolean {
 export function isDevelopment(): boolean {
 	return process.env.NODE_ENV === "development";
 }
-
-export function generateUniqueId(): string {
-	return crypto.randomUUID();
-}

@@ -2,14 +2,15 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { QuestionContext, QuestionProvider } from "@/lib/types";
+import { useRouter } from "next/navigation";
 
 const Context = createContext<QuestionContext | undefined>(undefined);
 
 export function QuestionProvider(
-	{ questions, goToPreviousAction, goToNextAction, onCompleteAction, children, storageKey = "quiz-answers" }: QuestionProvider,
+	{ quizId, questions, onCompleteAction, children, storageKey = "quiz-answers" }: QuestionProvider,
 ) {
-	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [answers, setAnswers] = useState<Record<string, string>>({});
+	const router = useRouter();
 	
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -30,32 +31,44 @@ export function QuestionProvider(
 		}
 	}, [answers, storageKey]);
 	
+	//region Question getters
+	const getIndexOfQuestion = useCallback((questionId: string) => {
+		return questions.findIndex(question => question.id === questionId);
+	}, [questions]);
+	
 	const getQuestionByIndex = useCallback((index: number) => {
 		return questions[index];
+	}, [questions]);
+	
+	const getQuestionById = useCallback((id: string) => {
+		return questions.find(question => question.id === id);
 	}, [questions]);
 	
 	const getMaxNumberOfQuestions = useCallback(() => {
 		return questions.length;
 	}, [questions]);
+	//endregion
 	
-	const goToPreviousQuestion = useCallback(async () => {
-		if (currentQuestionIndex > 0) {
-			setCurrentQuestionIndex(prev => prev - 1);
+	//region Navigation actions
+	const previousQuestion = useCallback((questionIndex: number) => {
+		if (questionIndex !== 0) {
+			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex - 1)!.id);
 		}
-		await goToPreviousAction();
-	}, [currentQuestionIndex]);
+	}, [quizId, getQuestionByIndex]);
 	
-	const goToNextQuestion = useCallback(async () => {
-		if (currentQuestionIndex < questions.length - 1) {
-			setCurrentQuestionIndex(prev => prev + 1);
+	const nextQuestion = useCallback(async (questionIndex: number) => {
+		if (questionIndex < getMaxNumberOfQuestions() - 1) {
+			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex + 1)!.id);
 		}
-		await goToNextAction();
-	}, [currentQuestionIndex, questions.length]);
+		console.log("Answers:", answers);
+		if (questionIndex === getMaxNumberOfQuestions() - 1) {
+			console.log("All questions answered, executing onCompleteAction");
+			await onCompleteAction(answers);
+		}
+	}, [getMaxNumberOfQuestions, quizId, getQuestionByIndex, answers, onCompleteAction]);
+	//endregion
 	
-	const finishQuestions = useCallback(async () => {
-		await onCompleteAction(answers);
-	}, [answers, onCompleteAction]);
-	
+	//region Answer management
 	const saveAnswer = useCallback((questionId: string, answer: string) => {
 		setAnswers(previousAnswers => ({
 			...previousAnswers,
@@ -71,22 +84,36 @@ export function QuestionProvider(
 		return !!answers[questionId];
 	}, [answers]);
 	
+	const getNumberOfAnsweredQuestions = useCallback(() => {
+		return Object.keys(answers).length;
+	}, [answers]);
+	
 	const getAllAnswers = useCallback(() => {
 		return answers;
 	}, [answers]);
 	
+	const areAllQuestionsAnswered = useCallback(() => {
+		return questions.every(question => hasAnswer(question.id));
+	}, [questions, hasAnswer]);
+	//endregion
+	
 	const contextValue = {
+		quizId,
 		questions,
+		getIndexOfQuestion,
 		getQuestionByIndex,
+		getQuestionById,
 		getMaxNumberOfQuestions,
-		currentQuestionIndex,
-		goToPreviousQuestion,
-		goToNextQuestion,
-		finishQuestions,
+		
+		previousQuestion,
+		nextQuestion,
+		
 		saveAnswer,
 		getAnswer,
 		hasAnswer,
+		getNumberOfAnsweredQuestions,
 		getAllAnswers,
+		areAllQuestionsAnswered,
 	};
 	
 	return (

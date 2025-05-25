@@ -36,25 +36,27 @@ export interface NameProvider {
 }
 
 export interface QuestionContext {
+	quizId: string;
 	questions: Question[];
+	getIndexOfQuestion: (questionId: string) => number | undefined;
 	getQuestionByIndex: (index: number) => Question | undefined;
+	getQuestionById: (id: string) => Question | undefined;
 	getMaxNumberOfQuestions: () => number;
-	currentQuestionIndex: number;
 	
-	goToNextQuestion: () => void;
-	goToPreviousQuestion: () => void;
-	finishQuestions: () => void;
+	previousQuestion: (questionIndex: number) => void;
+	nextQuestion: (questionIndex: number) => void;
 	
 	saveAnswer: (questionId: string, answer: string) => void;
 	getAnswer: (questionId: string) => string | undefined;
 	hasAnswer: (questionId: string) => boolean;
+	getNumberOfAnsweredQuestions: () => number;
 	getAllAnswers: () => Record<string, string>;
+	areAllQuestionsAnswered: () => boolean;
 }
 
 export interface QuestionProvider {
+	quizId: string;
 	questions: Question[];
-	goToPreviousAction: () => Promise<void>;
-	goToNextAction: () => Promise<void>;
 	onCompleteAction: (answers: Record<string, string>) => Promise<void>;
 	children: React.ReactNode;
 	storageKey?: string;
@@ -63,14 +65,14 @@ export interface QuestionProvider {
 export interface Quiz {
 	id: string;
 	name: string;
-	href?: string;
+	description: string;
+	questions: Question[];
 }
 
 export interface Question {
 	id: string;
-	index: number;
-	shortDescription: string;
 	question: string;
+	shortQuestion: string;
 }
 
 export interface Answer {

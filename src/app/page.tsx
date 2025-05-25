@@ -3,17 +3,9 @@
 import Link from "next/link";
 import { Quiz } from "@/lib/types";
 import ContentPane from "@/lib/components/content-pane";
-import { generateUniqueId } from "@/lib/utility";
+import { quizzes } from "@/lib/quizzes";
 
-const quizzes: Quiz[] = [
-	{
-		id: generateUniqueId(),
-		name: "Test Quiz",
-		href: "/test",
-	},
-];
-
-export default function () {
+export default async function () {
 	return (
 		<div className="w-full flex flex-col items-center mt-12 mb-8">
 			<h1 className="text-4xl font-bold mb-12">
@@ -29,10 +21,10 @@ export default function () {
 }
 
 function QuizItem(
-	{ id, name, href }: Quiz,
+	{ id, name }: Quiz,
 ) {
 	return (
-		<Link href={"/name?redirect=" + (href || "/" + name.toLowerCase())} className="w-full">
+		<Link href={"/name?redirect=/" + id.toLowerCase()} className="w-full">
 			<ContentPane defaultColor={true} defaultSpacing={false} className="w-full">
 				<div className="p-4 text-xl">
 					<strong>

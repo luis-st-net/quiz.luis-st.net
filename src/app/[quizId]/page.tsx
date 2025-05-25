@@ -4,9 +4,10 @@ import { useQuestionContext } from "@/lib/contexts/question-context";
 import { Question } from "@/lib/types";
 import Link from "next/link";
 import ContentPane from "@/lib/components/content-pane";
+import { useParams } from "next/navigation";
 
 export default function () {
-	const { questions } = useQuestionContext();
+	const { quizId, questions } = useQuestionContext();
 	
 	return (
 		<div className="w-full flex flex-col items-center mt-12 mb-8">
@@ -14,8 +15,8 @@ export default function () {
 				Questions of quiz Test
 			</h1>
 			<div className="w-4/5 flex flex-wrap gap-6 lg:w-1/2 2xl:w-1/5">
-				{questions.map((question) => (
-					<QuestionItem key={question.id} {...question} />
+				{questions.map((question, index) => (
+					<QuestionItem key={question.id} quizId={quizId} index={index} {...question} />
 				))}
 			</div>
 		</div>
@@ -23,13 +24,13 @@ export default function () {
 }
 
 function QuestionItem(
-	{ id, index, shortDescription, question }: Question,
+	{ quizId, id: questionId, index, shortQuestion, question }: Question & { quizId: string, index: number },
 ) {
 	return (
-		<Link href={"/test/" + id} className="w-full">
+		<Link href={"/" + quizId + "/" + questionId} className="w-full">
 			<ContentPane defaultColor={true} defaultSpacing={false} className="w-full">
 				<div className="p-4 text-xl">
-					Question {index + 1}: {shortDescription}
+					Question {index + 1}: {shortQuestion}
 				</div>
 			</ContentPane>
 		</Link>
