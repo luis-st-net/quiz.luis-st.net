@@ -28,10 +28,10 @@ export default function NumericQuestion(
 	const toleranceInfo = question.tolerance ? `±${question.tolerance} ${question.tolerance === 1 ? "unit" : "units"}` : "";
 	
 	return (
-		<div className="space-y-4">
+		<div className="">
 			<Ui.Input type="number" placeholder="Enter a number..." value={answer} onChange={handleChange} className="text-lg"/>
 			{toleranceInfo && (
-				<p className="text-sm text-muted-foreground">
+				<p className="text-sm text-muted-foreground mt-1.5">
 					Tolerance: {toleranceInfo}
 				</p>
 			)}

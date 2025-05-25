@@ -89,7 +89,7 @@ export default function OrderingQuestion(
 	
 	return (
 		<div className="space-y-2">
-			<p className="text-sm text-muted-foreground mb-4">
+			<p className="text-sm text-muted-foreground mb-3">
 				Arrange the items in the correct order:
 			</p>
 			{orderedItems.map((item, index) => (

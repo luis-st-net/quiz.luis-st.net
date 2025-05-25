@@ -52,9 +52,11 @@ function NamePageContent() {
 	
 	return (
 		<ContentPane defaultColor={true} className="w-4/5 lg:w-2/3 2xl:w-1/3">
-			<h1 className="text-2xl font-bold mb-6">
-				Enter your name
-			</h1>
+			<h3 className="text-2xl mb-6">
+				<strong>
+					Enter your name
+				</strong>
+			</h3>
 			
 			<Ui.Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

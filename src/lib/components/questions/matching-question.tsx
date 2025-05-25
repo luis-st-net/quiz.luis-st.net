@@ -5,6 +5,7 @@ import * as Icons from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
 import { type MatchingQuestion } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
+import { cn } from "@/lib/utility";
 
 export default function MatchingQuestion(
 	{ question }: { question: MatchingQuestion },
@@ -94,55 +95,56 @@ export default function MatchingQuestion(
 	};
 	
 	return (
-		<div className="space-y-8">
-			<div className="space-y-6">
+		<div>
+			<div className="flex flex-col gap-4 mb-6">
 				{question.items.map((item) => (
-					<div key={item.id} className="flex flex-col gap-2 sm:flex-row sm:items-center">
-						<div className="w-full sm:w-1/2 p-2 border rounded">
+					<div key={item.id} className="flex flex-col gap-4 sm:flex-row sm:items-center">
+						<div className="w-full min-h-[50px] flex items-center border rounded bg-custom-primary p-2 sm:w-1/2">
 							{item.answer}
 						</div>
-						<div className="flex-shrink-0 flex items-center justify-center">
-							<Icons.ArrowRight className="h-4 w-4 mx-2"/>
+						<div className="flex items-center justify-center">
+							<Icons.ArrowRight className="size-4 mx-2 rotate-90 sm:rotate-0"/>
 						</div>
 						<div
-							onDragOver={handleDragOver}
-							onDrop={(e) => handleDrop(e, item.id)}
-							className="w-full sm:w-1/2 p-2 border rounded min-h-12 flex items-center"
+							onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, item.id)}
+							className={cn("w-full min-h-[50px] flex items-center border rounded p-2 cursor-move sm:w-1/2", matches[item.id] ? "bg-custom-primary" : "")}
 						>
 							{matches[item.id] ? (
 								<div
-									className={`flex justify-between w-full items-center ${draggedMatch === matches[item.id] && dragSourceItemId === item.id ? "opacity-50" : ""}`}
-									draggable
-									onDragStart={(e) => handleDragStart(e, matches[item.id], item.id)}
-									onDragEnd={handleDragEnd}
+									draggable onDragStart={(e) => handleDragStart(e, matches[item.id], item.id)} onDragEnd={handleDragEnd}
+									className={cn("w-full flex justify-between items-center", draggedMatch === matches[item.id] && dragSourceItemId === item.id ? "opacity-50" : "")}
 								>
-									<span className="cursor-move">{findMatch(matches[item.id])?.answer}</span>
-									<Ui.Button variant="ghost" size="sm" onClick={() => removeMatch(item.id)}>
-										<Icons.X className="h-4 w-4"/>
+									<p>
+										{findMatch(matches[item.id])?.answer}
+									</p>
+									<Ui.Button variant="ghost" onClick={() => removeMatch(item.id)} className="size-8">
+										<Icons.X className="size-3"/>
 									</Ui.Button>
 								</div>
 							) : (
-								<span className="text-muted-foreground">Drop your answer here</span>
+								<p className="text-muted-foreground">
+									Drop your answer here
+								</p>
 							)}
 						</div>
 					</div>
 				))}
 			</div>
 			
-			<div className="mt-8">
-				<p className="text-sm text-muted-foreground mb-4">Available answers (drag to match):</p>
+			<div>
+				<p className="text-sm text-muted-foreground mb-3">
+					Available answers (drag to match):
+				</p>
 				<div className="flex flex-wrap gap-2">
 					{question.matches.map(match => {
 						const isMatched = Object.values(matches).includes(match.id);
-						if (isMatched) return null;
-						
+						if (isMatched) {
+							return null;
+						}
 						return (
 							<div
-								key={match.id}
-								draggable
-								className={`p-2 border rounded cursor-move bg-card ${draggedMatch === match.id ? "opacity-50" : ""}`}
-								onDragStart={(e) => handleDragStart(e, match.id)}
-								onDragEnd={handleDragEnd}
+								key={match.id} draggable onDragStart={(e) => handleDragStart(e, match.id)} onDragEnd={handleDragEnd}
+								className={cn("border rounded bg-custom-primary p-2 cursor-move", draggedMatch === match.id ? "opacity-50" : "")}
 							>
 								{match.answer}
 							</div>

@@ -23,7 +23,7 @@ export default function SingleChoiceQuestion(
 	}, [question.id, getAnswer]);
 	
 	return (
-		<div className="space-y-4">
+		<div className="pl-4">
 			<Ui.RadioGroup value={selectedOption} onValueChange={handleOptionChange}>
 				{question.answers.map((answer) => (
 					<div key={answer.id} className="flex items-center space-x-2">

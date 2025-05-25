@@ -1,8 +1,7 @@
 "use client";
 
+import React from "react";
 import * as Ui from "@/lib/components/ui/";
-import React, { HTMLAttributes } from "react";
-import { cn } from "@/lib/utility";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 import type { Question } from "@/lib/types";
 import TrueFalseQuestion from "@/lib/components/questions/true-false-question";
@@ -13,6 +12,7 @@ import MultipleChoiceQuestion from "@/lib/components/questions/multiple-choice-q
 import OrderingQuestion from "@/lib/components/questions/ordering-question";
 import MatchingQuestion from "@/lib/components/questions/matching-question";
 import NumericQuestion from "@/lib/components/questions/numeric-question";
+import ContentPane from "@/lib/components/content-pane";
 
 export default function Question(
 	{ questionId, className, ...props }: Omit<HTMLAttributes<HTMLDivElement>, "children"> & { questionId: string },
@@ -38,32 +38,32 @@ export default function Question(
 	const progress = (100 / getMaxNumberOfQuestions()) * getNumberOfAnsweredQuestions();
 	
 	return (
-		<div className={cn(className)} {...props}>
-			<Ui.Card className="w-full max-w-3xl mx-auto">
-				<Ui.CardHeader>
-					<Ui.CardTitle>
-						Question {questionIndex + 1} of {getMaxNumberOfQuestions()}
-					</Ui.CardTitle>
-					<Ui.CardDescription>
+		<ContentPane defaultColor={true} className="w-4/5 lg:w-2/3 2xl:w-1/3">
+			<div className="m-1">
+				<div>
+					<h3 className="text-2xl mb-3">
+						<strong>
+							Question {questionIndex + 1} of {getMaxNumberOfQuestions()}
+						</strong>
+					</h3>
+					<p className="mb-2">
 						{question.question}
-					</Ui.CardDescription>
-					<Ui.Progress value={progress} className="h-2"/>
-				</Ui.CardHeader>
-				<Ui.CardContent>
+					</p>
+					<Ui.Progress value={progress} className="h-2 bg-custom-quaternary"/>
+				</div>
+				<div className="my-8">
 					<DynamicQuestion question={question}/>
-				</Ui.CardContent>
-				<Ui.CardFooter className="flex justify-between">
-					<Ui.CardFooter className="flex justify-between">
-						<Ui.Button variant="outline" onClick={() => previousQuestion(questionIndex)} disabled={isFirstQuestion} className="mr-2">
-							Previous
-						</Ui.Button>
-						<Ui.Button onClick={() => nextQuestion(questionIndex)} disabled={isLastQuestion && !areAllQuestionsAnswered()}>
-							{isLastQuestion ? "Finish" : "Next"}
-						</Ui.Button>
-					</Ui.CardFooter>
-				</Ui.CardFooter>
-			</Ui.Card>
-		</div>
+				</div>
+				<div className="flex justify-between">
+					<Ui.Button variant="outline" onClick={() => previousQuestion(questionIndex)} disabled={isFirstQuestion} className="">
+						Previous
+					</Ui.Button>
+					<Ui.Button onClick={() => nextQuestion(questionIndex)} disabled={isLastQuestion && !areAllQuestionsAnswered()}>
+						{isLastQuestion ? "Finish" : "Next"}
+					</Ui.Button>
+				</div>
+			</div>
+		</ContentPane>
 	);
 }
 
@@ -86,7 +86,7 @@ function DynamicQuestion(
 		return <MatchingQuestion question={question}/>;
 	}
 	return (
-		<div className="text-red-500">
+		<div className="text-custom-red">
 			Unsupported question type
 		</div>
 	);

@@ -31,10 +31,10 @@ export default function MultipleChoiceQuestion(
 	}, [question.id, getAnswer]);
 	
 	return (
-		<div className="space-y-4">
+		<div className="pl-4">
 			{question.answers.map((answer) => (
-				<div key={answer.id} className="flex items-center space-x-2">
-					<Ui.Checkbox id={answer.id} checked={selectedOptions.includes(answer.id)} onCheckedChange={() => toggleOption(answer.id)}/>
+				<div key={answer.id} className="flex items-center my-3">
+					<Ui.Checkbox id={answer.id} checked={selectedOptions.includes(answer.id)} onCheckedChange={() => toggleOption(answer.id)} className="mr-2"/>
 					<Ui.Label htmlFor={answer.id}>
 						{answer.answer}
 					</Ui.Label>
