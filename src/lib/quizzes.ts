@@ -1,13 +1,4 @@
-import {
-	Quiz,
-	SingleChoiceQuestion,
-	TrueFalseQuestion,
-	NumericQuestion,
-	TextAnswerQuestion,
-	MultipleChoiceQuestion,
-	OrderingQuestion,
-	MatchingQuestion,
-} from "@/lib/types";
+import { MatchingQuestion, MultipleChoiceQuestion, NumericQuestion, OrderingQuestion, Quiz, SingleChoiceQuestion, TextAnswerQuestion, TrueFalseQuestion } from "@/lib/types";
 
 const testQuiz: Quiz = {
 	name: "Test Quiz",

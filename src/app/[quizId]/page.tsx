@@ -4,7 +4,6 @@ import { useQuestionContext } from "@/lib/contexts/question-context";
 import { Question } from "@/lib/types";
 import Link from "next/link";
 import ContentPane from "@/lib/components/content-pane";
-import { useParams } from "next/navigation";
 
 export default function () {
 	const { quizId, questions } = useQuestionContext();
