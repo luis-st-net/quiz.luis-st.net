@@ -62,13 +62,46 @@ export default function OrderingQuestion(
 		}
 	};
 	
+	const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+	
+	const handleDragStart = (e: React.DragEvent, index: number) => {
+		setDraggedIndex(index);
+		e.dataTransfer.setData("text/plain", index.toString());
+		e.dataTransfer.effectAllowed = "move";
+	};
+	
+	const handleDragOver = (e: React.DragEvent, index: number) => {
+		e.preventDefault();
+		e.dataTransfer.dropEffect = "move";
+	};
+	
+	const handleDrop = (e: React.DragEvent, index: number) => {
+		e.preventDefault();
+		if (draggedIndex !== null && draggedIndex !== index) {
+			moveItem(draggedIndex, index);
+		}
+		setDraggedIndex(null);
+	};
+	
+	const handleDragEnd = () => {
+		setDraggedIndex(null);
+	};
+	
 	return (
 		<div className="space-y-2">
 			<p className="text-sm text-muted-foreground mb-4">
 				Arrange the items in the correct order:
 			</p>
 			{orderedItems.map((item, index) => (
-				<div key={item.id} className="flex items-center border rounded p-3 mb-2 bg-card">
+				<div
+					key={item.id}
+					className={`flex items-center border rounded p-3 mb-2 bg-card ${draggedIndex === index ? "opacity-50" : ""}`}
+					draggable={true}
+					onDragStart={(e) => handleDragStart(e, index)}
+					onDragOver={(e) => handleDragOver(e, index)}
+					onDrop={(e) => handleDrop(e, index)}
+					onDragEnd={handleDragEnd}
+				>
 					<div className="flex-grow">
 						{item.text}
 					</div>
@@ -79,7 +112,7 @@ export default function OrderingQuestion(
 						<Ui.Button variant="ghost" size="icon" onClick={() => handleMoveDown(index)} disabled={index === orderedItems.length - 1}>
 							<Icons.ChevronDown className="h-4 w-4"/>
 						</Ui.Button>
-						<Icons.GripVertical className="h-4 w-4 text-muted-foreground"/>
+						<Icons.GripVertical className="h-4 w-4 text-muted-foreground cursor-move"/>
 					</div>
 				</div>
 			))}
