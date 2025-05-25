@@ -20,7 +20,7 @@ export interface QuizContext {
 
 export interface QuizProvider {
 	quizzes: Quiz[];
-	onCompleteAction: (quizId: string, answers: Record<string, string>) => Promise<void>;
+	onCompleteAction: (name: string, quizId: string, answers: Record<string, string>) => Promise<void>;
 	children: React.ReactNode;
 }
 

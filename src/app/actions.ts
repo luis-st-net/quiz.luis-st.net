@@ -1,5 +1,5 @@
 "use server";
 
-export async function onComplete(quizId: string, answers: Record<string, string>) {
-	console.log("onComplete", quizId, answers);
+export async function onComplete(name: string, quizId: string, answers: Record<string, string>) {
+	console.log("onComplete", name, quizId, answers);
 }
