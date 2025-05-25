@@ -1,7 +1,7 @@
 "use client";
 
 import * as Ui from "@/lib/components/ui/";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useNameContext } from "@/lib/contexts/name-context";
 import { useRouter, useSearchParams } from "next/navigation";
 import ContentPane from "@/lib/components/content-pane";
@@ -11,6 +11,14 @@ import { NameFormFieldRendererProps, nameFormSchema, NameFormValues } from "@/li
 import { useToast } from "@/lib/hooks/use-toast";
 
 export default function NamePage() {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<NamePageContent/>
+		</Suspense>
+	);
+}
+
+function NamePageContent() {
 	const { toast } = useToast();
 	const { setName, getName } = useNameContext();
 	
