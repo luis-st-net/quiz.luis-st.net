@@ -3,8 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: main-web:latest
-    container_name: main-web
+    image: quiz-web:latest
+    container_name: quiz-web
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3006:3000"

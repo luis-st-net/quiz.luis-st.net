@@ -1,13 +1,13 @@
 # Build image on host:
-#  docker buildx build --load --platform linux/arm64 -t main-web:<version> .
-#  docker save -o D:\Programmieren\Docker\Images\Main-Website\main-web-<version>.tar main-web
-#  docker load -i ./main-web-<version>.tar
+#  docker buildx build --load --platform linux/arm64 -t quiz-web:<version> .
+#  docker save -o D:\Programmieren\Docker\Images\Quiz-Website\quiz-web-<version>.tar quiz-web
+#  docker load -i ./quiz-web-<version>.tar
 # Build image on remote:
-#  docker build -t main-web:<version> .
+#  docker build -t quiz-web:<version> .
 # Update the container:
-#  docker stop main-web
-#  docker rm main-web
-#  docker run -d -p 3000:3000 --restart unless-stopped --name main-web main-web:<version>
+#  docker stop quiz-web
+#  docker rm quiz-web
+#  docker run -d -p 3000:3000 --restart unless-stopped --name quiz-web quiz-web:<version>
 
 # With docker compose:
 #  docker compose up -d --build
@@ -33,4 +33,4 @@ ENV HOSTNAME="0.0.0.0"
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]
