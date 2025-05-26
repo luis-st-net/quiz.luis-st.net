@@ -2,29 +2,48 @@
 
 import React, { useEffect, useState } from "react";
 import * as Ui from "@/lib/components/ui/";
-import { type NumericQuestion } from "@/lib/types";
+import { type NumericQuestion, type NumericQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 
 export default function NumericQuestion(
 	{ question }: { question: NumericQuestion },
 ) {
 	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
-	const [answer, setAnswer] = useState<string>(
-		getAnswer(question.id) || "",
-	);
+	
+	const [answer, setAnswer] = useState<string>(() => {
+		const savedAnswer = getAnswer(question.id);
+		if (savedAnswer && savedAnswer.questionType === "numeric")  {
+			return String((savedAnswer as NumericQuestionInput).inputAnswer);
+		}
+		return "";
+	});
 	
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const newValue = e.target.value;
 		setAnswer(newValue);
+		
 		if (newValue.trim()) {
-			saveAnswer(question.id, newValue);
+			const numericValue = parseFloat(newValue);
+			const answerInput: NumericQuestionInput = {
+				question: question.question,
+				questionType: "numeric",
+				inputAnswer: numericValue,
+				correctAnswer: question.correctAnswer,
+				tolerance: question.tolerance,
+			};
+			saveAnswer(question.id, answerInput);
 		} else {
 			removeAnswer(question.id);
 		}
 	};
 	
 	useEffect(() => {
-		setAnswer(getAnswer(question.id) || "");
+		const savedAnswer = getAnswer(question.id);
+		if (savedAnswer && savedAnswer.questionType === "numeric") {
+			setAnswer(String((savedAnswer as NumericQuestionInput).inputAnswer));
+		} else {
+			setAnswer("");
+		}
 	}, [question.id, getAnswer]);
 	
 	const toleranceInfo = question.tolerance ? `±${question.tolerance} ${question.tolerance === 1 ? "unit" : "units"}` : "";

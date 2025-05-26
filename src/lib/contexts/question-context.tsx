@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
-import type { QuestionContext, QuestionProvider } from "@/lib/types";
+import type { QuestionContext, QuestionInput, QuestionProvider } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
 const Context = createContext<QuestionContext | undefined>(undefined);
@@ -9,7 +9,7 @@ const Context = createContext<QuestionContext | undefined>(undefined);
 export function QuestionProvider(
 	{ quizId, questions, onCompleteAction, children, storageKey = "quiz-answers" }: QuestionProvider,
 ) {
-	const [answers, setAnswers] = useState<Record<string, string>>({});
+	const [answers, setAnswers] = useState<Record<string, QuestionInput>>({});
 	const router = useRouter();
 	
 	useEffect(() => {
@@ -71,7 +71,7 @@ export function QuestionProvider(
 	//endregion
 	
 	//region Answer management
-	const saveAnswer = useCallback((questionId: string, answer: string) => {
+	const saveAnswer = useCallback((questionId: string, answer: QuestionInput) => {
 		setAnswers(previousAnswers => ({
 			...previousAnswers,
 			[questionId]: answer,

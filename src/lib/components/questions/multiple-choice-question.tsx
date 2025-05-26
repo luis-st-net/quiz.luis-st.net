@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import * as Ui from "@/lib/components/ui/";
-import { type MultipleChoiceQuestion } from "@/lib/types";
+import { type MultipleChoiceQuestion, type MultipleChoiceQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 
 export default function MultipleChoiceQuestion(
@@ -11,7 +11,11 @@ export default function MultipleChoiceQuestion(
 	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	const [selectedOptions, setSelectedOptions] = useState<string[]>(() => {
 		const savedAnswer = getAnswer(question.id);
-		return savedAnswer ? JSON.parse(savedAnswer) : [];
+		if (savedAnswer && savedAnswer.questionType === "multiple-choice") {
+			const input = savedAnswer as MultipleChoiceQuestionInput;
+			return input.inputAnswer.map(index => question.answers[index]?.id || "");
+		}
+		return [];
 	});
 	
 	const toggleOption = (answerId: string) => {
@@ -21,18 +25,31 @@ export default function MultipleChoiceQuestion(
 		if (updatedSelection.length === 0) {
 			removeAnswer(question.id);
 		} else {
-			saveAnswer(question.id, JSON.stringify(updatedSelection));
+			const answerInput: MultipleChoiceQuestionInput = {
+				question: question.question,
+				questionType: "multiple-choice",
+				inputAnswer: updatedSelection.map(id =>
+					question.answers.findIndex(answer => answer.id === id),
+				),
+				answers: question.answers.map(answer => ({
+					answer: answer.answer,
+					isCorrect: answer.isCorrect,
+				})),
+			};
+			
+			saveAnswer(question.id, answerInput);
 		}
 	};
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer) {
-			setSelectedOptions(JSON.parse(savedAnswer));
+		if (savedAnswer && savedAnswer.questionType === "multiple-choice") {
+			const input = savedAnswer as MultipleChoiceQuestionInput;
+			setSelectedOptions(input.inputAnswer.map(index => question.answers[index]?.id || ""));
 		} else {
 			setSelectedOptions([]);
 		}
-	}, [question.id, getAnswer]);
+	}, [question.id, question.answers, getAnswer]);
 	
 	return (
 		<div className="pl-4">

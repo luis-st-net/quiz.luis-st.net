@@ -2,25 +2,51 @@
 
 import React, { useEffect, useState } from "react";
 import * as Ui from "@/lib/components/ui/";
-import { type SingleChoiceQuestion } from "@/lib/types";
+import { Answer, type SingleChoiceQuestion, type SingleChoiceQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 
 export default function SingleChoiceQuestion(
 	{ question }: { question: SingleChoiceQuestion },
 ) {
 	const { saveAnswer, getAnswer } = useQuestionContext();
-	const [selectedOption, setSelectedOption] = useState<string | undefined>(
-		getAnswer(question.id),
-	);
+	
+	const [selectedOption, setSelectedOption] = useState<string>(() => {
+		const savedAnswer = getAnswer(question.id);
+		if (savedAnswer && savedAnswer.questionType === "single-choice") {
+			const index = (savedAnswer as SingleChoiceQuestionInput).inputAnswer;
+			return question.answers[index]?.id || "";
+		}
+		return "";
+	});
 	
 	const handleOptionChange = (value: string) => {
 		setSelectedOption(value);
-		saveAnswer(question.id, value);
+		
+		const answerIndex = question.answers.findIndex(answer => answer.id === value);
+		if (answerIndex !== -1) {
+			const answerInput: SingleChoiceQuestionInput = {
+				question: question.question,
+				questionType: "single-choice",
+				inputAnswer: answerIndex,
+				correctAnswerIndex: typeof question.correctAnswerIndex === "number"
+					? question.correctAnswerIndex
+					: question.answers.findIndex(a => a.id === (question.correctAnswerIndex as Answer).id),
+				answers: question.answers.map(a => a.answer),
+			};
+			
+			saveAnswer(question.id, answerInput);
+		}
 	};
 	
 	useEffect(() => {
-		setSelectedOption(getAnswer(question.id));
-	}, [question.id, getAnswer]);
+		const savedAnswer = getAnswer(question.id);
+		if (savedAnswer && savedAnswer.questionType === "single-choice") {
+			const index = (savedAnswer as SingleChoiceQuestionInput).inputAnswer;
+			setSelectedOption(question.answers[index]?.id || "");
+		} else {
+			setSelectedOption("");
+		}
+	}, [question.id, getAnswer, question.answers]);
 	
 	return (
 		<div className="pl-4">

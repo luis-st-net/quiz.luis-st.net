@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
-import { type MatchingQuestion } from "@/lib/types";
+import { type MatchingQuestion, type MatchingQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 import { cn } from "@/lib/utility";
 
@@ -13,7 +13,10 @@ export default function MatchingQuestion(
 	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	const [matches, setMatches] = useState<Record<string, string>>(() => {
 		const savedAnswer = getAnswer(question.id);
-		return savedAnswer ? JSON.parse(savedAnswer) : {};
+		if (savedAnswer && savedAnswer.questionType === "matching") {
+			return (savedAnswer as MatchingQuestionInput).inputAnswer;
+		}
+		return {};
 	});
 	
 	const [draggedMatch, setDraggedMatch] = useState<string | null>(null);
@@ -21,8 +24,8 @@ export default function MatchingQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer) {
-			setMatches(JSON.parse(savedAnswer));
+		if (savedAnswer && savedAnswer.questionType === "matching") {
+			setMatches((savedAnswer as MatchingQuestionInput).inputAnswer);
 		} else {
 			setMatches({});
 		}
@@ -38,7 +41,23 @@ export default function MatchingQuestion(
 		setMatches(newMatches);
 		
 		if (Object.keys(newMatches).length === question.items.length) {
-			saveAnswer(question.id, JSON.stringify(newMatches));
+			const answerInput: MatchingQuestionInput = {
+				question: question.question,
+				questionType: "matching",
+				inputAnswer: newMatches,
+				items: question.items.map(item => item.answer),
+				matches: question.matches.map(match => {
+					const matchingItem = question.items.find(item =>
+						question.matches.find(m => m.id === match.matchesTo.id)?.id === match.id,
+					);
+					return {
+						item: matchingItem?.answer || "",
+						matchesTo: match.answer,
+					};
+				}),
+			};
+			
+			saveAnswer(question.id, answerInput);
 		} else {
 			removeAnswer(question.id);
 		}
@@ -51,7 +70,23 @@ export default function MatchingQuestion(
 		setMatches(newMatches);
 		
 		if (Object.keys(newMatches).length === question.items.length) {
-			saveAnswer(question.id, JSON.stringify(newMatches));
+			const answerInput: MatchingQuestionInput = {
+				question: question.question,
+				questionType: "matching",
+				inputAnswer: newMatches,
+				items: question.items.map(item => item.answer),
+				matches: question.matches.map(match => {
+					const matchingItem = question.items.find(item =>
+						question.matches.find(m => m.id === match.matchesTo.id)?.id === match.id,
+					);
+					return {
+						item: matchingItem?.answer || "",
+						matchesTo: match.answer,
+					};
+				}),
+			};
+			
+			saveAnswer(question.id, answerInput);
 		} else {
 			removeAnswer(question.id);
 		}

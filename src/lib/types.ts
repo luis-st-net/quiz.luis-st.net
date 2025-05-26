@@ -15,12 +15,12 @@ export type NameFormFieldRendererProps<T extends keyof NameFormValues = keyof Na
 export interface QuizContext {
 	quizzes: Quiz[];
 	getQuizById: (id: string) => Quiz | undefined;
-	finishQuiz: (quizId: string, answers: Record<string, string>) => Promise<void>;
+	finishQuiz: (quizId: string, answers: Record<string, QuestionInput>) => Promise<void>;
 }
 
 export interface QuizProvider {
 	quizzes: Quiz[];
-	onCompleteAction: (name: string, quizId: string, answers: Record<string, string>) => Promise<void>;
+	onCompleteAction: (name: string, quizId: string, answers: Record<string, QuestionInput>) => Promise<void>;
 	children: React.ReactNode;
 }
 
@@ -46,19 +46,19 @@ export interface QuestionContext {
 	previousQuestion: (questionIndex: number) => void;
 	nextQuestion: (questionIndex: number) => void;
 	
-	saveAnswer: (questionId: string, answer: string) => void;
-	getAnswer: (questionId: string) => string | undefined;
+	saveAnswer: (questionId: string, answer: QuestionInput) => void;
+	getAnswer: (questionId: string) => QuestionInput | undefined;
 	hasAnswer: (questionId: string) => boolean;
 	removeAnswer: (questionId: string) => void;
 	getNumberOfAnsweredQuestions: () => number;
-	getAllAnswers: () => Record<string, string>;
+	getAllAnswers: () => Record<string, QuestionInput>;
 	areAllQuestionsAnswered: () => boolean;
 }
 
 export interface QuestionProvider {
 	quizId: string;
 	questions: Question[];
-	onCompleteAction: (answers: Record<string, string>) => Promise<void>;
+	onCompleteAction: (answers: Record<string, QuestionInput>) => Promise<void>;
 	children: React.ReactNode;
 	storageKey?: string;
 }
@@ -111,4 +111,49 @@ export interface OrderingQuestion extends Question {
 export interface MatchingQuestion extends Question {
 	items: Array<Answer>;
 	matches: Array<Answer & { matchesTo: Answer }>;
+}
+
+export interface QuestionInput {
+	question: string;
+	questionType: "true-false" | "numeric" | "text" | "single-choice" | "multiple-choice" | "ordering" | "matching";
+}
+
+export interface TrueFalseQuestionInput extends QuestionInput {
+	inputAnswer: boolean;
+	correctAnswer: boolean;
+}
+
+export interface NumericQuestionInput extends QuestionInput {
+	inputAnswer: number;
+	correctAnswer: number;
+	tolerance?: number;
+}
+
+export interface TextAnswerQuestionInput extends QuestionInput {
+	inputAnswer: string;
+	minLength?: number;
+	maxLength?: number;
+}
+
+export interface SingleChoiceQuestionInput extends QuestionInput {
+	inputAnswer: number;
+	correctAnswerIndex: number;
+	answers: string[];
+}
+
+export interface MultipleChoiceQuestionInput extends QuestionInput {
+	inputAnswer: number[];
+	answers: Array<{ answer: string; isCorrect: boolean }>;
+}
+
+export interface OrderingQuestionInput extends QuestionInput {
+	inputAnswer: number[];
+	items: string[];
+	correctAnswerOrder: Array<string>;
+}
+
+export interface MatchingQuestionInput extends QuestionInput {
+	inputAnswer: Record<string, string>;
+	items: string[];
+	matches: Array<{ item: string; matchesTo: string }>;
 }

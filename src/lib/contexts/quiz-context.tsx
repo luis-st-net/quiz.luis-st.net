@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useCallback, useContext } from "react";
-import type { QuizContext, QuizProvider } from "@/lib/types";
+import type { QuestionInput, QuizContext, QuizProvider } from "@/lib/types";
 import { useNameContext } from "@/lib/contexts/name-context";
 
 const Context = createContext<QuizContext | undefined>(undefined);
@@ -14,7 +14,7 @@ export function QuizProvider(
 	}, [quizzes]);
 	
 	const { getName } = useNameContext();
-	const finishQuiz = useCallback(async (quizId: string, answers: Record<string, string>) => {
+	const finishQuiz = useCallback(async (quizId: string, answers: Record<string, QuestionInput>) => {
 		await onCompleteAction(getName() || "", quizId, answers);
 	}, [onCompleteAction]);
 	

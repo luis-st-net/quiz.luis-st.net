@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
-import { type OrderingQuestion } from "@/lib/types";
+import { type OrderingQuestion, type OrderingQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 
 export default function OrderingQuestion(
@@ -12,9 +12,19 @@ export default function OrderingQuestion(
 	const { saveAnswer, getAnswer } = useQuestionContext();
 	const [orderedItems, setOrderedItems] = useState<Array<{ id: string; text: string; correctPosition?: number }>>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer) {
-			return JSON.parse(savedAnswer);
+		if (savedAnswer && savedAnswer.questionType === "ordering") {
+			const input = savedAnswer as OrderingQuestionInput;
+			return question.items.map((item, idx) => ({
+				id: item.id,
+				text: item.answer,
+				correctPosition: item.correctPosition,
+			})).sort((a, b) => {
+				const aIdx = input.inputAnswer.findIndex(i => i === question.items.findIndex(qi => qi.id === a.id));
+				const bIdx = input.inputAnswer.findIndex(i => i === question.items.findIndex(qi => qi.id === b.id));
+				return aIdx - bIdx;
+			});
 		}
+		
 		return question.items.map(item => ({
 			id: item.id,
 			text: item.answer,
@@ -24,8 +34,18 @@ export default function OrderingQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer) {
-			setOrderedItems(JSON.parse(savedAnswer));
+		if (savedAnswer && savedAnswer.questionType === "ordering") {
+			const input = savedAnswer as OrderingQuestionInput;
+			const sortedItems = question.items.map((item, idx) => ({
+				id: item.id,
+				text: item.answer,
+				correctPosition: item.correctPosition,
+			})).sort((a, b) => {
+				const aIdx = input.inputAnswer.findIndex(i => i === question.items.findIndex(qi => qi.id === a.id));
+				const bIdx = input.inputAnswer.findIndex(i => i === question.items.findIndex(qi => qi.id === b.id));
+				return aIdx - bIdx;
+			});
+			setOrderedItems(sortedItems);
 		} else {
 			const mappedItems = question.items.map(item => ({
 				id: item.id,
@@ -47,7 +67,20 @@ export default function OrderingQuestion(
 		const [removed] = newItems.splice(fromIndex, 1);
 		newItems.splice(toIndex, 0, removed);
 		setOrderedItems(newItems);
-		saveAnswer(question.id, JSON.stringify(newItems));
+		
+		const answerInput: OrderingQuestionInput = {
+			question: question.question,
+			questionType: "ordering",
+			inputAnswer: newItems.map(item =>
+				question.items.findIndex(qi => qi.id === item.id),
+			),
+			items: question.items.map(item => item.answer),
+			correctAnswerOrder: question.items
+				.sort((a, b) => a.correctPosition - b.correctPosition)
+				.map(item => item.answer),
+		};
+		
+		saveAnswer(question.id, answerInput);
 	};
 	
 	const handleMoveUp = (index: number) => {
