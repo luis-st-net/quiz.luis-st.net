@@ -35,6 +35,11 @@ export default function MatchingQuestion(
 		setMatches(matches);
 		
 		if (Object.keys(matches).length === question.items.length) {
+			
+			console.log("Saving answer for question:", question.id, matches);
+			console.log("Matches of Question:", question.matches);
+			console.log("Items of Question:", question.items);
+			
 			let inputMatches: Record<string, string> = {};
 			for (const itemId in matches) {
 				const inputKey = question.items.find(item => item.id === itemId);
@@ -123,30 +128,32 @@ export default function MatchingQuestion(
 						<div className="w-full min-h-[50px] flex items-center border rounded bg-custom-primary p-2 sm:w-1/2">
 							{item.answer}
 						</div>
-						<div className="flex items-center justify-center">
-							<Icons.ArrowRight className="size-4 mx-2 rotate-90 sm:rotate-0"/>
-						</div>
-						<div
-							onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, item.id)}
-							className={cn("w-full min-h-[50px] flex items-center border rounded p-2 cursor-move sm:w-1/2", matches[item.id] ? "bg-custom-primary" : "")}
-						>
-							{matches[item.id] ? (
-								<div
-									draggable onDragStart={(e) => handleDragStart(e, matches[item.id], item.id)} onDragEnd={handleDragEnd}
-									className={cn("w-full flex justify-between items-center", draggedMatch === matches[item.id] && dragSourceItemId === item.id ? "opacity-50" : "")}
-								>
-									<p>
-										{findMatch(matches[item.id])?.answer}
+						<div className="flex items-center gap-2 w-full sm:w-1/2">
+							<div className="flex items-center justify-center">
+								<Icons.ArrowRight className="size-4 mx-2 sm:rotate-0"/>
+							</div>
+							<div
+								onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, item.id)}
+								className={cn("flex-1 min-h-[50px] flex items-center border rounded p-2 cursor-move", matches[item.id] ? "bg-custom-primary" : "")}
+							>
+								{matches[item.id] ? (
+									<div
+										draggable onDragStart={(e) => handleDragStart(e, matches[item.id], item.id)} onDragEnd={handleDragEnd}
+										className={cn("w-full flex justify-between items-center", draggedMatch === matches[item.id] && dragSourceItemId === item.id ? "opacity-50" : "")}
+									>
+										<p>
+											{findMatch(matches[item.id])?.answer}
+										</p>
+										<Ui.Button variant="ghost" onClick={() => removeMatch(item.id)} className="size-8">
+											<Icons.X className="size-3"/>
+										</Ui.Button>
+									</div>
+								) : (
+									<p className="text-muted-foreground">
+										Drop your answer here
 									</p>
-									<Ui.Button variant="ghost" onClick={() => removeMatch(item.id)} className="size-8">
-										<Icons.X className="size-3"/>
-									</Ui.Button>
-								</div>
-							) : (
-								<p className="text-muted-foreground">
-									Drop your answer here
-								</p>
-							)}
+								)}
+							</div>
 						</div>
 					</div>
 				))}

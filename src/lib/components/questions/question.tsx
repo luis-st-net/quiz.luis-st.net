@@ -41,12 +41,12 @@ export default function Question(
 		<ContentPane defaultColor={true} className="w-4/5 lg:w-2/3 2xl:w-1/3">
 			<div className="m-1">
 				<div>
-					<h3 className="text-2xl mb-3">
+					<h3 className="mb-3 text-xl tiny:text-2xl">
 						<strong>
 							Question {questionIndex + 1} of {getMaxNumberOfQuestions()}
 						</strong>
 					</h3>
-					<p className="mb-2">
+					<p className="mb-2 text-sm tiny:text-base">
 						{question.question}
 					</p>
 					<Ui.Progress value={progress} className="h-2 bg-custom-quaternary"/>

@@ -40,7 +40,7 @@ export default function TrueFalseQuestion(
 	}, [question.id, getAnswer]);
 	
 	return (
-		<div className="pl-4">
+		<div className="pl-2 tiny:pl-4">
 			<Ui.RadioGroup value={selectedValue} onValueChange={handleValueChange}>
 				<div className="flex items-center space-x-2">
 					<Ui.RadioGroupItem value="true" id={`${question.id}-true`}/>

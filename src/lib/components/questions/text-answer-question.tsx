@@ -56,16 +56,16 @@ export default function TextAnswerQuestion(
 		<div>
 			<Ui.Textarea placeholder="Type your answer here..." value={answer} onChange={handleChange} rows={5} className={!isValidLength ? "focus-visible:ring-destructive" : ""}/>
 			{(question.minLength || question.maxLength) && (
-				<div className="mt-1.5 text-sm text-muted-foreground flex justify-between">
+				<div className="mt-1.5 text-sm text-muted-foreground flex flex-col justify-between xxs:flex-row">
 					{question.minLength && (
-						<span className={charCount < question.minLength ? "text-destructive" : ""}>
+						<p className={charCount < question.minLength ? "text-destructive" : ""}>
 							Min: {charCount}/{question.minLength} characters
-						</span>
+						</p>
 					)}
 					{question.maxLength && (
-						<span className={charCount > question.maxLength ? "text-destructive" : ""}>
+						<p className={charCount > question.maxLength ? "text-destructive" : ""}>
 							Max: {charCount}/{question.maxLength} characters
-						</span>
+						</p>
 					)}
 				</div>
 			)}

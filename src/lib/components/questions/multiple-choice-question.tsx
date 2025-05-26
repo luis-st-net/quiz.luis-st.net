@@ -52,7 +52,7 @@ export default function MultipleChoiceQuestion(
 	}, [question.id, question.answers, getAnswer]);
 	
 	return (
-		<div className="pl-4">
+		<div className="pl-2 tiny:pl-4">
 			{question.answers.map((answer) => (
 				<div key={answer.id} className="flex items-center my-3">
 					<Ui.Checkbox id={answer.id} checked={selectedOptions.includes(answer.id)} onCheckedChange={() => toggleOption(answer.id)} className="mr-2"/>

@@ -90,31 +90,27 @@ export default function OrderingQuestion(
 	};
 	
 	return (
-		<div className="space-y-2">
+		<div>
 			<p className="text-sm text-muted-foreground mb-3">
 				Arrange the items in the correct order:
 			</p>
 			{orderedItems.map((item, index) => (
 				<div
-					key={item.id}
+					key={item.id} draggable onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e, index)}
+					onDrop={(e) => handleDrop(e, index)} onDragEnd={handleDragEnd}
 					className={`flex items-center border rounded p-3 mb-2 bg-card ${draggedIndex === index ? "opacity-50" : ""}`}
-					draggable={true}
-					onDragStart={(e) => handleDragStart(e, index)}
-					onDragOver={(e) => handleDragOver(e, index)}
-					onDrop={(e) => handleDrop(e, index)}
-					onDragEnd={handleDragEnd}
 				>
-					<div className="flex-grow">
+					<div className="flex-grow truncate">
 						{item.text}
 					</div>
 					<div className="flex items-center gap-1">
-						<Ui.Button variant="ghost" size="icon" onClick={() => handleMoveUp(index)} disabled={index === 0}>
-							<Icons.ChevronUp className="h-4 w-4"/>
+						<Ui.Button variant="ghost" onClick={() => handleMoveUp(index)} disabled={index === 0} className="size-8 xxs:size-10">
+							<Icons.ChevronUp className="size-4"/>
 						</Ui.Button>
-						<Ui.Button variant="ghost" size="icon" onClick={() => handleMoveDown(index)} disabled={index === orderedItems.length - 1}>
-							<Icons.ChevronDown className="h-4 w-4"/>
+						<Ui.Button variant="ghost" onClick={() => handleMoveDown(index)} disabled={index === orderedItems.length - 1} className="size-8 xxs:size-10">
+							<Icons.ChevronDown className="size-4"/>
 						</Ui.Button>
-						<Icons.GripVertical className="h-4 w-4 text-muted-foreground cursor-move"/>
+						<Icons.GripVertical className="size-4 text-muted-foreground cursor-move"/>
 					</div>
 				</div>
 			))}
