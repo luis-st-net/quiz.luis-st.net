@@ -12,7 +12,7 @@ export default function TextAnswerQuestion(
 	
 	const [answer, setAnswer] = useState<string>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "text") {
+		if (savedAnswer && savedAnswer.type === "text") {
 			return (savedAnswer as TextAnswerQuestionInput).inputAnswer;
 		}
 		return "";
@@ -27,7 +27,7 @@ export default function TextAnswerQuestion(
 		if (newValue.length > 0) {
 			const answerInput: TextAnswerQuestionInput = {
 				question: question.question,
-				questionType: "text",
+				type: "text",
 				inputAnswer: newValue,
 				minLength: question.minLength,
 				maxLength: question.maxLength,
@@ -40,7 +40,7 @@ export default function TextAnswerQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "text") {
+		if (savedAnswer && savedAnswer.type === "text") {
 			const text = (savedAnswer as TextAnswerQuestionInput).inputAnswer;
 			setAnswer(text);
 			setCharCount(text.length);

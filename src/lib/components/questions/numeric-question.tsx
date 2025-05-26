@@ -12,7 +12,7 @@ export default function NumericQuestion(
 	
 	const [answer, setAnswer] = useState<string>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "numeric")  {
+		if (savedAnswer && savedAnswer.type === "numeric")  {
 			return String((savedAnswer as NumericQuestionInput).inputAnswer);
 		}
 		return "";
@@ -26,7 +26,7 @@ export default function NumericQuestion(
 			const numericValue = parseFloat(newValue);
 			const answerInput: NumericQuestionInput = {
 				question: question.question,
-				questionType: "numeric",
+				type: "numeric",
 				inputAnswer: numericValue,
 				correctAnswer: question.correctAnswer,
 				tolerance: question.tolerance,
@@ -39,7 +39,7 @@ export default function NumericQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "numeric") {
+		if (savedAnswer && savedAnswer.type === "numeric") {
 			setAnswer(String((savedAnswer as NumericQuestionInput).inputAnswer));
 		} else {
 			setAnswer("");

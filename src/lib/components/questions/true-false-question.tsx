@@ -11,7 +11,7 @@ export default function TrueFalseQuestion(
 	const { saveAnswer, getAnswer } = useQuestionContext();
 	const [selectedValue, setSelectedValue] = useState<string>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "true-false") {
+		if (savedAnswer && savedAnswer.type === "true-false") {
 			return (savedAnswer as TrueFalseQuestionInput).inputAnswer ? "true" : "false";
 		}
 		return "";
@@ -22,7 +22,7 @@ export default function TrueFalseQuestion(
 		
 		const answerInput: TrueFalseQuestionInput = {
 			question: question.question,
-			questionType: "true-false",
+			type: "true-false",
 			inputAnswer: value === "true",
 			correctAnswer: question.correctAnswer,
 		};
@@ -32,7 +32,7 @@ export default function TrueFalseQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "true-false") {
+		if (savedAnswer && savedAnswer.type === "true-false") {
 			setSelectedValue((savedAnswer as TrueFalseQuestionInput).inputAnswer ? "true" : "false");
 		} else {
 			setSelectedValue("");

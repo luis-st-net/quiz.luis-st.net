@@ -12,7 +12,7 @@ export default function SingleChoiceQuestion(
 	
 	const [selectedOption, setSelectedOption] = useState<string>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "single-choice") {
+		if (savedAnswer && savedAnswer.type === "single-choice") {
 			const index = (savedAnswer as SingleChoiceQuestionInput).inputAnswer;
 			return question.answers[index]?.id || "";
 		}
@@ -26,7 +26,7 @@ export default function SingleChoiceQuestion(
 		if (answerIndex !== -1) {
 			const answerInput: SingleChoiceQuestionInput = {
 				question: question.question,
-				questionType: "single-choice",
+				type: "single-choice",
 				inputAnswer: answerIndex,
 				correctAnswerIndex: typeof question.correctAnswerIndex === "number"
 					? question.correctAnswerIndex
@@ -40,7 +40,7 @@ export default function SingleChoiceQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "single-choice") {
+		if (savedAnswer && savedAnswer.type === "single-choice") {
 			const index = (savedAnswer as SingleChoiceQuestionInput).inputAnswer;
 			setSelectedOption(question.answers[index]?.id || "");
 		} else {

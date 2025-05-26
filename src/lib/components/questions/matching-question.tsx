@@ -13,8 +13,8 @@ export default function MatchingQuestion(
 	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	const [matches, setMatches] = useState<Record<string, string>>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "matching") {
-			return (savedAnswer as MatchingQuestionInput).inputAnswer;
+		if (savedAnswer && savedAnswer.type === "matching") {
+			return (savedAnswer as MatchingQuestionInput).rawInput;
 		}
 		return {};
 	});
@@ -24,8 +24,8 @@ export default function MatchingQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "matching") {
-			setMatches((savedAnswer as MatchingQuestionInput).inputAnswer);
+		if (savedAnswer && savedAnswer.type === "matching") {
+			setMatches((savedAnswer as MatchingQuestionInput).rawInput);
 		} else {
 			setMatches({});
 		}
@@ -35,20 +35,31 @@ export default function MatchingQuestion(
 		setMatches(matches);
 		
 		if (Object.keys(matches).length === question.items.length) {
+			
+			console.log("Saving answer for question:", question.id, matches);
+			console.log("Matches of Question:", question.matches);
+			console.log("Items of Question:", question.items);
+			
+			let inputMatches: Record<string, string> = {};
+			for (const itemId in matches) {
+				const inputKey = question.items.find(item => item.id === itemId);
+				const inputMatch = question.matches.find(match => match.id === matches[itemId]);
+				if (inputKey && inputMatch) {
+					inputMatches[inputKey.answer] = inputMatch.answer;
+				}
+			}
+			
+			let correctMatches: Record<string, string> = {};
+			question.matches.forEach(match => {
+				correctMatches[match.matchesTo.answer] = match.answer;
+			});
+			
 			const answerInput: MatchingQuestionInput = {
 				question: question.question,
-				questionType: "matching",
-				inputAnswer: matches,
-				items: question.items.map(item => item.answer),
-				matches: question.matches.map(match => {
-					const matchingItem = question.items.find(() =>
-						question.matches.find(m => m.id === match.matchesTo.id)?.id === match.id,
-					);
-					return {
-						item: matchingItem?.answer || "",
-						matchesTo: match.answer,
-					};
-				}),
+				type: "matching",
+				rawInput: matches,
+				inputMatches: inputMatches,
+				correctMatches: correctMatches,
 			};
 			
 			saveAnswer(question.id, answerInput);

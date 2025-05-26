@@ -115,7 +115,7 @@ export interface MatchingQuestion extends Question {
 
 export interface QuestionInput {
 	question: string;
-	questionType: "true-false" | "numeric" | "text" | "single-choice" | "multiple-choice" | "ordering" | "matching";
+	type: "true-false" | "numeric" | "text" | "single-choice" | "multiple-choice" | "ordering" | "matching";
 }
 
 export interface TrueFalseQuestionInput extends QuestionInput {
@@ -153,7 +153,7 @@ export interface OrderingQuestionInput extends QuestionInput {
 }
 
 export interface MatchingQuestionInput extends QuestionInput {
-	inputAnswer: Record<string, string>;
-	items: string[];
-	matches: Array<{ item: string; matchesTo: string }>;
+	rawInput: Record<string, string>;
+	inputMatches: Record<string, string>;
+	correctMatches: Record<string, string>;
 }

@@ -11,7 +11,7 @@ export default function MultipleChoiceQuestion(
 	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	const [selectedOptions, setSelectedOptions] = useState<string[]>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "multiple-choice") {
+		if (savedAnswer && savedAnswer.type === "multiple-choice") {
 			const input = savedAnswer as MultipleChoiceQuestionInput;
 			return input.inputAnswer.map(index => question.answers[index]?.id || "");
 		}
@@ -27,7 +27,7 @@ export default function MultipleChoiceQuestion(
 		} else {
 			const answerInput: MultipleChoiceQuestionInput = {
 				question: question.question,
-				questionType: "multiple-choice",
+				type: "multiple-choice",
 				inputAnswer: updatedSelection.map(id =>
 					question.answers.findIndex(answer => answer.id === id),
 				),
@@ -43,7 +43,7 @@ export default function MultipleChoiceQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "multiple-choice") {
+		if (savedAnswer && savedAnswer.type === "multiple-choice") {
 			const input = savedAnswer as MultipleChoiceQuestionInput;
 			setSelectedOptions(input.inputAnswer.map(index => question.answers[index]?.id || ""));
 		} else {

@@ -18,7 +18,7 @@ export default function OrderingQuestion(
 	const { saveAnswer, getAnswer } = useQuestionContext();
 	const [orderedItems, setOrderedItems] = useState<OrderedItem[]>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "ordering") {
+		if (savedAnswer && savedAnswer.type === "ordering") {
 			const input = savedAnswer as OrderingQuestionInput;
 			return sortQuestionItems(question, input);
 		}
@@ -32,7 +32,7 @@ export default function OrderingQuestion(
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.questionType === "ordering") {
+		if (savedAnswer && savedAnswer.type === "ordering") {
 			const input = savedAnswer as OrderingQuestionInput;
 			const sortedItems = sortQuestionItems(question, input);
 			setOrderedItems(sortedItems);
@@ -149,7 +149,7 @@ function moveItem(
 	
 	const answerInput: OrderingQuestionInput = {
 		question: question.question,
-		questionType: "ordering",
+		type: "ordering",
 		inputAnswer: newItems.map(item =>
 			question.items.findIndex(qi => qi.id === item.id),
 		),
