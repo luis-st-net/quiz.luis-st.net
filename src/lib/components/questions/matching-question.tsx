@@ -35,11 +35,6 @@ export default function MatchingQuestion(
 		setMatches(matches);
 		
 		if (Object.keys(matches).length === question.items.length) {
-			
-			console.log("Saving answer for question:", question.id, matches);
-			console.log("Matches of Question:", question.matches);
-			console.log("Items of Question:", question.items);
-			
 			let inputMatches: Record<string, string> = {};
 			for (const itemId in matches) {
 				const inputKey = question.items.find(item => item.id === itemId);

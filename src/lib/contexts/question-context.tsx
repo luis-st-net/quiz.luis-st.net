@@ -62,9 +62,7 @@ export function QuestionProvider(
 		if (questionIndex < getMaxNumberOfQuestions() - 1) {
 			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex + 1)!.id);
 		}
-		console.log("Answers:", answers);
 		if (questionIndex === getMaxNumberOfQuestions() - 1) {
-			console.log("All questions answered, executing onCompleteAction");
 			await onCompleteAction(answers);
 		}
 	}, [getMaxNumberOfQuestions, quizId, getQuestionByIndex, answers, onCompleteAction]);
