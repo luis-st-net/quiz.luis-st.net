@@ -3,19 +3,32 @@
 import React, { createContext, useCallback, useContext } from "react";
 import type { QuestionInput, QuizContext, QuizProvider } from "@/lib/types";
 import { useUserContext } from "@/lib/contexts/user-context";
+import { useToast } from "@/lib/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const Context = createContext<QuizContext | undefined>(undefined);
 
 export function QuizProvider(
 	{ quizzes, onCompleteAction, children }: QuizProvider,
 ) {
+	const router = useRouter();
+	const { toast } = useToast();
 	const getQuizById = useCallback((id: string) => {
 		return quizzes.find(quiz => quiz.id === id);
 	}, [quizzes]);
 	
 	const { getName, getMail } = useUserContext();
 	const finishQuiz = useCallback(async (quizId: string, answers: Record<string, QuestionInput>) => {
-		await onCompleteAction(getName() || "", getMail() || "", quizId, answers);
+		const message = await onCompleteAction(getName() || "", getMail() || "", quizId, answers);
+		
+		toast({
+			title: message.success ? "Quiz submitted successfully" : "Error",
+			description: message.message,
+		});
+		
+		setTimeout(() => {
+			router.push("/");
+		}, 1000);
 	}, [onCompleteAction]);
 	
 	const contextValue = {

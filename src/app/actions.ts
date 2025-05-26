@@ -31,9 +31,16 @@ export async function sendMail(name: string, mail: string, quizId: string, answe
 		};
 		
 		await transporter.sendMail(mailOptions);
-		console.log("Mail sent successfully for quiz", quizId);
+		
+		return {
+			success: true,
+			message: "Quiz was submitted successfully",
+		}
 	} catch (e) {
-		console.error("Error sending mail for quiz", quizId, ":", e);
+		return {
+			success: false,
+			message: "Error occurred while submitting the quiz",
+		}
 	}
 }
 

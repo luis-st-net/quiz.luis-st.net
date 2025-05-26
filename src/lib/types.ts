@@ -13,6 +13,11 @@ export type UserFormFieldRendererProps<T extends keyof UserFormValues = keyof Us
 	formState: UseFormStateReturn<UserFormValues>;
 };
 
+export interface Message {
+	success: boolean;
+	message: string;
+}
+
 export interface QuizContext {
 	quizzes: Quiz[];
 	getQuizById: (id: string) => Quiz | undefined;
@@ -21,7 +26,7 @@ export interface QuizContext {
 
 export interface QuizProvider {
 	quizzes: Quiz[];
-	onCompleteAction: (name: string, mail: string, quizId: string, answers: Record<string, QuestionInput>) => Promise<void>;
+	onCompleteAction: (name: string, mail: string, quizId: string, answers: Record<string, QuestionInput>) => Promise<Message>;
 	children: React.ReactNode;
 }
 
