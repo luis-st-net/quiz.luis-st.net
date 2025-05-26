@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import { QuestionProvider } from "@/lib/contexts/question-context";
 import { useParams } from "next/navigation";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
+import { QuestionInput } from "@/lib/types";
 
 export default function (
 	{ children }: { children: React.ReactNode },
@@ -16,7 +17,7 @@ export default function (
 		return null;
 	}
 	
-	const finishQuestions = useCallback(async (answers: Record<string, string>) => {
+	const finishQuestions = useCallback(async (answers: Record<string, QuestionInput>) => {
 		await finishQuiz(quizId, answers);
 	}, [quizId]);
 	

@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext } from "react";
 import type { QuestionInput, QuizContext, QuizProvider } from "@/lib/types";
-import { useNameContext } from "@/lib/contexts/name-context";
+import { useUserContext } from "@/lib/contexts/user-context";
 
 const Context = createContext<QuizContext | undefined>(undefined);
 
@@ -13,9 +13,9 @@ export function QuizProvider(
 		return quizzes.find(quiz => quiz.id === id);
 	}, [quizzes]);
 	
-	const { getName } = useNameContext();
+	const { getName, getMail } = useUserContext();
 	const finishQuiz = useCallback(async (quizId: string, answers: Record<string, QuestionInput>) => {
-		await onCompleteAction(getName() || "", quizId, answers);
+		await onCompleteAction(getName() || "", getMail() || "", quizId, answers);
 	}, [onCompleteAction]);
 	
 	const contextValue = {

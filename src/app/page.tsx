@@ -24,7 +24,7 @@ function QuizItem(
 	{ id, name }: Quiz,
 ) {
 	return (
-		<Link href={"/name?redirect=/" + id.toLowerCase()} className="w-full">
+		<Link href={"/user?redirect=/" + id.toLowerCase()} className="w-full">
 			<ContentPane defaultColor={true} defaultSpacing={false} className="w-full">
 				<div className="p-4 text-xl">
 					<strong>

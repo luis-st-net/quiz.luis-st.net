@@ -14,15 +14,17 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-export async function sendMail(name: string, quizId: string, answers: Record<string, QuestionInput>) {
+export async function sendMail(name: string, mail: string, quizId: string, answers: Record<string, QuestionInput>) {
 	console.log("Sending mail for quiz", quizId, "by", name);
 	try {
 		const text = getText(name, quizId, answers);
 		const html = getHtml(name, quizId, answers);
 		
+		const recipients = mail ? [mail, process.env.SMTP_USER as string] : [process.env.SMTP_USER as string];
+		
 		const mailOptions: Mail.Options = {
 			from: process.env.SMTP_USER,
-			to: process.env.SMTP_USER,
+			to: recipients,
 			subject: "Quiz " + quizId + " completed by " + name,
 			text: text,
 			html: html,
@@ -53,7 +55,7 @@ function getText(name: string, quizId: string, answers: Record<string, QuestionI
 			
 			text += `Answer: ${questionInput.inputAnswer}\n`;
 			text += `Correct Answer: ${questionInput.correctAnswer}`;
-			if (questionInput.tolerance){
+			if (questionInput.tolerance) {
 				text += ` (±${questionInput.tolerance})`;
 			}
 			text += "\n";
@@ -150,7 +152,9 @@ function getHtml(name: string, quizId: string, answers: Record<string, QuestionI
 			
 			html += `<div class="answer">Your answer: <span class="${isCorrect ? "correct" : "incorrect"}">${questionInput.inputAnswer}</span></div>`;
 			html += `<div class="answer correct">Correct answer: ${questionInput.correctAnswer}`;
-			if (questionInput.tolerance) html += ` (±${questionInput.tolerance})`;
+			if (questionInput.tolerance) {
+				html += ` (±${questionInput.tolerance})`;
+			}
 			html += `</div>`;
 			
 		} else if (question.type === "text") {

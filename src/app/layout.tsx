@@ -4,7 +4,7 @@ import "./globals.css";
 import React from "react";
 import NavigationBar from "@/lib/components/navigation-bar";
 import Footer from "@/lib/components/footer";
-import { NameProvider } from "@/lib/contexts/name-context";
+import { UserProvider } from "@/lib/contexts/user-context";
 import { QuizProvider } from "@/lib/contexts/quiz-context";
 import { sendMail } from "@/app/actions";
 import { quizzes } from "@/lib/quizzes";
@@ -24,7 +24,7 @@ export default function (
 		<html lang="en" suppressHydrationWarning>
 		<body className="min-w-64">
 		<Ui.ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-			<NameProvider>
+			<UserProvider>
 				<QuizProvider quizzes={quizzes} onCompleteAction={sendMail}>
 					<div className="flex flex-col h-screen w-full">
 						<NavigationBar/>
@@ -34,7 +34,7 @@ export default function (
 						<Footer/>
 					</div>
 				</QuizProvider>
-			</NameProvider>
+			</UserProvider>
 			<Ui.ToasterProvider/>
 		</Ui.ThemeProvider>
 		</body>

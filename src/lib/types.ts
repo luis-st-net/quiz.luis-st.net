@@ -2,14 +2,15 @@ import React from "react";
 import { z } from "zod";
 import { ControllerFieldState, ControllerRenderProps, UseFormStateReturn } from "react-hook-form";
 
-export const nameFormSchema = z.object({
+export const userFormSchema = z.object({
 	name: z.string().max(50, { message: "Name must be less than 50 characters." }),
+	mail: z.string().email({ message: "Invalid email address." }).or(z.literal("")).optional(),
 });
-export type NameFormValues = z.infer<typeof nameFormSchema>;
-export type NameFormFieldRendererProps<T extends keyof NameFormValues = keyof NameFormValues> = {
-	field: ControllerRenderProps<NameFormValues, T>;
+export type UserFormValues = z.infer<typeof userFormSchema>;
+export type UserFormFieldRendererProps<T extends keyof UserFormValues = keyof UserFormValues> = {
+	field: ControllerRenderProps<UserFormValues, T>;
 	fieldState: ControllerFieldState;
-	formState: UseFormStateReturn<NameFormValues>;
+	formState: UseFormStateReturn<UserFormValues>;
 };
 
 export interface QuizContext {
@@ -20,17 +21,18 @@ export interface QuizContext {
 
 export interface QuizProvider {
 	quizzes: Quiz[];
-	onCompleteAction: (name: string, quizId: string, answers: Record<string, QuestionInput>) => Promise<void>;
+	onCompleteAction: (name: string, mail: string, quizId: string, answers: Record<string, QuestionInput>) => Promise<void>;
 	children: React.ReactNode;
 }
 
-export interface NameContext {
+export interface UserContext {
 	setName: (name: string) => void;
 	getName: () => string | undefined;
-	getNameOrRedirect: (redirectPath?: string) => string | undefined;
+	setMail: (mail: string) => void;
+	getMail: () => string | undefined;
 }
 
-export interface NameProvider {
+export interface UserProvider {
 	children: React.ReactNode;
 	storageKey?: string;
 }

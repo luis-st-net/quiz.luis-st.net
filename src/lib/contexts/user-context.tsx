@@ -1,16 +1,16 @@
 "use client";
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
-import type { NameContext, NameProvider } from "@/lib/types";
+import type { UserContext, UserProvider } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
-const Context = createContext<NameContext | undefined>(undefined);
+const Context = createContext<UserContext | undefined>(undefined);
 
-export function NameProvider(
-	{ children, storageKey = "player-name" }: NameProvider,
+export function UserProvider(
+	{ children, storageKey = "user-data" }: UserProvider,
 ) {
 	const [name, setNameState] = useState<string | undefined>(undefined);
-	const router = useRouter();
+	const [mail, setMailState] = useState<string | undefined>(undefined);
 	
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -24,7 +24,7 @@ export function NameProvider(
 	const setName = useCallback((newName: string) => {
 		setNameState(newName);
 		if (typeof window !== "undefined") {
-			localStorage.setItem(storageKey, newName);
+			localStorage.setItem(`${storageKey}-name`, newName);
 		}
 	}, [storageKey]);
 	
@@ -34,26 +34,34 @@ export function NameProvider(
 		}
 		
 		if (typeof window !== "undefined") {
-			return localStorage.getItem(storageKey) || undefined;
+			return localStorage.getItem(`${storageKey}-name`) || undefined;
 		}
 		return undefined;
 	}, [name, storageKey]);
 	
-	const getNameOrRedirect = useCallback((redirectPath?: string) => {
-		const currentName = getName();
-		if (!currentName) {
-			const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
-			const returnPath = redirectPath || currentPath;
-			router.push(`/name?redirect=${encodeURIComponent(returnPath)}`);
-			return undefined;
+	const setMail = useCallback((newMail: string) => {
+		setMailState(newMail);
+		if (typeof window !== "undefined") {
+			localStorage.setItem(`${storageKey}-mail`, newMail);
 		}
-		return currentName;
-	}, [getName, router]);
+	}, [storageKey]);
+	
+	const getMail = useCallback(() => {
+		if (mail) {
+			return mail;
+		}
+		
+		if (typeof window !== "undefined") {
+			return localStorage.getItem(`${storageKey}-mail`) || undefined;
+		}
+		return undefined;
+	}, [mail, storageKey]);
 	
 	const contextValue = {
 		setName,
 		getName,
-		getNameOrRedirect,
+		setMail,
+		getMail,
 	};
 	
 	return (
@@ -63,10 +71,10 @@ export function NameProvider(
 	);
 }
 
-export function useNameContext() {
+export function useUserContext() {
 	const context = useContext(Context);
 	if (!context) {
-		throw new Error("useNameContext must be used within a NameProvider");
+		throw new Error("useUserContext must be used within a UserProvider");
 	}
 	return context;
 }
