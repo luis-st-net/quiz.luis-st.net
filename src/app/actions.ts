@@ -159,7 +159,9 @@ function getHtml(name: string, quizId: string, answers: Record<string, QuestionI
 			
 		} else if (question.type === "text") {
 			const questionInput = question as TextAnswerQuestionInput;
-			html += `<div class="answer">Answer: ${questionInput.inputAnswer}</div>`;
+			
+			const answer = questionInput.inputAnswer.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
+			html += `<div class="answer">Answer: ${answer}</div>`;
 			
 		} else if (question.type === "single-choice") {
 			const questionInput = question as SingleChoiceQuestionInput;
