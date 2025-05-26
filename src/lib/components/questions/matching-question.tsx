@@ -31,23 +31,17 @@ export default function MatchingQuestion(
 		}
 	}, [question.id, question.matches]);
 	
-	const handleMatch = (itemId: string, matchId: string) => {
-		const newMatches = { ...matches };
-		if (dragSourceItemId && dragSourceItemId !== itemId) {
-			delete newMatches[dragSourceItemId];
-		}
-		newMatches[itemId] = matchId;
+	const updateAnswer = (matches: Record<string, string>) => {
+		setMatches(matches);
 		
-		setMatches(newMatches);
-		
-		if (Object.keys(newMatches).length === question.items.length) {
+		if (Object.keys(matches).length === question.items.length) {
 			const answerInput: MatchingQuestionInput = {
 				question: question.question,
 				questionType: "matching",
-				inputAnswer: newMatches,
+				inputAnswer: matches,
 				items: question.items.map(item => item.answer),
 				matches: question.matches.map(match => {
-					const matchingItem = question.items.find(item =>
+					const matchingItem = question.items.find(() =>
 						question.matches.find(m => m.id === match.matchesTo.id)?.id === match.id,
 					);
 					return {
@@ -63,33 +57,21 @@ export default function MatchingQuestion(
 		}
 	};
 	
+	const handleMatch = (itemId: string, matchId: string) => {
+		const newMatches = { ...matches };
+		if (dragSourceItemId && dragSourceItemId !== itemId) {
+			delete newMatches[dragSourceItemId];
+		}
+		newMatches[itemId] = matchId;
+		updateAnswer(newMatches);
+	};
+	
 	const removeMatch = (itemId: string) => {
 		const newMatches = { ...matches };
 		const removedMatchId = newMatches[itemId];
 		delete newMatches[itemId];
-		setMatches(newMatches);
 		
-		if (Object.keys(newMatches).length === question.items.length) {
-			const answerInput: MatchingQuestionInput = {
-				question: question.question,
-				questionType: "matching",
-				inputAnswer: newMatches,
-				items: question.items.map(item => item.answer),
-				matches: question.matches.map(match => {
-					const matchingItem = question.items.find(item =>
-						question.matches.find(m => m.id === match.matchesTo.id)?.id === match.id,
-					);
-					return {
-						item: matchingItem?.answer || "",
-						matchesTo: match.answer,
-					};
-				}),
-			};
-			
-			saveAnswer(question.id, answerInput);
-		} else {
-			removeAnswer(question.id);
-		}
+		updateAnswer(newMatches);
 		
 		if (draggedMatch === removedMatchId) {
 			setDraggedMatch(null);
