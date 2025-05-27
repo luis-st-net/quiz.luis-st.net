@@ -14,7 +14,7 @@ export default function ContentPane(
 	} else if (isGradient) {
 		shadowClasses = gradientType + " " + gradientFrom + " " + gradientTo;
 	} else if (defaultColor) {
-		shadowClasses = "bg-custom-blue";
+		shadowClasses = "bg-special-hfu-green";
 	} else {
 		throw new Error("Expected either a static color ('bg-*') or a gradient color ('bg-gradient-to-*', 'from-*', 'to-*') for the shadow.");
 	}

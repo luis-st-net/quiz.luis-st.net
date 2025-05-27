@@ -66,6 +66,9 @@ const config: Config = {
 					postman: "var(--development-tool-postman)",
 					postgresql: "var(--development-tool-postgresql)",
 				},
+				special: {
+					"hfu-green": "var(--special-hfu-green)",
+				},
 				custom: {
 					primary: "var(--custom-primary)",
 					secondary: "var(--custom-secondary)",

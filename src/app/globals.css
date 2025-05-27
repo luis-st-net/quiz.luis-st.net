@@ -8,6 +8,9 @@
 
 @layer base {
 	:root {
+		/*Special colors*/
+		--special-hfu-green: #00663f;
+		
 		/*Main colors*/
 		--custom-light-blue: #48beff;
 		--custom-blue: #144b8f;
