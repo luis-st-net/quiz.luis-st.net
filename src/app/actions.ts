@@ -14,18 +14,21 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-export async function sendMail(name: string, mail: string, quizId: string, answers: Record<string, QuestionInput>) {
-	console.log("Sending mail for quiz", quizId, "by", name);
+export async function sendMail(name: string, mail: string, quiz: string, answers: Record<string, QuestionInput>) {
+	name = name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
+	quiz = quiz.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
+	
+	console.log("Sending mail for quiz", quiz, "by", name);
 	try {
-		const text = getText(name, quizId, answers);
-		const html = getHtml(name, quizId, answers);
+		const text = getText(name, quiz, answers);
+		const html = getHtml(name, quiz, answers);
 		
 		const recipients = mail ? [mail, process.env.SMTP_USER as string] : [process.env.SMTP_USER as string];
 		
 		const mailOptions: Mail.Options = {
 			from: process.env.SMTP_USER,
 			to: recipients,
-			subject: "Quiz " + quizId + " completed by " + name,
+			subject: "Quiz " + quiz + " completed by " + name,
 			text: text,
 			html: html,
 		};
@@ -44,8 +47,8 @@ export async function sendMail(name: string, mail: string, quizId: string, answe
 	}
 }
 
-function getText(name: string, quizId: string, answers: Record<string, QuestionInput>) {
-	let text = `Quiz ${quizId} completed by ${name}\n\n`;
+function getText(name: string, quiz: string, answers: Record<string, QuestionInput>) {
+	let text = `Quiz ${quiz} completed by ${name}\n\n`;
 	
 	for (const key in answers) {
 		const question = answers[key];
@@ -124,7 +127,7 @@ function getText(name: string, quizId: string, answers: Record<string, QuestionI
 	return text;
 }
 
-function getHtml(name: string, quizId: string, answers: Record<string, QuestionInput>) {
+function getHtml(name: string, quiz: string, answers: Record<string, QuestionInput>) {
 	let html = `
     <html lang="en">
     <head>
@@ -141,7 +144,7 @@ function getHtml(name: string, quizId: string, answers: Record<string, QuestionI
       </style>
     </head>
     <body>
-    <div class="container"><h1>Quiz ${quizId} completed by ${name}</h1>`;
+    <div class="container"><h1>Quiz ${quiz} completed by ${name}</h1>`;
 	
 	for (const key in answers) {
 		const question = answers[key];

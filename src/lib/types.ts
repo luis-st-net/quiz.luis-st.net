@@ -26,7 +26,7 @@ export interface QuizContext {
 
 export interface QuizProvider {
 	quizzes: Quiz[];
-	onCompleteAction: (name: string, mail: string, quizId: string, answers: Record<string, QuestionInput>) => Promise<Message>;
+	onCompleteAction: (name: string, mail: string, quiz: string, answers: Record<string, QuestionInput>) => Promise<Message>;
 	children: React.ReactNode;
 }
 

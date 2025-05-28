@@ -18,11 +18,11 @@ export default function (
 	}
 	
 	const finishQuestions = useCallback(async (answers: Record<string, QuestionInput>) => {
-		await finishQuiz(quizId, answers);
-	}, [quizId]);
+		await finishQuiz(quiz.name, answers);
+	}, [quiz]);
 	
 	return (
-		<QuestionProvider quizId={quizId} questions={quiz.questions} onCompleteAction={finishQuestions}>
+		<QuestionProvider quizId={quizId} questions={quiz.questions} onCompleteAction={finishQuestions} storageKey={quizId + "/answers"}>
 			{children}
 		</QuestionProvider>
 	);
