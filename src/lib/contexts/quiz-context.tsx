@@ -22,13 +22,11 @@ export function QuizProvider(
 		const message = await onCompleteAction(getName() || "", getMail() || "", quiz, answers);
 		
 		toast({
-			title: message.success ? "Quiz submitted successfully" : "Error",
+			title: message.success ? "Quiz submitted successfully" : "Quiz submission failed",
 			description: message.message,
 		});
 		
-		setTimeout(() => {
-			router.push("/");
-		}, 1000);
+		router.push("/");
 	}, [onCompleteAction]);
 	
 	const contextValue = {
