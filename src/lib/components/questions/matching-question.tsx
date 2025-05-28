@@ -5,7 +5,7 @@ import * as Icons from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
 import { type MatchingQuestion, type MatchingQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
-import { cn } from "@/lib/utility";
+import { cn, shuffleArray } from "@/lib/utility";
 
 export default function MatchingQuestion(
 	{ question }: { question: MatchingQuestion },
@@ -19,6 +19,10 @@ export default function MatchingQuestion(
 		return {};
 	});
 	
+	const [shuffledMatches, setShuffledMatches] = useState(() =>
+		shuffleArray(question.matches)
+	);
+	
 	const [draggedMatch, setDraggedMatch] = useState<string | null>(null);
 	const [dragSourceItemId, setDragSourceItemId] = useState<string | null>(null);
 	
@@ -29,6 +33,7 @@ export default function MatchingQuestion(
 		} else {
 			setMatches({});
 		}
+		setShuffledMatches(shuffleArray(question.matches));
 	}, [question.id, question.matches]);
 	
 	const updateAnswer = (matches: Record<string, string>) => {
@@ -164,7 +169,7 @@ export default function MatchingQuestion(
 					Available answers (drag to match):
 				</p>
 				<div className="flex flex-wrap gap-2">
-					{question.matches.map(match => {
+					{shuffledMatches.map(match => {
 						const isMatched = Object.values(matches).includes(match.id);
 						if (isMatched) {
 							return null;
