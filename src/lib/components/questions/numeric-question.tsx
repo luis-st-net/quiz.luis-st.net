@@ -12,7 +12,7 @@ export default function NumericQuestion(
 	
 	const [answer, setAnswer] = useState<string>(() => {
 		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.type === "numeric")  {
+		if (savedAnswer && savedAnswer.type === "numeric") {
 			return String((savedAnswer as NumericQuestionInput).inputAnswer);
 		}
 		return "";

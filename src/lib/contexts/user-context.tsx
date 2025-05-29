@@ -2,7 +2,6 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { UserContext, UserProvider } from "@/lib/types";
-import { useRouter } from "next/navigation";
 
 const Context = createContext<UserContext | undefined>(undefined);
 

@@ -45,7 +45,7 @@ function useMatchingLogic(question: MatchingQuestion) {
 			
 			let correctMatches: Record<string, string> = {};
 			question.matches.forEach(match => {
-				const answer = question.items.find(item => item.id === match.matchesTo)
+				const answer = question.items.find(item => item.id === match.matchesTo);
 				if (answer) {
 					correctMatches[answer.answer] = match.answer;
 				}
@@ -96,7 +96,7 @@ function useMatchingLogic(question: MatchingQuestion) {
 }
 
 function MatchingQuestionMobile(
-	{ question }: { question: MatchingQuestion }
+	{ question }: { question: MatchingQuestion },
 ) {
 	const { matches, shuffledMatches, handleMatch, removeMatch } = useMatchingLogic(question);
 	
@@ -154,7 +154,7 @@ function MatchingQuestionMobile(
 }
 
 function MatchingQuestionDesktop(
-	{ question }: { question: MatchingQuestion }
+	{ question }: { question: MatchingQuestion },
 ) {
 	const { matches, shuffledMatches, handleMatch, removeMatch: baseRemoveMatch, findMatch } = useMatchingLogic(question);
 	
@@ -261,7 +261,7 @@ function MatchingQuestionDesktop(
 }
 
 export default function MatchingQuestion(
-	{ question }: { question: MatchingQuestion }
+	{ question }: { question: MatchingQuestion },
 ) {
 	const [isMobile, setIsMobile] = useState(false);
 	

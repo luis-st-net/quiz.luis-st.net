@@ -41,12 +41,12 @@ export async function sendMail(name: string | undefined, mail: string | undefine
 		return {
 			success: true,
 			message: "Quiz wurde erfolgreich eingereicht.",
-		}
+		};
 	} catch (e) {
 		return {
 			success: false,
 			message: "Beim Absenden des Quiz ist ein Fehler aufgetreten.",
-		}
+		};
 	}
 }
 
