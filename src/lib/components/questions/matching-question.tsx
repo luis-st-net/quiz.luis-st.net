@@ -7,10 +7,9 @@ import { type MatchingQuestion, type MatchingQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 import { cn, shuffleArray } from "@/lib/utility";
 
-export default function MatchingQuestion(
-	{ question }: { question: MatchingQuestion },
-) {
+function useMatchingLogic(question: MatchingQuestion) {
 	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
+	
 	const [matches, setMatches] = useState<Record<string, string>>(() => {
 		const savedAnswer = getAnswer(question.id);
 		if (savedAnswer && savedAnswer.type === "matching") {
@@ -19,12 +18,7 @@ export default function MatchingQuestion(
 		return {};
 	});
 	
-	const [shuffledMatches, setShuffledMatches] = useState(() =>
-		shuffleArray(question.matches)
-	);
-	
-	const [draggedMatch, setDraggedMatch] = useState<string | null>(null);
-	const [dragSourceItemId, setDragSourceItemId] = useState<string | null>(null);
+	const [shuffledMatches, setShuffledMatches] = useState(question.matches);
 	
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
@@ -40,11 +34,6 @@ export default function MatchingQuestion(
 		setMatches(matches);
 		
 		if (Object.keys(matches).length === question.items.length) {
-			
-			console.log("Saving answer for question:", question.id, matches);
-			console.log("Matches of Question:", question.matches);
-			console.log("Items of Question:", question.items);
-			
 			let inputMatches: Record<string, string> = {};
 			for (const itemId in matches) {
 				const inputKey = question.items.find(item => item.id === itemId);
@@ -75,22 +64,107 @@ export default function MatchingQuestion(
 	
 	const handleMatch = (itemId: string, matchId: string) => {
 		const newMatches = { ...matches };
-		if (dragSourceItemId && dragSourceItemId !== itemId) {
-			delete newMatches[dragSourceItemId];
-		}
+		Object.keys(newMatches).forEach(key => {
+			if (newMatches[key] === matchId && key !== itemId) {
+				delete newMatches[key];
+			}
+		});
 		newMatches[itemId] = matchId;
 		updateAnswer(newMatches);
 	};
 	
 	const removeMatch = (itemId: string) => {
 		const newMatches = { ...matches };
-		const removedMatchId = newMatches[itemId];
 		delete newMatches[itemId];
-		
 		updateAnswer(newMatches);
+	};
+	
+	const findMatch = (id: string) => {
+		return question.matches.find(match => match.id === id);
+	};
+	
+	return {
+		matches,
+		shuffledMatches,
+		handleMatch,
+		removeMatch,
+		findMatch,
+	};
+}
+
+function MatchingQuestionMobile(
+	{ question }: { question: MatchingQuestion }
+) {
+	const { matches, shuffledMatches, handleMatch, removeMatch, findMatch } = useMatchingLogic(question);
+	
+	const clearValue = "__CLEAR__";
+	
+	const getAvailableMatches = (currentItemId: string) => {
+		const usedMatches = Object.entries(matches).filter(([itemId]) => itemId !== currentItemId).map(([, matchId]) => matchId);
+		
+		return shuffledMatches.filter(match => !usedMatches.includes(match.id));
+	};
+	
+	const handleValueChange = (value: string, itemId: string) => {
+		if (value === clearValue) {
+			removeMatch(itemId);
+		} else if (value) {
+			handleMatch(itemId, value);
+		}
+	};
+	
+	return (
+		<div className="flex flex-col gap-4 mb-6">
+			{question.items.map((item) => (
+				<div key={item.id} className="flex flex-col gap-4">
+					<div className="min-h-[50px] flex items-center border rounded bg-custom-primary p-3">
+						{item.answer}
+					</div>
+					<div className="flex items-center gap-2">
+						<Icons.ArrowRight className="size-4 mx-2"/>
+						<div className="w-full">
+							<Ui.Select value={matches[item.id] || ""} onValueChange={(value) => handleValueChange(value, item.id)}>
+								<Ui.SelectTrigger className="w-full min-h-[50px] ">
+									<Ui.SelectValue placeholder="Select a match..."/>
+								</Ui.SelectTrigger>
+								<Ui.SelectContent>
+									{matches[item.id] && (
+										<Ui.SelectItem value={clearValue}>
+											<span className="text-muted-foreground">
+												Clear selection
+											</span>
+										</Ui.SelectItem>
+									)}
+									{getAvailableMatches(item.id).map((match) => (
+										<Ui.SelectItem key={match.id} value={match.id}>
+											{match.answer}
+										</Ui.SelectItem>
+									))}
+								</Ui.SelectContent>
+							</Ui.Select>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	);
+}
+
+function MatchingQuestionDesktop(
+	{ question }: { question: MatchingQuestion }
+) {
+	const { matches, shuffledMatches, handleMatch, removeMatch: baseRemoveMatch, findMatch } = useMatchingLogic(question);
+	
+	const [draggedMatch, setDraggedMatch] = useState<string | null>(null);
+	const [dragSourceItemId, setDragSourceItemId] = useState<string | null>(null);
+	
+	const removeMatch = (itemId: string) => {
+		const removedMatchId = matches[itemId];
+		baseRemoveMatch(itemId);
 		
 		if (draggedMatch === removedMatchId) {
 			setDraggedMatch(null);
+			setDragSourceItemId(null);
 		}
 	};
 	
@@ -121,8 +195,13 @@ export default function MatchingQuestion(
 		}
 	};
 	
-	const findMatch = (id: string) => {
-		return question.matches.find(match => match.id === id);
+	const handleMatchWithSource = (itemId: string, matchId: string) => {
+		const newMatches = { ...matches };
+		if (dragSourceItemId && dragSourceItemId !== itemId) {
+			delete newMatches[dragSourceItemId];
+		}
+		newMatches[itemId] = matchId;
+		handleMatch(itemId, matchId);
 	};
 	
 	return (
@@ -133,32 +212,30 @@ export default function MatchingQuestion(
 						<div className="w-full min-h-[50px] flex items-center border rounded bg-custom-primary p-2 sm:w-1/2">
 							{item.answer}
 						</div>
-						<div className="flex items-center gap-2 w-full sm:w-1/2">
-							<div className="flex items-center justify-center">
-								<Icons.ArrowRight className="size-4 mx-2 sm:rotate-0"/>
-							</div>
-							<div
-								onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, item.id)}
-								className={cn("flex-1 min-h-[50px] flex items-center border rounded p-2 cursor-move", matches[item.id] ? "bg-custom-primary" : "")}
-							>
-								{matches[item.id] ? (
-									<div
-										draggable onDragStart={(e) => handleDragStart(e, matches[item.id], item.id)} onDragEnd={handleDragEnd}
-										className={cn("w-full flex justify-between items-center", draggedMatch === matches[item.id] && dragSourceItemId === item.id ? "opacity-50" : "")}
-									>
-										<p>
-											{findMatch(matches[item.id])?.answer}
-										</p>
-										<Ui.Button variant="ghost" onClick={() => removeMatch(item.id)} className="size-8">
-											<Icons.X className="size-3"/>
-										</Ui.Button>
-									</div>
-								) : (
-									<p className="text-muted-foreground">
-										Drop your answer here
+						<div className="flex items-center justify-center">
+							<Icons.ArrowRight className="size-4 mx-2"/>
+						</div>
+						<div
+							onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, item.id)}
+							className={cn("w-full min-h-[50px] flex items-center border rounded p-2 cursor-move sm:w-1/2", matches[item.id] ? "bg-custom-primary" : "")}
+						>
+							{matches[item.id] ? (
+								<div
+									draggable onDragStart={(e) => handleDragStart(e, matches[item.id], item.id)} onDragEnd={handleDragEnd}
+									className={cn("w-full flex justify-between items-center", draggedMatch === matches[item.id] && dragSourceItemId === item.id ? "opacity-50" : "")}
+								>
+									<p>
+										{findMatch(matches[item.id])?.answer}
 									</p>
-								)}
-							</div>
+									<Ui.Button variant="ghost" onClick={() => removeMatch(item.id)} className="size-8">
+										<Icons.X className="size-3"/>
+									</Ui.Button>
+								</div>
+							) : (
+								<p className="text-muted-foreground">
+									Drop your answer here
+								</p>
+							)}
 						</div>
 					</div>
 				))}
@@ -186,5 +263,35 @@ export default function MatchingQuestion(
 				</div>
 			</div>
 		</div>
+	);
+}
+
+export default function MatchingQuestion(
+	{ question }: { question: MatchingQuestion }
+) {
+	const [isMobile, setIsMobile] = useState(false);
+	
+	useEffect(() => {
+		const checkIsMobile = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+		
+		checkIsMobile();
+		window.addEventListener("resize", checkIsMobile);
+		
+		return () => window.removeEventListener("resize", checkIsMobile);
+	}, []);
+	
+	useEffect(() => {
+		const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+		if (isTouchDevice && window.innerWidth < 1024) {
+			setIsMobile(true);
+		}
+	}, []);
+	
+	return isMobile ? (
+		<MatchingQuestionMobile question={question}/>
+	) : (
+		<MatchingQuestionDesktop question={question}/>
 	);
 }
