@@ -117,7 +117,7 @@ export interface OrderingQuestion extends Question {
 
 export interface MatchingQuestion extends Question {
 	items: Array<Answer>;
-	matches: Array<Answer & { matchesTo: Answer }>;
+	matches: Array<Answer & { matchesTo: string }>;
 }
 
 export interface QuestionInput {

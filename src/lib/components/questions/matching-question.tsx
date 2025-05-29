@@ -45,7 +45,10 @@ function useMatchingLogic(question: MatchingQuestion) {
 			
 			let correctMatches: Record<string, string> = {};
 			question.matches.forEach(match => {
-				correctMatches[match.matchesTo.answer] = match.answer;
+				const answer = question.items.find(item => item.id === match.matchesTo)
+				if (answer) {
+					correctMatches[answer.answer] = match.answer;
+				}
 			});
 			
 			const answerInput: MatchingQuestionInput = {
