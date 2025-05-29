@@ -50,11 +50,11 @@ export default function SingleChoiceQuestion(
 	
 	return (
 		<div className="pl-2 tiny:pl-4">
-			<Ui.RadioGroup value={selectedOption} onValueChange={handleOptionChange}>
+			<Ui.RadioGroup value={selectedOption} onValueChange={handleOptionChange} className="flex flex-col gap-2">
 				{question.answers.map((answer) => (
-					<div key={answer.id} className="flex items-center space-x-2">
-						<Ui.RadioGroupItem value={answer.id} id={answer.id}/>
-						<Ui.Label htmlFor={answer.id}>
+					<div key={answer.id} className="flex items-center">
+						<Ui.RadioGroupItem value={answer.id} id={answer.id} className="mr-2"/>
+						<Ui.Label htmlFor={answer.id} className="text-base">
 							{answer.answer}
 						</Ui.Label>
 					</div>

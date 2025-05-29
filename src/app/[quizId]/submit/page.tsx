@@ -14,7 +14,7 @@ export default function () {
 	if (!quiz) {
 		return (
 			<ContentPane className="w-4/5 bg-custom-red lg:w-2/3 2xl:w-1/3">
-				<div className="m-1">
+				<div className="m-1 text-lg">
 					Quiz wurde nicht gefunden
 				</div>
 			</ContentPane>

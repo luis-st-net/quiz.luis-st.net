@@ -5,6 +5,7 @@ import { QuestionProvider } from "@/lib/contexts/question-context";
 import { useParams } from "next/navigation";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { QuestionInput } from "@/lib/types";
+import ContentPane from "@/lib/components/content-pane";
 
 export default function (
 	{ children }: { children: React.ReactNode },
@@ -14,7 +15,13 @@ export default function (
 	const quizId = useParams().quizId as string;
 	const quiz = getQuizById(quizId);
 	if (!quiz) {
-		return null;
+		return (
+			<ContentPane className="w-4/5 bg-custom-red lg:w-2/3 2xl:w-1/3">
+				<div className="m-1 text-lg">
+					Quiz wurde nicht gefunden
+				</div>
+			</ContentPane>
+		);
 	}
 	
 	const finishQuestions = useCallback(async (answers: Record<string, QuestionInput>) => {

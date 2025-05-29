@@ -33,8 +33,8 @@ export default function Question(
 	if (!question || questionIndex === undefined || questionIndex === -1) {
 		return (
 			<ContentPane className="w-4/5 bg-custom-red lg:w-2/3 2xl:w-1/3">
-				<div className="m-1">
-					Farge wurde nicht gefunden
+				<div className="m-1 text-lg">
+					Frage wurde nicht gefunden
 				</div>
 			</ContentPane>
 		);

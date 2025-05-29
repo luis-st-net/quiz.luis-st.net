@@ -53,14 +53,16 @@ export default function MultipleChoiceQuestion(
 	
 	return (
 		<div className="pl-2 tiny:pl-4">
-			{question.answers.map((answer) => (
-				<div key={answer.id} className="flex items-center my-3">
-					<Ui.Checkbox id={answer.id} checked={selectedOptions.includes(answer.id)} onCheckedChange={() => toggleOption(answer.id)} className="mr-2"/>
-					<Ui.Label htmlFor={answer.id}>
-						{answer.answer}
-					</Ui.Label>
-				</div>
-			))}
+			<div className="flex flex-col gap-2">
+				{question.answers.map((answer) => (
+					<div key={answer.id} className="flex items-center">
+						<Ui.Checkbox id={answer.id} checked={selectedOptions.includes(answer.id)} onCheckedChange={() => toggleOption(answer.id)} className="mr-2"/>
+						<Ui.Label htmlFor={answer.id} className="text-base">
+							{answer.answer}
+						</Ui.Label>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 }
