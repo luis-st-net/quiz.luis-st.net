@@ -140,6 +140,7 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
         .answer { margin-left: 15px; }
         .correct { color: #27ae60; }
         .incorrect { color: #e74c3c; }
+        .unknown { color: #f39c12; }
         .divider { height: 1px; background: #eee; margin: 15px 0; }
       </style>
     </head>
@@ -171,7 +172,7 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			const questionInput = question as TextQuestionInput;
 			
 			const answer = questionInput.inputAnswer.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
-			html += `<div class="answer">Answer: <span class="correct">${answer}</span></div>`;
+			html += `<div class="answer">Answer: <span class="unknown">${answer}</span></div>`;
 			
 		} else if (question.type === "single-choice") {
 			const questionInput = question as SingleChoiceQuestionInput;
@@ -199,8 +200,10 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			const questionInput = question as OrderingQuestionInput;
 			
 			html += `<div class="answer">Your order:<ol>`;
-			questionInput.inputAnswer.forEach(itemIndex => {
-				html += `<li>${questionInput.items[itemIndex]}</li>`;
+			questionInput.inputAnswer.forEach((itemIndex, arrayIndex) => {
+				const item = questionInput.items[itemIndex];
+				const isCorrect = item === questionInput.correctAnswerOrder[arrayIndex];
+				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${item}</li>`;
 			});
 			
 			html += `</ol></div><div class="answer">Correct order:<ol>`;
@@ -214,7 +217,8 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			
 			html += `<div class="answer">Your matches:<ul>`;
 			for (const item in questionInput.inputMatches) {
-				html += `<li>${item} → ${questionInput.inputMatches[item]}</li>`;
+				const isCorrect = questionInput.correctMatches[item] === questionInput.inputMatches[item];
+				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${item} → ${questionInput.inputMatches[item]}</li>`;
 			}
 			
 			html += `</ul></div><div class="answer">Correct matches:<ul>`;
