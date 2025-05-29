@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as Icons from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
 import { type OrderingQuestion, type OrderingQuestionInput } from "@/lib/types";
@@ -16,6 +16,9 @@ export default function OrderingQuestion(
 	{ question }: { question: OrderingQuestion },
 ) {
 	const { saveAnswer, getAnswer } = useQuestionContext();
+	const isInitialMount = useRef(true);
+	const hasUserInteracted = useRef(false);
+	
 	const [orderedItems, setOrderedItems] = useState<OrderedItem[]>(() => {
 		const savedAnswer = getAnswer(question.id);
 		if (savedAnswer && savedAnswer.type === "ordering") {
@@ -31,35 +34,49 @@ export default function OrderingQuestion(
 	});
 	
 	useEffect(() => {
-		const savedAnswer = getAnswer(question.id);
-		if (savedAnswer && savedAnswer.type === "ordering") {
-			const input = savedAnswer as OrderingQuestionInput;
-			const sortedItems = sortQuestionItems(question, input);
-			setOrderedItems(sortedItems);
-		} else {
-			const mappedItems = question.items.map(item => ({
-				id: item.id,
-				text: item.answer,
-				correctPosition: item.correctPosition,
-			}));
+		if (isInitialMount.current && !hasUserInteracted.current) {
+			isInitialMount.current = false;
 			
-			const shuffledItems = [...mappedItems]
-				.map(value => ({ value, sort: Math.random() }))
-				.sort((a, b) => a.sort - b.sort)
-				.map(({ value }) => value);
-			
-			setOrderedItems(shuffledItems);
+			const savedAnswer = getAnswer(question.id);
+			if (savedAnswer && savedAnswer.type === "ordering") {
+				const input = savedAnswer as OrderingQuestionInput;
+				const sortedItems = sortQuestionItems(question, input);
+				setOrderedItems(sortedItems);
+			} else {
+				const mappedItems = question.items.map(item => ({
+					id: item.id,
+					text: item.answer,
+					correctPosition: item.correctPosition,
+				}));
+				
+				const shuffledItems = [...mappedItems].map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
+				
+				setOrderedItems(shuffledItems);
+			}
 		}
-	}, [question.id, question.items, getAnswer]);
+	}, []);
+	
+	useEffect(() => {
+		if (!hasUserInteracted.current) {
+			const savedAnswer = getAnswer(question.id);
+			if (savedAnswer && savedAnswer.type === "ordering") {
+				const input = savedAnswer as OrderingQuestionInput;
+				const sortedItems = sortQuestionItems(question, input);
+				setOrderedItems(sortedItems);
+			}
+		}
+	}, [question.id, getAnswer]);
 	
 	const handleMoveUp = (index: number) => {
 		if (index > 0) {
+			hasUserInteracted.current = true;
 			moveItem(question, orderedItems, setOrderedItems, index, index - 1, saveAnswer);
 		}
 	};
 	
 	const handleMoveDown = (index: number) => {
 		if (index < orderedItems.length - 1) {
+			hasUserInteracted.current = true;
 			moveItem(question, orderedItems, setOrderedItems, index, index + 1, saveAnswer);
 		}
 	};
@@ -72,7 +89,7 @@ export default function OrderingQuestion(
 		e.dataTransfer.effectAllowed = "move";
 	};
 	
-	const handleDragOver = (e: React.DragEvent, index: number) => {
+	const handleDragOver = (e: React.DragEvent) => {
 		e.preventDefault();
 		e.dataTransfer.dropEffect = "move";
 	};
@@ -80,6 +97,7 @@ export default function OrderingQuestion(
 	const handleDrop = (e: React.DragEvent, index: number) => {
 		e.preventDefault();
 		if (draggedIndex !== null && draggedIndex !== index) {
+			hasUserInteracted.current = true;
 			moveItem(question, orderedItems, setOrderedItems, draggedIndex, index, saveAnswer);
 		}
 		setDraggedIndex(null);
@@ -96,7 +114,7 @@ export default function OrderingQuestion(
 			</p>
 			{orderedItems.map((item, index) => (
 				<div
-					key={item.id} draggable onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e, index)}
+					key={item.id} draggable onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e)}
 					onDrop={(e) => handleDrop(e, index)} onDragEnd={handleDragEnd}
 					className={`flex items-center border rounded p-3 mb-2 bg-card ${draggedIndex === index ? "opacity-50" : ""}`}
 				>
