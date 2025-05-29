@@ -21,6 +21,7 @@ export default function Question(
 		getIndexOfQuestion,
 		getQuestionById,
 		getMaxNumberOfQuestions,
+		preventNavigation,
 		previousQuestion,
 		nextQuestion,
 		getNumberOfAnsweredQuestions,
@@ -55,10 +56,10 @@ export default function Question(
 					<DynamicQuestion question={question}/>
 				</div>
 				<div className="flex justify-between">
-					<Ui.Button variant="outline" onClick={() => previousQuestion(questionIndex)} disabled={isFirstQuestion} className="">
+					<Ui.Button variant="outline" onClick={() => previousQuestion(questionIndex)} disabled={isFirstQuestion || preventNavigation}>
 						Previous
 					</Ui.Button>
-					<Ui.Button onClick={() => nextQuestion(questionIndex)} disabled={isLastQuestion && !areAllQuestionsAnswered()}>
+					<Ui.Button onClick={() => nextQuestion(questionIndex)} disabled={(isLastQuestion && !areAllQuestionsAnswered()) || preventNavigation}>
 						{isLastQuestion ? "Finish" : "Next"}
 					</Ui.Button>
 				</div>

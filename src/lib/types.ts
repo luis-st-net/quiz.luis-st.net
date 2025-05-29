@@ -50,6 +50,8 @@ export interface QuestionContext {
 	getQuestionById: (id: string) => Question | undefined;
 	getMaxNumberOfQuestions: () => number;
 	
+	preventNavigation: boolean;
+	setPreventNavigation: (prevent: boolean) => void;
 	previousQuestion: (questionIndex: number) => void;
 	nextQuestion: (questionIndex: number) => void;
 	

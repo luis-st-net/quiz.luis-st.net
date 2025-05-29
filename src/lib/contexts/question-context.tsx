@@ -10,6 +10,7 @@ export function QuestionProvider(
 	{ quizId, questions, onCompleteAction, children, storageKey = "quiz-answers" }: QuestionProvider,
 ) {
 	const [answers, setAnswers] = useState<Record<string, QuestionInput>>({});
+	const [preventNavigation, setPreventNavigation] = React.useState(false);
 	const router = useRouter();
 	
 	useEffect(() => {
@@ -53,12 +54,18 @@ export function QuestionProvider(
 	
 	//region Navigation actions
 	const previousQuestion = useCallback((questionIndex: number) => {
+		if (preventNavigation) {
+			return;
+		}
 		if (questionIndex !== 0) {
 			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex - 1)!.id);
 		}
 	}, [quizId, getQuestionByIndex]);
 	
 	const nextQuestion = useCallback(async (questionIndex: number) => {
+		if (preventNavigation) {
+			return;
+		}
 		if (questionIndex < getMaxNumberOfQuestions() - 1) {
 			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex + 1)!.id);
 		}
@@ -113,6 +120,8 @@ export function QuestionProvider(
 		getQuestionById,
 		getMaxNumberOfQuestions,
 		
+		preventNavigation,
+		setPreventNavigation,
 		previousQuestion,
 		nextQuestion,
 		
