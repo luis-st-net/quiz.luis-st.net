@@ -97,7 +97,7 @@ export interface NumericQuestion extends Question {
 	tolerance?: number;
 }
 
-export interface TextAnswerQuestion extends Question {
+export interface TextQuestion extends Question {
 	minLength?: number;
 	maxLength?: number;
 }
@@ -136,7 +136,7 @@ export interface NumericQuestionInput extends QuestionInput {
 	tolerance?: number;
 }
 
-export interface TextAnswerQuestionInput extends QuestionInput {
+export interface TextQuestionInput extends QuestionInput {
 	inputAnswer: string;
 	minLength?: number;
 	maxLength?: number;

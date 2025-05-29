@@ -1,4 +1,4 @@
-import { MatchingQuestion, MultipleChoiceQuestion, NumericQuestion, OrderingQuestion, Quiz, SingleChoiceQuestion, TextAnswerQuestion, TrueFalseQuestion } from "@/lib/types";
+import { MatchingQuestion, MultipleChoiceQuestion, NumericQuestion, OrderingQuestion, Quiz, SingleChoiceQuestion, TextQuestion, TrueFalseQuestion } from "@/lib/types";
 
 const testQuiz: Quiz = {
 	id: "test",
@@ -24,7 +24,7 @@ const testQuiz: Quiz = {
 			question: "Name the largest ocean on Earth.",
 			minLength: 3,
 			maxLength: 20,
-		} as TextAnswerQuestion,
+		} as TextQuestion,
 		{
 			id: "4",
 			shortQuestion: "Capital of France",

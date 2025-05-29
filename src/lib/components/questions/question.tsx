@@ -6,7 +6,7 @@ import { useQuestionContext } from "@/lib/contexts/question-context";
 import type { Question } from "@/lib/types";
 import TrueFalseQuestion from "@/lib/components/questions/true-false-question";
 import * as Questions from "@/lib/question-helper";
-import TextAnswerQuestion from "@/lib/components/questions/text-answer-question";
+import TextQuestion from "@/lib/components/questions/text-question";
 import SingleChoiceQuestion from "@/lib/components/questions/single-choice-question";
 import MultipleChoiceQuestion from "@/lib/components/questions/multiple-choice-question";
 import OrderingQuestion from "@/lib/components/questions/ordering-question";
@@ -75,7 +75,7 @@ function DynamicQuestion(
 	} else if (Questions.isNumericQuestion(question)) {
 		return <NumericQuestion question={question}/>;
 	} else if (Questions.isTextAnswerQuestion(question)) {
-		return <TextAnswerQuestion question={question}/>;
+		return <TextQuestion question={question}/>;
 	} else if (Questions.isSingleChoiceQuestion(question)) {
 		return <SingleChoiceQuestion question={question}/>;
 	} else if (Questions.isMultipleChoiceQuestion(question)) {

@@ -2,7 +2,7 @@
 
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
-import { MatchingQuestionInput, MultipleChoiceQuestionInput, NumericQuestionInput, OrderingQuestionInput, QuestionInput, SingleChoiceQuestionInput, TextAnswerQuestionInput, TrueFalseQuestionInput } from "@/lib/types";
+import { MatchingQuestionInput, MultipleChoiceQuestionInput, NumericQuestionInput, OrderingQuestionInput, QuestionInput, SingleChoiceQuestionInput, TextQuestionInput, TrueFalseQuestionInput } from "@/lib/types";
 
 const transporter = nodemailer.createTransport({
 	host: process.env.SMTP_HOST,
@@ -71,7 +71,7 @@ function getText(name: string, quiz: string, answers: Record<string, QuestionInp
 			text += "\n";
 			
 		} else if (question.type === "text") {
-			const questionInput = question as TextAnswerQuestionInput;
+			const questionInput = question as TextQuestionInput;
 			text += `Answer: ${questionInput.inputAnswer}\n`;
 			
 		} else if (question.type === "single-choice") {
@@ -168,7 +168,7 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			html += `</div>`;
 			
 		} else if (question.type === "text") {
-			const questionInput = question as TextAnswerQuestionInput;
+			const questionInput = question as TextQuestionInput;
 			
 			const answer = questionInput.inputAnswer.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
 			html += `<div class="answer">Answer: ${answer}</div>`;

@@ -1,4 +1,4 @@
-import { MatchingQuestion, MultipleChoiceQuestion, NumericQuestion, OrderingQuestion, Question, SingleChoiceQuestion, TextAnswerQuestion, TrueFalseQuestion } from "./types";
+import { MatchingQuestion, MultipleChoiceQuestion, NumericQuestion, OrderingQuestion, Question, SingleChoiceQuestion, TextQuestion, TrueFalseQuestion } from "./types";
 
 export function isTrueFalseQuestion(question: Question): question is TrueFalseQuestion {
 	return "correctAnswer" in question && typeof (question as any).correctAnswer === "boolean";
@@ -8,7 +8,7 @@ export function isNumericQuestion(question: Question): question is NumericQuesti
 	return "correctAnswer" in question && typeof (question as any).correctAnswer === "number";
 }
 
-export function isTextAnswerQuestion(question: Question): question is TextAnswerQuestion {
+export function isTextAnswerQuestion(question: Question): question is TextQuestion {
 	return ("minLength" in question || "maxLength" in question) && !("correctAnswer" in question) && !("answers" in question);
 }
 

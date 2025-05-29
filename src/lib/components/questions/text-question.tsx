@@ -2,18 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import * as Ui from "@/lib/components/ui/";
-import { type TextAnswerQuestion, type TextAnswerQuestionInput } from "@/lib/types";
+import { type TextQuestion, type TextQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 
-export default function TextAnswerQuestion(
-	{ question }: { question: TextAnswerQuestion },
+export default function TextQuestion(
+	{ question }: { question: TextQuestion },
 ) {
 	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	
 	const [answer, setAnswer] = useState<string>(() => {
 		const savedAnswer = getAnswer(question.id);
 		if (savedAnswer && savedAnswer.type === "text") {
-			return (savedAnswer as TextAnswerQuestionInput).inputAnswer;
+			return (savedAnswer as TextQuestionInput).inputAnswer;
 		}
 		return "";
 	});
@@ -25,7 +25,7 @@ export default function TextAnswerQuestion(
 		setCharCount(newValue.length);
 		
 		if (newValue.length > 0) {
-			const answerInput: TextAnswerQuestionInput = {
+			const answerInput: TextQuestionInput = {
 				question: question.question,
 				type: "text",
 				inputAnswer: newValue,
@@ -41,7 +41,7 @@ export default function TextAnswerQuestion(
 	useEffect(() => {
 		const savedAnswer = getAnswer(question.id);
 		if (savedAnswer && savedAnswer.type === "text") {
-			const text = (savedAnswer as TextAnswerQuestionInput).inputAnswer;
+			const text = (savedAnswer as TextQuestionInput).inputAnswer;
 			setAnswer(text);
 			setCharCount(text.length);
 		} else {
