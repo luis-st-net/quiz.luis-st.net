@@ -19,7 +19,7 @@ export function QuizProvider(
 	
 	const { getName, getMail } = useUserContext();
 	const finishQuiz = useCallback(async (quiz: string, answers: Record<string, QuestionInput>) => {
-		const message = await onCompleteAction(getName() || "", getMail() || "", quiz, answers);
+		const message = await onCompleteAction(getName(), getMail(), quiz, answers);
 		
 		toast({
 			title: message.success ? "Quiz submitted successfully" : "Quiz submission failed",

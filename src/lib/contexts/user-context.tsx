@@ -21,9 +21,9 @@ export function UserProvider(
 		}
 	}, [storageKey]);
 	
-	const setName = useCallback((newName: string) => {
+	const setName = useCallback((newName: string | undefined) => {
 		setNameState(newName);
-		if (typeof window !== "undefined") {
+		if (typeof window !== "undefined" && newName) {
 			localStorage.setItem(`${storageKey}-name`, newName);
 		}
 	}, [storageKey]);
@@ -39,9 +39,9 @@ export function UserProvider(
 		return undefined;
 	}, [name, storageKey]);
 	
-	const setMail = useCallback((newMail: string) => {
+	const setMail = useCallback((newMail: string | undefined) => {
 		setMailState(newMail);
-		if (typeof window !== "undefined") {
+		if (typeof window !== "undefined" && newMail) {
 			localStorage.setItem(`${storageKey}-mail`, newMail);
 		}
 	}, [storageKey]);

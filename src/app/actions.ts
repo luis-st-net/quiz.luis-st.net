@@ -14,7 +14,10 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-export async function sendMail(name: string, mail: string, quiz: string, answers: Record<string, QuestionInput>) {
+export async function sendMail(name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>) {
+	if (!name) {
+		name = "Anonymous";
+	}
 	name = name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
 	quiz = quiz.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
 	

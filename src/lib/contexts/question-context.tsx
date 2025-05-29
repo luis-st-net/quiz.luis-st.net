@@ -62,7 +62,7 @@ export function QuestionProvider(
 		}
 	}, [quizId, getQuestionByIndex]);
 	
-	const nextQuestion = useCallback(async (questionIndex: number) => {
+	const nextQuestion = useCallback((questionIndex: number) => {
 		if (preventNavigation) {
 			return;
 		}
@@ -70,9 +70,16 @@ export function QuestionProvider(
 			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex + 1)!.id);
 		}
 		if (questionIndex === getMaxNumberOfQuestions() - 1) {
-			await onCompleteAction(answers);
+			router.push("/" + quizId + "/submit");
 		}
-	}, [getMaxNumberOfQuestions, quizId, getQuestionByIndex, answers, onCompleteAction]);
+	}, [getMaxNumberOfQuestions, quizId, getQuestionByIndex]);
+	
+	const finishQuiz = useCallback(async () => {
+		await onCompleteAction(answers);
+		setAnswers({});
+		sessionStorage.removeItem(storageKey);
+		router.push("/");
+	}, [onCompleteAction, answers, setAnswers, storageKey]);
 	//endregion
 	
 	//region Answer management
@@ -124,6 +131,7 @@ export function QuestionProvider(
 		setPreventNavigation,
 		previousQuestion,
 		nextQuestion,
+		finishQuiz,
 		
 		saveAnswer,
 		getAnswer,

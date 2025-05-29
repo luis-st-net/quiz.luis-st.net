@@ -26,14 +26,14 @@ export interface QuizContext {
 
 export interface QuizProvider {
 	quizzes: Quiz[];
-	onCompleteAction: (name: string, mail: string, quiz: string, answers: Record<string, QuestionInput>) => Promise<Message>;
+	onCompleteAction: (name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>) => Promise<Message>;
 	children: React.ReactNode;
 }
 
 export interface UserContext {
-	setName: (name: string) => void;
+	setName: (name: string | undefined) => void;
 	getName: () => string | undefined;
-	setMail: (mail: string) => void;
+	setMail: (mail: string | undefined) => void;
 	getMail: () => string | undefined;
 }
 
@@ -54,6 +54,7 @@ export interface QuestionContext {
 	setPreventNavigation: (prevent: boolean) => void;
 	previousQuestion: (questionIndex: number) => void;
 	nextQuestion: (questionIndex: number) => void;
+	finishQuiz: () => void;
 	
 	saveAnswer: (questionId: string, answer: QuestionInput) => void;
 	getAnswer: (questionId: string) => QuestionInput | undefined;

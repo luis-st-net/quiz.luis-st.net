@@ -1,7 +1,7 @@
 "use client";
 
 import * as Ui from "@/lib/components/ui/";
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { useUserContext } from "@/lib/contexts/user-context";
 import { useRouter, useSearchParams } from "next/navigation";
 import ContentPane from "@/lib/components/content-pane";
@@ -22,8 +22,6 @@ function NamePageContent() {
 	const { toast } = useToast();
 	const { setName, getName, setMail, getMail } = useUserContext();
 	
-	const [inputName, setInputName] = useState(getName() || "");
-	const [inputMail, setInputMail] = useState(getMail() || "");
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	
@@ -32,8 +30,8 @@ function NamePageContent() {
 	const form = useForm<UserFormValues>({
 		resolver: zodResolver(userFormSchema),
 		defaultValues: {
-			name: inputName,
-			mail: inputMail,
+			name: getName() || "",
+			mail: getMail() || "",
 		},
 	});
 	
@@ -48,8 +46,9 @@ function NamePageContent() {
 			return;
 		}
 		
-		setName(result.data.name.trim());
-		setMail(result.data.mail || "");
+		const name = result.data.name.trim();
+		setName(name.length > 0 ? name : undefined);
+		setMail(result.data.mail);
 		router.push(redirect);
 	};
 	
