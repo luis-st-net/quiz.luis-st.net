@@ -110,7 +110,7 @@ export default function OrderingQuestion(
 	return (
 		<div>
 			<p className="text-sm text-muted-foreground mb-3">
-				Arrange the items in the correct order:
+				Ordnen Sie die Elemente in der richtigen Reihenfolge an:
 			</p>
 			{orderedItems.map((item, index) => (
 				<div

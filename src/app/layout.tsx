@@ -10,8 +10,8 @@ import { sendMail } from "@/app/actions";
 import { quizzes } from "@/lib/quizzes";
 
 export const metadata: Metadata = {
-	title: "Quiz Website for HFU",
-	description: "This is a quiz website for HFU students.",
+	title: "Quiz-Website für die HFU",
+	description: "Dies ist eine Quiz-Website für HFU-Studierende.",
 	generator: "Next.js",
 	creator: "Luis Staudt",
 	publisher: "Luis Staudt",

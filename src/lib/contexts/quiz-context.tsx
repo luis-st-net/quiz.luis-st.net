@@ -22,7 +22,7 @@ export function QuizProvider(
 		const message = await onCompleteAction(getName(), getMail(), quiz, answers);
 		
 		toast({
-			title: message.success ? "Quiz submitted successfully" : "Quiz submission failed",
+			title: message.success ? "Quiz erfolgreich eingereicht" : "Quizübermittlung fehlgeschlagen",
 			description: message.message,
 		});
 		

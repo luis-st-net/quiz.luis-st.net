@@ -58,17 +58,17 @@ export default function TextQuestion(
 	
 	return (
 		<div>
-			<Ui.Textarea placeholder="Type your answer here..." value={answer} onChange={handleChange} rows={5} className={isInvalidLength ? "focus-visible:ring-destructive" : ""}/>
+			<Ui.Textarea placeholder="Geben Sie Ihre Antwort hier ein..." value={answer} onChange={handleChange} rows={5} className={isInvalidLength ? "focus-visible:ring-destructive" : ""}/>
 			{(question.minLength || question.maxLength) && (
 				<div className="mt-1.5 text-sm text-muted-foreground flex flex-col justify-between xxs:flex-row">
 					{question.minLength && (
 						<p className={charCount < question.minLength ? "text-destructive" : ""}>
-							Min: {charCount}/{question.minLength} characters
+							Min: {charCount}/{question.minLength} zeichen
 						</p>
 					)}
 					{question.maxLength && (
 						<p className={charCount > question.maxLength ? "text-destructive" : ""}>
-							Max: {charCount}/{question.maxLength} characters
+							Max: {charCount}/{question.maxLength} zeichen
 						</p>
 					)}
 				</div>

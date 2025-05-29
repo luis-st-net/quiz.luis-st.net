@@ -12,7 +12,7 @@ export default function () {
 		<div className="w-full flex flex-col items-center mt-16 mb-8">
 			<h1 className="text-3xl mb-16 mx-2 text-center tiny:text-4xl xxs:text-start">
 				<strong>
-					Questions of quiz Test
+					Fragen des Quiz
 				</strong>
 			</h1>
 			<div className="w-4/5 flex flex-wrap gap-6 lg:w-1/2 2xl:w-1/4">
@@ -25,13 +25,13 @@ export default function () {
 }
 
 function QuestionItem(
-	{ quizId, id: questionId, index, shortQuestion, question }: Question & { quizId: string, index: number },
+	{ quizId, id: questionId, index, shortQuestion }: Question & { quizId: string, index: number },
 ) {
 	return (
 		<Link href={"/" + quizId + "/" + questionId} className="w-full">
 			<ContentPane defaultColor={true} defaultSpacing={false} className="w-full">
 				<div className="p-2 text-base tiny:p-4 tiny:text-xl">
-					Question {index + 1}: {shortQuestion}
+					Frage {index + 1}: {shortQuestion}
 				</div>
 			</ContentPane>
 		</Link>

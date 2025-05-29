@@ -98,7 +98,7 @@ function useMatchingLogic(question: MatchingQuestion) {
 function MatchingQuestionMobile(
 	{ question }: { question: MatchingQuestion }
 ) {
-	const { matches, shuffledMatches, handleMatch, removeMatch, findMatch } = useMatchingLogic(question);
+	const { matches, shuffledMatches, handleMatch, removeMatch } = useMatchingLogic(question);
 	
 	const clearValue = "__CLEAR__";
 	
@@ -134,7 +134,7 @@ function MatchingQuestionMobile(
 									{matches[item.id] && (
 										<Ui.SelectItem value={clearValue}>
 											<span className="text-muted-foreground">
-												Clear selection
+												Auswahl löschen
 											</span>
 										</Ui.SelectItem>
 									)}
@@ -198,15 +198,6 @@ function MatchingQuestionDesktop(
 		}
 	};
 	
-	const handleMatchWithSource = (itemId: string, matchId: string) => {
-		const newMatches = { ...matches };
-		if (dragSourceItemId && dragSourceItemId !== itemId) {
-			delete newMatches[dragSourceItemId];
-		}
-		newMatches[itemId] = matchId;
-		handleMatch(itemId, matchId);
-	};
-	
 	return (
 		<div>
 			<div className="flex flex-col gap-4 mb-6">
@@ -236,7 +227,7 @@ function MatchingQuestionDesktop(
 								</div>
 							) : (
 								<p className="text-muted-foreground">
-									Drop your answer here
+									Ziehen Sie Ihre Antwort hier hinein
 								</p>
 							)}
 						</div>
@@ -246,7 +237,7 @@ function MatchingQuestionDesktop(
 			
 			<div>
 				<p className="text-sm text-muted-foreground mb-3">
-					Available answers (drag to match):
+					Verfügbare Antworten (durch Ziehen zuordnen):
 				</p>
 				<div className="flex flex-wrap gap-2">
 					{shuffledMatches.map(match => {

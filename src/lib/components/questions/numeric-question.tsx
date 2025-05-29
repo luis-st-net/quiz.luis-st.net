@@ -46,14 +46,14 @@ export default function NumericQuestion(
 		}
 	}, [question.id, getAnswer]);
 	
-	const toleranceInfo = question.tolerance ? `±${question.tolerance} ${question.tolerance === 1 ? "unit" : "units"}` : "";
+	const toleranceInfo = question.tolerance ? `±${question.tolerance} ${question.tolerance === 1 ? "Einheit" : "Einheiten"}` : "";
 	
 	return (
 		<div className="">
-			<Ui.Input type="number" placeholder="Enter a number..." value={answer} onChange={handleChange} className="text-lg"/>
+			<Ui.Input type="number" placeholder="Geben Sie eine Zahl ein..." value={answer} onChange={handleChange} className="text-lg"/>
 			{toleranceInfo && (
 				<p className="text-sm text-muted-foreground mt-1.5">
-					Tolerance: {toleranceInfo}
+					Toleranz: {toleranceInfo}
 				</p>
 			)}
 		</div>

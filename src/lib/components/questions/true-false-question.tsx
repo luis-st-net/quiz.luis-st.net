@@ -45,13 +45,13 @@ export default function TrueFalseQuestion(
 				<div className="flex items-center space-x-2">
 					<Ui.RadioGroupItem value="true" id={`${question.id}-true`}/>
 					<Ui.Label htmlFor={`${question.id}-true`}>
-						True
+						Wahr
 					</Ui.Label>
 				</div>
 				<div className="flex items-center space-x-2">
 					<Ui.RadioGroupItem value="false" id={`${question.id}-false`}/>
 					<Ui.Label htmlFor={`${question.id}-false`}>
-						False
+						Falsch
 					</Ui.Label>
 				</div>
 			</Ui.RadioGroup>

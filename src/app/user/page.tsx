@@ -39,8 +39,8 @@ function NamePageContent() {
 		const result = userFormSchema.safeParse(data);
 		if (!result.success) {
 			toast({
-				title: "Error",
-				description: "Form validation failed",
+				title: "Fehler",
+				description: "Überprüfung der Eingaben fehlgeschlagen.",
 				variant: "destructive",
 			});
 			return;
@@ -56,7 +56,7 @@ function NamePageContent() {
 		<ContentPane defaultColor={true} className="w-4/5 lg:w-2/3 2xl:w-1/3">
 			<h3 className="text-2xl mb-6">
 				<strong>
-					Enter your name and mail
+					Geben Sie Ihren Namen und Ihre E-Mail-Adresse ein
 				</strong>
 			</h3>
 			
@@ -66,7 +66,7 @@ function NamePageContent() {
 					<Ui.FormField control={form.control} name="mail" render={MailFormFieldRenderer}/>
 					
 					<Ui.Button type="submit" className="w-full">
-						Continue
+						Weiter
 					</Ui.Button>
 				</form>
 			</Ui.Form>
@@ -79,7 +79,7 @@ function NameFormFieldRenderer(
 ) {
 	return (
 		<FormFieldRenderer label="Name (Optional)">
-			<Ui.Input placeholder="Enter your name" autoComplete="off" autoFocus {...field}/>
+			<Ui.Input placeholder="Geben Sie Ihren Namen ein" autoComplete="off" autoFocus {...field}/>
 		</FormFieldRenderer>
 	);
 }
@@ -88,7 +88,7 @@ function MailFormFieldRenderer(
 	{ field }: UserFormFieldRendererProps<"mail">,
 ) {
 	return (
-		<FormFieldRenderer label="Mail (Optional)">
+		<FormFieldRenderer label="E-Mail-Adresse (Optional)">
 			<Ui.Input type="email" placeholder="mail@example.com" autoComplete="off" {...field} />
 		</FormFieldRenderer>
 	);

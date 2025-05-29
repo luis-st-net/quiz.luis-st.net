@@ -31,7 +31,13 @@ export default function Question(
 	const question = getQuestionById(questionId);
 	const questionIndex = question ? getIndexOfQuestion(question.id) : -1;
 	if (!question || questionIndex === undefined || questionIndex === -1) {
-		return null;
+		return (
+			<ContentPane className="w-4/5 bg-custom-red lg:w-2/3 2xl:w-1/3">
+				<div className="m-1">
+					Farge wurde nicht gefunden
+				</div>
+			</ContentPane>
+		);
 	}
 	
 	const isFirstQuestion = questionIndex === 0;
@@ -44,7 +50,7 @@ export default function Question(
 				<div>
 					<h3 className="mb-3 text-xl tiny:text-2xl">
 						<strong>
-							Question {questionIndex + 1} of {getMaxNumberOfQuestions()}
+							Frage {questionIndex + 1} von {getMaxNumberOfQuestions()}
 						</strong>
 					</h3>
 					<p className="mb-2 text-sm tiny:text-base">
@@ -57,10 +63,10 @@ export default function Question(
 				</div>
 				<div className="flex justify-between">
 					<Ui.Button variant="outline" onClick={() => previousQuestion(questionIndex)} disabled={isFirstQuestion || preventNavigation}>
-						Previous
+						Zurück
 					</Ui.Button>
 					<Ui.Button onClick={() => nextQuestion(questionIndex)} disabled={(isLastQuestion && !areAllQuestionsAnswered()) || preventNavigation}>
-						{isLastQuestion ? "Finish" : "Next"}
+						{isLastQuestion ? "Abschließen" : "Weiter"}
 					</Ui.Button>
 				</div>
 			</div>
@@ -88,7 +94,7 @@ function DynamicQuestion(
 	}
 	return (
 		<div className="text-custom-red">
-			Unsupported question type
+			Der Fragetyp wird nicht unterstützt
 		</div>
 	);
 }
