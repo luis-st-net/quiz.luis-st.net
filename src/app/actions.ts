@@ -154,14 +154,14 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			const questionInput = question as TrueFalseQuestionInput;
 			
 			html += `<div class="answer">Your answer: <span class="${questionInput.inputAnswer === questionInput.correctAnswer ? "correct" : "incorrect"}">${questionInput.inputAnswer ? "True" : "False"}</span></div>`;
-			html += `<div class="answer correct">Correct answer: ${questionInput.correctAnswer ? "True" : "False"}</div>`;
+			html += `<div class="answer">Correct answer: <span class="correct">${questionInput.correctAnswer ? "True" : "False"}</span></div>`;
 			
 		} else if (question.type === "numeric") {
 			const questionInput = question as NumericQuestionInput;
 			const isCorrect = questionInput.tolerance ? Math.abs(questionInput.inputAnswer - questionInput.correctAnswer) <= questionInput.tolerance : questionInput.inputAnswer === questionInput.correctAnswer;
 			
 			html += `<div class="answer">Your answer: <span class="${isCorrect ? "correct" : "incorrect"}">${questionInput.inputAnswer}</span></div>`;
-			html += `<div class="answer correct">Correct answer: ${questionInput.correctAnswer}`;
+			html += `<div class="answer">Correct answer: <span class="correct">${questionInput.correctAnswer}</span>`;
 			if (questionInput.tolerance) {
 				html += ` (±${questionInput.tolerance})`;
 			}
@@ -171,13 +171,13 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			const questionInput = question as TextQuestionInput;
 			
 			const answer = questionInput.inputAnswer.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
-			html += `<div class="answer">Answer: ${answer}</div>`;
+			html += `<div class="answer">Answer: <span class="correct">${answer}</span></div>`;
 			
 		} else if (question.type === "single-choice") {
 			const questionInput = question as SingleChoiceQuestionInput;
 			
 			html += `<div class="answer">Your answer: <span class="${questionInput.inputAnswer === questionInput.correctAnswerIndex ? "correct" : "incorrect"}">${questionInput.answers[questionInput.inputAnswer]}</span></div>`;
-			html += `<div class="answer correct">Correct answer: ${questionInput.answers[questionInput.correctAnswerIndex]}</div>`;
+			html += `<div class="answer">Correct answer: <span class="correct">${questionInput.answers[questionInput.correctAnswerIndex]}</span></div>`;
 			
 		} else if (question.type === "multiple-choice") {
 			const questionInput = question as MultipleChoiceQuestionInput;
@@ -188,10 +188,10 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${questionInput.answers[index].answer}</li>`;
 			});
 			
-			html += `</ul></div><div class="answer correct">Correct answers:<ul>`;
+			html += `</ul></div><div class="answer">Correct answers:<ul>`;
 			questionInput.answers.forEach((answer) => {
 				if (answer.isCorrect) {
-					html += `<li>${answer.answer}</li>`;
+					html += `<li class="correct">${answer.answer}</li>`;
 				}
 			});
 			html += `</ul></div>`;
@@ -203,9 +203,9 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 				html += `<li>${questionInput.items[itemIndex]}</li>`;
 			});
 			
-			html += `</ol></div><div class="answer correct">Correct order:<ol>`;
+			html += `</ol></div><div class="answer">Correct order:<ol>`;
 			questionInput.correctAnswerOrder.forEach(item => {
-				html += `<li>${item}</li>`;
+				html += `<li class="correct">${item}</li>`;
 			});
 			html += `</ol></div>`;
 			
@@ -217,9 +217,9 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 				html += `<li>${item} → ${questionInput.inputMatches[item]}</li>`;
 			}
 			
-			html += `</ul></div><div class="answer correct">Correct matches:<ul>`;
+			html += `</ul></div><div class="answer">Correct matches:<ul>`;
 			for (const match in questionInput.correctMatches) {
-				html += `<li>${match} → ${questionInput.correctMatches[match]}</li>`;
+				html += `<li class="correct">${match} → ${questionInput.correctMatches[match]}</li>`;
 			}
 			html += `</ul></div>`;
 		}
