@@ -10,7 +10,7 @@ export default function () {
 	
 	return (
 		<div className="w-full flex flex-col items-center mt-16 mb-8">
-			<h1 className="text-3xl mb-16 mx-2 text-center tiny:text-4xl xxs:text-start">
+			<h1 className="text-2xl mb-16 mx-2 text-center xxs:text-3xl xs:text-4xl">
 				<strong>
 					Fragen des Quiz
 				</strong>
