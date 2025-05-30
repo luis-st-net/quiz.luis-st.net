@@ -18,7 +18,7 @@ export default function () {
 			<h2 className="text-4xl font-bold mb-16">
 				Wählen Sie ein Quiz aus
 			</h2>
-			<div className="w-4/5 flex flex-col gap-2 lg:w-1/2 2xl:w-1/5">
+			<div className="w-4/5 flex flex-col gap-2 lg:w-1/2 2xl:w-1/4">
 				<QuizGroup node={rootNode} level={0}/>
 			</div>
 		</div>
