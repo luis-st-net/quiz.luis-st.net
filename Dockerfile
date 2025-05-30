@@ -26,8 +26,12 @@ COPY . .
 RUN npm run build
 RUN npm prune --omit=dev
 
+RUN mkdir -p /app/quizzes
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
+VOLUME ["/app/quizzes"]
 
 EXPOSE 3000
 

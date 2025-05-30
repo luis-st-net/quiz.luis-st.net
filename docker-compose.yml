@@ -6,5 +6,7 @@ services:
     image: quiz-web:latest
     container_name: quiz-web
     restart: unless-stopped
+    volumes:
+      - ./quizzes:/app/quizzes
     ports:
       - "3006:3000"
