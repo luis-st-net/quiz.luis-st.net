@@ -1,9 +1,13 @@
 import { Quiz } from "@/lib/types";
 import fs from "fs/promises";
 import path from "path";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function loadQuizzes(): Promise<Quiz[]> {
+	noStore();
+	
 	const quizzesDir = path.join(process.cwd(), "quizzes");
+	console.log("Loading quizzes from directory:", quizzesDir);
 	const quizzes: Quiz[] = [];
 	
 	try {
