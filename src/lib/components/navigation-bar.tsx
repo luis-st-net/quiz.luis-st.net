@@ -15,7 +15,6 @@ export default function NavigationBar() {
 						</strong>
 					</div>
 				</Link>
-			
 			</div>
 			<Ui.ThemeToggle className="hidden nano:block"/>
 		</div>

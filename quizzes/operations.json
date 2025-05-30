@@ -1,0 +1,271 @@
+{
+	"id": "bp-operations",
+	"name": "Operationen mit Variablen",
+	"description": "Ein Quiz über arithmetische Operationen (+, -, *, /, %) mit verschiedenen Datentypen in Java.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung"
+	},
+	"questions": [
+		{
+			"id": "o1",
+			"shortQuestion": "Integer-Division",
+			"question": "Wenn int a = 7; und int b = 2; definiert sind, was ist der Wert von a / b?",
+			"correctAnswer": 3
+		},
+		{
+			"id": "o2",
+			"shortQuestion": "Double-Division",
+			"question": "Wenn double a = 7.0; und double b = 2.0; definiert sind, was ist der Wert von a / b?",
+			"correctAnswer": 3.5,
+			"tolerance": 0.01
+		},
+		{
+			"id": "o3",
+			"shortQuestion": "Modulo-Operator",
+			"question": "Wenn int a = 10; und int b = 3; definiert sind, was ist der Wert von a % b?",
+			"correctAnswer": 1
+		},
+		{
+			"id": "o4",
+			"shortQuestion": "String-Konkatenation",
+			"question": "Ist der Operator + der einzige Operator, der mit String-Variablen verwendet werden kann?",
+			"correctAnswer": true
+		},
+		{
+			"id": "o5",
+			"shortQuestion": "Gemischte Typen",
+			"question": "Wenn int a = 5; und double b = 2.0; definiert sind, was ist der Datentyp des Ergebnisses von a / b?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "o5a",
+					"answer": "double"
+				},
+				{
+					"id": "o5b",
+					"answer": "int"
+				},
+				{
+					"id": "o5c",
+					"answer": "float"
+				},
+				{
+					"id": "o5d",
+					"answer": "String"
+				}
+			]
+		},
+		{
+			"id": "o6",
+			"shortQuestion": "String und Integer",
+			"question": "Was ist das Ergebnis von \"10\" + 5 in Java?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "o6a",
+					"answer": "\"105\""
+				},
+				{
+					"id": "o6b",
+					"answer": "15"
+				},
+				{
+					"id": "o6c",
+					"answer": "\"15\""
+				},
+				{
+					"id": "o6d",
+					"answer": "Fehler beim kompilieren"
+				}
+			]
+		},
+		{
+			"id": "o7",
+			"shortQuestion": "Reihenfolge der Operatoren",
+			"question": "Was ist das Ergebnis von 2 + 3 * 4?",
+			"correctAnswer": 14
+		},
+		{
+			"id": "o8",
+			"shortQuestion": "Addition von Booleans",
+			"question": "Wenn boolean a = true; und boolean b = false; definiert sind, was ist das Ergebnis von a + b?",
+			"correctAnswerIndex": 4,
+			"answers": [
+				{
+					"id": "o8a",
+					"answer": "true"
+				},
+				{
+					"id": "o8b",
+					"answer": "false"
+				},
+				{
+					"id": "o8c",
+					"answer": "1"
+				},
+				{
+					"id": "o8d",
+					"answer": "0"
+				},
+				{
+					"id": "o8e",
+					"answer": "Fehler beim kompilieren"
+				}
+			]
+		},
+		{
+			"id": "o9",
+			"shortQuestion": "Gültige Operationen",
+			"question": "Welche der folgenden Operationen sind in Java erlaubt?",
+			"answers": [
+				{
+					"id": "o9a",
+					"answer": "\"Hallo\" + \"Welt\"",
+					"isCorrect": true
+				},
+				{
+					"id": "o9b",
+					"answer": "\"Hallo\" - \"Welt\"",
+					"isCorrect": false
+				},
+				{
+					"id": "o9c",
+					"answer": "5 + 3.14",
+					"isCorrect": true
+				},
+				{
+					"id": "o9d",
+					"answer": "10 % 3",
+					"isCorrect": true
+				},
+				{
+					"id": "o9e",
+					"answer": "\"5\" * 3",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "o10",
+			"shortQuestion": "Priorität der Operatoren",
+			"question": "Ordnen Sie die folgenden Operatoren nach ihrer Priorität (von höchster zu niedrigster):",
+			"items": [
+				{
+					"id": "o10a",
+					"answer": "* / %",
+					"correctPosition": 0
+				},
+				{
+					"id": "o10b",
+					"answer": "+ -",
+					"correctPosition": 1
+				},
+				{
+					"id": "o10c",
+					"answer": "=",
+					"correctPosition": 2
+				}
+			]
+		},
+		{
+			"id": "o11",
+			"shortQuestion": "Rechenoperationen",
+			"question": "Ordnen Sie die Ganzzahl Operationen ihren Ergebnissen zu:",
+			"items": [
+				{
+					"id": "o11a",
+					"answer": "5 + 3"
+				},
+				{
+					"id": "o11b",
+					"answer": "5 - 3"
+				},
+				{
+					"id": "o11c",
+					"answer": "5 * 3"
+				},
+				{
+					"id": "o11d",
+					"answer": "5 / 2"
+				},
+				{
+					"id": "o11e",
+					"answer": "5 % 2"
+				}
+			],
+			"matches": [
+				{
+					"id": "o11f",
+					"answer": "8",
+					"matchesTo": "o11a"
+				},
+				{
+					"id": "o11g",
+					"answer": "2",
+					"matchesTo": "o11b"
+				},
+				{
+					"id": "o11h",
+					"answer": "15",
+					"matchesTo": "o11c"
+				},
+				{
+					"id": "o11i",
+					"answer": "2",
+					"matchesTo": "o11d"
+				},
+				{
+					"id": "o11j",
+					"answer": "1",
+					"matchesTo": "o11e"
+				}
+			]
+		},
+		{
+			"id": "op12",
+			"shortQuestion": "String-Operationen",
+			"question": "Was ist das Ergebnis der folgenden Operationen?",
+			"items": [
+				{
+					"id": "o12a",
+					"answer": "\"Java\" + \"Script\""
+				},
+				{
+					"id": "o12b",
+					"answer": "\"Wert: \" + 42"
+				},
+				{
+					"id": "o12c",
+					"answer": "\"\" + 7 + 3"
+				},
+				{
+					"id": "o12d",
+					"answer": "7 + 3 + \"\""
+				}
+			],
+			"matches": [
+				{
+					"id": "o12e",
+					"answer": "\"JavaScript\"",
+					"matchesTo": "o12a"
+				},
+				{
+					"id": "o12f",
+					"answer": "\"Wert: 42\"",
+					"matchesTo": "o12b"
+				},
+				{
+					"id": "o12g",
+					"answer": "\"73\"",
+					"matchesTo": "o12c"
+				},
+				{
+					"id": "o12h",
+					"answer": "\"10\"",
+					"matchesTo": "o12d"
+				}
+			]
+		}
+	]
+}

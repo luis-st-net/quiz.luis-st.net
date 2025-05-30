@@ -2,6 +2,7 @@
 .idea/
 .next/
 node_modules/
+quizzes/
 util/
 .dockerignore
 .gitignore

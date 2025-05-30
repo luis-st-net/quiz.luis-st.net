@@ -1,0 +1,146 @@
+{
+	"id": "test",
+	"name": "Test",
+	"description": "Ein Quiz, das alle verfügbaren Fragetypen auf dieser Plattform demonstriert.",
+	"config": {
+		"order": 0,
+		"group": "Test"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Form der Erde",
+			"question": "Ist die Erde flach?",
+			"correctAnswer": false
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Quadratwurzelberechnung",
+			"question": "Was ist die Quadratwurzel von 16?",
+			"correctAnswer": 4,
+			"tolerance": 0.001
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Größter Ozean",
+			"question": "Nennen Sie den größten Ozean der Erde.",
+			"minLength": 3,
+			"maxLength": 20
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Hauptstadt von Frankreich",
+			"question": "Was ist die Hauptstadt von Frankreich?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Paris"
+				},
+				{
+					"id": "2",
+					"answer": "Berlin"
+				},
+				{
+					"id": "3",
+					"answer": "Rom"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Primärfarben",
+			"question": "Welche dieser Farben sind Primärfarben?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Rot",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Grün",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "Blau",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Gelb",
+					"isCorrect": true
+				},
+				{
+					"id": "5",
+					"answer": "Lila",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Planetenreihenfolge",
+			"question": "Ordnen Sie diese Planeten in der Reihenfolge von der nächsten zur entferntesten von der Sonne.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Erde",
+					"correctPosition": 2
+				},
+				{
+					"id": "2",
+					"answer": "Merkur",
+					"correctPosition": 0
+				},
+				{
+					"id": "3",
+					"answer": "Venus",
+					"correctPosition": 1
+				},
+				{
+					"id": "4",
+					"answer": "Mars",
+					"correctPosition": 3
+				}
+			]
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Länder und Hauptstädte",
+			"question": "Ordnen Sie diese Länder ihren Hauptstädten zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "USA"
+				},
+				{
+					"id": "2",
+					"answer": "Japan"
+				},
+				{
+					"id": "3",
+					"answer": "Ägypten"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Washington D.C.",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Tokio",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Kairo",
+					"matchesTo": "3"
+				}
+			]
+		}
+	]
+}

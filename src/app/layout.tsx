@@ -7,7 +7,7 @@ import Footer from "@/lib/components/footer";
 import { UserProvider } from "@/lib/contexts/user-context";
 import { QuizProvider } from "@/lib/contexts/quiz-context";
 import { sendMail } from "@/app/actions";
-import { quizzes } from "@/lib/quizzes";
+import { loadQuizzes } from "@/lib/load-quizzes";
 
 export const metadata: Metadata = {
 	title: "Quiz-Website für die HFU",
@@ -17,9 +17,11 @@ export const metadata: Metadata = {
 	publisher: "Luis Staudt",
 };
 
-export default function (
+export default async function RootLayout(
 	{ children }: { children: React.ReactNode },
 ) {
+	const quizzes = await loadQuizzes();
+	
 	return (
 		<html lang="en" suppressHydrationWarning>
 		<body className="min-w-64">

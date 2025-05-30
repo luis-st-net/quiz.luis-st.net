@@ -1,0 +1,309 @@
+{
+	"id": "bp-arrays",
+	"name": "Arrays",
+	"description": "Ein Quiz über Arrays und deren Deklaration und Initialisierung in Java.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung"
+	},
+	"questions": [
+		{
+			"id": "a1",
+			"shortQuestion": "Unterschiedliche Datentypen",
+			"question": "Kann ein Java-Array Elemente unterschiedlicher Datentypen enthalten?",
+			"correctAnswer": false
+		},
+		{
+			"id": "a2",
+			"shortQuestion": "Array-Indizierung",
+			"question": "Die Indizierung eines Arrays beginnt bei 1.",
+			"correctAnswer": false
+		},
+		{
+			"id": "a3",
+			"shortQuestion": "Array-Größe",
+			"question": "Wie viele Elemente hat das Array: int[] zahlen = {5, 10, 15, 20, 25};",
+			"correctAnswer": 5
+		},
+		{
+			"id": "a4",
+			"shortQuestion": "Letzter Index",
+			"question": "Wenn ein Array 8 Elemente hat, was ist der Index des letzten Elements?",
+			"correctAnswer": 7
+		},
+		{
+			"id": "a5",
+			"shortQuestion": "Array-Deklaration",
+			"question": "Welche der folgenden Aussagen deklariert ein Array von 10 Kommazahlen in Java?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "a5a",
+					"answer": "double[] zahlen = new double[10];"
+				},
+				{
+					"id": "a5b",
+					"answer": "double zahlen[10];"
+				},
+				{
+					"id": "a5c",
+					"answer": "double zahlen = new double[10];"
+				},
+				{
+					"id": "a5d",
+					"answer": "double[10] zahlen;"
+				}
+			]
+		},
+		{
+			"id": "a6",
+			"shortQuestion": "Array-Zugriff",
+			"question": "Wie greift man auf das erste Element eines Arrays mit Namen 'array' zu?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "a6a",
+					"answer": "array[0]"
+				},
+				{
+					"id": "a6b",
+					"answer": "array[1]"
+				},
+				{
+					"id": "a6c",
+					"answer": "array(0)"
+				},
+				{
+					"id": "a6d",
+					"answer": "array.first()"
+				}
+			]
+		},
+		{
+			"id": "a7",
+			"shortQuestion": "Array-Zuweisung",
+			"question": "Wie weißt man dem zweiten Element eines Arrays mit Namen 'array' den Wert 42 zu?",
+			"correctAnswerIndex": 2,
+			"answers": [
+				{
+					"id": "a7a",
+					"answer": "array[0] = 42;"
+				},
+				{
+					"id": "a7b",
+					"answer": "array(1) = 42;"
+				},
+				{
+					"id": "a7c",
+					"answer": "array[1] = 42;"
+				},
+				{
+					"id": "a7d",
+					"answer": "array.second() = 42;"
+				}
+			]
+		},
+		{
+			"id": "a8",
+			"shortQuestion": "String-Array",
+			"question": "Wie erstellt man ein Array mit den Wochentagen?",
+			"correctAnswerIndex": 2,
+			"answers": [
+				{
+					"id": "a8a",
+					"answer": "String tage = new String { \"Montag\", \"Dienstag\", \"Mittwoch\" };"
+				},
+				{
+					"id": "a8b",
+					"answer": "String[3] tage = \"Montag\", \"Dienstag\", \"Mittwoch\";"
+				},
+				{
+					"id": "a8c",
+					"answer": "String[] tage = new String[] { \"Montag\", \"Dienstag\", \"Mittwoch\" };"
+				},
+				{
+					"id": "a8d",
+					"answer": "String tage[] = new String[] ( \"Montag\", \"Dienstag\", \"Mittwoch\" );"
+				}
+			]
+		},
+		{
+			"id": "a9",
+			"shortQuestion": "Array-Initialisierung",
+			"question": "Welche der folgenden sind gültige Wege, ein Array in Java zu initialisieren?",
+			"answers": [
+				{
+					"id": "a9a",
+					"answer": "int[] zahlen = new int[5];",
+					"isCorrect": true
+				},
+				{
+					"id": "a9b",
+					"answer": "int[] zahlen = {1, 2, 3, 4, 5};",
+					"isCorrect": true
+				},
+				{
+					"id": "a9c",
+					"answer": "int zahlen[] = new int[5];",
+					"isCorrect": true
+				},
+				{
+					"id": "a9d",
+					"answer": "int[5] zahlen = new int[];",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "a10",
+			"shortQuestion": "Array-Typen",
+			"question": "Welche der folgenden Arrays können in Java erstellt werden?",
+			"answers": [
+				{
+					"id": "a10a",
+					"answer": "int[] zahlen",
+					"isCorrect": true
+				},
+				{
+					"id": "a10b",
+					"answer": "double[] werte",
+					"isCorrect": true
+				},
+				{
+					"id": "a10c",
+					"answer": "char[] buchstaben",
+					"isCorrect": true
+				},
+				{
+					"id": "a10d",
+					"answer": "boolean[] wahrheitswerte",
+					"isCorrect": true
+				},
+				{
+					"id": "a10e",
+					"answer": "String[] texte",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "a11",
+			"shortQuestion": "Array-Konzepte",
+			"question": "Ordnen Sie die Array-Konzepte den entsprechenden Beschreibungen zu:",
+			"items": [
+				{
+					"id": "a11a",
+					"answer": "array.length"
+				},
+				{
+					"id": "a11b",
+					"answer": "array[0]"
+				},
+				{
+					"id": "a11c",
+					"answer": "new double[10]"
+				},
+				{
+					"id": "a11d",
+					"answer": "double[] array"
+				}
+			],
+			"matches": [
+				{
+					"id": "a11e",
+					"answer": "Gibt die Anzahl der Elemente zurück",
+					"matchesTo": "a11a"
+				},
+				{
+					"id": "a11f",
+					"answer": "Greift auf das erste Element zu",
+					"matchesTo": "a11b"
+				},
+				{
+					"id": "a11g",
+					"answer": "Erstellt ein Array mit 10 Elementen",
+					"matchesTo": "a11c"
+				},
+				{
+					"id": "a11h",
+					"answer": "Deklariert ein Array",
+					"matchesTo": "a11d"
+				}
+			]
+		},
+		{
+			"id": "a12",
+			"shortQuestion": "Arrays verschiedener Typen",
+			"question": "Ordnen Sie die Array-Deklarationen den korrekten Beispielwerten zu:",
+			"items": [
+				{
+					"id": "a12a",
+					"answer": "int[] zahlen = new int[]"
+				},
+				{
+					"id": "a12b",
+					"answer": "double[] werte = new double[]"
+				},
+				{
+					"id": "a12c",
+					"answer": "char[] buchstaben = new char[]"
+				},
+				{
+					"id": "a12d",
+					"answer": "boolean[] flags = new boolean[]"
+				},
+				{
+					"id": "a12e",
+					"answer": "String[] namen = new String[]"
+				}
+			],
+			"matches": [
+				{
+					"id": "a12f",
+					"answer": "{1, 2, 3, 4, 5};",
+					"matchesTo": "a12a"
+				},
+				{
+					"id": "a12g",
+					"answer": "{3.14, 2.71, 9.81};",
+					"matchesTo": "a12b"
+				},
+				{
+					"id": "a12h",
+					"answer": "{'J', 'a', 'v', 'a'};",
+					"matchesTo": "a12c"
+				},
+				{
+					"id": "a12i",
+					"answer": "{true, false, true};",
+					"matchesTo": "a12d"
+				},
+				{
+					"id": "a12j",
+					"answer": "{\"Anna\", \"Max\", \"Tom\"};",
+					"matchesTo": "a12e"
+				}
+			]
+		},
+		{
+			"id": "v13",
+			"shortQuestion": "Deklaration",
+			"question": "Was stellt folgender Ausdruck dar: DatenTyp[] ArrayName = Wert[Größe];",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "v13a",
+					"answer": "Dieser Ausdruck ist Syntax Fehlerfrei und kann direkt in Java verwendet werden."
+				},
+				{
+					"id": "v13b",
+					"answer": "Dies ist ein Muster für die Deklaration eines Arrays mit einer definierten Größe."
+				},
+				{
+					"id": "v13c",
+					"answer": "Der Ausdruck hat in der Programmiersprache Java keine Bedeutung."
+				}
+			]
+		}
+	]
+}

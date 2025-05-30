@@ -1,0 +1,317 @@
+{
+	"id": "bp-variables",
+	"name": "Variablen",
+	"description": "Ein Quiz über Datentypen sowie die Deklaration und Initialisierung von Variablen in Java.",
+	"config": {
+		"order": 0,
+		"group": "Grundlagen der Programmierung"
+	},
+	"questions": [
+		{
+			"id": "v1",
+			"shortQuestion": "Datentyp ändern",
+			"question": "Kann eine Variable in Java ihren Datentyp nach der Deklaration ändern?",
+			"correctAnswer": false
+		},
+		{
+			"id": "v2",
+			"shortQuestion": "Addition von Variablen",
+			"question": "Wenn int a = 7; und int b = 3; definiert sind, was ist der Wert von a + b?",
+			"correctAnswer": 10
+		},
+		{
+			"id": "v3",
+			"shortQuestion": "Ganzzahl-Datentyp",
+			"question": "Welcher Datentyp wird für ganze Zahlen verwendet?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "v3a",
+					"answer": "int"
+				},
+				{
+					"id": "v3b",
+					"answer": "double"
+				},
+				{
+					"id": "v3c",
+					"answer": "char"
+				},
+				{
+					"id": "v3d",
+					"answer": "boolean"
+				}
+			]
+		},
+		{
+			"id": "v4",
+			"shortQuestion": "Dezimalzahl-Datentyp",
+			"question": "Welcher Datentyp eignet sich am besten für die Speicherung der Zahl 3.14?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "v4a",
+					"answer": "double"
+				},
+				{
+					"id": "v4b",
+					"answer": "int"
+				},
+				{
+					"id": "v4c",
+					"answer": "char"
+				},
+				{
+					"id": "v4d",
+					"answer": "boolean"
+				}
+			]
+		},
+		{
+			"id": "v5",
+			"shortQuestion": "Primitive Datentypen",
+			"question": "Welche der folgenden sind primitive Datentypen in Java?",
+			"answers": [
+				{
+					"id": "v5a",
+					"answer": "int",
+					"isCorrect": true
+				},
+				{
+					"id": "v5b",
+					"answer": "double",
+					"isCorrect": true
+				},
+				{
+					"id": "v5c",
+					"answer": "String",
+					"isCorrect": false
+				},
+				{
+					"id": "v5d",
+					"answer": "boolean",
+					"isCorrect": true
+				},
+				{
+					"id": "v5e",
+					"answer": "char",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "v6",
+			"shortQuestion": "Datentypen zuordnen",
+			"question": "Ordnen Sie die Datentypen den entsprechenden Werten zu:",
+			"items": [
+				{
+					"id": "v6a",
+					"answer": "int"
+				},
+				{
+					"id": "v6b",
+					"answer": "double"
+				},
+				{
+					"id": "v6c",
+					"answer": "char"
+				},
+				{
+					"id": "v6d",
+					"answer": "boolean"
+				},
+				{
+					"id": "v6e",
+					"answer": "String"
+				}
+			],
+			"matches": [
+				{
+					"id": "v6f",
+					"answer": "42",
+					"matchesTo": "v6a"
+				},
+				{
+					"id": "v6g",
+					"answer": "3.14",
+					"matchesTo": "v6b"
+				},
+				{
+					"id": "v6h",
+					"answer": "'A'",
+					"matchesTo": "v6c"
+				},
+				{
+					"id": "v6i",
+					"answer": "true",
+					"matchesTo": "v6d"
+				},
+				{
+					"id": "v6j",
+					"answer": "\"Hallo Welt\"",
+					"matchesTo": "v6e"
+				}
+			]
+		},
+		{
+			"id": "v7",
+			"shortQuestion": "Datentypen zuordnen",
+			"question": "Ordnen Sie die Datentypen den entsprechenden Werten zu:",
+			"items": [
+				{
+					"id": "v7a",
+					"answer": "int"
+				},
+				{
+					"id": "v7b",
+					"answer": "double"
+				},
+				{
+					"id": "v7c",
+					"answer": "char"
+				},
+				{
+					"id": "v7d",
+					"answer": "boolean"
+				},
+				{
+					"id": "v7e",
+					"answer": "String"
+				}
+			],
+			"matches": [
+				{
+					"id": "v7f",
+					"answer": "-600",
+					"matchesTo": "v7a"
+				},
+				{
+					"id": "v7h",
+					"answer": "'\\\\'",
+					"matchesTo": "v7c"
+				},
+				{
+					"id": "v7g",
+					"answer": "-.4",
+					"matchesTo": "v7b"
+				},
+				{
+					"id": "v7i",
+					"answer": "false",
+					"matchesTo": "v7d"
+				},
+				{
+					"id": "v7j",
+					"answer": "\"Test\"",
+					"matchesTo": "v7e"
+				}
+			]
+		},
+		{
+			"id": "v8",
+			"shortQuestion": "Wertzuweisung zuordnen",
+			"question": "Ordnen Sie die Variablendeklarationen den korrekten Wertzuweisungen zu:",
+			"items": [
+				{
+					"id": "v8a",
+					"answer": "int zahl;"
+				},
+				{
+					"id": "v8b",
+					"answer": "double wert;"
+				},
+				{
+					"id": "v8c",
+					"answer": "char buchstabe;"
+				},
+				{
+					"id": "v8d",
+					"answer": "boolean wahr;"
+				},
+				{
+					"id": "v8e",
+					"answer": "String text;"
+				}
+			],
+			"matches": [
+				{
+					"id": "v8f",
+					"answer": "zahl = 100;",
+					"matchesTo": "v8a"
+				},
+				{
+					"id": "v8g",
+					"answer": "wert = 9.99;",
+					"matchesTo": "v8b"
+				},
+				{
+					"id": "v8h",
+					"answer": "buchstabe = 'Z';",
+					"matchesTo": "v8c"
+				},
+				{
+					"id": "v8i",
+					"answer": "wahr = false;",
+					"matchesTo": "v8d"
+				},
+				{
+					"id": "v8j",
+					"answer": "text = \"Java\";",
+					"matchesTo": "v8e"
+				}
+			]
+		},
+		{
+			"id": "v9",
+			"shortQuestion": "Syntax-Fehler",
+			"question": "Welche der folgenden Deklarationen enthält einen Syntax-Fehler?",
+			"answers": [
+				{
+					"id": "v9a",
+					"answer": "int i = 45.0;",
+					"isCorrect": true
+				},
+				{
+					"id": "v9b",
+					"answer": "double = 36;",
+					"isCorrect": true
+				},
+				{
+					"id": "v9c",
+					"answer": "String s = 'A';",
+					"isCorrect": true
+				},
+				{
+					"id": "v9d",
+					"answer": "boolean = True;",
+					"isCorrect": true
+				},
+				{
+					"id": "v9e",
+					"answer": "char c = \"X\"",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "v10",
+			"shortQuestion": "Deklaration",
+			"question": "Was stellt folgender Ausdruck dar: DatenTyp Name = Wert;",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "v10a",
+					"answer": "Dieser Ausdruck ist Syntax Fehlerfrei und kann direkt in Java verwendet werden."
+				},
+				{
+					"id": "v10b",
+					"answer": "Dies ist ein Muster für die Deklaration und Zuweisung einer Variable in Java."
+				},
+				{
+					"id": "v10c",
+					"answer": "Der Ausdruck hat in der Programmiersprache Java keine Bedeutung."
+				}
+			]
+		}
+	]
+}
