@@ -77,7 +77,19 @@ export interface Quiz {
 	id: string;
 	name: string;
 	description: string;
+	config: QuizConfig;
 	questions: Question[];
+}
+
+export interface QuizConfig {
+	order: number;
+	group: string;
+}
+
+export interface QuizGroup {
+	name: string;
+	quizzes: Quiz[];
+	subgroups: Map<string, QuizGroup>;
 }
 
 export interface Question {
