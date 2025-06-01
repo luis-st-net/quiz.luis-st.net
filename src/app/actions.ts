@@ -31,7 +31,7 @@ export async function sendMail(name: string | undefined, mail: string | undefine
 		const mailOptions: Mail.Options = {
 			from: process.env.SMTP_USER,
 			to: recipients,
-			subject: "Quiz " + quiz + " abgeschlossen von" + name,
+			subject: "Quiz " + quiz + " abgeschlossen von " + name,
 			text: text,
 			html: html,
 		};
@@ -62,7 +62,6 @@ function getText(name: string, quiz: string, answers: Record<string, QuestionInp
 			
 			text += `Antwort: ${questionInput.inputAnswer ? "Wahr" : "Falsch"}\n`;
 			text += `Richtige Antwort: ${questionInput.correctAnswer ? "Wahr" : "Falsch"}\n`;
-			
 		} else if (question.type === "numeric") {
 			const questionInput = question as NumericQuestionInput;
 			
@@ -72,32 +71,28 @@ function getText(name: string, quiz: string, answers: Record<string, QuestionInp
 				text += ` (±${questionInput.tolerance})`;
 			}
 			text += "\n";
-			
 		} else if (question.type === "text") {
 			const questionInput = question as TextQuestionInput;
 			text += `Antwort: ${questionInput.inputAnswer}\n`;
-			
 		} else if (question.type === "single-choice") {
 			const questionInput = question as SingleChoiceQuestionInput;
 			
 			text += `Antwort: ${questionInput.answers[questionInput.inputAnswer]}\n`;
 			text += `Richtige Antwort: ${questionInput.answers[questionInput.correctAnswerIndex]}\n`;
-			
 		} else if (question.type === "multiple-choice") {
 			const questionInput = question as MultipleChoiceQuestionInput;
 			
 			text += "Gewählte Antworten:\n";
-			questionInput.inputAnswer.forEach(index => {
-				text += `- ${questionInput.answers[index].answer}\n`;
+			questionInput.inputAnswer.forEach(value => {
+				text += `- ${questionInput.answers[value].answer}\n`;
 			});
 			
 			text += "Richtige Antworten:\n";
-			questionInput.answers.forEach((answer) => {
+			questionInput.answers.forEach(answer => {
 				if (answer.isCorrect) {
 					text += `- ${answer.answer}\n`;
 				}
 			});
-			
 		} else if (question.type === "ordering") {
 			const questionInput = question as OrderingQuestionInput;
 			
@@ -110,7 +105,6 @@ function getText(name: string, quiz: string, answers: Record<string, QuestionInp
 			questionInput.correctAnswerOrder.forEach((item, index) => {
 				text += `${index + 1}. ${item}\n`;
 			});
-			
 		} else if (question.type === "matching") {
 			const questionInput = question as MatchingQuestionInput;
 			text += "Deine Zuordnungen:\n";
@@ -170,30 +164,27 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 				html += ` (±${questionInput.tolerance})`;
 			}
 			html += `</div>`;
-			
 		} else if (question.type === "text") {
 			const questionInput = question as TextQuestionInput;
 			
 			const answer = questionInput.inputAnswer.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
 			html += `<div class="answer">Antwort: <span class="unknown">${answer}</span></div>`;
-			
 		} else if (question.type === "single-choice") {
 			const questionInput = question as SingleChoiceQuestionInput;
 			
 			html += `<div class="answer">Deine Antwort: <span class="${questionInput.inputAnswer === questionInput.correctAnswerIndex ? "correct" : "incorrect"}">${questionInput.answers[questionInput.inputAnswer]}</span></div>`;
 			html += `<div class="answer">Richtige Antwort: <span class="correct">${questionInput.answers[questionInput.correctAnswerIndex]}</span></div>`;
-			
 		} else if (question.type === "multiple-choice") {
 			const questionInput = question as MultipleChoiceQuestionInput;
 			
 			html += `<div class="answer">Deine Antworten:<ul>`;
-			questionInput.inputAnswer.forEach(index => {
-				const isCorrect = questionInput.answers[index].isCorrect;
-				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${questionInput.answers[index].answer}</li>`;
+			questionInput.inputAnswer.forEach(value => {
+				const isCorrect = questionInput.answers[value].isCorrect;
+				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${questionInput.answers[value].answer}</li>`;
 			});
 			
 			html += `</ul></div><div class="answer">Richtige Antworten:<ul>`;
-			questionInput.answers.forEach((answer) => {
+			questionInput.answers.forEach(answer => {
 				if (answer.isCorrect) {
 					html += `<li class="correct">${answer.answer}</li>`;
 				}
@@ -214,7 +205,6 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 				html += `<li class="correct">${item}</li>`;
 			});
 			html += `</ol></div>`;
-			
 		} else if (question.type === "matching") {
 			const questionInput = question as MatchingQuestionInput;
 			
