@@ -10,11 +10,11 @@ export default function () {
 	
 	return (
 		<div className="w-full flex flex-col items-center mt-16 mb-8">
-			<h1 className="text-2xl mb-16 mx-2 text-center xxs:text-3xl xs:text-4xl">
+			<h3 className="text-2xl mb-16 mx-2 text-center xxs:text-3xl xs:text-4xl">
 				<strong>
 					Fragen des Quiz
 				</strong>
-			</h1>
+			</h3>
 			<div className="w-4/5 flex flex-wrap gap-6 lg:w-1/2 2xl:w-1/4">
 				{questions.map((question, index) => (
 					<QuestionItem key={question.id} quizId={quizId} index={index} {...question} />

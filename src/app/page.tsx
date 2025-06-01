@@ -15,12 +15,12 @@ export default function () {
 	
 	return (
 		<div className="w-full flex flex-col items-center mt-8 mb-8 sm:mt-16">
-			<h1 className="text-2xl mb-8 mx-2 text-center xxs:text-3xl xs:text-4xl sm:mb-16">
+			<h3 className="text-2xl mb-8 mx-2 text-center xxs:text-3xl xs:text-4xl sm:mb-16">
 				<strong>
 					Wählen Sie ein Quiz aus
 				</strong>
-			</h1>
 			<div className="w-4/5 flex flex-col gap-2 lg:w-1/2 2xl:w-1/4">
+			</h3>
 				<QuizGroup node={rootNode} level={0}/>
 			</div>
 		</div>
