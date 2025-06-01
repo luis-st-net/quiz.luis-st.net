@@ -76,10 +76,8 @@ export function QuestionProvider(
 	
 	const finishQuiz = useCallback(async () => {
 		await onCompleteAction(answers);
-		setAnswers({});
-		sessionStorage.removeItem(storageKey);
-		router.push("/");
-	}, [onCompleteAction, answers, setAnswers, storageKey]);
+		router.push("/" + quizId + "/result");
+	}, [onCompleteAction, answers, storageKey]);
 	//endregion
 	
 	//region Answer management
