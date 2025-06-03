@@ -1,0 +1,294 @@
+{
+	"id": "bp-loops",
+	"name": "Schleifen",
+	"description": "Ein Quiz über for- und while-Schleifen in Java.",
+	"config": {
+		"order": 4,
+		"group": "Grundlagen der Programmierung"
+	},
+	"questions": [
+		{
+			"id": "l1",
+			"shortQuestion": "For-Schleife",
+			"question": "Wie oft wird folgender Code ausgeführt? for (int i = 0; i < 5; i++) { System.out.println(i); }",
+			"correctAnswer": 5
+		},
+		{
+			"id": "l2",
+			"shortQuestion": "While-Schleife Bedingung",
+			"question": "Wird eine while-Schleife ausgeführt, wenn die Bedingung von Anfang an falsch ist?",
+			"correctAnswer": false
+		},
+		{
+			"id": "l3",
+			"shortQuestion": "For-Schleife Syntax",
+			"question": "Welche der folgenden for-Schleifen ist syntaktisch korrekt?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "l3a",
+					"answer": "for (int i = 0; i < 10; i++)"
+				},
+				{
+					"id": "l3b",
+					"answer": "for (i = 0; i < 10; i++)"
+				},
+				{
+					"id": "l3c",
+					"answer": "for int i = 0; i < 10; i++"
+				},
+				{
+					"id": "l3d",
+					"answer": "for (int i = 0, i < 10, i++)"
+				}
+			]
+		},
+		{
+			"id": "l4",
+			"shortQuestion": "While-Schleife Syntax",
+			"question": "Welche der folgenden while-Schleifen ist syntaktisch korrekt?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "l4a",
+					"answer": "while i < 10"
+				},
+				{
+					"id": "l4b",
+					"answer": "while (i < 10)"
+				},
+				{
+					"id": "l4c",
+					"answer": "while [i < 10]"
+				},
+				{
+					"id": "l4d",
+					"answer": "while {i < 10}"
+				}
+			]
+		},
+		{
+			"id": "l5",
+			"shortQuestion": "While-Schleife",
+			"question": "Wie oft wird folgender Code ausgeführt? int i = 3; while (i > 0) { System.out.println(i); i--; }",
+			"correctAnswer": 3
+		},
+		{
+			"id": "l6",
+			"shortQuestion": "Schleifentypen",
+			"question": "Welche der folgenden Schleifen sind gültige Schleifentypen in Java?",
+			"answers": [
+				{
+					"id": "l6a",
+					"answer": "for",
+					"isCorrect": true
+				},
+				{
+					"id": "l6b",
+					"answer": "while",
+					"isCorrect": true
+				},
+				{
+					"id": "l6c",
+					"answer": "repeat",
+					"isCorrect": false
+				},
+				{
+					"id": "l6d",
+					"answer": "foreach",
+					"isCorrect": false
+				},
+				{
+					"id": "l6e",
+					"answer": "loop",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "l7",
+			"shortQuestion": "Schleifen zuordnen",
+			"question": "Ordnen Sie die Schleifentypen ihren Eigenschaften zu:",
+			"items": [
+				{
+					"id": "l7a",
+					"answer": "for-Schleife"
+				},
+				{
+					"id": "l7b",
+					"answer": "while-Schleife"
+				}
+			],
+			"matches": [
+				{
+					"id": "l7d",
+					"answer": "Verwendet drei Komponenten in den Klammern",
+					"matchesTo": "l7a"
+				},
+				{
+					"id": "l7e",
+					"answer": "Prüft Bedingung vor jedem Durchlauf",
+					"matchesTo": "l7b"
+				}
+			]
+		},
+		{
+			"id": "l8",
+			"shortQuestion": "Code-Ausgabe",
+			"question": "Ordnen Sie die Code-Snippets ihren Ausgaben zu:",
+			"items": [
+				{
+					"id": "l8a",
+					"answer": "for(int i=1; i<=3; i++) System.out.print(i);"
+				},
+				{
+					"id": "l8b",
+					"answer": "int i=5; while(i>3) { System.out.print(i); i--; }"
+				},
+				{
+					"id": "l8c",
+					"answer": "for(int i=0; i<4; i+=2) System.out.print(i);"
+				},
+				{
+					"id": "l8d",
+					"answer": "int x=1; while(x<=2) { System.out.print(x); x++; }"
+				}
+			],
+			"matches": [
+				{
+					"id": "l8e",
+					"answer": "123",
+					"matchesTo": "l10a"
+				},
+				{
+					"id": "l8f",
+					"answer": "54",
+					"matchesTo": "l10b"
+				},
+				{
+					"id": "l8g",
+					"answer": "02",
+					"matchesTo": "l10c"
+				},
+				{
+					"id": "l8h",
+					"answer": "12",
+					"matchesTo": "l10d"
+				}
+			]
+		},
+		{
+			"id": "l9",
+			"shortQuestion": "Endlosschleife",
+			"question": "Welche der folgenden Codes erzeugen eine Endlosschleife?",
+			"answers": [
+				{
+					"id": "l9a",
+					"answer": "for(int i=0; i<10; i++) { }",
+					"isCorrect": false
+				},
+				{
+					"id": "l9b",
+					"answer": "while(true) { }",
+					"isCorrect": true
+				},
+				{
+					"id": "l9c",
+					"answer": "for(int i=10; i>0; i--) { }",
+					"isCorrect": false
+				},
+				{
+					"id": "l9d",
+					"answer": "int i=0; while(i<5) { System.out.println(i); i++; }",
+					"isCorrect": false
+				},
+				{
+					"id": "l9e",
+					"answer": "for(;;) { }",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "l10",
+			"shortQuestion": "Verschachtelte Schleifen",
+			"question": "Wie oft wird \"Hallo\" ausgegeben? for(int i=0; i<2; i++) { for(int j=0; j<3; j++) { System.out.println(\"Hallo\"); } }",
+			"correctAnswer": 6
+		},
+		{
+			"id": "l11",
+			"shortQuestion": "For-Schleife Increment",
+			"question": "Was gibt folgender Code aus? for(int i=0; i<3; i++) { System.out.print(i); }",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "l11a",
+					"answer": "012"
+				},
+				{
+					"id": "l11b",
+					"answer": "123"
+				},
+				{
+					"id": "l11c",
+					"answer": "0123"
+				},
+				{
+					"id": "l11d",
+					"answer": "Nichts"
+				}
+			]
+		},
+		{
+			"id": "l12",
+			"shortQuestion": "For-Schleife Increment",
+			"question": "Was gibt folgender Code aus? for(int i=0; i>3; i++) { System.out.print(i); }",
+			"correctAnswerIndex": 3,
+			"answers": [
+				{
+					"id": "l12a",
+					"answer": "012"
+				},
+				{
+					"id": "l12b",
+					"answer": "123"
+				},
+				{
+					"id": "l12c",
+					"answer": "0123"
+				},
+				{
+					"id": "l12d",
+					"answer": "Nichts"
+				}
+			]
+		},
+		{
+			"id": "l14",
+			"shortQuestion": "Beste Verwendung",
+			"question": "Ordnen Sie die Schleifentypen ihren besten Verwendungszwecken zu:",
+			"items": [
+				{
+					"id": "l14a",
+					"answer": "for-Schleife"
+				},
+				{
+					"id": "l14b",
+					"answer": "while-Schleife"
+				}
+			],
+			"matches": [
+				{
+					"id": "l14c",
+					"answer": "Schleife für das Zählen bis zu einem Wert x",
+					"matchesTo": "l14a"
+				},
+				{
+					"id": "l14d",
+					"answer": "Endloses wiederholen von Anweisungen",
+					"matchesTo": "l14b"
+				}
+			]
+		}
+	]
+}
