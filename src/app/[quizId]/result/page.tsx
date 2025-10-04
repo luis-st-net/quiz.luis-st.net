@@ -1,6 +1,7 @@
 "use client";
 
 import ContentPane from "@/lib/components/content-pane";
+import * as Ui from "@/lib/components/ui/";
 import React from "react";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
@@ -14,27 +15,38 @@ export default function () {
 	if (!quiz) {
 		return (
 			<ContentPane className="w-4/5 bg-custom-red lg:w-2/3 2xl:w-1/3">
-				<div className="m-1 text-lg">
-					Quiz wurde nicht gefunden
-				</div>
+				<h3 className="m-1 text-2xl">
+					<strong>
+						Quiz wurde nicht gefunden
+					</strong>
+				</h3>
 			</ContentPane>
 		);
 	}
 	
 	return (
 		<div className="w-4/5 my-16 lg:w-2/3 2xl:w-1/3">
-			<ContentPane defaultSpacing={false} defaultColor={true} className="mb-8">
+			<ContentPane defaultSpacing={false} defaultColor={true}>
 				<div className="p-4">
-					<div className="m-1">
-						{quiz.name} - Ergebnis
-					</div>
+					<h3 className="m-1 text-2xl">
+						<strong>
+							{quiz.name} - Ergebnisse
+						</strong>
+					</h3>
 				</div>
 			</ContentPane>
-			<div className="flex flex-col gap-4 mx-8">
+			<div className="flex flex-col gap-4 m-8">
 				{Object.entries(getAllAnswers()).map(([item, match]) => (
 					<QuestionResult key={item} input={match}/>
 				))}
 			</div>
+			<ContentPane defaultSpacing={false} defaultColor={true}>
+				<div className="p-4">
+					<div>
+					
+					</div>
+				</div>
+			</ContentPane>
 		</div>
 	);
 }
@@ -45,9 +57,10 @@ function QuestionResult(
 	return (
 		<ContentPane defaultSpacing={false} defaultColor={true}>
 			<div className="p-4">
-				<div className="question-text">
+				<h4 className="mb-2.5 text-xl">
 					{input.question}
-				</div>
+				</h4>
+				<Ui.Separator className="mb-2.5 h-0.5"/>
 				<DynamicQuestionResult input={input}/>
 			</div>
 		</ContentPane>
@@ -73,7 +86,7 @@ function DynamicQuestionResult(
 		return <MatchingQuestionResult {...(input as MatchingQuestionInput)}/>;
 	} else {
 		return (
-			<div>
+			<div className="text-custom-red">
 				Unbekannter Frage-Typ: {input.type}
 			</div>
 		);
@@ -85,15 +98,15 @@ function TrueFalseQuestionResult(
 ) {
 	return (
 		<>
-			<div className="answer">
+			<div className="mb-1 ml-3.5">
 				Deine Antwort:{" "}
-				<span className={inputAnswer === correctAnswer ? "correct" : "incorrect"}>
+				<span className={inputAnswer === correctAnswer ? "text-custom-green" : "text-custom-red"}>
 					{inputAnswer ? "Wahr" : "Falsch"}
 				</span>
 			</div>
-			<div className="answer">
+			<div className="ml-3.5">
 				Richtige Antwort:{" "}
-				<span className="correct">
+				<span className="text-custom-green">
 					{correctAnswer ? "Wahr" : "Falsch"}
 				</span>
 			</div>
@@ -108,15 +121,15 @@ function NumericQuestionResult(
 	
 	return (
 		<>
-			<div className="answer">
+			<div className="mb-1 ml-3.5">
 				Deine Antwort:{" "}
-				<span className={isCorrect ? "correct" : "incorrect"}>
+				<span className={isCorrect ? "text-custom-green" : "text-custom-red"}>
 					{inputAnswer}
 				</span>
 			</div>
-			<div className="answer">
+			<div className="ml-3.5">
 				Richtige Antwort:{" "}
-				<span className="correct">
+				<span className="text-custom-green">
 					{correctAnswer}
 				</span>
 				{tolerance ? " (±" + tolerance + ")" : ""}
@@ -132,11 +145,11 @@ function TextQuestionResult(
 	
 	return (
 		<>
-			<div className="answer">
-				Antwort:{" "}
-				<span className="unknown">
-					{answer}
-				</span>
+			<div className="ml-3.5">
+				Antwort:
+			</div>
+			<div className="ml-3.5 text-custom-orange">
+				{answer}
 			</div>
 		</>
 	);
@@ -147,15 +160,15 @@ function SingleChoiceQuestionResult(
 ) {
 	return (
 		<>
-			<div className="answer">
+			<div className="mb-1 ml-3.5">
 				Deine Antwort:{" "}
-				<span className={inputAnswer === correctAnswerIndex ? " correct" : " incorrect"}>
+				<span className={inputAnswer === correctAnswerIndex ? " text-custom-green" : " text-custom-red"}>
 					{answers[inputAnswer]}
 				</span>
 			</div>
-			<div className="answer">
+			<div className="ml-3.5">
 				Richtige Antwort:{" "}
-				<span className="correct">
+				<span className="text-custom-green">
 					{answers[correctAnswerIndex]}
 				</span>
 			</div>
@@ -168,22 +181,30 @@ function MultipleChoiceQuestionResult(
 ) {
 	return (
 		<>
-			<div className="answer">
-				Deine Antworten:
-				<ul>
+			<div className="mb-1 ml-3.5">
+				<p>
+					Deine Antworten:
+				</p>
+				<ul className="my-2 ml-8 list-disc">
 					{inputAnswer.map(value => (
-						<li key={value} className={answers[value].isCorrect ? "correct" : "incorrect"}>
+						<li key={value} className="list-item">
+						<span className={answers[value].isCorrect ? "text-custom-green" : "text-custom-red"}>
 							{answers[value].answer}
+						</span>
 						</li>
 					))}
 				</ul>
 			</div>
-			<div className="answer">
-				Richtige Antworten:
-				<ul>
+			<div className="ml-3.5">
+				<p>
+					Richtige Antworten:
+				</p>
+				<ul className="my-2 ml-8 list-disc">
 					{answers.filter(answer => answer.isCorrect).map((answer, index) => (
-						<li key={index} className="correct">
+						<li key={index} className="list-item">
+						<span className="text-custom-green">
 							{answer.answer}
+						</span>
 						</li>
 					))}
 				</ul>
@@ -197,26 +218,34 @@ function OrderingQuestionResult(
 ) {
 	return (
 		<>
-			<div className="answer">
-				Deine Reihenfolge:
-				<ol>
+			<div className="mb-1 ml-3.5">
+				<p>
+					Deine Reihenfolge:
+				</p>
+				<ol className="my-2 ml-8 list-decimal">
 					{inputAnswer.map((itemIndex, arrayIndex) => {
 						const item = items[itemIndex];
 						const isCorrect = item === correctAnswerOrder[arrayIndex];
 						return (
-							<li key={itemIndex} className={isCorrect ? "correct" : "incorrect"}>
+							<li key={itemIndex} className="list-item">
+							<span className={isCorrect ? "text-custom-green" : "text-custom-red"}>
 								{item}
+							</span>
 							</li>
 						);
 					})}
 				</ol>
 			</div>
-			<div className="answer">
-				Richtige Reihenfolge:
-				<ol>
+			<div className="ml-3.5">
+				<p>
+					Richtige Reihenfolge:
+				</p>
+				<ol className="my-2 ml-8 list-decimal">
 					{correctAnswerOrder.map((item, index) => (
-						<li key={index} className="correct">
+						<li key={index} className="list-item">
+						<span className="text-custom-green">
 							{item}
+						</span>
 						</li>
 					))}
 				</ol>
@@ -230,25 +259,42 @@ function MatchingQuestionResult(
 ) {
 	return (
 		<>
-			<div className="answer">
-				Deine Zuordnungen:
-				<ul>
+			<div className="mb-1 ml-3.5">
+				<p>
+					Deine Zuordnungen:
+				</p>
+				<ul className="my-2 ml-8 list-disc">
 					{Object.entries(inputMatches).map(([item, match]) => {
 						const isCorrect = correctMatches[item] === match;
 						return (
-							<li key={item} className={isCorrect ? "correct" : "incorrect"}>
-								{item} → {match}
+							<li key={item} className="list-item">
+								<span className={isCorrect ? "text-custom-green" : "text-custom-red"}>
+									{item}
+								</span>
+								{" "}→{" "}
+								<span className={isCorrect ? "text-custom-green" : "text-custom-red"}>
+									{match}
+								</span>
 							</li>
 						);
 					})}
 				</ul>
 			</div>
-			<div className="answer">
-				Richtige Zuordnungen:
-				<ul>
+			
+			<div className="ml-3.5">
+				<p>
+					Richtige Zuordnungen:
+				</p>
+				<ul className="my-2 ml-8 list-disc">
 					{Object.entries(correctMatches).map(([item, match]) => (
-						<li key={item} className="correct">
-							{item} → {match}
+						<li key={item} className="list-item">
+							<span className="text-custom-green">
+								{item}
+							</span>
+							{" "}→{" "}
+							<span className="text-custom-green">
+								{match}
+							</span>
 						</li>
 					))}
 				</ul>

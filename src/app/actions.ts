@@ -138,7 +138,6 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
         .correct { color: #27ae60; }
         .incorrect { color: #e74c3c; }
         .unknown { color: #f39c12; }
-        .divider { height: 1px; background: #eee; margin: 15px 0; }
       </style>
     </head>
     <body>

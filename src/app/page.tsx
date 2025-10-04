@@ -15,12 +15,12 @@ export default function () {
 	
 	return (
 		<div className="w-full flex flex-col items-center mt-8 mb-8 sm:mt-16">
-			<h1 className="text-2xl mb-8 mx-2 text-center xxs:text-3xl xs:text-4xl sm:mb-16">
+			<h3 className="text-2xl mb-8 mx-2 text-center xxs:text-3xl xs:text-4xl sm:mb-16">
 				<strong>
 					Wählen Sie ein Quiz aus
 				</strong>
-			</h1>
-			<div className="w-4/5 flex flex-col gap-2 lg:w-1/2 2xl:w-1/4">
+			</h3>
+			<div className="w-4/5 flex flex-col gap-2 m-4 lg:w-1/2 2xl:w-1/4">
 				<QuizGroup node={rootNode} level={0}/>
 			</div>
 		</div>
@@ -34,7 +34,7 @@ function QuizGroup(
 	return (
 		<div
 			style={{ "--level": `${level}` } as React.CSSProperties}
-			className={cn("w-full flex flex-col pl-[calc(var(--level)*1.5rem)]", level === 0 ? "gap-4" : "gap-3 my-3")}
+			className={cn("flex flex-col m-4 pl-[calc(var(--level)*1.5rem)]", level === 0 ? "gap-4" : "gap-3 my-3")}
 		>
 			{sortedSubgroups.map(([name, subgroup]) => (
 				<CollapsibleQuizGroup key={name} group={subgroup} level={level}/>
@@ -54,7 +54,7 @@ function CollapsibleQuizGroup(
 	
 	return (
 		<Ui.Collapsible open={isOpen} onOpenChange={setIsOpen}>
-			<Ui.CollapsibleTrigger className="w-full">
+			<Ui.CollapsibleTrigger className="w-full pr-4">
 				<ContentPane defaultColor={true} defaultSpacing={false} className="w-full">
 					<div className="flex items-center gap-2 p-3 text-start text-sm tiny:p-4 tiny:text-base sm:text-xl">
 						<ChevronRight className={cn("size-4 transition-transform", isOpen ? "rotate-90" : "")}/>
