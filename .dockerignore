@@ -5,6 +5,7 @@ node_modules/
 quizzes/
 util/
 .dockerignore
+.env
 .gitignore
 Dockerfile
 README.md

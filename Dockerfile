@@ -1,4 +1,4 @@
-# Build image on host:
+# Build image on host (windows only):
 #  docker buildx build --load --platform linux/arm64 -t quiz-web:<version> .
 #  docker save -o D:\Programmieren\Docker\Images\Quiz-Website\quiz-web-<version>.tar quiz-web
 #  docker load -i ./quiz-web-<version>.tar
@@ -8,7 +8,6 @@
 #  docker stop quiz-web
 #  docker rm quiz-web
 #  docker run -d -p 3000:3000 --restart unless-stopped --name quiz-web quiz-web:<version>
-
 # With docker compose:
 #  docker compose up -d --build
 #  docker compose down
