@@ -118,7 +118,7 @@ export default function OrderingQuestion(
 					onDrop={(e) => handleDrop(e, index)} onDragEnd={handleDragEnd}
 					className={`flex items-center border rounded p-3 mb-2 bg-card ${draggedIndex === index ? "opacity-50" : ""}`}
 				>
-					<div className="flex-grow truncate">
+					<div className="grow truncate">
 						{item.text}
 					</div>
 					<div className="flex items-center gap-1">
