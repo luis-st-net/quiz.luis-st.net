@@ -65,7 +65,7 @@ export default function QuizPage() {
 	}
 
 	return (
-		<div className="flex flex-col h-full">
+		<div className="flex flex-col h-full overflow-hidden">
 			{/* Quiz Header */}
 			<QuizHeader
 				quizName={quiz.name}
@@ -75,17 +75,22 @@ export default function QuizPage() {
 
 			<div className="flex flex-1 min-h-0">
 				{/* Desktop Navigator Sidebar */}
-				<aside className="hidden lg:flex w-64 xl:w-72 flex-shrink-0">
+				<aside className="hidden lg:block w-64 xl:w-72 flex-shrink-0">
 					<QuestionNavigator
 						onReviewClick={handleReviewClick}
-						className="w-full"
+						className="h-full"
 					/>
 				</aside>
 
-				{/* Main Question Area */}
-				<main className="flex-1 min-w-0 overflow-auto">
-					<QuestionCard className="h-full" />
+				{/* Main Question Area - True viewport centering */}
+				<main className="flex-1 min-w-0 overflow-auto flex justify-center">
+					<div className="w-full max-w-4xl px-4">
+						<QuestionCard className="h-full" />
+					</div>
 				</main>
+
+				{/* Invisible spacer for symmetric centering - matches sidebar width */}
+				<div className="hidden lg:block w-64 xl:w-72 flex-shrink-0" aria-hidden="true" />
 			</div>
 
 			{/* Mobile Navigator FAB */}

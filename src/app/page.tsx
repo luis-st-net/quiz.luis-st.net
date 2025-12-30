@@ -43,20 +43,21 @@ export default function HomePage() {
 	};
 
 	return (
-		<div className="flex h-full">
+		<div className="flex h-full overflow-hidden">
 			{/* Desktop Sidebar */}
-			<aside className="hidden md:flex w-72 lg:w-80 flex-shrink-0 border-r">
+			<aside className="hidden md:block w-72 lg:w-80 shrink-0">
 				<QuizSidebar
 					quizzes={quizzes}
 					selectedQuizId={selectedQuizId}
 					onSelectQuiz={handleSelectQuiz}
-					className="w-full"
+					className="h-full"
 				/>
 			</aside>
 
-			{/* Mobile Header with Sheet */}
+			{/* Main Content Container - True viewport centering */}
 			<div className="flex flex-col flex-1 min-w-0">
-				<div className="md:hidden flex items-center gap-2 p-4 border-b">
+				{/* Mobile Header with Sheet */}
+				<div className="md:hidden flex items-center gap-2 p-4 border-b bg-card">
 					<Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
 						<SheetTrigger asChild>
 							<Button variant="outline" size="icon">
@@ -73,20 +74,25 @@ export default function HomePage() {
 							/>
 						</SheetContent>
 					</Sheet>
-					<h1 className="text-lg font-semibold">
+					<h1 className="text-lg font-semibold truncate">
 						{selectedQuiz ? selectedQuiz.name : "Quiz auswählen"}
 					</h1>
 				</div>
 
 				{/* Main Content Area */}
-				<main className="flex-1 overflow-auto">
-					<QuizInfoCard
-						quiz={selectedQuiz || null}
-						onStartQuiz={handleStartQuiz}
-						className="h-full"
-					/>
-				</main>
+				<div className="flex-1 overflow-auto flex justify-center">
+					<div className="w-full max-w-4xl">
+						<QuizInfoCard
+							quiz={selectedQuiz || null}
+							onStartQuiz={handleStartQuiz}
+							className="h-full"
+						/>
+					</div>
+				</div>
 			</div>
+
+			{/* Invisible spacer for symmetric centering - matches sidebar width */}
+			<div className="hidden md:block w-72 lg:w-80 shrink-0" aria-hidden="true" />
 
 			{/* User Info Dialog */}
 			<UserInfoDialog

@@ -30,7 +30,7 @@ export default async function RootLayout(
 				<QuizProvider quizzes={quizzes} onCompleteAction={sendMail}>
 					<div className="flex flex-col h-screen w-full">
 						<NavigationBar/>
-						<main className="flex flex-col items-center flex-1 overflow-hidden overflow-y-auto">
+						<main className="flex-1 min-h-0 overflow-hidden">
 							{children}
 						</main>
 						<Footer/>
