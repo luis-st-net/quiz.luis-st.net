@@ -38,7 +38,7 @@ export default function ResultPage() {
 	}
 
 	const answers = getAllAnswers();
-	const { correct, incorrect, unanswered, manual, total } = calculateScore(answers, questions.length);
+	const { correct, incorrect, manual, total } = calculateScore(answers, questions.length);
 	// Calculate percentage based on auto-gradable questions only
 	const autoGradableTotal = total - manual;
 	const percentage = autoGradableTotal > 0 ? Math.round((correct / autoGradableTotal) * 100) : 0;
@@ -121,7 +121,7 @@ export default function ResultPage() {
 						</CardHeader>
 
 						<CardContent className="pt-6">
-							<div className="grid grid-cols-4 gap-4 text-center">
+							<div className="grid grid-cols-3 gap-4 text-center">
 								<div className="p-3 rounded-lg bg-green-100 dark:bg-green-900/20">
 									<div className="text-2xl font-bold text-green-600">{correct}</div>
 									<div className="text-sm text-muted-foreground">Richtig</div>
@@ -133,10 +133,6 @@ export default function ResultPage() {
 								<div className="p-3 rounded-lg bg-amber-100 dark:bg-amber-900/20">
 									<div className="text-2xl font-bold text-amber-600">{manual}</div>
 									<div className="text-sm text-muted-foreground">Manuell</div>
-								</div>
-								<div className="p-3 rounded-lg bg-gray-100 dark:bg-gray-900/20">
-									<div className="text-2xl font-bold text-gray-600">{unanswered}</div>
-									<div className="text-sm text-muted-foreground">Offen</div>
 								</div>
 							</div>
 						</CardContent>

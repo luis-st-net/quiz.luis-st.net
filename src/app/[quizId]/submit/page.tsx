@@ -28,7 +28,6 @@ export default function SubmitPage() {
 		getElapsedTime,
 		finishQuiz,
 		setPreventNavigation,
-		pauseTimer,
 		resumeTimer,
 	} = useQuestionContext();
 
@@ -37,12 +36,7 @@ export default function SubmitPage() {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [elapsedTime, setElapsedTime] = useState(0);
 
-	// Pause timer when entering submit page
-	useEffect(() => {
-		pauseTimer();
-	}, [pauseTimer]);
-
-	// Update elapsed time once (timer is paused so no need for interval)
+	// Update elapsed time once (timer is already paused from review page)
 	useEffect(() => {
 		setElapsedTime(getElapsedTime());
 	}, [getElapsedTime]);

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
@@ -32,8 +32,15 @@ export default function ReviewPage() {
 		getNumberOfAnsweredQuestions,
 		goToQuestion,
 		setReviewMode,
+		pauseTimer,
+		resumeTimer,
 	} = useQuestionContext();
 	const { getQuizById } = useQuizContext();
+
+	// Pause timer when entering review page
+	useEffect(() => {
+		pauseTimer();
+	}, [pauseTimer]);
 
 	const quiz = getQuizById(quizId);
 	const totalQuestions = questions.length;
@@ -42,12 +49,14 @@ export default function ReviewPage() {
 	const flaggedCount = flaggedQuestions.size;
 
 	const handleEditQuestion = (index: number) => {
+		resumeTimer();
 		setReviewMode(true);
 		goToQuestion(index);
 		router.push(`/${quizId}`);
 	};
 
 	const handleBackToQuiz = () => {
+		resumeTimer();
 		router.push(`/${quizId}`);
 	};
 
