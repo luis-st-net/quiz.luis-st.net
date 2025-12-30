@@ -22,6 +22,8 @@ export interface QuizContext {
 	quizzes: Quiz[];
 	getQuizById: (id: string) => Quiz | undefined;
 	finishQuiz: (quizId: string, answers: Record<string, QuestionInput>) => Promise<void>;
+	selectedQuizId: string | null;
+	setSelectedQuizId: (id: string | null) => void;
 }
 
 export interface QuizProvider {
@@ -49,13 +51,33 @@ export interface QuestionContext {
 	getQuestionByIndex: (index: number) => Question | undefined;
 	getQuestionById: (id: string) => Question | undefined;
 	getMaxNumberOfQuestions: () => number;
-	
+
+	// Navigation
+	currentQuestionIndex: number;
+	setCurrentQuestionIndex: (index: number) => void;
+	goToQuestion: (index: number) => void;
 	preventNavigation: boolean;
 	setPreventNavigation: (prevent: boolean) => void;
-	previousQuestion: (questionIndex: number) => void;
-	nextQuestion: (questionIndex: number) => void;
+	previousQuestion: () => void;
+	nextQuestion: () => void;
 	finishQuiz: () => void;
-	
+
+	// Flagging
+	flaggedQuestions: Set<string>;
+	flagQuestion: (questionId: string) => void;
+	unflagQuestion: (questionId: string) => void;
+	toggleFlagQuestion: (questionId: string) => void;
+	isQuestionFlagged: (questionId: string) => boolean;
+
+	// Timing
+	startTime: Date;
+	getElapsedTime: () => number;
+
+	// Review mode
+	isReviewMode: boolean;
+	setReviewMode: (mode: boolean) => void;
+
+	// Answer management
 	saveAnswer: (questionId: string, answer: QuestionInput) => void;
 	getAnswer: (questionId: string) => QuestionInput | undefined;
 	hasAnswer: (questionId: string) => boolean;

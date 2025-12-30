@@ -5,24 +5,33 @@ import { QuestionProvider } from "@/lib/contexts/question-context";
 import { useParams } from "next/navigation";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { QuestionInput } from "@/lib/types";
-import ContentPane from "@/lib/components/content-pane";
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
+import { AlertCircle } from "lucide-react";
 
 export default function (
 	{ children }: { children: React.ReactNode },
 ) {
 	const { getQuizById, finishQuiz } = useQuizContext();
-	
+
 	const quizId = useParams().quizId as string;
 	const quiz = getQuizById(quizId);
 	if (!quiz) {
 		return (
-			<ContentPane className="w-4/5 bg-custom-red lg:w-2/3 2xl:w-1/3">
-				<h3 className="m-1 text-2xl">
-					<strong>
-						Quiz wurde nicht gefunden
-					</strong>
-				</h3>
-			</ContentPane>
+			<div className="flex items-center justify-center min-h-full p-4">
+				<Card className="w-full max-w-md border-destructive">
+					<CardHeader>
+						<CardTitle className="flex items-center gap-2 text-destructive">
+							<AlertCircle className="size-5" />
+							Fehler
+						</CardTitle>
+					</CardHeader>
+					<CardContent>
+						<p className="text-muted-foreground">
+							Quiz wurde nicht gefunden
+						</p>
+					</CardContent>
+				</Card>
+			</div>
 		);
 	}
 	

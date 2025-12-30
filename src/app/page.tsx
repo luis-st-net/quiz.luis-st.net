@@ -1,120 +1,99 @@
 "use client";
 
 import React, { useState } from "react";
-import * as Ui from "@/lib/components/ui/";
-import Link from "next/link";
-import type { Quiz, QuizGroup } from "@/lib/types";
-import ContentPane from "@/lib/components/content-pane";
+import { useRouter } from "next/navigation";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
-import { ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utility";
+import { useUserContext } from "@/lib/contexts/user-context";
+import { QuizSidebar, QuizInfoCard, UserInfoDialog } from "@/lib/components/quiz";
+import { Button } from "@/lib/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/lib/components/ui/sheet";
+import { Menu } from "lucide-react";
 
-export default function () {
-	const { quizzes } = useQuizContext();
-	const rootNode = buildGroupHierarchy(quizzes);
-	
-	return (
-		<div className="w-full flex flex-col items-center mt-8 mb-8 sm:mt-16">
-			<h3 className="text-2xl mb-8 mx-2 text-center xxs:text-3xl xs:text-4xl sm:mb-16">
-				<strong>
-					Wählen Sie ein Quiz aus
-				</strong>
-			</h3>
-			<div className="w-4/5 flex flex-col gap-2 m-4 lg:w-1/2 2xl:w-1/4">
-				<QuizGroup node={rootNode} level={0}/>
-			</div>
-		</div>
-	);
-}
+export default function HomePage() {
+	const router = useRouter();
+	const { quizzes, selectedQuizId, setSelectedQuizId, getQuizById } = useQuizContext();
+	const { getName } = useUserContext();
+	const [showUserDialog, setShowUserDialog] = useState(false);
+	const [pendingQuizId, setPendingQuizId] = useState<string | null>(null);
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
-function QuizGroup(
-	{ node, level }: { node: QuizGroup; level: number },
-) {
-	const sortedSubgroups = Array.from(node.subgroups.entries()).sort(([a], [b]) => a.localeCompare(b));
-	return (
-		<div
-			style={{ "--level": `${level}` } as React.CSSProperties}
-			className={cn("flex flex-col m-4 pl-[calc(var(--level)*1.5rem)]", level === 0 ? "gap-4" : "gap-3 my-3")}
-		>
-			{sortedSubgroups.map(([name, subgroup]) => (
-				<CollapsibleQuizGroup key={name} group={subgroup} level={level}/>
-			))}
-			
-			{node.quizzes.map((quiz) => (
-				<QuizItem key={quiz.id} {...quiz}/>
-			))}
-		</div>
-	);
-}
+	const selectedQuiz = selectedQuizId ? getQuizById(selectedQuizId) : null;
 
-function CollapsibleQuizGroup(
-	{ group, level }: { group: QuizGroup; level: number },
-) {
-	const [isOpen, setIsOpen] = useState(false);
-	
-	return (
-		<Ui.Collapsible open={isOpen} onOpenChange={setIsOpen}>
-			<Ui.CollapsibleTrigger className="w-full pr-4">
-				<ContentPane defaultColor={true} defaultSpacing={false} className="w-full">
-					<div className="flex items-center gap-2 p-3 text-start text-sm tiny:p-4 tiny:text-base sm:text-xl">
-						<ChevronRight className={cn("size-4 transition-transform", isOpen ? "rotate-90" : "")}/>
-						<strong>
-							{group.name}
-						</strong>
-					</div>
-				</ContentPane>
-			</Ui.CollapsibleTrigger>
-			<Ui.CollapsibleContent>
-				<QuizGroup node={group} level={level + 1}/>
-			</Ui.CollapsibleContent>
-		</Ui.Collapsible>
-	);
-}
-
-function QuizItem(
-	{ id, name }: Quiz,
-) {
-	return (
-		<Link href={"/user?redirect=/" + id.toLowerCase()} className="w-full">
-			<ContentPane defaultColor={true} defaultSpacing={false} className="w-full">
-				<div className="p-3 text-start text-sm tiny:p-4 tiny:text-base sm:text-xl">
-					<strong>
-						{name}
-					</strong>
-				</div>
-			</ContentPane>
-		</Link>
-	);
-}
-
-function buildGroupHierarchy(quizzes: Quiz[]): QuizGroup {
-	const root: QuizGroup = {
-		name: "",
-		quizzes: [],
-		subgroups: new Map(),
+	const handleSelectQuiz = (quizId: string) => {
+		setSelectedQuizId(quizId);
+		setSidebarOpen(false);
 	};
-	
-	const sortedQuizzes = [...quizzes].sort((a, b) => a.config.order - b.config.order);
-	
-	for (const quiz of sortedQuizzes) {
-		const groupPath = quiz.config.group || "";
-		const parts = groupPath ? groupPath.split("/").filter(Boolean) : [];
-		
-		let currentNode = root;
-		
-		for (const part of parts) {
-			if (!currentNode.subgroups.has(part)) {
-				currentNode.subgroups.set(part, {
-					name: part,
-					quizzes: [],
-					subgroups: new Map(),
-				});
-			}
-			currentNode = currentNode.subgroups.get(part)!;
+
+	const handleStartQuiz = (quizId: string) => {
+		const hasUserInfo = !!getName();
+
+		if (!hasUserInfo) {
+			setPendingQuizId(quizId);
+			setShowUserDialog(true);
+		} else {
+			router.push(`/${quizId}`);
 		}
-		
-		currentNode.quizzes.push(quiz);
-	}
-	
-	return root;
+	};
+
+	const handleUserDialogSubmit = () => {
+		if (pendingQuizId) {
+			router.push(`/${pendingQuizId}`);
+			setPendingQuizId(null);
+		}
+	};
+
+	return (
+		<div className="flex h-full">
+			{/* Desktop Sidebar */}
+			<aside className="hidden md:flex w-72 lg:w-80 flex-shrink-0 border-r">
+				<QuizSidebar
+					quizzes={quizzes}
+					selectedQuizId={selectedQuizId}
+					onSelectQuiz={handleSelectQuiz}
+					className="w-full"
+				/>
+			</aside>
+
+			{/* Mobile Header with Sheet */}
+			<div className="flex flex-col flex-1 min-w-0">
+				<div className="md:hidden flex items-center gap-2 p-4 border-b">
+					<Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+						<SheetTrigger asChild>
+							<Button variant="outline" size="icon">
+								<Menu className="size-5" />
+								<span className="sr-only">Quiz-Menü öffnen</span>
+							</Button>
+						</SheetTrigger>
+						<SheetContent side="left" className="p-0 w-80">
+							<QuizSidebar
+								quizzes={quizzes}
+								selectedQuizId={selectedQuizId}
+								onSelectQuiz={handleSelectQuiz}
+								className="h-full"
+							/>
+						</SheetContent>
+					</Sheet>
+					<h1 className="text-lg font-semibold">
+						{selectedQuiz ? selectedQuiz.name : "Quiz auswählen"}
+					</h1>
+				</div>
+
+				{/* Main Content Area */}
+				<main className="flex-1 overflow-auto">
+					<QuizInfoCard
+						quiz={selectedQuiz || null}
+						onStartQuiz={handleStartQuiz}
+						className="h-full"
+					/>
+				</main>
+			</div>
+
+			{/* User Info Dialog */}
+			<UserInfoDialog
+				open={showUserDialog}
+				onOpenChange={setShowUserDialog}
+				onSubmit={handleUserDialogSubmit}
+			/>
+		</div>
+	);
 }

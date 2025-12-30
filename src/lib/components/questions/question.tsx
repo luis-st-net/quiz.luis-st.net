@@ -12,7 +12,8 @@ import MultipleChoiceQuestion from "@/lib/components/questions/multiple-choice-q
 import OrderingQuestion from "@/lib/components/questions/ordering-question";
 import MatchingQuestion from "@/lib/components/questions/matching-question";
 import NumericQuestion from "@/lib/components/questions/numeric-question";
-import ContentPane from "@/lib/components/content-pane";
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
+import { AlertCircle } from "lucide-react";
 
 export default function Question(
 	{ questionId }: { questionId: string },
@@ -21,56 +22,79 @@ export default function Question(
 		getIndexOfQuestion,
 		getQuestionById,
 		getMaxNumberOfQuestions,
+		currentQuestionIndex,
+		goToQuestion,
 		preventNavigation,
 		previousQuestion,
 		nextQuestion,
 		getNumberOfAnsweredQuestions,
 		areAllQuestionsAnswered,
 	} = useQuestionContext();
-	
+
+	// Set the current question index based on the route parameter
 	const question = getQuestionById(questionId);
 	const questionIndex = question ? getIndexOfQuestion(question.id) : -1;
+
+	// Sync the route-based questionId with the context's currentQuestionIndex
+	React.useEffect(() => {
+		if (questionIndex !== undefined && questionIndex >= 0 && questionIndex !== currentQuestionIndex) {
+			goToQuestion(questionIndex);
+		}
+	}, [questionIndex, currentQuestionIndex, goToQuestion]);
+
 	if (!question || questionIndex === undefined || questionIndex === -1) {
 		return (
-			<ContentPane className="w-4/5 bg-custom-red lg:w-2/3 2xl:w-1/3">
-				<div className="m-1 text-lg">
-					Frage wurde nicht gefunden
-				</div>
-			</ContentPane>
+			<div className="flex items-center justify-center min-h-full p-4">
+				<Card className="w-full max-w-md border-destructive">
+					<CardHeader>
+						<CardTitle className="flex items-center gap-2 text-destructive">
+							<AlertCircle className="size-5" />
+							Fehler
+						</CardTitle>
+					</CardHeader>
+					<CardContent>
+						<p className="text-muted-foreground">
+							Frage wurde nicht gefunden
+						</p>
+					</CardContent>
+				</Card>
+			</div>
 		);
 	}
-	
+
 	const isFirstQuestion = questionIndex === 0;
 	const isLastQuestion = questionIndex === getMaxNumberOfQuestions() - 1;
 	const progress = (100 / getMaxNumberOfQuestions()) * getNumberOfAnsweredQuestions();
-	
+
 	return (
-		<ContentPane defaultColor={true} className="w-4/5 lg:w-2/3 2xl:w-1/3">
-			<div className="m-1">
-				<div>
-					<h3 className="mb-3 text-xl tiny:text-2xl">
-						<strong>
+		<div className="flex items-center justify-center min-h-full p-4">
+			<Card className="w-full max-w-2xl">
+				<CardHeader className="pb-2">
+					<div className="flex items-center justify-between">
+						<CardTitle className="text-xl tiny:text-2xl">
 							Frage {questionIndex + 1} von {getMaxNumberOfQuestions()}
-						</strong>
-					</h3>
-					<p className="mb-2 text-sm tiny:text-base">
+						</CardTitle>
+					</div>
+					<Ui.Progress value={progress} className="h-2 mt-2" />
+				</CardHeader>
+				<CardContent className="space-y-6">
+					<p className="text-sm tiny:text-base text-muted-foreground">
 						{question.question}
 					</p>
-					<Ui.Progress value={progress} className="h-2 bg-custom-quaternary"/>
-				</div>
-				<div className="my-8">
-					<DynamicQuestion question={question}/>
-				</div>
-				<div className="flex justify-between">
-					<Ui.Button variant="outline" onClick={() => previousQuestion(questionIndex)} disabled={isFirstQuestion || preventNavigation}>
-						Zurück
-					</Ui.Button>
-					<Ui.Button onClick={() => nextQuestion(questionIndex)} disabled={(isLastQuestion && !areAllQuestionsAnswered()) || preventNavigation}>
-						{isLastQuestion ? "Abschließen" : "Weiter"}
-					</Ui.Button>
-				</div>
-			</div>
-		</ContentPane>
+					<div>
+						<DynamicQuestion question={question}/>
+					</div>
+					<div className="flex justify-between pt-4">
+						<Ui.Button variant="outline" onClick={() => previousQuestion()} disabled={isFirstQuestion || preventNavigation}>
+							Zurück
+						</Ui.Button>
+						<Ui.Button onClick={() => nextQuestion()} disabled={(isLastQuestion && !areAllQuestionsAnswered()) || preventNavigation}>
+							{isLastQuestion ? "Abschließen" : "Weiter"}
+						</Ui.Button>
+					</div>
+				</CardContent>
+			</Card>
+		</div>
 	);
 }
 

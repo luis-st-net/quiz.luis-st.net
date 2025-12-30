@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useCallback, useContext } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import type { QuestionInput, QuizContext, QuizProvider } from "@/lib/types";
 import { useUserContext } from "@/lib/contexts/user-context";
 import { useToast } from "@/lib/hooks/use-toast";
@@ -13,28 +13,32 @@ export function QuizProvider(
 ) {
 	const router = useRouter();
 	const { toast } = useToast();
+	const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
+
 	const getQuizById = useCallback((id: string) => {
 		return quizzes.find(quiz => quiz.id === id);
 	}, [quizzes]);
-	
+
 	const { getName, getMail } = useUserContext();
 	const finishQuiz = useCallback(async (quiz: string, answers: Record<string, QuestionInput>) => {
 		const message = await onCompleteAction(getName(), getMail(), quiz, answers);
-		
+
 		toast({
 			title: message.success ? "Quiz erfolgreich eingereicht" : "Quizübermittlung fehlgeschlagen",
 			description: message.message,
 		});
-		
+
 		router.push("/");
-	}, [onCompleteAction]);
-	
-	const contextValue = {
+	}, [onCompleteAction, getName, getMail, toast, router]);
+
+	const contextValue: QuizContext = {
 		quizzes,
 		getQuizById,
 		finishQuiz,
+		selectedQuizId,
+		setSelectedQuizId,
 	};
-	
+
 	return (
 		<Context.Provider value={contextValue}>
 			{children}

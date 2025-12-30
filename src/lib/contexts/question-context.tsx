@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { QuestionContext, QuestionInput, QuestionProvider } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
@@ -10,9 +10,14 @@ export function QuestionProvider(
 	{ quizId, questions, onCompleteAction, children, storageKey = "quiz-answers" }: QuestionProvider,
 ) {
 	const [answers, setAnswers] = useState<Record<string, QuestionInput>>({});
-	const [preventNavigation, setPreventNavigation] = React.useState(false);
+	const [preventNavigation, setPreventNavigation] = useState(false);
+	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+	const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(new Set());
+	const [isReviewMode, setReviewMode] = useState(false);
+	const [startTime] = useState<Date>(new Date());
 	const router = useRouter();
-	
+
+	// Load answers and flagged questions from sessionStorage
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const storedAnswers = sessionStorage.getItem(storageKey);
@@ -23,9 +28,19 @@ export function QuestionProvider(
 					console.error("Failed to parse stored answers");
 				}
 			}
+
+			const storedFlagged = sessionStorage.getItem(`${storageKey}-flagged`);
+			if (storedFlagged) {
+				try {
+					setFlaggedQuestions(new Set(JSON.parse(storedFlagged)));
+				} catch (e) {
+					console.error("Failed to parse stored flagged questions");
+				}
+			}
 		}
 	}, [storageKey]);
-	
+
+	// Persist answers to sessionStorage
 	useEffect(() => {
 		if (Object.keys(answers).length > 0) {
 			sessionStorage.setItem(storageKey, JSON.stringify(answers));
@@ -33,104 +48,165 @@ export function QuestionProvider(
 			sessionStorage.removeItem(storageKey);
 		}
 	}, [answers, storageKey]);
-	
+
+	// Persist flagged questions to sessionStorage
+	useEffect(() => {
+		if (flaggedQuestions.size > 0) {
+			sessionStorage.setItem(`${storageKey}-flagged`, JSON.stringify(Array.from(flaggedQuestions)));
+		} else {
+			sessionStorage.removeItem(`${storageKey}-flagged`);
+		}
+	}, [flaggedQuestions, storageKey]);
+
 	//region Question getters
 	const getIndexOfQuestion = useCallback((questionId: string) => {
-		return questions.findIndex(question => question.id === questionId);
+		const index = questions.findIndex(question => question.id === questionId);
+		return index >= 0 ? index : undefined;
 	}, [questions]);
-	
+
 	const getQuestionByIndex = useCallback((index: number) => {
 		return questions[index];
 	}, [questions]);
-	
+
 	const getQuestionById = useCallback((id: string) => {
 		return questions.find(question => question.id === id);
 	}, [questions]);
-	
+
 	const getMaxNumberOfQuestions = useCallback(() => {
 		return questions.length;
 	}, [questions]);
 	//endregion
-	
+
 	//region Navigation actions
-	const previousQuestion = useCallback((questionIndex: number) => {
-		if (preventNavigation) {
-			return;
+	const goToQuestion = useCallback((index: number) => {
+		if (preventNavigation) return;
+		if (index >= 0 && index < questions.length) {
+			setCurrentQuestionIndex(index);
 		}
-		if (questionIndex !== 0) {
-			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex - 1)!.id);
+	}, [preventNavigation, questions.length]);
+
+	const previousQuestion = useCallback(() => {
+		if (preventNavigation) return;
+		if (currentQuestionIndex > 0) {
+			setCurrentQuestionIndex(currentQuestionIndex - 1);
 		}
-	}, [quizId, getQuestionByIndex]);
-	
-	const nextQuestion = useCallback((questionIndex: number) => {
-		if (preventNavigation) {
-			return;
+	}, [preventNavigation, currentQuestionIndex]);
+
+	const nextQuestion = useCallback(() => {
+		if (preventNavigation) return;
+		if (currentQuestionIndex < questions.length - 1) {
+			setCurrentQuestionIndex(currentQuestionIndex + 1);
 		}
-		if (questionIndex < getMaxNumberOfQuestions() - 1) {
-			router.push("/" + quizId + "/" + getQuestionByIndex(questionIndex + 1)!.id);
-		}
-		if (questionIndex === getMaxNumberOfQuestions() - 1) {
-			router.push("/" + quizId + "/submit");
-		}
-	}, [getMaxNumberOfQuestions, quizId, getQuestionByIndex]);
-	
+	}, [preventNavigation, currentQuestionIndex, questions.length]);
+
 	const finishQuiz = useCallback(async () => {
 		await onCompleteAction(answers);
 		router.push("/" + quizId + "/result");
-	}, [onCompleteAction, answers, storageKey]);
+	}, [onCompleteAction, answers, quizId, router]);
 	//endregion
-	
+
+	//region Flagging
+	const flagQuestion = useCallback((questionId: string) => {
+		setFlaggedQuestions(prev => new Set([...prev, questionId]));
+	}, []);
+
+	const unflagQuestion = useCallback((questionId: string) => {
+		setFlaggedQuestions(prev => {
+			const newSet = new Set(prev);
+			newSet.delete(questionId);
+			return newSet;
+		});
+	}, []);
+
+	const toggleFlagQuestion = useCallback((questionId: string) => {
+		setFlaggedQuestions(prev => {
+			const newSet = new Set(prev);
+			if (newSet.has(questionId)) {
+				newSet.delete(questionId);
+			} else {
+				newSet.add(questionId);
+			}
+			return newSet;
+		});
+	}, []);
+
+	const isQuestionFlagged = useCallback((questionId: string) => {
+		return flaggedQuestions.has(questionId);
+	}, [flaggedQuestions]);
+	//endregion
+
+	//region Timing
+	const getElapsedTime = useCallback(() => {
+		return Math.floor((new Date().getTime() - startTime.getTime()) / 1000);
+	}, [startTime]);
+	//endregion
+
 	//region Answer management
 	const saveAnswer = useCallback((questionId: string, answer: QuestionInput) => {
 		setAnswers(previousAnswers => ({
 			...previousAnswers,
 			[questionId]: answer,
 		}));
-	}, [setAnswers]);
-	
+	}, []);
+
 	const getAnswer = useCallback((questionId: string) => {
 		return answers[questionId];
 	}, [answers]);
-	
+
 	const hasAnswer = useCallback((questionId: string) => {
 		return !!answers[questionId];
 	}, [answers]);
-	
+
 	const removeAnswer = useCallback((questionId: string) => {
 		setAnswers(previousAnswers => {
 			const newAnswers = { ...previousAnswers };
 			delete newAnswers[questionId];
 			return newAnswers;
 		});
-	}, [setAnswers]);
-	
+	}, []);
+
 	const getNumberOfAnsweredQuestions = useCallback(() => {
 		return Object.keys(answers).length;
 	}, [answers]);
-	
+
 	const getAllAnswers = useCallback(() => {
 		return answers;
 	}, [answers]);
-	
+
 	const areAllQuestionsAnswered = useCallback(() => {
 		return questions.every(question => hasAnswer(question.id));
 	}, [questions, hasAnswer]);
 	//endregion
-	
-	const contextValue = {
+
+	const contextValue: QuestionContext = useMemo(() => ({
 		quizId,
 		questions,
 		getIndexOfQuestion,
 		getQuestionByIndex,
 		getQuestionById,
 		getMaxNumberOfQuestions,
-		
+
+		currentQuestionIndex,
+		setCurrentQuestionIndex,
+		goToQuestion,
 		preventNavigation,
 		setPreventNavigation,
 		previousQuestion,
 		nextQuestion,
 		finishQuiz,
-		
+
+		flaggedQuestions,
+		flagQuestion,
+		unflagQuestion,
+		toggleFlagQuestion,
+		isQuestionFlagged,
+
+		startTime,
+		getElapsedTime,
+
+		isReviewMode,
+		setReviewMode,
+
 		saveAnswer,
 		getAnswer,
 		hasAnswer,
@@ -138,8 +214,36 @@ export function QuestionProvider(
 		getNumberOfAnsweredQuestions,
 		getAllAnswers,
 		areAllQuestionsAnswered,
-	};
-	
+	}), [
+		quizId,
+		questions,
+		getIndexOfQuestion,
+		getQuestionByIndex,
+		getQuestionById,
+		getMaxNumberOfQuestions,
+		currentQuestionIndex,
+		goToQuestion,
+		preventNavigation,
+		previousQuestion,
+		nextQuestion,
+		finishQuiz,
+		flaggedQuestions,
+		flagQuestion,
+		unflagQuestion,
+		toggleFlagQuestion,
+		isQuestionFlagged,
+		startTime,
+		getElapsedTime,
+		isReviewMode,
+		saveAnswer,
+		getAnswer,
+		hasAnswer,
+		removeAnswer,
+		getNumberOfAnsweredQuestions,
+		getAllAnswers,
+		areAllQuestionsAnswered,
+	]);
+
 	return (
 		<Context.Provider value={contextValue}>
 			{children}

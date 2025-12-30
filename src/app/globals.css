@@ -117,7 +117,15 @@
 	
 	--color-destructive: var(--destructive);
 	--color-destructive-foreground: var(--destructive-foreground);
-	
+
+	/* Semantic colors */
+	--color-success: var(--success);
+	--color-success-foreground: var(--success-foreground);
+	--color-warning: var(--warning);
+	--color-warning-foreground: var(--warning-foreground);
+	--color-info: var(--info);
+	--color-info-foreground: var(--info-foreground);
+
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
@@ -299,6 +307,12 @@
 		--accent-foreground: /*hsl(0 0% 9%)*/ var(--custom-black-primary);
 		--destructive: /*hsl(0 84.2% 60.2%)*/ var(--custom-red);
 		--destructive-foreground: /*hsl(0 0% 98%)*/ var(--custom-white-primary);
+		--success: var(--custom-accent-green);
+		--success-foreground: var(--custom-black);
+		--warning: var(--custom-yellow);
+		--warning-foreground: var(--custom-black);
+		--info: var(--custom-accent-blue);
+		--info-foreground: var(--custom-black);
 		--border: /*hsl(0 0% 89.8%)*/ var(--custom-white-tertiary);
 		--input: /*hsl(0 0% 89.8%)*/ var(--custom-white-tertiary);
 		--ring: /*hsl(0 0% 3.9%)*/ var(--custom-black);
@@ -357,6 +371,12 @@
 		--accent-foreground: /*hsl(0 0% 98%)*/ var(--custom-white-primary);
 		--destructive: hsl(0 62.8% 30.6%);
 		--destructive-foreground: /*hsl(0 0% 98%)*/ var(--custom-white-primary);
+		--success: var(--custom-dark-green);
+		--success-foreground: var(--custom-white-primary);
+		--warning: var(--custom-orange);
+		--warning-foreground: var(--custom-white-primary);
+		--info: var(--custom-light-blue);
+		--info-foreground: var(--custom-black);
 		--border: /*hsl(0 0% 14.9%)*/ var(--custom-black-tertiary);
 		--input: /*hsl(0 0% 14.9%)*/ var(--custom-black-tertiary);
 		--ring: hsl(0 0% 83.1%);

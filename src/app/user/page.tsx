@@ -4,11 +4,12 @@ import * as Ui from "@/lib/components/ui/";
 import React, { Suspense } from "react";
 import { useUserContext } from "@/lib/contexts/user-context";
 import { useRouter, useSearchParams } from "next/navigation";
-import ContentPane from "@/lib/components/content-pane";
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { UserFormFieldRendererProps, userFormSchema, UserFormValues } from "@/lib/types";
 import { useToast } from "@/lib/hooks/use-toast";
+import { User } from "lucide-react";
 
 export default function NamePage() {
 	return (
@@ -53,24 +54,31 @@ function NamePageContent() {
 	};
 	
 	return (
-		<ContentPane defaultColor={true} className="w-4/5 lg:w-2/3 2xl:w-1/3">
-			<h3 className="text-2xl mb-6">
-				<strong>
-					Geben Sie Ihren Namen und Ihre E-Mail-Adresse ein
-				</strong>
-			</h3>
-			
-			<Ui.Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-					<Ui.FormField control={form.control} name="name" render={NameFormFieldRenderer}/>
-					<Ui.FormField control={form.control} name="mail" render={MailFormFieldRenderer}/>
-					
-					<Ui.Button type="submit" className="w-full">
-						Weiter
-					</Ui.Button>
-				</form>
-			</Ui.Form>
-		</ContentPane>
+		<div className="flex items-center justify-center min-h-full p-4">
+			<Card className="w-full max-w-md">
+				<CardHeader>
+					<CardTitle className="flex items-center gap-2">
+						<User className="size-5" />
+						Benutzerinformationen
+					</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<p className="text-sm text-muted-foreground mb-6">
+						Geben Sie Ihren Namen und Ihre E-Mail-Adresse ein
+					</p>
+					<Ui.Form {...form}>
+						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+							<Ui.FormField control={form.control} name="name" render={NameFormFieldRenderer}/>
+							<Ui.FormField control={form.control} name="mail" render={MailFormFieldRenderer}/>
+
+							<Ui.Button type="submit" className="w-full">
+								Weiter
+							</Ui.Button>
+						</form>
+					</Ui.Form>
+				</CardContent>
+			</Card>
+		</div>
 	);
 }
 
