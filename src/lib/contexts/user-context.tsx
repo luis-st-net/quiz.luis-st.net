@@ -11,50 +11,51 @@ export function UserProvider(
 	const [name, setNameState] = useState<string | undefined>(undefined);
 	const [mail, setMailState] = useState<string | undefined>(undefined);
 	
+	// Load from localStorage only after hydration
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			const storedName = localStorage.getItem(storageKey);
+			const storedName = localStorage.getItem(`${storageKey}-name`);
+			const storedMail = localStorage.getItem(`${storageKey}-mail`);
 			if (storedName) {
 				setNameState(storedName);
 			}
+			if (storedMail) {
+				setMailState(storedMail);
+			}
 		}
 	}, [storageKey]);
-	
+
 	const setName = useCallback((newName: string | undefined) => {
 		setNameState(newName);
-		if (typeof window !== "undefined" && newName) {
-			localStorage.setItem(`${storageKey}-name`, newName);
+		if (typeof window !== "undefined") {
+			if (newName) {
+				localStorage.setItem(`${storageKey}-name`, newName);
+			} else {
+				localStorage.removeItem(`${storageKey}-name`);
+			}
 		}
 	}, [storageKey]);
-	
+
+	// Only return state value - localStorage is loaded via useEffect
 	const getName = useCallback(() => {
-		if (name) {
-			return name;
-		}
-		
-		if (typeof window !== "undefined") {
-			return localStorage.getItem(`${storageKey}-name`) || undefined;
-		}
-		return undefined;
-	}, [name, storageKey]);
-	
+		return name;
+	}, [name]);
+
 	const setMail = useCallback((newMail: string | undefined) => {
 		setMailState(newMail);
-		if (typeof window !== "undefined" && newMail) {
-			localStorage.setItem(`${storageKey}-mail`, newMail);
+		if (typeof window !== "undefined") {
+			if (newMail) {
+				localStorage.setItem(`${storageKey}-mail`, newMail);
+			} else {
+				localStorage.removeItem(`${storageKey}-mail`);
+			}
 		}
 	}, [storageKey]);
-	
+
+	// Only return state value - localStorage is loaded via useEffect
 	const getMail = useCallback(() => {
-		if (mail) {
-			return mail;
-		}
-		
-		if (typeof window !== "undefined") {
-			return localStorage.getItem(`${storageKey}-mail`) || undefined;
-		}
-		return undefined;
-	}, [mail, storageKey]);
+		return mail;
+	}, [mail]);
 	
 	const contextValue = {
 		setName,
