@@ -90,7 +90,7 @@ function CollapsibleQuizGroup({ group, level, selectedQuizId, onSelectQuiz }: Co
 				<div
 					className={cn(
 						"flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium",
-						"hover:bg-accent transition-colors text-left w-full"
+						"hover:bg-accent transition-colors text-left w-full cursor-pointer"
 					)}
 					style={{ paddingLeft: `${level * 12 + 12}px` }}
 				>
@@ -127,7 +127,7 @@ function QuizListItem({ quiz, isSelected, onSelect, level }: QuizListItemProps) 
 		<button
 			onClick={onSelect}
 			className={cn(
-				"flex items-center gap-2 px-3 py-2 rounded-md text-sm w-full text-left",
+				"flex items-center gap-2 px-3 py-2 rounded-md text-sm w-full text-left cursor-pointer",
 				"transition-colors duration-150",
 				isSelected
 					? "bg-primary text-primary-foreground font-medium"

@@ -8,7 +8,7 @@ import { useQuestionContext } from "@/lib/contexts/question-context";
 export default function TextQuestion(
 	{ question }: { question: TextQuestion },
 ) {
-	const { setPreventNavigation, saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
+	const { saveAnswer, getAnswer, removeAnswer } = useQuestionContext();
 	
 	const [answer, setAnswer] = useState<string>(() => {
 		const savedAnswer = getAnswer(question.id);
@@ -51,11 +51,7 @@ export default function TextQuestion(
 	}, [question.id, getAnswer]);
 	
 	const isInvalidLength = (!!question.minLength && charCount < question.minLength) || (!!question.maxLength && charCount > question.maxLength);
-	
-	useEffect(() => {
-		setPreventNavigation(isInvalidLength);
-	}, [isInvalidLength, setPreventNavigation]);
-	
+
 	return (
 		<div>
 			<Ui.Textarea placeholder="Geben Sie Ihre Antwort hier ein..." value={answer} onChange={handleChange} rows={5} className={isInvalidLength ? "focus-visible:ring-destructive" : ""}/>

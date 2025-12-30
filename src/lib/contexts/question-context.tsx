@@ -15,6 +15,8 @@ export function QuestionProvider(
 	const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(new Set());
 	const [isReviewMode, setReviewMode] = useState(false);
 	const [startTime] = useState<Date>(new Date());
+	const [pausedAt, setPausedAt] = useState<Date | null>(null);
+	const [totalPausedTime, setTotalPausedTime] = useState(0);
 	const router = useRouter();
 
 	// Load answers and flagged questions from sessionStorage
@@ -137,8 +139,25 @@ export function QuestionProvider(
 
 	//region Timing
 	const getElapsedTime = useCallback(() => {
-		return Math.floor((new Date().getTime() - startTime.getTime()) / 1000);
-	}, [startTime]);
+		const now = pausedAt || new Date();
+		return Math.floor((now.getTime() - startTime.getTime()) / 1000) - totalPausedTime;
+	}, [startTime, pausedAt, totalPausedTime]);
+
+	const pauseTimer = useCallback(() => {
+		if (!pausedAt) {
+			setPausedAt(new Date());
+		}
+	}, [pausedAt]);
+
+	const resumeTimer = useCallback(() => {
+		if (pausedAt) {
+			const pauseDuration = Math.floor((new Date().getTime() - pausedAt.getTime()) / 1000);
+			setTotalPausedTime(prev => prev + pauseDuration);
+			setPausedAt(null);
+		}
+	}, [pausedAt]);
+
+	const isTimerPaused = pausedAt !== null;
 	//endregion
 
 	//region Answer management
@@ -164,6 +183,16 @@ export function QuestionProvider(
 			return newAnswers;
 		});
 	}, []);
+
+	const clearAnswers = useCallback(() => {
+		setAnswers({});
+		setFlaggedQuestions(new Set());
+		setCurrentQuestionIndex(0);
+		if (typeof window !== "undefined") {
+			sessionStorage.removeItem(storageKey);
+			sessionStorage.removeItem(`${storageKey}-flagged`);
+		}
+	}, [storageKey]);
 
 	const getNumberOfAnsweredQuestions = useCallback(() => {
 		return Object.keys(answers).length;
@@ -203,6 +232,9 @@ export function QuestionProvider(
 
 		startTime,
 		getElapsedTime,
+		pauseTimer,
+		resumeTimer,
+		isTimerPaused,
 
 		isReviewMode,
 		setReviewMode,
@@ -211,6 +243,7 @@ export function QuestionProvider(
 		getAnswer,
 		hasAnswer,
 		removeAnswer,
+		clearAnswers,
 		getNumberOfAnsweredQuestions,
 		getAllAnswers,
 		areAllQuestionsAnswered,
@@ -234,11 +267,15 @@ export function QuestionProvider(
 		isQuestionFlagged,
 		startTime,
 		getElapsedTime,
+		pauseTimer,
+		resumeTimer,
+		isTimerPaused,
 		isReviewMode,
 		saveAnswer,
 		getAnswer,
 		hasAnswer,
 		removeAnswer,
+		clearAnswers,
 		getNumberOfAnsweredQuestions,
 		getAllAnswers,
 		areAllQuestionsAnswered,

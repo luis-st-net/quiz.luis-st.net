@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utility";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 import { Card, CardContent, CardFooter, CardHeader } from "@/lib/components/ui/card";
@@ -17,6 +18,7 @@ import {
 	CheckSquare,
 	ListOrdered,
 	Link2,
+	CheckCircle2,
 } from "lucide-react";
 import {
 	isTrueFalseQuestion,
@@ -43,7 +45,9 @@ interface QuestionCardProps {
 }
 
 export function QuestionCard({ className }: QuestionCardProps) {
+	const router = useRouter();
 	const {
+		quizId,
 		questions,
 		currentQuestionIndex,
 		previousQuestion,
@@ -52,12 +56,19 @@ export function QuestionCard({ className }: QuestionCardProps) {
 		isQuestionFlagged,
 		getQuestionByIndex,
 		getMaxNumberOfQuestions,
+		getNumberOfAnsweredQuestions,
 	} = useQuestionContext();
 
 	const currentQuestion = getQuestionByIndex(currentQuestionIndex);
 	const totalQuestions = getMaxNumberOfQuestions();
+	const answeredCount = getNumberOfAnsweredQuestions();
 	const isFirst = currentQuestionIndex === 0;
 	const isLast = currentQuestionIndex === totalQuestions - 1;
+	const allAnswered = answeredCount === totalQuestions;
+
+	const handleFinishQuiz = () => {
+		router.push(`/${quizId}/review`);
+	};
 
 	if (!currentQuestion) {
 		return (
@@ -124,10 +135,23 @@ export function QuestionCard({ className }: QuestionCardProps) {
 							<ChevronLeft className="size-4 mr-1" />
 							Zurück
 						</Button>
-						<Button onClick={nextQuestion}>
-							{isLast ? "Überprüfen" : "Weiter"}
-							{!isLast && <ChevronRight className="size-4 ml-1" />}
-						</Button>
+						<div className="flex gap-2">
+							{/* Show "Finish Quiz" button when all answered and not on last question */}
+							{allAnswered && !isLast && (
+								<Button
+									variant="secondary"
+									onClick={handleFinishQuiz}
+									className="bg-green-600 hover:bg-green-700 text-white"
+								>
+									<CheckCircle2 className="size-4 mr-1" />
+									Quiz beenden
+								</Button>
+							)}
+							<Button onClick={isLast ? handleFinishQuiz : nextQuestion}>
+								{isLast ? "Überprüfen" : "Weiter"}
+								{!isLast && <ChevronRight className="size-4 ml-1" />}
+							</Button>
+						</div>
 					</div>
 				</CardFooter>
 			</Card>

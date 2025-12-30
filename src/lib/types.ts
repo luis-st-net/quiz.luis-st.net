@@ -72,6 +72,9 @@ export interface QuestionContext {
 	// Timing
 	startTime: Date;
 	getElapsedTime: () => number;
+	pauseTimer: () => void;
+	resumeTimer: () => void;
+	isTimerPaused: boolean;
 
 	// Review mode
 	isReviewMode: boolean;
@@ -82,6 +85,7 @@ export interface QuestionContext {
 	getAnswer: (questionId: string) => QuestionInput | undefined;
 	hasAnswer: (questionId: string) => boolean;
 	removeAnswer: (questionId: string) => void;
+	clearAnswers: () => void;
 	getNumberOfAnsweredQuestions: () => number;
 	getAllAnswers: () => Record<string, QuestionInput>;
 	areAllQuestionsAnswered: () => boolean;

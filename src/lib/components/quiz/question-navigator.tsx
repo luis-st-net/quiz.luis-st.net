@@ -110,9 +110,9 @@ function QuestionButton({
 				{
 					// Current question - blue border
 					"ring-2 ring-primary ring-offset-2": isCurrent,
-					// Answered - green background
-					"bg-green-500/20 text-green-700 dark:text-green-400": isAnswered && !isCurrent,
-					// Not answered - gray/muted
+					// Answered - green background (always when answered, including current)
+					"bg-green-500/20 text-green-700 dark:text-green-400": isAnswered,
+					// Not answered - gray/muted (only when not current)
 					"bg-muted text-muted-foreground": !isAnswered && !isCurrent,
 				}
 			)}

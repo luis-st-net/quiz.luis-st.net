@@ -25,7 +25,7 @@ import { useConfetti } from "@/lib/hooks/use-confetti";
 export default function ResultPage() {
 	const router = useRouter();
 	const { getQuizById } = useQuizContext();
-	const { quizId, getAllAnswers, questions } = useQuestionContext();
+	const { quizId, getAllAnswers, questions, clearAnswers } = useQuestionContext();
 
 	const quiz = getQuizById(quizId);
 
@@ -38,18 +38,17 @@ export default function ResultPage() {
 	}
 
 	const answers = getAllAnswers();
-	const { correct, incorrect, unanswered, total } = calculateScore(answers, questions.length);
-	const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+	const { correct, incorrect, unanswered, manual, total } = calculateScore(answers, questions.length);
+	// Calculate percentage based on auto-gradable questions only
+	const autoGradableTotal = total - manual;
+	const percentage = autoGradableTotal > 0 ? Math.round((correct / autoGradableTotal) * 100) : 0;
 
 	// Trigger confetti for good scores (80%+)
 	useConfetti({ enabled: percentage >= 80, triggerOnMount: true });
 
 	const handleRestart = () => {
-		// Clear session storage and restart
-		if (typeof window !== "undefined") {
-			sessionStorage.removeItem(`${quizId}/answers`);
-			sessionStorage.removeItem(`${quizId}/answers-flagged`);
-		}
+		// Clear answers and restart
+		clearAnswers();
 		router.push(`/${quizId}`);
 	};
 
@@ -122,7 +121,7 @@ export default function ResultPage() {
 						</CardHeader>
 
 						<CardContent className="pt-6">
-							<div className="grid grid-cols-3 gap-4 text-center">
+							<div className="grid grid-cols-4 gap-4 text-center">
 								<div className="p-3 rounded-lg bg-green-100 dark:bg-green-900/20">
 									<div className="text-2xl font-bold text-green-600">{correct}</div>
 									<div className="text-sm text-muted-foreground">Richtig</div>
@@ -132,7 +131,11 @@ export default function ResultPage() {
 									<div className="text-sm text-muted-foreground">Falsch</div>
 								</div>
 								<div className="p-3 rounded-lg bg-amber-100 dark:bg-amber-900/20">
-									<div className="text-2xl font-bold text-amber-600">{unanswered}</div>
+									<div className="text-2xl font-bold text-amber-600">{manual}</div>
+									<div className="text-sm text-muted-foreground">Manuell</div>
+								</div>
+								<div className="p-3 rounded-lg bg-gray-100 dark:bg-gray-900/20">
+									<div className="text-2xl font-bold text-gray-600">{unanswered}</div>
 									<div className="text-sm text-muted-foreground">Offen</div>
 								</div>
 							</div>
@@ -176,21 +179,23 @@ export default function ResultPage() {
 function calculateScore(
 	answers: Record<string, QuestionInput>,
 	totalQuestions: number
-): { correct: number; incorrect: number; unanswered: number; total: number } {
+): { correct: number; incorrect: number; unanswered: number; manual: number; total: number } {
 	let correct = 0;
 	let incorrect = 0;
+	let manual = 0;
 
 	for (const answer of Object.values(answers)) {
 		const isCorrect = checkAnswer(answer);
 		if (isCorrect === true) correct++;
 		else if (isCorrect === false) incorrect++;
-		// null means not gradable (e.g., text questions)
+		else if (isCorrect === null) manual++; // Text questions need manual grading
 	}
 
 	return {
 		correct,
 		incorrect,
 		unanswered: totalQuestions - Object.keys(answers).length,
+		manual,
 		total: totalQuestions,
 	};
 }

@@ -28,6 +28,8 @@ export default function SubmitPage() {
 		getElapsedTime,
 		finishQuiz,
 		setPreventNavigation,
+		pauseTimer,
+		resumeTimer,
 	} = useQuestionContext();
 
 	const quiz = getQuizById(quizId);
@@ -35,12 +37,14 @@ export default function SubmitPage() {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [elapsedTime, setElapsedTime] = useState(0);
 
-	// Update elapsed time every second
+	// Pause timer when entering submit page
 	useEffect(() => {
-		const updateTime = () => setElapsedTime(getElapsedTime());
-		updateTime();
-		const interval = setInterval(updateTime, 1000);
-		return () => clearInterval(interval);
+		pauseTimer();
+	}, [pauseTimer]);
+
+	// Update elapsed time once (timer is paused so no need for interval)
+	useEffect(() => {
+		setElapsedTime(getElapsedTime());
 	}, [getElapsedTime]);
 
 	if (!quiz) {
@@ -66,6 +70,7 @@ export default function SubmitPage() {
 	};
 
 	const handleReviewClick = () => {
+		resumeTimer();
 		router.push(`/${quizId}/review`);
 	};
 
