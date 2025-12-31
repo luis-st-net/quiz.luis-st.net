@@ -61,7 +61,7 @@ export default function FileUploadQuestion(
 		}
 	}, [question.id, question.question, question.upload.required, saveAnswer, removeAnswer]);
 
-	const validateFile = (file: File): string | null => {
+	const validateFile = useCallback((file: File): string | null => {
 		// Check file type
 		if (!question.upload.accept.some(type => {
 			if (type.startsWith(".")) {
@@ -82,7 +82,7 @@ export default function FileUploadQuestion(
 		}
 
 		return null;
-	};
+	}, [question.upload.accept, question.upload.maxSizeMB]);
 
 	const processFile = (file: File): Promise<UploadedFile> => {
 		return new Promise((resolve, reject) => {
@@ -101,7 +101,7 @@ export default function FileUploadQuestion(
 		});
 	};
 
-	const handleFiles = async (fileList: FileList | File[]) => {
+	const handleFiles = useCallback(async (fileList: FileList | File[]) => {
 		setError(null);
 		const newFiles: UploadedFile[] = [...files];
 		const filesToProcess = Array.from(fileList);
@@ -129,7 +129,7 @@ export default function FileUploadQuestion(
 		}
 
 		updateAnswer(newFiles);
-	};
+	}, [files, question.upload.maxFiles, validateFile, updateAnswer]);
 
 	const handleDrag = (e: React.DragEvent) => {
 		e.preventDefault();
@@ -155,6 +155,33 @@ export default function FileUploadQuestion(
 			handleFiles(e.target.files);
 		}
 	};
+
+	const handlePaste = useCallback((e: ClipboardEvent) => {
+		if (files.length >= question.upload.maxFiles) return;
+
+		const clipboardItems = e.clipboardData?.items;
+		if (!clipboardItems) return;
+
+		const pastedFiles: File[] = [];
+		for (const item of clipboardItems) {
+			if (item.kind === "file") {
+				const file = item.getAsFile();
+				if (file) {
+					pastedFiles.push(file);
+				}
+			}
+		}
+
+		if (pastedFiles.length > 0) {
+			e.preventDefault();
+			handleFiles(pastedFiles);
+		}
+	}, [files.length, question.upload.maxFiles, handleFiles]);
+
+	useEffect(() => {
+		document.addEventListener("paste", handlePaste);
+		return () => document.removeEventListener("paste", handlePaste);
+	}, [handlePaste]);
 
 	const removeFile = (index: number) => {
 		const newFiles = files.filter((_, i) => i !== index);
@@ -187,7 +214,7 @@ export default function FileUploadQuestion(
 				/>
 				<Icons.Upload className="mx-auto size-12 text-muted-foreground mb-4" />
 				<p className="text-sm font-medium">
-					Dateien hier ablegen oder klicken zum Auswählen
+					Dateien hier ablegen, einfügen oder klicken zum Auswählen
 				</p>
 				<p className="text-xs text-muted-foreground mt-2">
 					{question.upload.accept.map(type => {
