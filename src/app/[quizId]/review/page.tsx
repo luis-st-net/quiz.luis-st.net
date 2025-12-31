@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuestionContext } from "@/lib/contexts/question-context";
+import { useTimerContext } from "@/lib/contexts/timer-context";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
 import { Button } from "@/lib/components/ui/button";
@@ -32,9 +33,8 @@ export default function ReviewPage() {
 		getNumberOfAnsweredQuestions,
 		goToQuestion,
 		setReviewMode,
-		pauseTimer,
-		resumeTimer,
 	} = useQuestionContext();
+	const { pauseTimer, resumeTimer } = useTimerContext();
 	const { getQuizById } = useQuizContext();
 
 	// Pause timer when entering review page

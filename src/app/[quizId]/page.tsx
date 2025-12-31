@@ -20,7 +20,6 @@ export default function QuizPage() {
 	const router = useRouter();
 	const {
 		quizId,
-		startTime,
 		previousQuestion,
 		nextQuestion,
 		toggleFlagQuestion,
@@ -70,7 +69,6 @@ export default function QuizPage() {
 			<QuizHeader
 				quizName={quiz.name}
 				onCancelClick={() => setShowCancelDialog(true)}
-				startTime={startTime}
 			/>
 
 			<div className="flex flex-1 min-h-0">

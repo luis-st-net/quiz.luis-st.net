@@ -14,9 +14,6 @@ export function QuestionProvider(
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(new Set());
 	const [isReviewMode, setReviewMode] = useState(false);
-	const [startTime] = useState<Date>(new Date());
-	const [pausedAt, setPausedAt] = useState<Date | null>(null);
-	const [totalPausedTime, setTotalPausedTime] = useState(0);
 	const router = useRouter();
 
 	// Load answers and flagged questions from sessionStorage
@@ -137,29 +134,6 @@ export function QuestionProvider(
 	}, [flaggedQuestions]);
 	//endregion
 
-	//region Timing
-	const getElapsedTime = useCallback(() => {
-		const now = pausedAt || new Date();
-		return Math.floor((now.getTime() - startTime.getTime()) / 1000) - totalPausedTime;
-	}, [startTime, pausedAt, totalPausedTime]);
-
-	const pauseTimer = useCallback(() => {
-		if (!pausedAt) {
-			setPausedAt(new Date());
-		}
-	}, [pausedAt]);
-
-	const resumeTimer = useCallback(() => {
-		if (pausedAt) {
-			const pauseDuration = Math.floor((new Date().getTime() - pausedAt.getTime()) / 1000);
-			setTotalPausedTime(prev => prev + pauseDuration);
-			setPausedAt(null);
-		}
-	}, [pausedAt]);
-
-	const isTimerPaused = pausedAt !== null;
-	//endregion
-
 	//region Answer management
 	const saveAnswer = useCallback((questionId: string, answer: QuestionInput) => {
 		setAnswers(previousAnswers => ({
@@ -230,12 +204,6 @@ export function QuestionProvider(
 		toggleFlagQuestion,
 		isQuestionFlagged,
 
-		startTime,
-		getElapsedTime,
-		pauseTimer,
-		resumeTimer,
-		isTimerPaused,
-
 		isReviewMode,
 		setReviewMode,
 
@@ -265,11 +233,6 @@ export function QuestionProvider(
 		unflagQuestion,
 		toggleFlagQuestion,
 		isQuestionFlagged,
-		startTime,
-		getElapsedTime,
-		pauseTimer,
-		resumeTimer,
-		isTimerPaused,
 		isReviewMode,
 		saveAnswer,
 		getAnswer,

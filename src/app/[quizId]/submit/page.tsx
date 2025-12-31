@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuestionContext } from "@/lib/contexts/question-context";
+import { useTimerContext } from "@/lib/contexts/timer-context";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/lib/components/ui/card";
 import { Button } from "@/lib/components/ui/button";
@@ -25,11 +26,10 @@ export default function SubmitPage() {
 		quizId,
 		questions,
 		getNumberOfAnsweredQuestions,
-		getElapsedTime,
 		finishQuiz,
 		setPreventNavigation,
-		resumeTimer,
 	} = useQuestionContext();
+	const { getElapsedTime } = useTimerContext();
 
 	const quiz = getQuizById(quizId);
 	const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -64,7 +64,7 @@ export default function SubmitPage() {
 	};
 
 	const handleReviewClick = () => {
-		resumeTimer();
+		// Timer stays paused - review page keeps it paused
 		router.push(`/${quizId}/review`);
 	};
 

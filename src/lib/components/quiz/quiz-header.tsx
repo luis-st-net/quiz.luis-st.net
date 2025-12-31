@@ -1,30 +1,35 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utility";
 import { Button } from "@/lib/components/ui/button";
 import { ThemeToggle } from "@/lib/components/ui/theme";
 import { X, Clock } from "lucide-react";
+import { useTimerContext } from "@/lib/contexts/timer-context";
 
 interface QuizHeaderProps {
 	quizName: string;
 	onCancelClick: () => void;
-	startTime: Date;
 	className?: string;
 }
 
-export function QuizHeader({ quizName, onCancelClick, startTime, className }: QuizHeaderProps) {
+export function QuizHeader({ quizName, onCancelClick, className }: QuizHeaderProps) {
+	const { getElapsedTime, isTimerPaused } = useTimerContext();
 	const [elapsedTime, setElapsedTime] = useState(0);
 
 	useEffect(() => {
+		// Update immediately
+		setElapsedTime(getElapsedTime());
+
+		// Only run interval when timer is not paused
+		if (isTimerPaused) return;
+
 		const interval = setInterval(() => {
-			const elapsed = Math.floor((new Date().getTime() - startTime.getTime()) / 1000);
-			setElapsedTime(elapsed);
+			setElapsedTime(getElapsedTime());
 		}, 1000);
 
 		return () => clearInterval(interval);
-	}, [startTime]);
+	}, [getElapsedTime, isTimerPaused]);
 
 	const formatTime = (seconds: number) => {
 		const mins = Math.floor(seconds / 60);

@@ -2,6 +2,7 @@
 
 import React, { useCallback } from "react";
 import { QuestionProvider } from "@/lib/contexts/question-context";
+import { TimerProvider } from "@/lib/contexts/timer-context";
 import { useParams } from "next/navigation";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { QuestionInput } from "@/lib/types";
@@ -40,8 +41,10 @@ export default function (
 	}, [quiz]);
 	
 	return (
-		<QuestionProvider quizId={quizId} questions={quiz.questions} onCompleteAction={finishQuestions} storageKey={quizId + "/answers"}>
-			{children}
-		</QuestionProvider>
+		<TimerProvider storageKey={quizId + "/timer"}>
+			<QuestionProvider quizId={quizId} questions={quiz.questions} onCompleteAction={finishQuestions} storageKey={quizId + "/answers"}>
+				{children}
+			</QuestionProvider>
+		</TimerProvider>
 	);
 }

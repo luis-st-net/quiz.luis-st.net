@@ -69,13 +69,6 @@ export interface QuestionContext {
 	toggleFlagQuestion: (questionId: string) => void;
 	isQuestionFlagged: (questionId: string) => boolean;
 
-	// Timing
-	startTime: Date;
-	getElapsedTime: () => number;
-	pauseTimer: () => void;
-	resumeTimer: () => void;
-	isTimerPaused: boolean;
-
 	// Review mode
 	isReviewMode: boolean;
 	setReviewMode: (mode: boolean) => void;
