@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useQuestionContext } from "@/lib/contexts/question-context";
+import { useTimerContext } from "@/lib/contexts/timer-context";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
 import { Button } from "@/lib/components/ui/button";
@@ -13,12 +14,13 @@ import {
 	MultipleChoiceQuestionInput,
 	NumericQuestionInput,
 	OrderingQuestionInput,
+	Question,
 	QuestionInput,
 	SingleChoiceQuestionInput,
 	TextQuestionInput,
 	TrueFalseQuestionInput,
 } from "@/lib/types";
-import { Check, X, Minus, Home, RotateCcw, Trophy } from "lucide-react";
+import { Check, X, Minus, Home, RotateCcw, Trophy, Download } from "lucide-react";
 import { cn } from "@/lib/utility";
 import { useConfetti } from "@/lib/hooks/use-confetti";
 
@@ -26,8 +28,10 @@ export default function ResultPage() {
 	const router = useRouter();
 	const { getQuizById } = useQuizContext();
 	const { quizId, getAllAnswers, questions, clearAnswers } = useQuestionContext();
+	const { getElapsedTime, resetTimer } = useTimerContext();
 
 	const quiz = getQuizById(quizId);
+	const elapsedTime = getElapsedTime();
 
 	if (!quiz) {
 		return (
@@ -47,13 +51,30 @@ export default function ResultPage() {
 	useConfetti({ enabled: percentage >= 80, triggerOnMount: true });
 
 	const handleRestart = () => {
-		// Clear answers and restart
+		// Clear answers, timer and restart
 		clearAnswers();
+		resetTimer();
 		router.push(`/${quizId}`);
 	};
 
 	const handleHome = () => {
+		// Clear all quiz data before going home
+		clearAnswers();
+		resetTimer();
 		router.push("/");
+	};
+
+	const handleDownload = () => {
+		const text = generateResultsText(quiz.name, answers, questions, elapsedTime, { correct, incorrect, manual, total, percentage });
+		const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = `${quiz.name.replace(/[^a-zA-Z0-9]/g, "_")}_Ergebnisse.txt`;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
 	};
 
 	return (
@@ -160,6 +181,10 @@ export default function ResultPage() {
 						<Button onClick={handleRestart} variant="outline" className="flex-1">
 							<RotateCcw className="size-4 mr-2" />
 							Quiz wiederholen
+						</Button>
+						<Button onClick={handleDownload} variant="outline" className="flex-1">
+							<Download className="size-4 mr-2" />
+							Ergebnisse herunterladen
 						</Button>
 						<Button onClick={handleHome} className="flex-1">
 							<Home className="size-4 mr-2" />
@@ -484,4 +509,139 @@ function MatchingQuestionResult({ inputMatches, correctMatches }: MatchingQuesti
 			</div>
 		</div>
 	);
+}
+
+function generateResultsText(
+	quizName: string,
+	answers: Record<string, QuestionInput>,
+	questions: Question[],
+	elapsedTime: number,
+	score: { correct: number; incorrect: number; manual: number; total: number; percentage: number }
+): string {
+	const formatTime = (seconds: number) => {
+		const mins = Math.floor(seconds / 60);
+		const secs = seconds % 60;
+		if (mins >= 60) {
+			const hours = Math.floor(mins / 60);
+			const remainingMins = mins % 60;
+			return `${hours}h ${remainingMins}m ${secs}s`;
+		}
+		return `${mins}m ${secs}s`;
+	};
+
+	const lines: string[] = [
+		"=".repeat(60),
+		`QUIZ ERGEBNISSE: ${quizName}`,
+		"=".repeat(60),
+		"",
+		`Datum: ${new Date().toLocaleDateString("de-DE")} ${new Date().toLocaleTimeString("de-DE")}`,
+		`Dauer: ${formatTime(elapsedTime)}`,
+		"",
+		"-".repeat(60),
+		"ZUSAMMENFASSUNG",
+		"-".repeat(60),
+		`Ergebnis: ${score.percentage}% (${score.correct}/${score.total})`,
+		`Richtig: ${score.correct}`,
+		`Falsch: ${score.incorrect}`,
+		`Manuell zu bewerten: ${score.manual}`,
+		"",
+		"-".repeat(60),
+		"DETAILLIERTE ERGEBNISSE",
+		"-".repeat(60),
+		"",
+	];
+
+	Object.entries(answers).forEach(([questionId, input], index) => {
+		const isCorrect = checkAnswer(input);
+		const status = isCorrect === true ? "[RICHTIG]" : isCorrect === false ? "[FALSCH]" : "[MANUELL]";
+
+		lines.push(`Frage ${index + 1} ${status}`);
+		lines.push(`Frage: ${input.question}`);
+		lines.push("");
+
+		switch (input.type) {
+			case "true-false": {
+				const tf = input as TrueFalseQuestionInput;
+				lines.push(`Ihre Antwort: ${tf.inputAnswer ? "Wahr" : "Falsch"}`);
+				if (tf.inputAnswer !== tf.correctAnswer) {
+					lines.push(`Richtige Antwort: ${tf.correctAnswer ? "Wahr" : "Falsch"}`);
+				}
+				break;
+			}
+			case "numeric": {
+				const num = input as NumericQuestionInput;
+				lines.push(`Ihre Antwort: ${num.inputAnswer}`);
+				const numCorrect = num.tolerance
+					? Math.abs(num.inputAnswer - num.correctAnswer) <= num.tolerance
+					: num.inputAnswer === num.correctAnswer;
+				if (!numCorrect) {
+					lines.push(`Richtige Antwort: ${num.correctAnswer}${num.tolerance ? ` (±${num.tolerance})` : ""}`);
+				}
+				break;
+			}
+			case "text": {
+				const text = input as TextQuestionInput;
+				lines.push(`Ihre Antwort: ${text.inputAnswer || "(Keine Antwort)"}`);
+				break;
+			}
+			case "single-choice": {
+				const sc = input as SingleChoiceQuestionInput;
+				lines.push(`Ihre Antwort: ${sc.answers[sc.inputAnswer]}`);
+				if (sc.inputAnswer !== sc.correctAnswerIndex) {
+					lines.push(`Richtige Antwort: ${sc.answers[sc.correctAnswerIndex]}`);
+				}
+				break;
+			}
+			case "multiple-choice": {
+				const mc = input as MultipleChoiceQuestionInput;
+				lines.push("Ihre Auswahl:");
+				mc.inputAnswer.forEach((idx) => {
+					const marker = mc.answers[idx].isCorrect ? "  ✓" : "  ✗";
+					lines.push(`${marker} ${mc.answers[idx].answer}`);
+				});
+				lines.push("Richtige Antworten:");
+				mc.answers.filter((a) => a.isCorrect).forEach((a) => {
+					lines.push(`  • ${a.answer}`);
+				});
+				break;
+			}
+			case "ordering": {
+				const ord = input as OrderingQuestionInput;
+				lines.push("Ihre Reihenfolge:");
+				ord.inputAnswer.forEach((itemIndex, position) => {
+					const item = ord.items[itemIndex];
+					const marker = item === ord.correctAnswerOrder[position] ? "✓" : "✗";
+					lines.push(`  ${position + 1}. ${marker} ${item}`);
+				});
+				lines.push("Richtige Reihenfolge:");
+				ord.correctAnswerOrder.forEach((item, i) => {
+					lines.push(`  ${i + 1}. ${item}`);
+				});
+				break;
+			}
+			case "matching": {
+				const match = input as MatchingQuestionInput;
+				lines.push("Ihre Zuordnungen:");
+				Object.entries(match.inputMatches).forEach(([item, m]) => {
+					const marker = match.correctMatches[item] === m ? "✓" : "✗";
+					lines.push(`  ${marker} ${item} → ${m}`);
+				});
+				lines.push("Richtige Zuordnungen:");
+				Object.entries(match.correctMatches).forEach(([item, m]) => {
+					lines.push(`  • ${item} → ${m}`);
+				});
+				break;
+			}
+		}
+
+		lines.push("");
+		lines.push("-".repeat(40));
+		lines.push("");
+	});
+
+	lines.push("=".repeat(60));
+	lines.push("Ende der Ergebnisse");
+	lines.push("=".repeat(60));
+
+	return lines.join("\n");
 }
