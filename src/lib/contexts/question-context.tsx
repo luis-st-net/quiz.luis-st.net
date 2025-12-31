@@ -36,8 +36,20 @@ export function QuestionProvider(
 					console.error("Failed to parse stored flagged questions");
 				}
 			}
+
+			const storedIndex = sessionStorage.getItem(`${storageKey}-index`);
+			if (storedIndex) {
+				try {
+					const index = JSON.parse(storedIndex);
+					if (index >= 0 && index < questions.length) {
+						setCurrentQuestionIndex(index);
+					}
+				} catch (e) {
+					console.error("Failed to parse stored question index");
+				}
+			}
 		}
-	}, [storageKey]);
+	}, [storageKey, questions.length]);
 
 	// Persist answers to sessionStorage
 	useEffect(() => {
@@ -56,6 +68,11 @@ export function QuestionProvider(
 			sessionStorage.removeItem(`${storageKey}-flagged`);
 		}
 	}, [flaggedQuestions, storageKey]);
+
+	// Persist current question index to sessionStorage
+	useEffect(() => {
+		sessionStorage.setItem(`${storageKey}-index`, JSON.stringify(currentQuestionIndex));
+	}, [currentQuestionIndex, storageKey]);
 
 	//region Question getters
 	const getIndexOfQuestion = useCallback((questionId: string) => {
@@ -165,6 +182,7 @@ export function QuestionProvider(
 		if (typeof window !== "undefined") {
 			sessionStorage.removeItem(storageKey);
 			sessionStorage.removeItem(`${storageKey}-flagged`);
+			sessionStorage.removeItem(`${storageKey}-index`);
 		}
 	}, [storageKey]);
 
