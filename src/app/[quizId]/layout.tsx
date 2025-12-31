@@ -36,9 +36,9 @@ export default function (
 		);
 	}
 	
-	const finishQuestions = useCallback(async (answers: Record<string, QuestionInput>) => {
-		await finishQuiz(quiz.name, answers);
-	}, [quiz]);
+	const finishQuestions = useCallback(async (answers: Record<string, QuestionInput>, elapsedTime: number) => {
+		await finishQuiz(quiz.name, answers, elapsedTime);
+	}, [quiz, finishQuiz]);
 	
 	return (
 		<TimerProvider storageKey={quizId + "/timer"}>

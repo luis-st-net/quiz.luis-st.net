@@ -3,6 +3,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { QuestionContext, QuestionInput, QuestionProvider } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import { useTimerContext } from "@/lib/contexts/timer-context";
 
 const Context = createContext<QuestionContext | undefined>(undefined);
 
@@ -15,6 +16,7 @@ export function QuestionProvider(
 	const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(new Set());
 	const [isReviewMode, setReviewMode] = useState(false);
 	const router = useRouter();
+	const { getElapsedTime } = useTimerContext();
 
 	// Load answers and flagged questions from sessionStorage
 	useEffect(() => {
@@ -116,9 +118,10 @@ export function QuestionProvider(
 	}, [preventNavigation, currentQuestionIndex, questions.length]);
 
 	const finishQuiz = useCallback(async () => {
-		await onCompleteAction(answers);
+		const elapsedTime = getElapsedTime();
+		await onCompleteAction(answers, elapsedTime);
 		router.push("/" + quizId + "/result");
-	}, [onCompleteAction, answers, quizId, router]);
+	}, [onCompleteAction, answers, quizId, router, getElapsedTime]);
 	//endregion
 
 	//region Flagging

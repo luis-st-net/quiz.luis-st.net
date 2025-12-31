@@ -14,30 +14,113 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-export async function sendMail(name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>) {
+function escapeHtml(str: string): string {
+	return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
+}
+
+function formatTime(seconds: number): string {
+	const mins = Math.floor(seconds / 60);
+	const secs = seconds % 60;
+	if (mins >= 60) {
+		const hours = Math.floor(mins / 60);
+		const remainingMins = mins % 60;
+		return `${hours}h ${remainingMins}m ${secs}s`;
+	}
+	return `${mins}m ${secs}s`;
+}
+
+function checkAnswer(input: QuestionInput): boolean | null {
+	switch (input.type) {
+		case "true-false": {
+			const tf = input as TrueFalseQuestionInput;
+			return tf.inputAnswer === tf.correctAnswer;
+		}
+		case "numeric": {
+			const num = input as NumericQuestionInput;
+			if (num.tolerance) {
+				return Math.abs(num.inputAnswer - num.correctAnswer) <= num.tolerance;
+			}
+			return num.inputAnswer === num.correctAnswer;
+		}
+		case "single-choice": {
+			const sc = input as SingleChoiceQuestionInput;
+			return sc.inputAnswer === sc.correctAnswerIndex;
+		}
+		case "multiple-choice": {
+			const mc = input as MultipleChoiceQuestionInput;
+			const correctIndices = mc.answers
+				.map((a, i) => (a.isCorrect ? i : -1))
+				.filter((i) => i >= 0);
+			return (
+				mc.inputAnswer.length === correctIndices.length &&
+				mc.inputAnswer.every((i) => correctIndices.includes(i))
+			);
+		}
+		case "ordering": {
+			const ord = input as OrderingQuestionInput;
+			return ord.inputAnswer.every(
+				(itemIndex, position) =>
+					ord.items[itemIndex] === ord.correctAnswerOrder[position]
+			);
+		}
+		case "matching": {
+			const match = input as MatchingQuestionInput;
+			return Object.entries(match.inputMatches).every(
+				([item, m]) => match.correctMatches[item] === m
+			);
+		}
+		case "text":
+			return null;
+		default:
+			return null;
+	}
+}
+
+function calculateScore(answers: Record<string, QuestionInput>, totalQuestions: number) {
+	let correct = 0;
+	let incorrect = 0;
+	let manual = 0;
+
+	for (const answer of Object.values(answers)) {
+		const isCorrect = checkAnswer(answer);
+		if (isCorrect === true) correct++;
+		else if (isCorrect === false) incorrect++;
+		else if (isCorrect === null) manual++;
+	}
+
+	const autoGradableTotal = totalQuestions - manual;
+	const percentage = autoGradableTotal > 0 ? Math.round((correct / autoGradableTotal) * 100) : 0;
+
+	return { correct, incorrect, manual, total: totalQuestions, percentage };
+}
+
+export async function sendMail(name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>, elapsedTime: number = 0) {
 	if (!name) {
 		name = "Anonymous";
 	}
-	name = name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
-	quiz = quiz.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
-	
+	const safeName = escapeHtml(name);
+	const safeQuiz = escapeHtml(quiz);
+
+	const totalQuestions = Object.keys(answers).length;
+	const score = calculateScore(answers, totalQuestions);
+
 	console.log("Sending mail for quiz", quiz, "by", name);
 	try {
-		const text = getText(name, quiz, answers);
-		const html = getHtml(name, quiz, answers);
-		
+		const text = getText(name, quiz, answers, elapsedTime, score);
+		const html = getHtml(safeName, safeQuiz, answers, elapsedTime, score);
+
 		const recipients = mail ? [mail, process.env.SMTP_USER as string] : [process.env.SMTP_USER as string];
-		
+
 		const mailOptions: Mail.Options = {
 			from: process.env.SMTP_USER,
 			to: recipients,
-			subject: "Quiz " + quiz + " abgeschlossen von " + name,
+			subject: `Quiz ${quiz} abgeschlossen von ${name} (${score.percentage}%)`,
 			text: text,
 			html: html,
 		};
-		
+
 		await transporter.sendMail(mailOptions);
-		
+
 		return {
 			success: true,
 			message: "Quiz wurde erfolgreich eingereicht.",
@@ -50,179 +133,358 @@ export async function sendMail(name: string | undefined, mail: string | undefine
 	}
 }
 
-function getText(name: string, quiz: string, answers: Record<string, QuestionInput>) {
-	let text = `Quiz ${quiz} abgeschlossen von ${name}\n\n`;
-	
-	for (const key in answers) {
-		const question = answers[key];
-		text += `Frage: ${question.question}\n`;
-		
-		if (question.type === "true-false") {
-			const questionInput = question as TrueFalseQuestionInput;
-			
-			text += `Antwort: ${questionInput.inputAnswer ? "Wahr" : "Falsch"}\n`;
-			text += `Richtige Antwort: ${questionInput.correctAnswer ? "Wahr" : "Falsch"}\n`;
-		} else if (question.type === "numeric") {
-			const questionInput = question as NumericQuestionInput;
-			
-			text += `Antwort: ${questionInput.inputAnswer}\n`;
-			text += `Richtige Antwort: ${questionInput.correctAnswer}`;
-			if (questionInput.tolerance) {
-				text += ` (±${questionInput.tolerance})`;
-			}
-			text += "\n";
-		} else if (question.type === "text") {
-			const questionInput = question as TextQuestionInput;
-			text += `Antwort: ${questionInput.inputAnswer}\n`;
-		} else if (question.type === "single-choice") {
-			const questionInput = question as SingleChoiceQuestionInput;
-			
-			text += `Antwort: ${questionInput.answers[questionInput.inputAnswer]}\n`;
-			text += `Richtige Antwort: ${questionInput.answers[questionInput.correctAnswerIndex]}\n`;
-		} else if (question.type === "multiple-choice") {
-			const questionInput = question as MultipleChoiceQuestionInput;
-			
-			text += "Gewählte Antworten:\n";
-			questionInput.inputAnswer.forEach(value => {
-				text += `- ${questionInput.answers[value].answer}\n`;
-			});
-			
-			text += "Richtige Antworten:\n";
-			questionInput.answers.forEach(answer => {
-				if (answer.isCorrect) {
-					text += `- ${answer.answer}\n`;
+type Score = { correct: number; incorrect: number; manual: number; total: number; percentage: number };
+
+function getText(name: string, quiz: string, answers: Record<string, QuestionInput>, elapsedTime: number, score: Score) {
+	const lines: string[] = [
+		"=".repeat(60),
+		`QUIZ ERGEBNISSE: ${quiz}`,
+		"=".repeat(60),
+		"",
+		`Teilnehmer: ${name}`,
+		`Datum: ${new Date().toLocaleDateString("de-DE")} ${new Date().toLocaleTimeString("de-DE")}`,
+		`Dauer: ${formatTime(elapsedTime)}`,
+		"",
+		"-".repeat(60),
+		"ZUSAMMENFASSUNG",
+		"-".repeat(60),
+		`Ergebnis: ${score.percentage}% (${score.correct}/${score.total})`,
+		`Richtig: ${score.correct}`,
+		`Falsch: ${score.incorrect}`,
+		`Manuell zu bewerten: ${score.manual}`,
+		"",
+		"-".repeat(60),
+		"DETAILLIERTE ERGEBNISSE",
+		"-".repeat(60),
+		"",
+	];
+
+	Object.entries(answers).forEach(([, input], index) => {
+		const isCorrect = checkAnswer(input);
+		const status = isCorrect === true ? "[RICHTIG]" : isCorrect === false ? "[FALSCH]" : "[MANUELL]";
+
+		lines.push(`Frage ${index + 1} ${status}`);
+		lines.push(`Frage: ${input.question}`);
+		lines.push("");
+
+		switch (input.type) {
+			case "true-false": {
+				const tf = input as TrueFalseQuestionInput;
+				lines.push(`Ihre Antwort: ${tf.inputAnswer ? "Wahr" : "Falsch"}`);
+				if (tf.inputAnswer !== tf.correctAnswer) {
+					lines.push(`Richtige Antwort: ${tf.correctAnswer ? "Wahr" : "Falsch"}`);
 				}
-			});
-		} else if (question.type === "ordering") {
-			const questionInput = question as OrderingQuestionInput;
-			
-			text += "Deine Reihenfolge:\n";
-			questionInput.inputAnswer.forEach((itemIndex, index) => {
-				text += `${index + 1}. ${questionInput.items[itemIndex]}\n`;
-			});
-			
-			text += "Richtige Reihenfolge:\n";
-			questionInput.correctAnswerOrder.forEach((item, index) => {
-				text += `${index + 1}. ${item}\n`;
-			});
-		} else if (question.type === "matching") {
-			const questionInput = question as MatchingQuestionInput;
-			text += "Deine Zuordnungen:\n";
-			
-			for (const item in questionInput.inputMatches) {
-				text += `- ${item} → ${questionInput.inputMatches[item]}\n`;
+				break;
 			}
-			
-			text += "Richtige Zuordnungen:\n";
-			for (const match in questionInput.correctMatches) {
-				text += `- ${match} → ${questionInput.correctMatches[match]}\n`;
+			case "numeric": {
+				const num = input as NumericQuestionInput;
+				lines.push(`Ihre Antwort: ${num.inputAnswer}`);
+				const numCorrect = num.tolerance
+					? Math.abs(num.inputAnswer - num.correctAnswer) <= num.tolerance
+					: num.inputAnswer === num.correctAnswer;
+				if (!numCorrect) {
+					lines.push(`Richtige Antwort: ${num.correctAnswer}${num.tolerance ? ` (±${num.tolerance})` : ""}`);
+				}
+				break;
+			}
+			case "text": {
+				const text = input as TextQuestionInput;
+				lines.push(`Ihre Antwort: ${text.inputAnswer || "(Keine Antwort)"}`);
+				break;
+			}
+			case "single-choice": {
+				const sc = input as SingleChoiceQuestionInput;
+				lines.push(`Ihre Antwort: ${sc.answers[sc.inputAnswer]}`);
+				if (sc.inputAnswer !== sc.correctAnswerIndex) {
+					lines.push(`Richtige Antwort: ${sc.answers[sc.correctAnswerIndex]}`);
+				}
+				break;
+			}
+			case "multiple-choice": {
+				const mc = input as MultipleChoiceQuestionInput;
+				lines.push("Ihre Auswahl:");
+				mc.inputAnswer.forEach((idx) => {
+					const marker = mc.answers[idx].isCorrect ? "  ✓" : "  ✗";
+					lines.push(`${marker} ${mc.answers[idx].answer}`);
+				});
+				lines.push("Richtige Antworten:");
+				mc.answers.filter((a) => a.isCorrect).forEach((a) => {
+					lines.push(`  • ${a.answer}`);
+				});
+				break;
+			}
+			case "ordering": {
+				const ord = input as OrderingQuestionInput;
+				lines.push("Ihre Reihenfolge:");
+				ord.inputAnswer.forEach((itemIndex, position) => {
+					const item = ord.items[itemIndex];
+					const marker = item === ord.correctAnswerOrder[position] ? "✓" : "✗";
+					lines.push(`  ${position + 1}. ${marker} ${item}`);
+				});
+				lines.push("Richtige Reihenfolge:");
+				ord.correctAnswerOrder.forEach((item, i) => {
+					lines.push(`  ${i + 1}. ${item}`);
+				});
+				break;
+			}
+			case "matching": {
+				const match = input as MatchingQuestionInput;
+				lines.push("Ihre Zuordnungen:");
+				Object.entries(match.inputMatches).forEach(([item, m]) => {
+					const marker = match.correctMatches[item] === m ? "✓" : "✗";
+					lines.push(`  ${marker} ${item} → ${m}`);
+				});
+				lines.push("Richtige Zuordnungen:");
+				Object.entries(match.correctMatches).forEach(([item, m]) => {
+					lines.push(`  • ${item} → ${m}`);
+				});
+				break;
 			}
 		}
-		
-		text += "\n---\n\n";
-	}
-	return text;
+
+		lines.push("");
+		lines.push("-".repeat(40));
+		lines.push("");
+	});
+
+	lines.push("=".repeat(60));
+	lines.push("Ende der Ergebnisse");
+	lines.push("=".repeat(60));
+
+	return lines.join("\n");
 }
 
-function getHtml(name: string, quiz: string, answers: Record<string, QuestionInput>) {
-	let html = `
-    <html lang="de">
-    <head>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .question { margin-bottom: 30px; padding: 15px; background: #f9f9f9; border-radius: 5px; }
-        .question-text { font-weight: bold; margin-bottom: 10px; color: #2c3e50; }
-        .answer { margin-left: 15px; }
-        .correct { color: #27ae60; }
-        .incorrect { color: #e74c3c; }
-        .unknown { color: #f39c12; }
-      </style>
-    </head>
-    <body>
-    <div class="container"><h1>Quiz ${quiz} abgeschlossen von ${name}</h1>`;
-	
-	for (const key in answers) {
-		const question = answers[key];
-		html += `<div class="question"> <div class="question-text">${question.question}</div>`;
-		
-		if (question.type === "true-false") {
-			const questionInput = question as TrueFalseQuestionInput;
-			
-			html += `<div class="answer">Deine Antwort: <span class="${questionInput.inputAnswer === questionInput.correctAnswer ? "correct" : "incorrect"}">${questionInput.inputAnswer ? "Wahr" : "Falsch"}</span></div>`;
-			html += `<div class="answer">Richtige Antwort: <span class="correct">${questionInput.correctAnswer ? "Wahr" : "Falsch"}</span></div>`;
-			
-		} else if (question.type === "numeric") {
-			const questionInput = question as NumericQuestionInput;
-			const isCorrect = questionInput.tolerance ? Math.abs(questionInput.inputAnswer - questionInput.correctAnswer) <= questionInput.tolerance : questionInput.inputAnswer === questionInput.correctAnswer;
-			
-			html += `<div class="answer">Deine Antwort: <span class="${isCorrect ? "correct" : "incorrect"}">${questionInput.inputAnswer}</span></div>`;
-			html += `<div class="answer">Richtige Antwort: <span class="correct">${questionInput.correctAnswer}</span>`;
-			if (questionInput.tolerance) {
-				html += ` (±${questionInput.tolerance})`;
-			}
-			html += `</div>`;
-		} else if (question.type === "text") {
-			const questionInput = question as TextQuestionInput;
-			
-			const answer = questionInput.inputAnswer.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").replace(/\n/g, "<br/>");
-			html += `<div class="answer">Antwort: <span class="unknown">${answer}</span></div>`;
-		} else if (question.type === "single-choice") {
-			const questionInput = question as SingleChoiceQuestionInput;
-			
-			html += `<div class="answer">Deine Antwort: <span class="${questionInput.inputAnswer === questionInput.correctAnswerIndex ? "correct" : "incorrect"}">${questionInput.answers[questionInput.inputAnswer]}</span></div>`;
-			html += `<div class="answer">Richtige Antwort: <span class="correct">${questionInput.answers[questionInput.correctAnswerIndex]}</span></div>`;
-		} else if (question.type === "multiple-choice") {
-			const questionInput = question as MultipleChoiceQuestionInput;
-			
-			html += `<div class="answer">Deine Antworten:<ul>`;
-			questionInput.inputAnswer.forEach(value => {
-				const isCorrect = questionInput.answers[value].isCorrect;
-				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${questionInput.answers[value].answer}</li>`;
-			});
-			
-			html += `</ul></div><div class="answer">Richtige Antworten:<ul>`;
-			questionInput.answers.forEach(answer => {
-				if (answer.isCorrect) {
-					html += `<li class="correct">${answer.answer}</li>`;
-				}
-			});
-			html += `</ul></div>`;
-		} else if (question.type === "ordering") {
-			const questionInput = question as OrderingQuestionInput;
-			
-			html += `<div class="answer">Deine Reihenfolge:<ol>`;
-			questionInput.inputAnswer.forEach((itemIndex, arrayIndex) => {
-				const item = questionInput.items[itemIndex];
-				const isCorrect = item === questionInput.correctAnswerOrder[arrayIndex];
-				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${item}</li>`;
-			});
-			
-			html += `</ol></div><div class="answer">Richtige Reihenfolge:<ol>`;
-			questionInput.correctAnswerOrder.forEach(item => {
-				html += `<li class="correct">${item}</li>`;
-			});
-			html += `</ol></div>`;
-		} else if (question.type === "matching") {
-			const questionInput = question as MatchingQuestionInput;
-			
-			html += `<div class="answer">Deine Zuordnungen:<ul>`;
-			for (const item in questionInput.inputMatches) {
-				const isCorrect = questionInput.correctMatches[item] === questionInput.inputMatches[item];
-				html += `<li class="${isCorrect ? "correct" : "incorrect"}">${item} → ${questionInput.inputMatches[item]}</li>`;
-			}
-			
-			html += `</ul></div><div class="answer">Richtige Zuordnungen:<ul>`;
-			for (const match in questionInput.correctMatches) {
-				html += `<li class="correct">${match} → ${questionInput.correctMatches[match]}</li>`;
-			}
-			html += `</ul></div>`;
+function getHtml(name: string, quiz: string, answers: Record<string, QuestionInput>, elapsedTime: number, score: Score) {
+	// Email-safe inline styles
+	const styles = {
+		body: "margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #1f2937; background-color: #f3f4f6;",
+		container: "max-width: 640px; margin: 0 auto; padding: 24px;",
+		card: "background: #ffffff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; overflow: hidden;",
+		cardHeader: "padding: 24px 24px 16px; text-align: center;",
+		cardContent: "padding: 0 24px 24px;",
+		title: "margin: 0 0 8px; font-size: 24px; font-weight: 600; color: #1f2937;",
+		subtitle: "margin: 0; font-size: 14px; color: #6b7280;",
+		// Score circle
+		scoreCircle: "width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; flex-direction: column;",
+		scorePercentage: "font-size: 32px; font-weight: 700; margin: 0;",
+		scoreDetail: "font-size: 14px; color: #6b7280; margin: 0;",
+		// Stats grid
+		statsGrid: "display: flex; gap: 12px; margin-top: 16px;",
+		statBox: "flex: 1; padding: 16px; border-radius: 8px; text-align: center;",
+		statNumber: "font-size: 24px; font-weight: 700; margin: 0;",
+		statLabel: "font-size: 12px; margin: 4px 0 0; opacity: 0.8;",
+		// Question card
+		questionCard: "background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 16px;",
+		questionHeader: "display: flex; align-items: flex-start; gap: 12px;",
+		statusIcon: "width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;",
+		questionNumber: "font-weight: 600; margin: 0 8px 0 0;",
+		badge: "display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 12px; font-weight: 500; border: 1px solid;",
+		questionText: "color: #6b7280; font-size: 14px; margin: 8px 0 12px 40px;",
+		answerSection: "margin-left: 40px; font-size: 14px;",
+		// Colors
+		greenBg: "background-color: #dcfce7;",
+		greenText: "color: #16a34a;",
+		greenBorder: "border-color: #86efac;",
+		redBg: "background-color: #fee2e2;",
+		redText: "color: #dc2626;",
+		redBorder: "border-color: #fca5a5;",
+		amberBg: "background-color: #fef3c7;",
+		amberText: "color: #d97706;",
+		amberBorder: "border-color: #fcd34d;",
+		mutedText: "color: #6b7280;",
+	};
+
+	// Determine score color
+	const getScoreColor = () => {
+		if (score.percentage >= 80) return { bg: "#dcfce7", text: "#16a34a", border: "#86efac" };
+		if (score.percentage >= 50) return { bg: "#fef3c7", text: "#d97706", border: "#fcd34d" };
+		return { bg: "#fee2e2", text: "#dc2626", border: "#fca5a5" };
+	};
+	const scoreColor = getScoreColor();
+
+	let html = `<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quiz Ergebnisse - ${quiz}</title>
+</head>
+<body style="${styles.body}">
+<div style="${styles.container}">
+	<!-- Header Card with Score -->
+	<div style="${styles.card}">
+		<div style="${styles.cardHeader}">
+			<!-- Score Circle -->
+			<div style="${styles.scoreCircle} background-color: ${scoreColor.bg}; border: 4px solid ${scoreColor.border};">
+				<p style="${styles.scorePercentage} color: ${scoreColor.text};">${score.percentage}%</p>
+				<p style="${styles.scoreDetail}">${score.correct}/${score.total}</p>
+			</div>
+
+			<h1 style="${styles.title}">Quiz abgeschlossen</h1>
+			<p style="${styles.subtitle}">${quiz}</p>
+			<p style="${styles.subtitle}">von ${name}</p>
+		</div>
+
+		<div style="${styles.cardContent}">
+			<!-- Info Row -->
+			<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 16px; font-size: 14px; color: #6b7280;">
+				<tr>
+					<td>📅 ${new Date().toLocaleDateString("de-DE")}</td>
+					<td style="text-align: right;">⏱️ ${formatTime(elapsedTime)}</td>
+				</tr>
+			</table>
+
+			<!-- Stats Grid -->
+			<table width="100%" cellpadding="0" cellspacing="8">
+				<tr>
+					<td style="width: 33%; ${styles.statBox} ${styles.greenBg}">
+						<p style="${styles.statNumber} ${styles.greenText}">${score.correct}</p>
+						<p style="${styles.statLabel} ${styles.greenText}">Richtig</p>
+					</td>
+					<td style="width: 33%; ${styles.statBox} ${styles.redBg}">
+						<p style="${styles.statNumber} ${styles.redText}">${score.incorrect}</p>
+						<p style="${styles.statLabel} ${styles.redText}">Falsch</p>
+					</td>
+					<td style="width: 33%; ${styles.statBox} ${styles.amberBg}">
+						<p style="${styles.statNumber} ${styles.amberText}">${score.manual}</p>
+						<p style="${styles.statLabel} ${styles.amberText}">Manuell</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<!-- Results Header -->
+	<div style="${styles.card}">
+		<div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb;">
+			<h2 style="margin: 0; font-size: 18px; font-weight: 600;">Detaillierte Ergebnisse</h2>
+		</div>
+		<div style="padding: 16px 24px;">`;
+
+	// Generate question results
+	Object.entries(answers).forEach(([, input], index) => {
+		const isCorrect = checkAnswer(input);
+
+		// Status styling
+		let statusBg: string, statusText: string, statusBorder: string, statusIcon: string, statusLabel: string;
+		if (isCorrect === true) {
+			statusBg = "#dcfce7"; statusText = "#16a34a"; statusBorder = "#86efac"; statusIcon = "✓"; statusLabel = "Richtig";
+		} else if (isCorrect === false) {
+			statusBg = "#fee2e2"; statusText = "#dc2626"; statusBorder = "#fca5a5"; statusIcon = "✗"; statusLabel = "Falsch";
+		} else {
+			statusBg = "#fef3c7"; statusText = "#d97706"; statusBorder = "#fcd34d"; statusIcon = "−"; statusLabel = "Manuell";
 		}
-		
-		html += `</div>`;
-	}
-	
-	html += `</div></body></html>`;
+
+		html += `
+			<div style="${styles.questionCard}">
+				<div style="${styles.questionHeader}">
+					<div style="${styles.statusIcon} background-color: ${statusBg}; color: ${statusText};">${statusIcon}</div>
+					<div style="flex: 1;">
+						<span style="${styles.questionNumber}">Frage ${index + 1}</span>
+						<span style="${styles.badge} background-color: ${statusBg}; color: ${statusText}; border-color: ${statusBorder};">${statusLabel}</span>
+					</div>
+				</div>
+				<p style="${styles.questionText}">${escapeHtml(input.question)}</p>
+				<div style="${styles.answerSection}">`;
+
+		// Generate answer content based on type
+		switch (input.type) {
+			case "true-false": {
+				const tf = input as TrueFalseQuestionInput;
+				const tfCorrect = tf.inputAnswer === tf.correctAnswer;
+				html += `<p style="margin: 4px 0;"><span style="${styles.mutedText}">Ihre Antwort: </span><strong style="color: ${tfCorrect ? "#16a34a" : "#dc2626"};">${tf.inputAnswer ? "Wahr" : "Falsch"}</strong></p>`;
+				if (!tfCorrect) {
+					html += `<p style="margin: 4px 0;"><span style="${styles.mutedText}">Richtige Antwort: </span><strong style="color: #16a34a;">${tf.correctAnswer ? "Wahr" : "Falsch"}</strong></p>`;
+				}
+				break;
+			}
+			case "numeric": {
+				const num = input as NumericQuestionInput;
+				const numCorrect = num.tolerance
+					? Math.abs(num.inputAnswer - num.correctAnswer) <= num.tolerance
+					: num.inputAnswer === num.correctAnswer;
+				html += `<p style="margin: 4px 0;"><span style="${styles.mutedText}">Ihre Antwort: </span><strong style="color: ${numCorrect ? "#16a34a" : "#dc2626"};">${num.inputAnswer}</strong></p>`;
+				if (!numCorrect) {
+					html += `<p style="margin: 4px 0;"><span style="${styles.mutedText}">Richtige Antwort: </span><strong style="color: #16a34a;">${num.correctAnswer}${num.tolerance ? ` (±${num.tolerance})` : ""}</strong></p>`;
+				}
+				break;
+			}
+			case "text": {
+				const text = input as TextQuestionInput;
+				html += `<p style="margin: 4px 0; ${styles.mutedText}">Ihre Antwort:</p>`;
+				html += `<p style="margin: 4px 0; padding: 8px; background: #fef3c7; border-radius: 4px; color: #d97706;">${escapeHtml(text.inputAnswer) || "(Keine Antwort)"}</p>`;
+				break;
+			}
+			case "single-choice": {
+				const sc = input as SingleChoiceQuestionInput;
+				const scCorrect = sc.inputAnswer === sc.correctAnswerIndex;
+				html += `<p style="margin: 4px 0;"><span style="${styles.mutedText}">Ihre Antwort: </span><strong style="color: ${scCorrect ? "#16a34a" : "#dc2626"};">${escapeHtml(sc.answers[sc.inputAnswer])}</strong></p>`;
+				if (!scCorrect) {
+					html += `<p style="margin: 4px 0;"><span style="${styles.mutedText}">Richtige Antwort: </span><strong style="color: #16a34a;">${escapeHtml(sc.answers[sc.correctAnswerIndex])}</strong></p>`;
+				}
+				break;
+			}
+			case "multiple-choice": {
+				const mc = input as MultipleChoiceQuestionInput;
+				html += `<p style="margin: 8px 0 4px; ${styles.mutedText}">Ihre Auswahl:</p><ul style="margin: 0; padding-left: 20px;">`;
+				mc.inputAnswer.forEach((idx) => {
+					const mcItemCorrect = mc.answers[idx].isCorrect;
+					html += `<li style="color: ${mcItemCorrect ? "#16a34a" : "#dc2626"};">${escapeHtml(mc.answers[idx].answer)}</li>`;
+				});
+				html += `</ul><p style="margin: 8px 0 4px; ${styles.mutedText}">Richtige Antworten:</p><ul style="margin: 0; padding-left: 20px;">`;
+				mc.answers.filter((a) => a.isCorrect).forEach((a) => {
+					html += `<li style="color: #16a34a;">${escapeHtml(a.answer)}</li>`;
+				});
+				html += `</ul>`;
+				break;
+			}
+			case "ordering": {
+				const ord = input as OrderingQuestionInput;
+				html += `<p style="margin: 8px 0 4px; ${styles.mutedText}">Ihre Reihenfolge:</p><ol style="margin: 0; padding-left: 20px;">`;
+				ord.inputAnswer.forEach((itemIndex, position) => {
+					const item = ord.items[itemIndex];
+					const ordItemCorrect = item === ord.correctAnswerOrder[position];
+					html += `<li style="color: ${ordItemCorrect ? "#16a34a" : "#dc2626"};">${escapeHtml(item)}</li>`;
+				});
+				html += `</ol><p style="margin: 8px 0 4px; ${styles.mutedText}">Richtige Reihenfolge:</p><ol style="margin: 0; padding-left: 20px;">`;
+				ord.correctAnswerOrder.forEach((item) => {
+					html += `<li style="color: #16a34a;">${escapeHtml(item)}</li>`;
+				});
+				html += `</ol>`;
+				break;
+			}
+			case "matching": {
+				const match = input as MatchingQuestionInput;
+				html += `<p style="margin: 8px 0 4px; ${styles.mutedText}">Ihre Zuordnungen:</p><ul style="margin: 0; padding-left: 20px; list-style: none;">`;
+				Object.entries(match.inputMatches).forEach(([item, m]) => {
+					const matchItemCorrect = match.correctMatches[item] === m;
+					html += `<li style="color: ${matchItemCorrect ? "#16a34a" : "#dc2626"};">${escapeHtml(item)} → ${escapeHtml(m as string)}</li>`;
+				});
+				html += `</ul><p style="margin: 8px 0 4px; ${styles.mutedText}">Richtige Zuordnungen:</p><ul style="margin: 0; padding-left: 20px; list-style: none;">`;
+				Object.entries(match.correctMatches).forEach(([item, m]) => {
+					html += `<li style="color: #16a34a;">${escapeHtml(item)} → ${escapeHtml(m)}</li>`;
+				});
+				html += `</ul>`;
+				break;
+			}
+		}
+
+		html += `
+				</div>
+			</div>`;
+	});
+
+	html += `
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div style="text-align: center; padding: 16px; color: #9ca3af; font-size: 12px;">
+		<p style="margin: 0;">Diese E-Mail wurde automatisch generiert.</p>
+	</div>
+</div>
+</body>
+</html>`;
+
 	return html;
 }

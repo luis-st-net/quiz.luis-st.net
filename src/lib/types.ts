@@ -21,14 +21,14 @@ export interface Message {
 export interface QuizContext {
 	quizzes: Quiz[];
 	getQuizById: (id: string) => Quiz | undefined;
-	finishQuiz: (quizId: string, answers: Record<string, QuestionInput>) => Promise<void>;
+	finishQuiz: (quizId: string, answers: Record<string, QuestionInput>, elapsedTime: number) => Promise<void>;
 	selectedQuizId: string | null;
 	setSelectedQuizId: (id: string | null) => void;
 }
 
 export interface QuizProvider {
 	quizzes: Quiz[];
-	onCompleteAction: (name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>) => Promise<Message>;
+	onCompleteAction: (name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>, elapsedTime: number) => Promise<Message>;
 	children: React.ReactNode;
 }
 
@@ -87,7 +87,7 @@ export interface QuestionContext {
 export interface QuestionProvider {
 	quizId: string;
 	questions: Question[];
-	onCompleteAction: (answers: Record<string, QuestionInput>) => Promise<void>;
+	onCompleteAction: (answers: Record<string, QuestionInput>, elapsedTime: number) => Promise<void>;
 	children: React.ReactNode;
 	storageKey?: string;
 }
