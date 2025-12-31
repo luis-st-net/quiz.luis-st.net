@@ -2,7 +2,7 @@
 
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
-import { MatchingQuestionInput, MultipleChoiceQuestionInput, NumericQuestionInput, OrderingQuestionInput, QuestionInput, SingleChoiceQuestionInput, TextQuestionInput, TrueFalseQuestionInput } from "@/lib/types";
+import { CategorizationQuestionInput, FillBlankQuestionInput, FileUploadQuestionInput, MatchingQuestionInput, MultipleChoiceQuestionInput, NumericQuestionInput, OrderingQuestionInput, QuestionInput, SingleChoiceQuestionInput, SyntaxErrorQuestionInput, TextQuestionInput, TrueFalseQuestionInput } from "@/lib/types";
 
 const transporter = nodemailer.createTransport({
 	host: process.env.SMTP_HOST,
@@ -69,7 +69,36 @@ function checkAnswer(input: QuestionInput): boolean | null {
 				([item, m]) => match.correctMatches[item] === m
 			);
 		}
+		case "fill-blank": {
+			const fb = input as FillBlankQuestionInput;
+			return fb.blanks.every(blank => {
+				const userAnswer = fb.inputAnswers[blank.id] || "";
+				return blank.correctAnswers.some(correct => {
+					if (blank.caseSensitive) {
+						return userAnswer === correct;
+					}
+					return userAnswer.toLowerCase() === correct.toLowerCase();
+				});
+			});
+		}
+		case "categorization": {
+			const cat = input as CategorizationQuestionInput;
+			return cat.items.every(item => {
+				const userCategoryId = cat.inputCategories[item.text];
+				return userCategoryId === item.correctCategory;
+			});
+		}
+		case "syntax-error": {
+			const se = input as SyntaxErrorQuestionInput;
+			if (se.selectedTokens.length !== se.errorTokens.length) return false;
+			return se.errorTokens.every(error =>
+				se.selectedTokens.some(selected =>
+					selected.line === error.line && selected.token === error.token
+				)
+			);
+		}
 		case "text":
+		case "file-upload":
 			return null;
 		default:
 			return null;
@@ -94,6 +123,28 @@ function calculateScore(answers: Record<string, QuestionInput>, totalQuestions: 
 	return { correct, incorrect, manual, total: totalQuestions, percentage };
 }
 
+function collectAttachments(answers: Record<string, QuestionInput>): Mail.Attachment[] {
+	const attachments: Mail.Attachment[] = [];
+	let fileIndex = 1;
+
+	Object.entries(answers).forEach(([questionId, input]) => {
+		if (input.type === "file-upload") {
+			const fileUpload = input as FileUploadQuestionInput;
+			fileUpload.files.forEach((file) => {
+				attachments.push({
+					filename: `Q${questionId}_${fileIndex}_${file.name}`,
+					content: file.data,
+					encoding: "base64",
+					contentType: file.type,
+				});
+				fileIndex++;
+			});
+		}
+	});
+
+	return attachments;
+}
+
 export async function sendMail(name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>, elapsedTime: number = 0) {
 	if (!name) {
 		name = "Anonymous";
@@ -108,6 +159,7 @@ export async function sendMail(name: string | undefined, mail: string | undefine
 	try {
 		const text = getText(name, quiz, answers, elapsedTime, score);
 		const html = getHtml(safeName, safeQuiz, answers, elapsedTime, score);
+		const attachments = collectAttachments(answers);
 
 		const recipients = mail ? [mail, process.env.SMTP_USER as string] : [process.env.SMTP_USER as string];
 
@@ -117,6 +169,7 @@ export async function sendMail(name: string | undefined, mail: string | undefine
 			subject: `Quiz ${quiz} abgeschlossen von ${name} (${score.percentage}%)`,
 			text: text,
 			html: html,
+			attachments: attachments,
 		};
 
 		await transporter.sendMail(mailOptions);
@@ -237,6 +290,60 @@ function getText(name: string, quiz: string, answers: Record<string, QuestionInp
 				lines.push("Richtige Zuordnungen:");
 				Object.entries(match.correctMatches).forEach(([item, m]) => {
 					lines.push(`  • ${item} → ${m}`);
+				});
+				break;
+			}
+			case "fill-blank": {
+				const fb = input as FillBlankQuestionInput;
+				lines.push("Ihre Antworten:");
+				fb.blanks.forEach(blank => {
+					const userAnswer = fb.inputAnswers[blank.id] || "(Keine Antwort)";
+					const isCorrect = blank.correctAnswers.some(correct =>
+						blank.caseSensitive ? userAnswer === correct : userAnswer.toLowerCase() === correct.toLowerCase()
+					);
+					const marker = isCorrect ? "✓" : "✗";
+					lines.push(`  ${marker} Lücke ${blank.id}: ${userAnswer}`);
+					if (!isCorrect) {
+						lines.push(`    Richtig: ${blank.correctAnswers.join(" oder ")}`);
+					}
+				});
+				break;
+			}
+			case "categorization": {
+				const cat = input as CategorizationQuestionInput;
+				lines.push("Ihre Kategorisierung:");
+				cat.items.forEach(item => {
+					const userCategoryId = cat.inputCategories[item.text];
+					const userCategory = cat.categories.find(c => c.id === userCategoryId)?.name || "(Keine)";
+					const correctCategory = cat.categories.find(c => c.id === item.correctCategory)?.name || "";
+					const marker = userCategoryId === item.correctCategory ? "✓" : "✗";
+					lines.push(`  ${marker} ${item.text} → ${userCategory}`);
+					if (userCategoryId !== item.correctCategory) {
+						lines.push(`    Richtig: ${correctCategory}`);
+					}
+				});
+				break;
+			}
+			case "file-upload": {
+				const fu = input as FileUploadQuestionInput;
+				lines.push(`Hochgeladene Dateien: ${fu.files.length}`);
+				fu.files.forEach((file, i) => {
+					lines.push(`  ${i + 1}. ${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
+				});
+				lines.push("(Dateien als Anhang beigefügt)");
+				break;
+			}
+			case "syntax-error": {
+				const se = input as SyntaxErrorQuestionInput;
+				lines.push("Ihre ausgewählten Fehler:");
+				se.selectedTokens.forEach(token => {
+					const isCorrect = se.errorTokens.some(e => e.line === token.line && e.token === token.token);
+					const marker = isCorrect ? "✓" : "✗";
+					lines.push(`  ${marker} Zeile ${token.line}: "${token.token}"`);
+				});
+				lines.push("Tatsächliche Fehler:");
+				se.errorTokens.forEach(error => {
+					lines.push(`  • Zeile ${error.line}: "${error.token}"${error.explanation ? ` - ${error.explanation}` : ""}`);
 				});
 				break;
 			}
@@ -463,6 +570,63 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 				html += `</ul><p style="margin: 8px 0 4px; ${styles.mutedText}">Richtige Zuordnungen:</p><ul style="margin: 0; padding-left: 20px; list-style: none;">`;
 				Object.entries(match.correctMatches).forEach(([item, m]) => {
 					html += `<li style="color: #16a34a;">${escapeHtml(item)} → ${escapeHtml(m)}</li>`;
+				});
+				html += `</ul>`;
+				break;
+			}
+			case "fill-blank": {
+				const fb = input as FillBlankQuestionInput;
+				html += `<p style="margin: 8px 0 4px; ${styles.mutedText}">Ihre Antworten:</p><ul style="margin: 0; padding-left: 20px; list-style: none;">`;
+				fb.blanks.forEach(blank => {
+					const userAnswer = fb.inputAnswers[blank.id] || "(Keine Antwort)";
+					const fbCorrect = blank.correctAnswers.some(correct =>
+						blank.caseSensitive ? userAnswer === correct : userAnswer.toLowerCase() === correct.toLowerCase()
+					);
+					html += `<li style="color: ${fbCorrect ? "#16a34a" : "#dc2626"};">Lücke ${blank.id}: ${escapeHtml(userAnswer)}</li>`;
+					if (!fbCorrect) {
+						html += `<li style="color: #16a34a; margin-left: 20px;">Richtig: ${escapeHtml(blank.correctAnswers.join(" oder "))}</li>`;
+					}
+				});
+				html += `</ul>`;
+				break;
+			}
+			case "categorization": {
+				const cat = input as CategorizationQuestionInput;
+				html += `<p style="margin: 8px 0 4px; ${styles.mutedText}">Ihre Kategorisierung:</p><ul style="margin: 0; padding-left: 20px; list-style: none;">`;
+				cat.items.forEach(item => {
+					const userCategoryId = cat.inputCategories[item.text];
+					const userCategory = cat.categories.find(c => c.id === userCategoryId)?.name || "(Keine)";
+					const correctCategory = cat.categories.find(c => c.id === item.correctCategory)?.name || "";
+					const catCorrect = userCategoryId === item.correctCategory;
+					html += `<li style="color: ${catCorrect ? "#16a34a" : "#dc2626"};">${escapeHtml(item.text)} → ${escapeHtml(userCategory)}</li>`;
+					if (!catCorrect) {
+						html += `<li style="color: #16a34a; margin-left: 20px;">Richtig: ${escapeHtml(correctCategory)}</li>`;
+					}
+				});
+				html += `</ul>`;
+				break;
+			}
+			case "file-upload": {
+				const fu = input as FileUploadQuestionInput;
+				html += `<p style="margin: 4px 0; ${styles.mutedText}">Hochgeladene Dateien: ${fu.files.length}</p>`;
+				html += `<ul style="margin: 0; padding-left: 20px;">`;
+				fu.files.forEach((file) => {
+					html += `<li style="color: #d97706;">${escapeHtml(file.name)} (${(file.size / 1024).toFixed(1)} KB)</li>`;
+				});
+				html += `</ul>`;
+				html += `<p style="margin: 4px 0; padding: 8px; background: #fef3c7; border-radius: 4px; color: #d97706; font-size: 12px;">📎 Dateien als Anhang beigefügt</p>`;
+				break;
+			}
+			case "syntax-error": {
+				const se = input as SyntaxErrorQuestionInput;
+				html += `<p style="margin: 8px 0 4px; ${styles.mutedText}">Ihre ausgewählten Fehler:</p><ul style="margin: 0; padding-left: 20px; list-style: none;">`;
+				se.selectedTokens.forEach(token => {
+					const seCorrect = se.errorTokens.some(e => e.line === token.line && e.token === token.token);
+					html += `<li style="color: ${seCorrect ? "#16a34a" : "#dc2626"};">Zeile ${token.line}: <code>"${escapeHtml(token.token)}"</code></li>`;
+				});
+				html += `</ul><p style="margin: 8px 0 4px; ${styles.mutedText}">Tatsächliche Fehler:</p><ul style="margin: 0; padding-left: 20px; list-style: none;">`;
+				se.errorTokens.forEach(error => {
+					html += `<li style="color: #16a34a;">Zeile ${error.line}: <code>"${escapeHtml(error.token)}"</code>${error.explanation ? ` - ${escapeHtml(error.explanation)}` : ""}</li>`;
 				});
 				html += `</ul>`;
 				break;

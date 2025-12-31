@@ -141,6 +141,90 @@
 					"matchesTo": "3"
 				}
 			]
+		},
+		{
+			"id": "8",
+			"shortQuestion": "HTTP Protokoll",
+			"question": "Das {{blank:1}} Protokoll verwendet standardmäßig Port {{blank:2}} für unverschlüsselte Verbindungen.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["HTTP", "http"],
+					"caseSensitive": false
+				},
+				{
+					"id": "2",
+					"correctAnswers": ["80"]
+				}
+			]
+		},
+		{
+			"id": "9",
+			"shortQuestion": "Datenstrukturen",
+			"question": "Ordnen Sie diese Datenstrukturen der richtigen Kategorie zu.",
+			"categories": [
+				{
+					"id": "linear",
+					"name": "Linear"
+				},
+				{
+					"id": "nonlinear",
+					"name": "Nicht-Linear"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Array",
+					"correctCategory": "linear"
+				},
+				{
+					"id": "2",
+					"text": "Binärer Baum",
+					"correctCategory": "nonlinear"
+				},
+				{
+					"id": "3",
+					"text": "Queue",
+					"correctCategory": "linear"
+				},
+				{
+					"id": "4",
+					"text": "Graph",
+					"correctCategory": "nonlinear"
+				},
+				{
+					"id": "5",
+					"text": "Stack",
+					"correctCategory": "linear"
+				}
+			]
+		},
+		{
+			"id": "10",
+			"shortQuestion": "Screenshot hochladen",
+			"question": "Laden Sie einen Screenshot Ihres Desktops hoch.",
+			"upload": {
+				"accept": ["image/png", "image/jpeg", "image/gif"],
+				"maxSizeMB": 5,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "11",
+			"shortQuestion": "Syntaxfehler finden",
+			"question": "Klicken Sie auf das Token, das einen Syntaxfehler enthält.",
+			"code": "function add(a, b) {\n  retrun a + b;\n}\n\nconsole.log(add(2, 3));",
+			"language": "javascript",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "retrun",
+					"explanation": "Tippfehler: sollte 'return' sein"
+				}
+			],
+			"selectCount": 1
 		}
 	]
 }

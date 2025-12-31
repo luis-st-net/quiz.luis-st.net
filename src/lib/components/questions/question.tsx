@@ -12,6 +12,10 @@ import MultipleChoiceQuestion from "@/lib/components/questions/multiple-choice-q
 import OrderingQuestion from "@/lib/components/questions/ordering-question";
 import MatchingQuestion from "@/lib/components/questions/matching-question";
 import NumericQuestion from "@/lib/components/questions/numeric-question";
+import FillBlankQuestion from "@/lib/components/questions/fill-blank-question";
+import CategorizationQuestion from "@/lib/components/questions/categorization-question";
+import FileUploadQuestion from "@/lib/components/questions/file-upload-question";
+import SyntaxErrorQuestion from "@/lib/components/questions/syntax-error-question";
 import { Card, CardContent, CardHeader, CardTitle } from "@/lib/components/ui/card";
 import { AlertCircle } from "lucide-react";
 
@@ -101,7 +105,16 @@ export default function Question(
 function DynamicQuestion(
 	{ question }: { question: Question },
 ) {
-	if (Questions.isTrueFalseQuestion(question)) {
+	// Check most specific types first to avoid conflicts
+	if (Questions.isFillBlankQuestion(question)) {
+		return <FillBlankQuestion question={question}/>;
+	} else if (Questions.isFileUploadQuestion(question)) {
+		return <FileUploadQuestion question={question}/>;
+	} else if (Questions.isSyntaxErrorQuestion(question)) {
+		return <SyntaxErrorQuestion question={question}/>;
+	} else if (Questions.isCategorizationQuestion(question)) {
+		return <CategorizationQuestion question={question}/>;
+	} else if (Questions.isTrueFalseQuestion(question)) {
 		return <TrueFalseQuestion question={question}/>;
 	} else if (Questions.isNumericQuestion(question)) {
 		return <NumericQuestion question={question}/>;

@@ -143,7 +143,16 @@ function getQuestionTypes(quiz: Quiz): string[] {
 	const types = new Set<string>();
 
 	for (const question of quiz.questions) {
-		if ("correctAnswer" in question && typeof question.correctAnswer === "boolean") {
+		// Check new types first (most specific)
+		if ("blanks" in question) {
+			types.add("Lückentext");
+		} else if ("upload" in question) {
+			types.add("Datei-Upload");
+		} else if ("code" in question && "errorTokens" in question) {
+			types.add("Syntaxfehler");
+		} else if ("categories" in question && "items" in question) {
+			types.add("Kategorisierung");
+		} else if ("correctAnswer" in question && typeof question.correctAnswer === "boolean") {
 			types.add("Wahr/Falsch");
 		} else if ("correctAnswer" in question && typeof question.correctAnswer === "number") {
 			types.add("Numerisch");

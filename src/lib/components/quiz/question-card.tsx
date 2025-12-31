@@ -19,6 +19,10 @@ import {
 	ListOrdered,
 	Link2,
 	CheckCircle2,
+	TextCursorInput,
+	FolderTree,
+	Upload,
+	Bug,
 } from "lucide-react";
 import {
 	isTrueFalseQuestion,
@@ -28,6 +32,10 @@ import {
 	isMultipleChoiceQuestion,
 	isOrderingQuestion,
 	isMatchingQuestion,
+	isFillBlankQuestion,
+	isCategorizationQuestion,
+	isFileUploadQuestion,
+	isSyntaxErrorQuestion,
 } from "@/lib/question-helper";
 import type { Question } from "@/lib/types";
 
@@ -39,6 +47,10 @@ import SingleChoiceQuestion from "@/lib/components/questions/single-choice-quest
 import MultipleChoiceQuestion from "@/lib/components/questions/multiple-choice-question";
 import OrderingQuestion from "@/lib/components/questions/ordering-question";
 import MatchingQuestion from "@/lib/components/questions/matching-question";
+import FillBlankQuestion from "@/lib/components/questions/fill-blank-question";
+import CategorizationQuestion from "@/lib/components/questions/categorization-question";
+import FileUploadQuestion from "@/lib/components/questions/file-upload-question";
+import SyntaxErrorQuestion from "@/lib/components/questions/syntax-error-question";
 
 interface QuestionCardProps {
 	className?: string;
@@ -167,9 +179,18 @@ type QuestionType =
 	| "multiple-choice"
 	| "ordering"
 	| "matching"
+	| "fill-blank"
+	| "categorization"
+	| "file-upload"
+	| "syntax-error"
 	| "unknown";
 
 function getQuestionType(question: Question): QuestionType {
+	// Check most specific types first
+	if (isFillBlankQuestion(question)) return "fill-blank";
+	if (isFileUploadQuestion(question)) return "file-upload";
+	if (isSyntaxErrorQuestion(question)) return "syntax-error";
+	if (isCategorizationQuestion(question)) return "categorization";
 	if (isTrueFalseQuestion(question)) return "true-false";
 	if (isNumericQuestion(question)) return "numeric";
 	if (isTextAnswerQuestion(question)) return "text";
@@ -193,6 +214,10 @@ function QuestionTypeBadge({ type }: QuestionTypeBadgeProps) {
 		"multiple-choice": { label: "Mehrfachauswahl", icon: CheckSquare },
 		"ordering": { label: "Sortierung", icon: ListOrdered },
 		"matching": { label: "Zuordnung", icon: Link2 },
+		"fill-blank": { label: "Lückentext", icon: TextCursorInput },
+		"categorization": { label: "Kategorisierung", icon: FolderTree },
+		"file-upload": { label: "Datei-Upload", icon: Upload },
+		"syntax-error": { label: "Syntaxfehler", icon: Bug },
 		"unknown": { label: "Unbekannt", icon: Hash },
 	};
 
@@ -211,6 +236,19 @@ interface DynamicQuestionProps {
 }
 
 function DynamicQuestion({ question }: DynamicQuestionProps) {
+	// Check most specific types first
+	if (isFillBlankQuestion(question)) {
+		return <FillBlankQuestion question={question} />;
+	}
+	if (isFileUploadQuestion(question)) {
+		return <FileUploadQuestion question={question} />;
+	}
+	if (isSyntaxErrorQuestion(question)) {
+		return <SyntaxErrorQuestion question={question} />;
+	}
+	if (isCategorizationQuestion(question)) {
+		return <CategorizationQuestion question={question} />;
+	}
 	if (isTrueFalseQuestion(question)) {
 		return <TrueFalseQuestion question={question} />;
 	}

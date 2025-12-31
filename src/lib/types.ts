@@ -156,7 +156,7 @@ export interface MatchingQuestion extends Question {
 
 export interface QuestionInput {
 	question: string;
-	type: "true-false" | "numeric" | "text" | "single-choice" | "multiple-choice" | "ordering" | "matching";
+	type: "true-false" | "numeric" | "text" | "single-choice" | "multiple-choice" | "ordering" | "matching" | "fill-blank" | "categorization" | "file-upload" | "syntax-error";
 }
 
 export interface TrueFalseQuestionInput extends QuestionInput {
@@ -197,4 +197,85 @@ export interface MatchingQuestionInput extends QuestionInput {
 	rawInput: Record<string, string>;
 	inputMatches: Record<string, string>;
 	correctMatches: Record<string, string>;
+}
+
+// Fill-in-the-Blank Question
+export interface FillBlankItem {
+	id: string;
+	correctAnswers: string[];
+	caseSensitive?: boolean;
+}
+
+export interface FillBlankQuestion extends Question {
+	blanks: FillBlankItem[];
+}
+
+export interface FillBlankQuestionInput extends QuestionInput {
+	inputAnswers: Record<string, string>;
+	blanks: FillBlankItem[];
+}
+
+// Categorization Question
+export interface Category {
+	id: string;
+	name: string;
+}
+
+export interface CategorizationItem {
+	id: string;
+	text: string;
+	correctCategory: string;
+}
+
+export interface CategorizationQuestion extends Question {
+	categories: Category[];
+	items: CategorizationItem[];
+}
+
+export interface CategorizationQuestionInput extends QuestionInput {
+	inputCategories: Record<string, string>;
+	items: Array<{ text: string; correctCategory: string }>;
+	categories: Array<{ id: string; name: string }>;
+}
+
+// File Upload Question
+export interface FileUploadConfig {
+	accept: string[];
+	maxSizeMB: number;
+	maxFiles: number;
+	required?: boolean;
+}
+
+export interface FileUploadQuestion extends Question {
+	upload: FileUploadConfig;
+}
+
+export interface UploadedFile {
+	name: string;
+	type: string;
+	size: number;
+	data: string; // Base64 encoded
+}
+
+export interface FileUploadQuestionInput extends QuestionInput {
+	files: UploadedFile[];
+}
+
+// Syntax Error Detection Question
+export interface SyntaxErrorToken {
+	line: number;
+	token: string;
+	explanation?: string;
+}
+
+export interface SyntaxErrorQuestion extends Question {
+	code: string;
+	language: string;
+	errorTokens: SyntaxErrorToken[];
+	selectCount?: number;
+}
+
+export interface SyntaxErrorQuestionInput extends QuestionInput {
+	selectedTokens: Array<{ line: number; token: string }>;
+	errorTokens: SyntaxErrorToken[];
 }
