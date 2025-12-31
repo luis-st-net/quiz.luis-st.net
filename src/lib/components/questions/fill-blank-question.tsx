@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import * as Ui from "@/lib/components/ui/";
 import { type FillBlankQuestion, type FillBlankQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
 import { cn } from "@/lib/utility";
@@ -60,14 +59,17 @@ export default function FillBlankQuestion(
 				if (!blank) return null;
 
 				return (
-					<Ui.Input
+					<input
 						key={index}
 						type="text"
 						value={answers[blankId] || ""}
 						onChange={(e) => updateAnswer(blankId, e.target.value)}
 						placeholder={`Lücke ${blankId}`}
 						className={cn(
-							"inline-flex w-auto min-w-[120px] max-w-[200px] mx-1 align-baseline",
+							"inline-block min-w-[80px] max-w-[150px] px-2 py-0.5 text-sm",
+							"border-b-2 border-muted-foreground/30 bg-transparent",
+							"focus:outline-none focus:border-custom-primary",
+							"placeholder:text-muted-foreground/50",
 							answers[blankId]?.trim() ? "border-custom-primary" : ""
 						)}
 					/>
@@ -79,10 +81,10 @@ export default function FillBlankQuestion(
 
 	return (
 		<div className="space-y-4">
-			<div className="text-base leading-relaxed flex flex-wrap items-center gap-y-2">
+			<div className="text-lg sm:text-xl font-medium leading-relaxed">
 				{renderQuestionWithBlanks()}
 			</div>
-			<p className="text-sm text-muted-foreground mt-4">
+			<p className="text-sm text-muted-foreground">
 				Füllen Sie alle Lücken aus, um fortzufahren.
 			</p>
 		</div>

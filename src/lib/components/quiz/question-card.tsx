@@ -124,13 +124,15 @@ export function QuestionCard({ className }: QuestionCardProps) {
 				{/* Question Content */}
 				<CardContent className="flex-1 overflow-auto">
 					<div className="space-y-6">
-						{/* Question Text */}
-						<div className="text-lg sm:text-xl font-medium leading-relaxed">
-							{currentQuestion.question}
-						</div>
+						{/* Question Text - hidden for fill-blank since it renders with inputs */}
+						{!isFillBlankQuestion(currentQuestion) && (
+							<div className="text-lg sm:text-xl font-medium leading-relaxed">
+								{currentQuestion.question}
+							</div>
+						)}
 
 						{/* Answer Component */}
-						<div className="pt-4">
+						<div className={isFillBlankQuestion(currentQuestion) ? "" : "pt-4"}>
 							<DynamicQuestion question={currentQuestion} />
 						</div>
 					</div>

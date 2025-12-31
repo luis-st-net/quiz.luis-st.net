@@ -82,9 +82,12 @@ export default function Question(
 					<Ui.Progress value={progress} className="h-2 mt-2" />
 				</CardHeader>
 				<CardContent className="space-y-6">
-					<p className="text-sm tiny:text-base text-muted-foreground">
-						{question.question}
-					</p>
+					{/* Don't show raw question text for fill-blank questions since they render it with inputs */}
+					{!Questions.isFillBlankQuestion(question) && (
+						<p className="text-sm tiny:text-base text-muted-foreground">
+							{question.question}
+						</p>
+					)}
 					<div>
 						<DynamicQuestion question={question}/>
 					</div>
