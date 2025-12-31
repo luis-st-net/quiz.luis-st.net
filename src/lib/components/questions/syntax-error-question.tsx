@@ -84,17 +84,39 @@ export default function SyntaxErrorQuestion(
 					const lineTokens: TokenInfo[] = [];
 					let currentIndex = 0;
 
-					const processToken = (token: string | Prism.Token, depth: number = 0): void => {
-						if (typeof token === "string") {
-							if (token.trim()) {
+					// Split a string into individual tokens, keeping whitespace as non-selectable
+					const splitIntoTokens = (content: string, type: string): void => {
+						// Match each non-whitespace sequence or whitespace sequence
+						const parts = content.match(/(\s+|\S+)/g) || [];
+						for (const part of parts) {
+							if (part.trim()) {
+								// Further split punctuation from words (e.g., "a," -> "a", ",")
+								const subParts = part.match(/([^\w]|[\w]+)/g) || [part];
+								for (const subPart of subParts) {
+									lineTokens.push({
+										line: lineIndex + 1,
+										token: subPart,
+										type: type,
+										startIndex: currentIndex,
+									});
+									currentIndex += subPart.length;
+								}
+							} else {
+								// Whitespace token - mark as whitespace type
 								lineTokens.push({
 									line: lineIndex + 1,
-									token: token,
-									type: "plain",
+									token: part,
+									type: "whitespace",
 									startIndex: currentIndex,
 								});
+								currentIndex += part.length;
 							}
-							currentIndex += token.length;
+						}
+					};
+
+					const processToken = (token: string | Prism.Token): void => {
+						if (typeof token === "string") {
+							splitIntoTokens(token, "plain");
 						} else {
 							const content = typeof token.content === "string"
 								? token.content
@@ -102,15 +124,7 @@ export default function SyntaxErrorQuestion(
 									? token.content.map(t => typeof t === "string" ? t : t.content).join("")
 									: String(token.content);
 
-							if (content.trim()) {
-								lineTokens.push({
-									line: lineIndex + 1,
-									token: content,
-									type: String(token.type),
-									startIndex: currentIndex,
-								});
-							}
-							currentIndex += content.length;
+							splitIntoTokens(content, String(token.type));
 						}
 					};
 
@@ -206,6 +220,15 @@ export default function SyntaxErrorQuestion(
 									<span>&nbsp;</span>
 								) : (
 									lineTokens.map((tokenInfo, tokenIndex) => {
+										// Whitespace tokens are rendered but not selectable
+										if (tokenInfo.type === "whitespace") {
+											return (
+												<span key={`${tokenIndex}-${tokenInfo.startIndex}`} className="select-none">
+													{tokenInfo.token}
+												</span>
+											);
+										}
+
 										const isSelected = isTokenSelected(tokenInfo.line, tokenInfo.token);
 										const canSelect = selectedTokens.length < selectCount || isSelected;
 
@@ -214,7 +237,7 @@ export default function SyntaxErrorQuestion(
 												key={`${tokenIndex}-${tokenInfo.startIndex}`}
 												onClick={() => canSelect && toggleToken(tokenInfo.line, tokenInfo.token)}
 												className={cn(
-													"cursor-pointer rounded px-0.5 transition-all",
+													"cursor-pointer rounded transition-all select-none",
 													getTokenClassName(tokenInfo.type),
 													isSelected
 														? "bg-red-500/30 ring-2 ring-red-500"
