@@ -154,6 +154,7 @@ function CategorizationQuestionDesktop(
 		const itemText = e.dataTransfer.getData("itemText");
 		if (itemText) {
 			assignToCategory(itemText, categoryId);
+			setDraggedItem(null);
 		}
 	};
 
