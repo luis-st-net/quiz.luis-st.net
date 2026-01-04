@@ -163,18 +163,43 @@ export default function FileUploadQuestion(
 		if (!clipboardItems) return;
 
 		const pastedFiles: File[] = [];
+		let hasTextItem = false;
+
+		// First pass: collect files and check for text
 		for (const item of clipboardItems) {
 			if (item.kind === "file") {
 				const file = item.getAsFile();
 				if (file) {
 					pastedFiles.push(file);
 				}
+			} else if (item.kind === "string" && item.type === "text/plain") {
+				hasTextItem = true;
 			}
 		}
 
+		// If we have files, use those (images take priority)
 		if (pastedFiles.length > 0) {
 			e.preventDefault();
 			handleFiles(pastedFiles);
+			return;
+		}
+
+		// If no files but we have text, convert text to a .txt file
+		if (hasTextItem) {
+			for (const item of clipboardItems) {
+				if (item.kind === "string" && item.type === "text/plain") {
+					e.preventDefault();
+					item.getAsString((text) => {
+						if (text && text.trim()) {
+							const blob = new Blob([text], { type: "text/plain" });
+							const timestamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+							const textFile = new File([blob], `pasted-text-${timestamp}.txt`, { type: "text/plain" });
+							handleFiles([textFile]);
+						}
+					});
+					break;
+				}
+			}
 		}
 	}, [files.length, question.upload.maxFiles, handleFiles]);
 
