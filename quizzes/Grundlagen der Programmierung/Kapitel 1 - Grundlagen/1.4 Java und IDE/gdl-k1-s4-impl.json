@@ -1,0 +1,23 @@
+{
+	"id": "gdl-k1-s4-impl",
+	"name": "Java und Entwicklungsumgebungen - Implementierung",
+	"description": "Praktische Programmieraufgabe zu Java.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Zufallszahl",
+			"question": "Erstelle ein Java-Programm mit einer Klasse, die eine Zufallszahl zwischen 0 und 1 ausgibt. Verwende dazu Math.random().",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

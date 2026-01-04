@@ -1,0 +1,131 @@
+{
+	"id": "gdl-k4-s3-vertiefung",
+	"name": "Sortieren - Vertiefung",
+	"description": "Vertiefte Fragen zu Sortieralgorithmen.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Warum Hilfsvariable",
+			"question": "Warum wird beim Ringtausch eine Hilfsvariable benötigt?",
+			"minLength": 20,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Selection Sort Fehler",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "for (int i = 0; i < x.length; i++) {\n    int minPos = i;\n    for (int j = i; j < x.length; j++) {\n        if (x[j] < x[minPos]) minPos = j;\n    }\n    // Tausche x[i] und x[minPos]\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 3,
+					"token": "i",
+					"explanation": "Die innere Schleife sollte bei i+1 starten, da x[i] bereits mit sich selbst verglichen wird"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Vergleiche Selection Sort",
+			"question": "Wie viele Vergleiche führt Selection Sort bei n=5 Elementen durch? (4+3+2+1)",
+			"correctAnswer": 10,
+			"tolerance": 0
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Quicksort vs Selection",
+			"question": "Quicksort ist immer schneller als Selection Sort.",
+			"correctAnswer": false
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Selection Sort Ablauf",
+			"question": "Welcher Zwischenschritt zeigt {4, 2, 1, 3} nach dem ersten Durchgang von Selection Sort?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "{1, 2, 4, 3}"
+				},
+				{
+					"id": "2",
+					"answer": "{2, 4, 1, 3}"
+				},
+				{
+					"id": "3",
+					"answer": "{1, 4, 2, 3}"
+				},
+				{
+					"id": "4",
+					"answer": "{4, 1, 2, 3}"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Sortier-Eigenschaften",
+			"question": "Ordne die Eigenschaften den Algorithmen zu.",
+			"categories": [
+				{
+					"id": "sel",
+					"name": "Selection Sort"
+				},
+				{
+					"id": "quick",
+					"name": "Quicksort"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "O(n²) Komplexität",
+					"correctCategory": "sel"
+				},
+				{
+					"id": "2",
+					"text": "O(n log n) im Durchschnitt",
+					"correctCategory": "quick"
+				},
+				{
+					"id": "3",
+					"text": "Einfach zu implementieren",
+					"correctCategory": "sel"
+				},
+				{
+					"id": "4",
+					"text": "Divide-and-Conquer Ansatz",
+					"correctCategory": "quick"
+				}
+			]
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Selection Sort Aussagen",
+			"question": "Welche Aussagen über Selection Sort sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Sucht in jedem Durchgang das kleinste Element",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Verwendet Ringtausch zum Vertauschen",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Ist der schnellste Sortieralgorithmus",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Benötigt n-1 Durchläufe der äußeren Schleife",
+					"isCorrect": true
+				}
+			]
+		}
+	]
+}

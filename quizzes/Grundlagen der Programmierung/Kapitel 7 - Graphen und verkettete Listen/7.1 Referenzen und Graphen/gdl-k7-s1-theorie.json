@@ -1,0 +1,147 @@
+{
+	"id": "gdl-k7-s1-theorie",
+	"name": "Referenzen und Graphen - Theorie",
+	"description": "Grundlegende Fragen zu Referenzen und Graphenstrukturen.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Graph Definition",
+			"question": "Ein Graph besteht aus {{blank:1}} und {{blank:2}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"Knoten",
+						"knoten",
+						"Nodes",
+						"nodes",
+						"Vertices"
+					],
+					"caseSensitive": false
+				},
+				{
+					"id": "2",
+					"correctAnswers": [
+						"Kanten",
+						"kanten",
+						"Edges",
+						"edges"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Selbstreferenz",
+			"question": "Ein Objekt kann eine Referenz auf ein anderes Objekt desselben Typs haben.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Gerichteter Graph",
+			"question": "Was ist ein gerichteter Graph?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Ein Graph ohne Kanten"
+				},
+				{
+					"id": "2",
+					"answer": "Ein Graph mit Kanten, die eine Richtung haben"
+				},
+				{
+					"id": "3",
+					"answer": "Ein Graph mit nur einem Knoten"
+				},
+				{
+					"id": "4",
+					"answer": "Ein Graph ohne Zyklen"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Graph-Aussagen",
+			"question": "Welche Aussagen über Graphen sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Können mit Objektreferenzen implementiert werden",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Knoten können mehrere Nachbarn haben",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Müssen immer zusammenhängend sein",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Können Zyklen enthalten",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Nachbar",
+			"question": "Zwei Knoten, die durch eine Kante verbunden sind, heißen {{blank:1}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"Nachbarn",
+						"nachbarn",
+						"benachbart",
+						"Neighbors",
+						"adjacent"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Graph-Typen zuordnen",
+			"question": "Ordne die Begriffe den Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Ungerichteter Graph"
+				},
+				{
+					"id": "2",
+					"answer": "Gerichteter Graph"
+				},
+				{
+					"id": "3",
+					"answer": "Gewichteter Graph"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Kanten haben keine Richtung",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Kanten haben eine Richtung",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Kanten haben Werte/Kosten",
+					"matchesTo": "3"
+				}
+			]
+		}
+	]
+}

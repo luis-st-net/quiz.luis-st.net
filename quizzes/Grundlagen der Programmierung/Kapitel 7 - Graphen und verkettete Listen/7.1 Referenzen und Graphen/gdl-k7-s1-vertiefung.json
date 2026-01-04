@@ -1,0 +1,127 @@
+{
+	"id": "gdl-k7-s1-vertiefung",
+	"name": "Referenzen und Graphen - Vertiefung",
+	"description": "Vertiefte Fragen zu Graphen und deren Implementierung.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Graph-Implementierung",
+			"question": "Erkläre, wie man einen Graphen mit Objektreferenzen implementiert.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Zyklus",
+			"question": "Ein Zyklus ist ein Pfad, bei dem Start- und Endknoten identisch sind.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Graph-Traversierung",
+			"question": "Welche Traversierungsmethoden gibt es für Graphen?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Tiefensuche (DFS)",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Breitensuche (BFS)",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Alphabetische Suche",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Rekursive Traversierung",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Knoten-Klasse Fehler",
+			"question": "Klicke auf den Fehler in dieser Knoten-Klasse.",
+			"code": "class Node {\n    int value;\n    Node[] neighbors;\n    \n    void addNeighbor(Node n) {\n        neighbors.add(n);\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 6,
+					"token": "neighbors.add(n)",
+					"explanation": "Arrays haben keine add()-Methode. Verwende ArrayList oder weise einem Index zu."
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Darstellungsarten",
+			"question": "Ordne die Graph-Darstellungen den Eigenschaften zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Adjazenzmatrix"
+				},
+				{
+					"id": "2",
+					"answer": "Adjazenzliste"
+				}
+			],
+			"matches": [
+				{
+					"id": "3",
+					"answer": "2D-Array mit Verbindungen",
+					"matchesTo": "1"
+				},
+				{
+					"id": "4",
+					"answer": "Liste von Nachbarn pro Knoten",
+					"matchesTo": "2"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Kategorisierung",
+			"question": "Ordne die Konzepte den Kategorien zu.",
+			"categories": [
+				{
+					"id": "knoten",
+					"name": "Knoten-Eigenschaft"
+				},
+				{
+					"id": "kante",
+					"name": "Kanten-Eigenschaft"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Wert/Daten speichern",
+					"correctCategory": "knoten"
+				},
+				{
+					"id": "2",
+					"text": "Gewicht/Kosten",
+					"correctCategory": "kante"
+				},
+				{
+					"id": "3",
+					"text": "Liste von Nachbarn",
+					"correctCategory": "knoten"
+				},
+				{
+					"id": "4",
+					"text": "Richtung",
+					"correctCategory": "kante"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,121 @@
+{
+	"id": "gdl-k3-s5-theorie",
+	"name": "Sichtbarkeit - Theorie",
+	"description": "Grundlegende Fragen zu public, private und Methodenaufruf.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "public-Zugriff",
+			"question": "Mit {{blank:1}} deklarierte Methoden sind von überall aufrufbar.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"public"
+					],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "private-Zugriff",
+			"question": "private Methoden können von anderen Klassen aufgerufen werden.",
+			"correctAnswer": false
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Zuordnung",
+			"question": "Ordne public und private ihren Eigenschaften zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "public"
+				},
+				{
+					"id": "2",
+					"answer": "private"
+				}
+			],
+			"matches": [
+				{
+					"id": "3",
+					"answer": "Von überall aufrufbar",
+					"matchesTo": "1"
+				},
+				{
+					"id": "4",
+					"answer": "Nur innerhalb der eigenen Klasse",
+					"matchesTo": "2"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Klassenaufruf",
+			"question": "Wie ruft man eine Methode f() der Klasse B auf?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "B.f()"
+				},
+				{
+					"id": "2",
+					"answer": "f.B()"
+				},
+				{
+					"id": "3",
+					"answer": "B->f()"
+				},
+				{
+					"id": "4",
+					"answer": "B:f()"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Sichtbarkeit-Aussagen",
+			"question": "Welche Aussagen über Sichtbarkeit sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "public-Methoden bilden die Schnittstelle einer Klasse",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "private-Methoden sind interne Hilfsmethoden",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Eine Klasse muss mindestens eine public-Methode haben",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Der Klassenname muss beim Aufruf von außen angegeben werden",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "private-Aufruf",
+			"question": "Klicke auf das Token, das einen Fehler verursacht.",
+			"code": "// In Klasse A:\nB.hilfsMethode();  // hilfsMethode ist private in B",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "hilfsMethode",
+					"explanation": "Eine private Methode kann nicht von außerhalb der Klasse aufgerufen werden"
+				}
+			],
+			"selectCount": 1
+		}
+	]
+}

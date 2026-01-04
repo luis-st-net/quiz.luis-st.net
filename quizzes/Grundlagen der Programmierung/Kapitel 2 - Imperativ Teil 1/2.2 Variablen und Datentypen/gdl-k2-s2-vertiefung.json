@@ -1,0 +1,169 @@
+{
+	"id": "gdl-k2-s2-vertiefung",
+	"name": "Variablen und Datentypen - Vertiefung",
+	"description": "Vertiefte Fragen zu Variablen, Operatoren und Ausdrücken.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Ganzzahldivision",
+			"question": "Was ist das Ergebnis von 17 / 5 bei int-Division?",
+			"correctAnswer": 3,
+			"tolerance": 0
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Modulo",
+			"question": "Was ist das Ergebnis von 17 % 5?",
+			"correctAnswer": 2,
+			"tolerance": 0
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Datentyp-Kategorien",
+			"question": "Ordne die Datentypen den Kategorien zu.",
+			"categories": [
+				{
+					"id": "ganz",
+					"name": "Ganzzahlen"
+				},
+				{
+					"id": "fliess",
+					"name": "Fließkommazahlen"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "int",
+					"correctCategory": "ganz"
+				},
+				{
+					"id": "2",
+					"text": "double",
+					"correctCategory": "fliess"
+				},
+				{
+					"id": "3",
+					"text": "long",
+					"correctCategory": "ganz"
+				},
+				{
+					"id": "4",
+					"text": "float",
+					"correctCategory": "fliess"
+				},
+				{
+					"id": "5",
+					"text": "byte",
+					"correctCategory": "ganz"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Boolesche Ausdrücke",
+			"question": "Der Ausdruck (3 < 4) && (5 >= 5) ergibt true.",
+			"correctAnswer": true
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Ausdrücke auswerten",
+			"question": "Welche Ausdrücke ergeben true?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "3 < 4",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "5 == 6",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "!(false)",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "(5 >= 3) || (5 >= 7)",
+					"isCorrect": true
+				},
+				{
+					"id": "5",
+					"answer": "true && false",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Uninitialisierte Variable",
+			"question": "Klicke auf das Token, das einen Fehler verursacht.",
+			"code": "int x;\nSystem.out.println(x);",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "x",
+					"explanation": "Variable x wird gelesen, bevor sie initialisiert wurde"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Operatoren zuordnen",
+			"question": "Ordne die Operatoren ihrer Bedeutung zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "&&"
+				},
+				{
+					"id": "2",
+					"answer": "||"
+				},
+				{
+					"id": "3",
+					"answer": "!"
+				},
+				{
+					"id": "4",
+					"answer": "=="
+				}
+			],
+			"matches": [
+				{
+					"id": "5",
+					"answer": "Logisches UND",
+					"matchesTo": "1"
+				},
+				{
+					"id": "6",
+					"answer": "Logisches ODER",
+					"matchesTo": "2"
+				},
+				{
+					"id": "7",
+					"answer": "Negation (NICHT)",
+					"matchesTo": "3"
+				},
+				{
+					"id": "8",
+					"answer": "Gleichheit prüfen",
+					"matchesTo": "4"
+				}
+			]
+		},
+		{
+			"id": "8",
+			"shortQuestion": "Unterschied = und ==",
+			"question": "Erkläre den Unterschied zwischen = und == in Java.",
+			"minLength": 20,
+			"maxLength": 300
+		}
+	]
+}

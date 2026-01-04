@@ -1,0 +1,23 @@
+{
+	"id": "gdl-k6-s1-impl",
+	"name": "Mehrdimensionale Arrays - Implementierung",
+	"description": "Praktische Programmieraufgabe zu 2D-Arrays.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Matrix-Transposition",
+			"question": "Implementiere eine Methode, die eine quadratische Matrix (2D-Array) transponiert. Bei der Transposition werden Zeilen und Spalten vertauscht.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

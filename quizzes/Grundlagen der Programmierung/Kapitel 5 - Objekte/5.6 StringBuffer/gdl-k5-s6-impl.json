@@ -1,0 +1,23 @@
+{
+	"id": "gdl-k5-s6-impl",
+	"name": "StringBuffer - Implementierung",
+	"description": "Praktische Programmieraufgabe zu StringBuffer.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "String-Reversal",
+			"question": "Implementiere eine Methode, die einen String mithilfe von StringBuffer umkehrt. Verwende die Methoden von StringBuffer für die Manipulation.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

@@ -1,0 +1,145 @@
+{
+	"id": "gdl-k5-s1-theorie",
+	"name": "Objektattribute und Instanzen - Theorie",
+	"description": "Grundlegende Fragen zu Objekten und Referenzen.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "new-Operator",
+			"question": "Objekte werden mit dem Operator {{blank:1}} erzeugt.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"new"
+					],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Referenzen",
+			"question": "Variablen vom Typ einer Klasse speichern Referenzen, keine Objekte.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Begriffe zuordnen",
+			"question": "Ordne die Begriffe ihren Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Objekt"
+				},
+				{
+					"id": "2",
+					"answer": "Instanz"
+				},
+				{
+					"id": "3",
+					"answer": "Referenz"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Konkrete Ausprägung einer Klasse im Speicher",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Andere Bezeichnung für Objekt",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Adresse eines Objekts im Speicher",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Speicherort Objekte",
+			"question": "Wo werden Objekte gespeichert?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Auf dem Stack"
+				},
+				{
+					"id": "2",
+					"answer": "Auf dem Heap"
+				},
+				{
+					"id": "3",
+					"answer": "Im Prozessor"
+				},
+				{
+					"id": "4",
+					"answer": "Auf der Festplatte"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Referenz-Aussagen",
+			"question": "Welche Aussagen über Referenzen sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Mehrere Referenzen können auf dasselbe Objekt zeigen",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Referenzen können null sein",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Referenzen speichern das Objekt selbst",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Referenzen speichern die Adresse des Objekts",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Fehlendes new",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "Koordinate k;\nk.x = 3.5;",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "k",
+					"explanation": "k wurde nicht initialisiert. Es fehlt: k = new Koordinate();"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Aliasing",
+			"question": "Wenn zwei Referenzen auf dasselbe Objekt zeigen, nennt man das {{blank:1}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"Aliasing",
+						"Alias"
+					],
+					"caseSensitive": false
+				}
+			]
+		}
+	]
+}

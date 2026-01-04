@@ -1,0 +1,23 @@
+{
+	"id": "gdl-k3-s2-impl",
+	"name": "Kommentare - Implementierung",
+	"description": "Praktische Programmieraufgabe zu Kommentaren.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Fakultät kommentiert",
+			"question": "Schreibe ein gut kommentiertes Programm, das die Fakultät einer Zahl (z.B. 5! = 120) berechnet. Füge einen Kommentar am Anfang hinzu, der erklärt was das Programm macht, und kommentiere wichtige Stellen im Code.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

@@ -1,0 +1,127 @@
+{
+	"id": "gdl-k5-s5-vertiefung",
+	"name": "Sichtbarkeit und Kapselung - Vertiefung",
+	"description": "Vertiefte Fragen zu Kapselung und Design.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Warum Kapselung",
+			"question": "Warum ist Kapselung ein wichtiges Prinzip der OOP?",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Setter public",
+			"question": "Setter-Methoden sollten normalerweise public sein.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Gute Kapselung",
+			"question": "Welche Design-Entscheidungen entsprechen guter Kapselung?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Attribute private, Zugriff über Getter/Setter",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Alle Attribute public",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "Validierung in Setter-Methoden",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Implementierungsdetails verstecken",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Kapselung implementieren",
+			"question": "Bringe die Schritte zum Implementieren von Kapselung in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Attribute als private deklarieren",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Getter-Methode erstellen (falls Lesen nötig)",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Setter-Methode erstellen (falls Schreiben nötig)",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "Validierung im Setter hinzufügen",
+					"correctPosition": 3
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "private-Zugriff außen",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "// In Klasse A:\nPerson p = new Person();\np.alter = 25;  // alter ist private in Person",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 3,
+					"token": "alter",
+					"explanation": "Auf private Attribute kann von außerhalb der Klasse nicht zugegriffen werden"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "6",
+			"shortQuestion": "public vs private",
+			"question": "Ordne Attribute/Methoden den Kategorien zu.",
+			"categories": [
+				{
+					"id": "pub",
+					"name": "Sollte public sein"
+				},
+				{
+					"id": "priv",
+					"name": "Sollte private sein"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Getter-Methode",
+					"correctCategory": "pub"
+				},
+				{
+					"id": "2",
+					"text": "Internes Hilfsattribut",
+					"correctCategory": "priv"
+				},
+				{
+					"id": "3",
+					"text": "API-Methode für Benutzer",
+					"correctCategory": "pub"
+				},
+				{
+					"id": "4",
+					"text": "Passwort-Attribut",
+					"correctCategory": "priv"
+				}
+			]
+		}
+	]
+}

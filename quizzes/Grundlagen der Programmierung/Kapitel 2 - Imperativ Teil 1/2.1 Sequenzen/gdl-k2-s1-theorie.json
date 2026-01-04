@@ -1,0 +1,100 @@
+{
+	"id": "gdl-k2-s1-theorie",
+	"name": "Sequenzen von Anweisungen - Theorie",
+	"description": "Grundlegende Fragen zur Programmstruktur und Anweisungen in Java.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Semikolon",
+			"question": "Jede Java-Anweisung endet mit einem Semikolon.",
+			"correctAnswer": true
+		},
+		{
+			"id": "2",
+			"shortQuestion": "main-Methode",
+			"question": "Die {{blank:1}}-Methode ist der Einstiegspunkt eines Java-Programms.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"main"
+					],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Dateiname",
+			"question": "Wie muss die Datei einer Klasse namens \"MeinProgramm\" heißen?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "MeinProgramm.java"
+				},
+				{
+					"id": "2",
+					"answer": "meinprogramm.java"
+				},
+				{
+					"id": "3",
+					"answer": "MeinProgramm.class"
+				},
+				{
+					"id": "4",
+					"answer": "Beliebiger Name"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Syntaxfehler",
+			"question": "Klicke auf das Token, das einen Syntaxfehler enthält.",
+			"code": "public class Test {\n    public static void main(String[] args) {\n        System.out.println(\"Hallo\")\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 3,
+					"token": ")",
+					"explanation": "Nach der schließenden Klammer fehlt das Semikolon"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Ausführungsreihenfolge",
+			"question": "Anweisungen werden von unten nach oben ausgeführt.",
+			"correctAnswer": false
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Java-Klassen",
+			"question": "Welche Aussagen über Java-Klassen sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Die Klasse enthält die main-Methode",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Der Dateiname muss dem Klassennamen entsprechen",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Eine Datei kann beliebig viele public-Klassen enthalten",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Anweisungen werden der Reihe nach ausgeführt",
+					"isCorrect": true
+				}
+			]
+		}
+	]
+}

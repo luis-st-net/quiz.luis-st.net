@@ -1,0 +1,140 @@
+{
+	"id": "gdl-k4-s1-theorie",
+	"name": "Suchalgorithmen - Theorie",
+	"description": "Grundlegende Fragen zu linearer und binärer Suche.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Binäre Suche Voraussetzung",
+			"question": "Die binäre Suche funktioniert nur auf sortierten Arrays.",
+			"correctAnswer": true
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Lineare Suche Komplexität",
+			"question": "Die lineare Suche hat eine Komplexität von O({{blank:1}}).",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"n"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Suchalgorithmen-Eigenschaften",
+			"question": "Ordne die Suchalgorithmen ihren Eigenschaften zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Lineare Suche"
+				},
+				{
+					"id": "2",
+					"answer": "Binäre Suche"
+				}
+			],
+			"matches": [
+				{
+					"id": "3",
+					"answer": "Funktioniert auf unsortierten Arrays",
+					"matchesTo": "1"
+				},
+				{
+					"id": "4",
+					"answer": "Halbiert den Suchbereich in jedem Schritt",
+					"matchesTo": "2"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Binäre Suche Komplexität",
+			"question": "Was ist die Komplexität der binären Suche?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "O(n)"
+				},
+				{
+					"id": "2",
+					"answer": "O(log n)"
+				},
+				{
+					"id": "3",
+					"answer": "O(n²)"
+				},
+				{
+					"id": "4",
+					"answer": "O(1)"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Binäre Suche Voraussetzungen",
+			"question": "Welche Voraussetzungen hat die binäre Suche?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Array muss sortiert sein",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Elemente müssen vergleichbar sein",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Array muss mindestens 100 Elemente haben",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Direkter Indexzugriff muss möglich sein",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Binäre Suche Schritte",
+			"question": "Bringe die Schritte der binären Suche in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Mittleres Element betrachten",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Mit gesuchtem Wert vergleichen",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Bei Übereinstimmung: gefunden",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "Sonst: In passender Hälfte weitersuchen",
+					"correctPosition": 3
+				}
+			]
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Vergleiche binär",
+			"question": "Wie viele Vergleiche braucht die binäre Suche bei 1024 Elementen maximal?",
+			"correctAnswer": 10,
+			"tolerance": 1
+		}
+	]
+}

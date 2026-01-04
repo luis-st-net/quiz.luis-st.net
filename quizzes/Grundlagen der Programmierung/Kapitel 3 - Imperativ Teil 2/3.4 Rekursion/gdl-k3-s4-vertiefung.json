@@ -1,0 +1,134 @@
+{
+	"id": "gdl-k3-s4-vertiefung",
+	"name": "Rekursion und Stack - Vertiefung",
+	"description": "Vertiefte Fragen zu Rekursion und Stack.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Direkt vs Indirekt",
+			"question": "Erkläre den Unterschied zwischen direkter und indirekter Rekursion.",
+			"minLength": 30,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Potenz berechnen",
+			"question": "Was gibt pot(2, 4) zurück?\npublic static int pot(int x, int y) { if (y <= 0) return 1; else return x * pot(x, y-1); }",
+			"correctAnswer": 16,
+			"tolerance": 0
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Abbruchbedingung",
+			"question": "Jede rekursive Methode braucht eine Abbruchbedingung (Basisfall).",
+			"correctAnswer": true
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Stack-Frames",
+			"question": "Bringe die Stack-Frames für fakultaet(3) in die Reihenfolge, wie sie auf den Stack gelegt werden.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "fakultaet(3)",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "fakultaet(2)",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "fakultaet(1)",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "fakultaet(0) - Basisfall",
+					"correctPosition": 3
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Stack Overflow Ursachen",
+			"question": "Welche Methoden verursachen einen Stack Overflow?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "void f() { f(); }",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "int f(int n) { if(n<=0) return 1; return n*f(n-1); }",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "void f(int n) { f(n+1); }",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "int f(int n) { if(n<=1) return 1; return f(n-1)+f(n-2); }",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Iterativ vs Rekursiv",
+			"question": "Ordne die Eigenschaften der iterativen oder rekursiven Lösung zu.",
+			"categories": [
+				{
+					"id": "iter",
+					"name": "Iterativ (Schleife)"
+				},
+				{
+					"id": "rek",
+					"name": "Rekursiv"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Verwendet Schleifen",
+					"correctCategory": "iter"
+				},
+				{
+					"id": "2",
+					"text": "Methode ruft sich selbst auf",
+					"correctCategory": "rek"
+				},
+				{
+					"id": "3",
+					"text": "Kann Stack Overflow verursachen",
+					"correctCategory": "rek"
+				},
+				{
+					"id": "4",
+					"text": "Oft eleganter für baumartige Strukturen",
+					"correctCategory": "rek"
+				}
+			]
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Fakultät-Fehler",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "public static int fak(int n) {\n    return n * fak(n - 1);\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "fak",
+					"explanation": "Es fehlt die Abbruchbedingung: if (n <= 1) return 1;"
+				}
+			],
+			"selectCount": 1
+		}
+	]
+}

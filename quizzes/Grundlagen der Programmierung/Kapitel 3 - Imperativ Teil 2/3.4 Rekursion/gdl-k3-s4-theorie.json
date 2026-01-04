@@ -1,0 +1,146 @@
+{
+	"id": "gdl-k3-s4-theorie",
+	"name": "Rekursion und Stack - Theorie",
+	"description": "Grundlegende Fragen zu Rekursion und dem Stack.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Rekursion-Definition",
+			"question": "Eine Methode, die sich selbst aufruft, heißt {{blank:1}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"rekursiv",
+						"rekursive Methode"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Direkte Rekursion",
+			"question": "Direkte Rekursion bedeutet, dass eine Methode sich selbst aufruft.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Begriffszuordnung",
+			"question": "Ordne die Begriffe ihren Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Stack"
+				},
+				{
+					"id": "2",
+					"answer": "Rekursion"
+				},
+				{
+					"id": "3",
+					"answer": "Stack Overflow"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Speicherbereich für lokale Variablen",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Methode ruft sich selbst auf",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Programmabbruch wegen Speicherüberlauf",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Stack Overflow",
+			"question": "Was passiert bei einem Stack Overflow?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Das Programm wird schneller"
+				},
+				{
+					"id": "2",
+					"answer": "Das Programm stürzt ab"
+				},
+				{
+					"id": "3",
+					"answer": "Das Programm startet neu"
+				},
+				{
+					"id": "4",
+					"answer": "Nichts passiert"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Stack-Eigenschaften",
+			"question": "Welche Aussagen über den Stack sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Speichert lokale Variablen",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Speichert Rückkehradressen",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Hat unbegrenzte Größe",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Arbeitet nach LIFO-Prinzip",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Fehlende Abbruchbedingung",
+			"question": "Klicke auf das Token, das einen Fehler verursacht.",
+			"code": "public static int endlos(int n) {\n    return endlos(n + 1);\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "endlos",
+					"explanation": "Diese rekursive Methode hat keine Abbruchbedingung und führt zu Stack Overflow"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "7",
+			"shortQuestion": "LIFO",
+			"question": "Der Stack arbeitet nach dem {{blank:1}}-Prinzip (Last-In, First-Out).",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"LIFO",
+						"Last-In-First-Out"
+					],
+					"caseSensitive": false
+				}
+			]
+		}
+	]
+}

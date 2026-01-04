@@ -1,0 +1,23 @@
+{
+	"id": "gdl-k6-s3-impl",
+	"name": "Klassenattribute und -methoden - Implementierung",
+	"description": "Praktische Programmieraufgabe zu static.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Objektzähler",
+			"question": "Implementiere eine Klasse 'Counter' mit einem static-Attribut, das zählt, wie viele Instanzen der Klasse erstellt wurden. Füge eine static-Methode getCount() hinzu.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

@@ -1,0 +1,38 @@
+{
+	"id": "gdl-k5-s3-impl",
+	"name": "Objektmethoden - Implementierung",
+	"description": "Praktische Programmieraufgaben zu Objektmethoden.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Kreis-Klasse",
+			"question": "Erstelle eine Klasse 'Kreis' mit Attribut radius und Objektmethoden umfang() und flaeche(), die den Umfang bzw. die Fläche berechnen und zurückgeben.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Konto-Klasse",
+			"question": "Erstelle eine Klasse 'Konto' mit Attribut kontostand und Objektmethoden einzahlen(double betrag) und abheben(double betrag), die den Kontostand entsprechend ändern.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

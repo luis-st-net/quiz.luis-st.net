@@ -1,0 +1,121 @@
+{
+	"id": "gdl-k5-s6-vertiefung",
+	"name": "StringBuffer - Vertiefung",
+	"description": "Vertiefte Fragen zu StringBuffer und String-Manipulation.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "String-Ineffizienz",
+			"question": "Warum ist wiederholte String-Konkatenation in einer Schleife ineffizient?",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "StringBuilder vs StringBuffer",
+			"question": "StringBuffer ist thread-safe, StringBuilder nicht.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Methoden zuordnen",
+			"question": "Ordne die StringBuffer-Methoden ihren Funktionen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "append()"
+				},
+				{
+					"id": "2",
+					"answer": "insert()"
+				},
+				{
+					"id": "3",
+					"answer": "delete()"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Text am Ende anfügen",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Text an Position einfügen",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Bereich entfernen",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "StringBuffer-Schritte",
+			"question": "Bringe die typischen Schritte bei StringBuffer-Verwendung in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "StringBuffer-Objekt erstellen",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Inhalte mit append/insert hinzufügen",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Mit toString() in String umwandeln",
+					"correctPosition": 2
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Wann StringBuffer",
+			"question": "In welchen Situationen sollte StringBuffer verwendet werden?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Bei einmaliger String-Konkatenation",
+					"isCorrect": false
+				},
+				{
+					"id": "2",
+					"answer": "Bei String-Aufbau in Schleifen",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Bei vielen String-Manipulationen",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Bei dynamischem Text-Aufbau",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "StringBuffer-Erstellung",
+			"question": "Klicke auf den Fehler in diesem Code.",
+			"code": "StringBuffer sb = new StringBuffer;\nsb.append(\"Hello\");",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 1,
+					"token": "StringBuffer;",
+					"explanation": "Bei Konstruktoraufruf müssen Klammern verwendet werden: new StringBuffer()"
+				}
+			],
+			"selectCount": 1
+		}
+	]
+}

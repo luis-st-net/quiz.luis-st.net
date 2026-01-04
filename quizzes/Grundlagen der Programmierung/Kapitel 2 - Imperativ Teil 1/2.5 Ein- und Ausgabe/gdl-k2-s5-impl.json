@@ -1,0 +1,38 @@
+{
+	"id": "gdl-k2-s5-impl",
+	"name": "Ein- und Ausgabe - Implementierung",
+	"description": "Praktische Programmieraufgaben zur Ein- und Ausgabe.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Summe berechnen",
+			"question": "Schreibe ein Programm, das zwei Zahlen vom Benutzer einliest und deren Summe ausgibt. Verwende readInt() für die Eingabe und println() für die Ausgabe.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Taschenrechner",
+			"question": "Schreibe einen einfachen Taschenrechner, der zwei Zahlen einliest und alle vier Grundrechenarten (Addition, Subtraktion, Multiplikation, Division) ausführt und die Ergebnisse ausgibt.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

@@ -1,0 +1,135 @@
+{
+	"id": "gdl-k7-s2-theorie",
+	"name": "Verkettete Listen - Theorie",
+	"description": "Grundlegende Fragen zu verketteten Listen.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Linked List Definition",
+			"question": "In einer verketteten Liste zeigt jeder Knoten auf den {{blank:1}} Knoten.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"nächsten",
+						"nachfolgenden",
+						"next",
+						"folgenden"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Kein Index",
+			"question": "Bei verketteten Listen kann man nicht direkt per Index zugreifen.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Linked List Vorteile",
+			"question": "Was ist ein Vorteil von verketteten Listen gegenüber Arrays?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Schnellerer Indexzugriff"
+				},
+				{
+					"id": "2",
+					"answer": "Effizientes Einfügen am Anfang"
+				},
+				{
+					"id": "3",
+					"answer": "Weniger Speicherverbrauch"
+				},
+				{
+					"id": "4",
+					"answer": "Automatische Sortierung"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Linked List Aussagen",
+			"question": "Welche Aussagen über verkettete Listen sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Dynamische Größe",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Benötigt Referenz auf erstes Element (Head)",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "O(1) Zugriff auf beliebiges Element",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Letztes Element zeigt auf null",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Head",
+			"question": "Der erste Knoten einer verketteten Liste wird {{blank:1}} genannt.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"Head",
+						"head",
+						"Kopf",
+						"kopf"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Listen-Typen",
+			"question": "Ordne die Listen-Typen den Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Einfach verkettete Liste"
+				},
+				{
+					"id": "2",
+					"answer": "Doppelt verkettete Liste"
+				},
+				{
+					"id": "3",
+					"answer": "Zirkuläre Liste"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Nur Vorwärts-Referenz",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Vorwärts- und Rückwärts-Referenz",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Letztes Element zeigt auf erstes",
+					"matchesTo": "3"
+				}
+			]
+		}
+	]
+}

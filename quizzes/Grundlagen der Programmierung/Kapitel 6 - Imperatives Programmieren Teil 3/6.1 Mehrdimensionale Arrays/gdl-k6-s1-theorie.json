@@ -1,0 +1,121 @@
+{
+	"id": "gdl-k6-s1-theorie",
+	"name": "Mehrdimensionale Arrays - Theorie",
+	"description": "Grundlegende Fragen zu 2D-Arrays und mehrdimensionalen Arrays.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "2D-Array Deklaration",
+			"question": "Wie deklariert man ein 2D-Array für int-Werte?",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"int[][]",
+						"int [][]"
+					],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Array von Arrays",
+			"question": "Ein 2D-Array ist in Java ein Array von Arrays.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Erste Dimension",
+			"question": "Bei einem 2D-Array matrix[][] gibt matrix.length die Anzahl der {{blank:1}} zurück.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"Zeilen",
+						"zeilen",
+						"Reihen",
+						"reihen"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Zugriff 2D",
+			"question": "Wie greift man auf das Element in Zeile 2, Spalte 3 zu?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "matrix[3][2]"
+				},
+				{
+					"id": "2",
+					"answer": "matrix[2][3]"
+				},
+				{
+					"id": "3",
+					"answer": "matrix(2,3)"
+				},
+				{
+					"id": "4",
+					"answer": "matrix[2,3]"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "2D-Array Aussagen",
+			"question": "Welche Aussagen über 2D-Arrays sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Zeilen können unterschiedliche Längen haben",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Erster Index ist die Zeile",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Indizes starten bei 1",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Können mit new initialisiert werden",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Spaltenzahl",
+			"question": "Wie erhält man die Anzahl der Spalten in Zeile i eines 2D-Arrays matrix?",
+			"correctAnswerIndex": 2,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "matrix.length"
+				},
+				{
+					"id": "2",
+					"answer": "matrix[0].length"
+				},
+				{
+					"id": "3",
+					"answer": "matrix[i].length"
+				},
+				{
+					"id": "4",
+					"answer": "matrix.columns"
+				}
+			]
+		}
+	]
+}

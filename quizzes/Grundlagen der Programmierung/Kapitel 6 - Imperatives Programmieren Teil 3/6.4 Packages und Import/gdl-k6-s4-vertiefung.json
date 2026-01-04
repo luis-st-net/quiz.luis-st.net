@@ -1,0 +1,136 @@
+{
+	"id": "gdl-k6-s4-vertiefung",
+	"name": "Packages und Import - Vertiefung",
+	"description": "Vertiefte Fragen zu Package-Struktur und Import.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Package-Vorteile",
+			"question": "Erkläre die Vorteile von Packages für die Codeorganisation.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Explizit vs Wildcard",
+			"question": "Explizite Imports (import java.util.ArrayList) sind generell Wildcard-Imports vorzuziehen.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Package-Fehler",
+			"question": "Klicke auf den Fehler.",
+			"code": "import java.util.*;\npackage mypackage;\n\npublic class Test { }",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "package",
+					"explanation": "package-Anweisung muss vor import-Anweisungen stehen"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Struktur erstellen",
+			"question": "Bringe die Schritte zum Erstellen einer Package-Struktur in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Verzeichnisstruktur anlegen",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "package-Anweisung in Datei schreiben",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Java-Datei im richtigen Verzeichnis speichern",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "In anderen Dateien importieren",
+					"correctPosition": 3
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Import zuordnen",
+			"question": "Ordne die Import-Arten den Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "import java.util.List;"
+				},
+				{
+					"id": "2",
+					"answer": "import java.util.*;"
+				},
+				{
+					"id": "3",
+					"answer": "import static java.lang.Math.PI;"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Expliziter Import einer Klasse",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Wildcard-Import aller Klassen",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Statischer Import",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Kategorisierung",
+			"question": "Ordne die Klassen den Standard-Packages zu.",
+			"categories": [
+				{
+					"id": "lang",
+					"name": "java.lang"
+				},
+				{
+					"id": "util",
+					"name": "java.util"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "String",
+					"correctCategory": "lang"
+				},
+				{
+					"id": "2",
+					"text": "ArrayList",
+					"correctCategory": "util"
+				},
+				{
+					"id": "3",
+					"text": "System",
+					"correctCategory": "lang"
+				},
+				{
+					"id": "4",
+					"text": "Scanner",
+					"correctCategory": "util"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,127 @@
+{
+	"id": "gdl-k5-s3-vertiefung",
+	"name": "Objektmethoden - Vertiefung",
+	"description": "Vertiefte Fragen zu Objektmethoden.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Unterschied erklären",
+			"question": "Erkläre den Unterschied zwischen Klassenmethoden und Objektmethoden.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Objektmethode ruft Klassenmethode",
+			"question": "Objektmethoden können Klassenmethoden aufrufen.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Methodentypen zuordnen",
+			"question": "Ordne Methoden den Kategorien zu.",
+			"categories": [
+				{
+					"id": "klasse",
+					"name": "Klassenmethode"
+				},
+				{
+					"id": "objekt",
+					"name": "Objektmethode"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "public static void main(String[] args)",
+					"correctCategory": "klasse"
+				},
+				{
+					"id": "2",
+					"text": "public double getRadius()",
+					"correctCategory": "objekt"
+				},
+				{
+					"id": "3",
+					"text": "public void setName(String name)",
+					"correctCategory": "objekt"
+				},
+				{
+					"id": "4",
+					"text": "public static int berechne(int x)",
+					"correctCategory": "klasse"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Zugriff in Methoden",
+			"question": "Welche Aussagen über den Zugriff in Methoden sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Objektmethoden können this verwenden",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Klassenmethoden können this verwenden",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "Beide können static-Attribute zugreifen",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Nur Objektmethoden können nicht-static Attribute zugreifen",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "this in Klassenmethode",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "public static void test() {\n    System.out.println(this.name);\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "this",
+					"explanation": "In einer Klassenmethode (static) gibt es kein this"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Klassenelemente ordnen",
+			"question": "Bringe die Elemente einer Klasse mit Objektmethoden in die typische Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Klassendeklaration",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Attributdeklarationen",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Konstruktoren",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "Methoden",
+					"correctPosition": 3
+				}
+			]
+		}
+	]
+}

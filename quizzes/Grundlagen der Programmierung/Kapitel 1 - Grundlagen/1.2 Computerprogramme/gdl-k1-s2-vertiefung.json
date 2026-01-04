@@ -1,0 +1,97 @@
+{
+	"id": "gdl-k1-s2-vertiefung",
+	"name": "Computerprogramme und Maschinensprache - Vertiefung",
+	"description": "Vertiefte Fragen zu Maschinenbefehlen und Assembler.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Maschinenbefehle",
+			"question": "Maschinenbefehle bestehen immer aus genau einem Datenwort.",
+			"correctAnswer": false
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Unterschied",
+			"question": "Erkläre den Unterschied zwischen Maschinensprache und Assemblersprache.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Kategorisierung",
+			"question": "Ordne die Begriffe den Kategorien zu.",
+			"categories": [
+				{
+					"id": "hw",
+					"name": "Hardware"
+				},
+				{
+					"id": "sw",
+					"name": "Software"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Mikroprozessor",
+					"correctCategory": "hw"
+				},
+				{
+					"id": "2",
+					"text": "Assembler",
+					"correctCategory": "sw"
+				},
+				{
+					"id": "3",
+					"text": "Hauptspeicher",
+					"correctCategory": "hw"
+				},
+				{
+					"id": "4",
+					"text": "Maschinenbefehl",
+					"correctCategory": "sw"
+				},
+				{
+					"id": "5",
+					"text": "Datenwort",
+					"correctCategory": "hw"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Mnemonics",
+			"question": "Welche Aussagen über Mnemonics sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Mnemonics sind Kurzzeichen für Maschinenbefehle",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Mnemonics werden direkt vom Prozessor verstanden",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "ADD ist ein Beispiel für ein Mnemonic",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Mnemonics machen Assemblercode lesbarer",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Geschwindigkeit",
+			"question": "Wie viele Maschinenbefehle kann ein moderner Mikroprozessor pro Sekunde etwa abarbeiten? (Antwort in Milliarden, z.B. 3 für 3 Milliarden)",
+			"correctAnswer": 3,
+			"tolerance": 5
+		}
+	]
+}

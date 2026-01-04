@@ -1,0 +1,148 @@
+{
+	"id": "gdl-k6-s5-vertiefung",
+	"name": "Classpath und Libraries - Vertiefung",
+	"description": "Vertiefte Fragen zu Classpath-Konfiguration und Libraries.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Classpath-Probleme",
+			"question": "Beschreibe, was passiert, wenn eine benötigte Klasse nicht im Classpath ist.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "ClassNotFoundException",
+			"question": "Eine ClassNotFoundException tritt auf, wenn eine Klasse zur Laufzeit nicht gefunden wird.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Schritte Library einbinden",
+			"question": "Bringe die Schritte zum Einbinden einer externen Library in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "JAR-Datei herunterladen",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "JAR zum Classpath hinzufügen",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Klassen aus Library importieren",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "Library-Klassen verwenden",
+					"correctPosition": 3
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Begriffe zuordnen",
+			"question": "Ordne die Begriffe den Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Classpath"
+				},
+				{
+					"id": "2",
+					"answer": "JAR"
+				},
+				{
+					"id": "3",
+					"answer": "Library"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Suchpfad für Klassen",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Komprimiertes Archiv",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Sammlung wiederverwendbarer Klassen",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Fehlertypen",
+			"question": "Welche Fehler können mit Classpath-Problemen zusammenhängen?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "ClassNotFoundException",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "NoClassDefFoundError",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "NullPointerException",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Cannot find symbol (bei Import)",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Kategorisierung",
+			"question": "Ordne die Konzepte den Kategorien zu.",
+			"categories": [
+				{
+					"id": "compile",
+					"name": "Compile-Zeit"
+				},
+				{
+					"id": "run",
+					"name": "Laufzeit"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Cannot find symbol Error",
+					"correctCategory": "compile"
+				},
+				{
+					"id": "2",
+					"text": "ClassNotFoundException",
+					"correctCategory": "run"
+				},
+				{
+					"id": "3",
+					"text": "javac -cp Befehl",
+					"correctCategory": "compile"
+				},
+				{
+					"id": "4",
+					"text": "java -cp Befehl",
+					"correctCategory": "run"
+				}
+			]
+		}
+	]
+}

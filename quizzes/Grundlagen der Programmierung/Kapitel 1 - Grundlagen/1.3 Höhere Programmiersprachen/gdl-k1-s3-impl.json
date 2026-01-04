@@ -1,0 +1,23 @@
+{
+	"id": "gdl-k1-s3-impl",
+	"name": "Höhere Programmiersprachen - Implementierung",
+	"description": "Praktische Programmieraufgabe zu höheren Programmiersprachen.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Persönliche Daten",
+			"question": "Schreibe ein Java-Programm, das deinen Namen und dein Alter auf der Konsole ausgibt. Verwende System.out.println() und String-Verkettung mit +.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

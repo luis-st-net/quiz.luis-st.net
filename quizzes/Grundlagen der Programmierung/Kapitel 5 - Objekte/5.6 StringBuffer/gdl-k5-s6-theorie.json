@@ -1,0 +1,119 @@
+{
+	"id": "gdl-k5-s6-theorie",
+	"name": "StringBuffer - Theorie",
+	"description": "Grundlegende Fragen zu StringBuffer und String-Manipulation.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "String unveränderlich",
+			"question": "String-Objekte sind in Java unveränderlich (immutable).",
+			"correctAnswer": true
+		},
+		{
+			"id": "2",
+			"shortQuestion": "StringBuffer veränderlich",
+			"question": "{{blank:1}} erlaubt das effiziente Verändern von Zeichenketten.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"StringBuffer",
+						"StringBuilder"
+					],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "3",
+			"shortQuestion": "append-Methode",
+			"question": "Welche Methode fügt Text am Ende eines StringBuffer an?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "append()"
+				},
+				{
+					"id": "2",
+					"answer": "add()"
+				},
+				{
+					"id": "3",
+					"answer": "concat()"
+				},
+				{
+					"id": "4",
+					"answer": "insert()"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "StringBuffer-Methoden",
+			"question": "Welche Methoden gibt es in StringBuffer?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "append()",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "insert()",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "delete()",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "sort()",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "toString()",
+			"question": "Mit welcher Methode wandelt man StringBuffer in String um?",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"toString",
+						"toString()"
+					],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Vorteil StringBuffer",
+			"question": "Was ist der Hauptvorteil von StringBuffer gegenüber String-Konkatenation?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Kürzerer Code"
+				},
+				{
+					"id": "2",
+					"answer": "Bessere Performance bei vielen Änderungen"
+				},
+				{
+					"id": "3",
+					"answer": "Automatische Sortierung"
+				},
+				{
+					"id": "4",
+					"answer": "Keine Unterschiede"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,23 @@
+{
+	"id": "gdl-k5-s5-impl",
+	"name": "Sichtbarkeit und Kapselung - Implementierung",
+	"description": "Praktische Programmieraufgabe zu Kapselung.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Getter und Setter",
+			"question": "Erstelle eine Klasse 'Student' mit private Attributen name und matrikelnummer. Implementiere public Getter und Setter für beide Attribute. Der Setter für matrikelnummer soll nur positive Zahlen akzeptieren.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

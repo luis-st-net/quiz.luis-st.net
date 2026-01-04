@@ -1,0 +1,145 @@
+{
+	"id": "gdl-k5-s2-theorie",
+	"name": "Konstruktoren - Theorie",
+	"description": "Grundlegende Fragen zu Konstruktoren und this.",
+	"order": 1,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Default-Konstruktor",
+			"question": "Der {{blank:1}}-Konstruktor wird automatisch bereitgestellt wenn kein anderer definiert ist.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"Default",
+						"Standard"
+					],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Konstruktor-Name",
+			"question": "Konstruktoren haben den gleichen Namen wie die Klasse.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Default-Werte",
+			"question": "Ordne die Default-Werte den Typen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "int"
+				},
+				{
+					"id": "2",
+					"answer": "boolean"
+				},
+				{
+					"id": "3",
+					"answer": "Referenztypen"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "0",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "false",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "null",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Default boolean",
+			"question": "Was ist der Default-Wert für boolean?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "true"
+				},
+				{
+					"id": "2",
+					"answer": "false"
+				},
+				{
+					"id": "3",
+					"answer": "null"
+				},
+				{
+					"id": "4",
+					"answer": "0"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Konstruktor-Aussagen",
+			"question": "Welche Aussagen über Konstruktoren sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Konstruktoren haben keinen Rückgabetyp",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Eine Klasse kann mehrere Konstruktoren haben",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Konstruktoren müssen immer Parameter haben",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Konstruktoren initialisieren Objekte",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Konstruktor mit Rückgabetyp",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "public class Punkt {\n    public void Punkt(int x, int y) {\n        this.x = x;\n        this.y = y;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "void",
+					"explanation": "Konstruktoren haben keinen Rückgabetyp (auch nicht void)"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "7",
+			"shortQuestion": "this-Keyword",
+			"question": "Das Schlüsselwort {{blank:1}} referenziert das aktuelle Objekt.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": [
+						"this"
+					],
+					"caseSensitive": true
+				}
+			]
+		}
+	]
+}

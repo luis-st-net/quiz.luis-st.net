@@ -1,0 +1,38 @@
+{
+	"id": "gdl-k4-s3-impl",
+	"name": "Sortieren - Implementierung",
+	"description": "Praktische Programmieraufgaben zu Sortieralgorithmen.",
+	"order": 3,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Ringtausch",
+			"question": "Implementiere den Ringtausch als Methode: public static void tausche(int[] arr, int i, int j). Die Methode soll die Elemente an Position i und j vertauschen.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Selection Sort",
+			"question": "Implementiere Selection Sort: public static void selectionSort(int[] arr). Das Array soll aufsteigend sortiert werden.",
+			"upload": {
+				"accept": [
+					".java",
+					"text/x-java-source",
+					"text/plain"
+				],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

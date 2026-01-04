@@ -1,0 +1,124 @@
+{
+	"id": "gdl-k2-s4-vertiefung",
+	"name": "Strings - Vertiefung",
+	"description": "Vertiefte Fragen zu Strings und char-Arrays.",
+	"order": 2,
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "String vs char[]",
+			"question": "Erkläre den Unterschied zwischen String und char[].",
+			"minLength": 30,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "String-Konkatenation",
+			"question": "\"Hallo\" + 5 ergibt \"Hallo5\".",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "charAt-Ergebnis",
+			"question": "Was gibt \"Test\".charAt(2) zurück?",
+			"correctAnswerIndex": 2,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "'T'"
+				},
+				{
+					"id": "2",
+					"answer": "'e'"
+				},
+				{
+					"id": "3",
+					"answer": "'s'"
+				},
+				{
+					"id": "4",
+					"answer": "'t'"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "String-Index-Zugriff",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "String s = \"Test\";\ns[0] = 'B';",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "[0]",
+					"explanation": "Strings können nicht mit Array-Notation indiziert werden. Verwende charAt() zum Lesen."
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "String-Verkettung",
+			"question": "Welche Aussagen über String-Verkettung sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Strings werden mit + verkettet",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Primitive Typen werden automatisch zu String konvertiert",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "String-Verkettung ändert den ursprünglichen String",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Das Ergebnis ist ein neuer String",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Vergleich String/char[]",
+			"question": "Ordne die Eigenschaften Strings oder char-Arrays zu.",
+			"categories": [
+				{
+					"id": "string",
+					"name": "String"
+				},
+				{
+					"id": "char",
+					"name": "char[]"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Inhalt unveränderlich",
+					"correctCategory": "string"
+				},
+				{
+					"id": "2",
+					"text": "Inhalt veränderlich",
+					"correctCategory": "char"
+				},
+				{
+					"id": "3",
+					"text": "Verkettung mit +",
+					"correctCategory": "string"
+				},
+				{
+					"id": "4",
+					"text": "Direkter Index-Zugriff mit []",
+					"correctCategory": "char"
+				}
+			]
+		}
+	]
+}
