@@ -13,8 +13,10 @@ import {
 } from "@/lib/components/quiz";
 import { Button } from "@/lib/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/lib/components/ui/sheet";
+import { ResizeHandle } from "@/lib/components/ui/resize-handle";
 import { LayoutGrid, Keyboard } from "lucide-react";
 import { useKeyboardShortcuts } from "@/lib/hooks/use-keyboard-shortcuts";
+import { useResizableSidebar } from "@/lib/hooks/use-resizable-sidebar";
 
 export default function QuizPage() {
 	const router = useRouter();
@@ -33,6 +35,14 @@ export default function QuizPage() {
 
 	const [showCancelDialog, setShowCancelDialog] = useState(false);
 	const [navigatorOpen, setNavigatorOpen] = useState(false);
+
+	// Resizable sidebar
+	const { width: sidebarWidth, isResizing, handleMouseDown } = useResizableSidebar({
+		minWidth: 200,
+		maxWidth: 400,
+		defaultWidth: 240,
+		storageKey: "quiz-sidebar-width",
+	});
 
 	const currentQuestion = getQuestionByIndex(currentQuestionIndex);
 	const totalQuestions = getMaxNumberOfQuestions();
@@ -72,23 +82,34 @@ export default function QuizPage() {
 			/>
 
 			<div className="flex flex-1 min-h-0">
-				{/* Desktop Navigator Sidebar */}
-				<aside className="hidden lg:block w-64 xl:w-72 flex-shrink-0">
+				{/* Desktop Navigator Sidebar - Resizable */}
+				<aside
+					className="hidden lg:flex relative shrink-0"
+					style={{ width: sidebarWidth }}
+				>
 					<QuestionNavigator
 						onReviewClick={handleReviewClick}
-						className="h-full"
+						className="h-full w-full"
+					/>
+					<ResizeHandle
+						onMouseDown={handleMouseDown}
+						isResizing={isResizing}
 					/>
 				</aside>
 
 				{/* Main Question Area - True viewport centering */}
-				<main className="flex-1 min-w-0 overflow-auto flex justify-center">
+				<main className={`flex-1 min-w-0 overflow-auto flex justify-center ${isResizing ? "select-none" : ""}`}>
 					<div className="w-full max-w-4xl px-4">
 						<QuestionCard className="h-full" />
 					</div>
 				</main>
 
 				{/* Invisible spacer for symmetric centering - matches sidebar width */}
-				<div className="hidden lg:block w-64 xl:w-72 flex-shrink-0" aria-hidden="true" />
+				<div
+					className="hidden lg:block shrink-0"
+					style={{ width: sidebarWidth }}
+					aria-hidden="true"
+				/>
 			</div>
 
 			{/* Mobile Navigator FAB */}

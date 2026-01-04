@@ -7,7 +7,9 @@ import { useUserContext } from "@/lib/contexts/user-context";
 import { QuizSidebar, QuizInfoCard, UserInfoDialog } from "@/lib/components/quiz";
 import { Button } from "@/lib/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/lib/components/ui/sheet";
+import { ResizeHandle } from "@/lib/components/ui/resize-handle";
 import { Menu } from "lucide-react";
+import { useResizableSidebar } from "@/lib/hooks/use-resizable-sidebar";
 
 export default function HomePage() {
 	const router = useRouter();
@@ -16,6 +18,14 @@ export default function HomePage() {
 	const [showUserDialog, setShowUserDialog] = useState(false);
 	const [pendingQuizId, setPendingQuizId] = useState<string | null>(null);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+
+	// Resizable sidebar
+	const { width: sidebarWidth, isResizing, handleMouseDown } = useResizableSidebar({
+		minWidth: 200,
+		maxWidth: 600,
+		defaultWidth: 300,
+		storageKey: "home-sidebar-width",
+	});
 
 	const selectedQuiz = selectedQuizId ? getQuizById(selectedQuizId) : null;
 
@@ -44,18 +54,25 @@ export default function HomePage() {
 
 	return (
 		<div className="flex h-full overflow-hidden">
-			{/* Desktop Sidebar */}
-			<aside className="hidden md:block w-72 lg:w-80 shrink-0">
+			{/* Desktop Sidebar - Resizable */}
+			<aside
+				className="hidden md:flex relative shrink-0"
+				style={{ width: sidebarWidth }}
+			>
 				<QuizSidebar
 					hierarchy={hierarchy}
 					selectedQuizId={selectedQuizId}
 					onSelectQuiz={handleSelectQuiz}
-					className="h-full"
+					className="h-full w-full"
+				/>
+				<ResizeHandle
+					onMouseDown={handleMouseDown}
+					isResizing={isResizing}
 				/>
 			</aside>
 
 			{/* Main Content Container - True viewport centering */}
-			<div className="flex flex-col flex-1 min-w-0">
+			<div className={`flex flex-col flex-1 min-w-0 ${isResizing ? "select-none" : ""}`}>
 				{/* Mobile Header with Sheet */}
 				<div className="md:hidden flex items-center gap-2 p-4 border-b bg-card">
 					<Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
@@ -92,7 +109,11 @@ export default function HomePage() {
 			</div>
 
 			{/* Invisible spacer for symmetric centering - matches sidebar width */}
-			<div className="hidden md:block w-72 lg:w-80 shrink-0" aria-hidden="true" />
+			<div
+				className="hidden md:block shrink-0"
+				style={{ width: sidebarWidth }}
+				aria-hidden="true"
+			/>
 
 			{/* User Info Dialog */}
 			<UserInfoDialog
