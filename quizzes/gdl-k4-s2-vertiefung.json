@@ -1,0 +1,131 @@
+{
+	"id": "gdl-k4-s2-vertiefung",
+	"name": "O-Kalkül - Vertiefung",
+	"description": "Vertiefte Fragen zur O-Notation.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 4 - Algorithmen/4.2 O-Kalkül"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Warum besser",
+			"question": "Warum ist O(n log n) besser als O(n²) für große n?",
+			"minLength": 30,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Operationen bei n²",
+			"question": "Wie viele Operationen werden bei O(n²) durchgeführt, wenn n=100?",
+			"correctAnswer": 10000,
+			"tolerance": 0
+		},
+		{
+			"id": "3",
+			"shortQuestion": "O(2n) vs O(n)",
+			"question": "O(2n) ist das gleiche wie O(n), da konstante Faktoren ignoriert werden.",
+			"correctAnswer": true
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Quadratische Algorithmen",
+			"question": "Welche Algorithmen haben O(n²) Komplexität?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Selection Sort",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Bubble Sort",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Quicksort (im Durchschnitt)",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Binäre Suche",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Operationen zuordnen",
+			"question": "Ordne die Operationen ihren Komplexitäten zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Array-Zugriff arr[i]"
+				},
+				{
+					"id": "2",
+					"answer": "Einfache Schleife über Array"
+				},
+				{
+					"id": "3",
+					"answer": "Verschachtelte Schleifen über Array"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "O(1)",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "O(n)",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "O(n²)",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Effizient/Ineffizient",
+			"question": "Ordne Szenarien den Kategorien zu.",
+			"categories": [
+				{
+					"id": "eff",
+					"name": "Effizient für große Datenmengen"
+				},
+				{
+					"id": "ineff",
+					"name": "Ineffizient für große Datenmengen"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "O(log n) Algorithmus",
+					"correctCategory": "eff"
+				},
+				{
+					"id": "2",
+					"text": "O(n²) Algorithmus",
+					"correctCategory": "ineff"
+				},
+				{
+					"id": "3",
+					"text": "O(n log n) Sortierung",
+					"correctCategory": "eff"
+				},
+				{
+					"id": "4",
+					"text": "Verschachtelte Schleifen über alle Elemente",
+					"correctCategory": "ineff"
+				}
+			]
+		}
+	]
+}

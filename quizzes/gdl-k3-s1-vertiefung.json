@@ -1,0 +1,125 @@
+{
+	"id": "gdl-k3-s1-vertiefung",
+	"name": "Kontrollstrukturen - Vertiefung",
+	"description": "Vertiefte Fragen zu Kontrollstrukturen und Terminierung.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 3 - Imperativ Teil 2/3.1 Kontrollstrukturen"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "for vs while",
+			"question": "Erkläre, wann eine for-Schleife einer while-Schleife vorzuziehen ist.",
+			"minLength": 30,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Summenberechnung",
+			"question": "Was gibt folgendes Programm aus? int s=0; for(int i=1; i<=4; i++) s+=i; System.out.println(s);",
+			"correctAnswer": 10,
+			"tolerance": 0
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Äquivalenz",
+			"question": "for(int i=0; i<10; i++) {...} ist äquivalent zu: int i=0; while(i<10) { ... i++; }",
+			"correctAnswer": true
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Fehler = statt ==",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "int x = 5;\nwhile (x = 5) {\n    x--;\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "=",
+					"explanation": "Hier wird eine Zuweisung (=) statt eines Vergleichs (==) verwendet"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Terminierung",
+			"question": "Welche Schleifen terminieren?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "for(int i=0; i<10; i++) {}",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "while(true) {}",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "int x=5; while(x>0) { x--; }",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "int y=3; while(y*y==9) { y=-y; }",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Schleifeneigenschaften",
+			"question": "Ordne die Eigenschaften for-Schleifen oder while-Schleifen zu.",
+			"categories": [
+				{
+					"id": "for",
+					"name": "for-Schleife"
+				},
+				{
+					"id": "while",
+					"name": "while-Schleife"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Anzahl Durchläufe vorab bekannt",
+					"correctCategory": "for"
+				},
+				{
+					"id": "2",
+					"text": "Kann leicht unendlich laufen",
+					"correctCategory": "while"
+				},
+				{
+					"id": "3",
+					"text": "Enthält Zählvariable in der Definition",
+					"correctCategory": "for"
+				},
+				{
+					"id": "4",
+					"text": "Ideal für unbekannte Durchlaufzahl",
+					"correctCategory": "while"
+				}
+			]
+		},
+		{
+			"id": "7",
+			"shortQuestion": "for-Syntaxfehler",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "for (int i = 0 i < 10 i++) {\n    System.out.println(i);\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 1,
+					"token": "i",
+					"explanation": "Die drei Teile der for-Schleife müssen durch Semikolons getrennt sein"
+				}
+			],
+			"selectCount": 1
+		}
+	]
+}

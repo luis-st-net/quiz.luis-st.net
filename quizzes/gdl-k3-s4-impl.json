@@ -1,0 +1,33 @@
+{
+	"id": "gdl-k3-s4-impl",
+	"name": "Rekursion und Stack - Implementierung",
+	"description": "Praktische Programmieraufgaben zur Rekursion.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 3 - Imperativ Teil 2/3.4 Rekursion"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Fakultät rekursiv",
+			"question": "Implementiere die Fakultätsfunktion rekursiv. Die Fakultät von n (n!) ist das Produkt aller Zahlen von 1 bis n. Beispiel: 5! = 5*4*3*2*1 = 120. Basisfall: 0! = 1! = 1.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Fibonacci rekursiv",
+			"question": "Implementiere die Fibonacci-Folge rekursiv. fib(0)=0, fib(1)=1, fib(n)=fib(n-1)+fib(n-2). Beispiel: 0, 1, 1, 2, 3, 5, 8, 13, ...",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

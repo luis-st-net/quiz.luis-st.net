@@ -1,0 +1,129 @@
+{
+	"id": "gdl-k6-s2-theorie",
+	"name": "Bitmaps und RGB - Theorie",
+	"description": "Grundlegende Fragen zu Bildverarbeitung und RGB-Farben.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 6 - Imperatives Programmieren Teil 3/6.2 Bitmaps und RGB"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "RGB-Komponenten",
+			"question": "RGB steht für {{blank:1}}, {{blank:2}}, {{blank:3}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["Red", "Rot", "red", "rot", "R"],
+					"caseSensitive": false
+				},
+				{
+					"id": "2",
+					"correctAnswers": ["Green", "Grün", "green", "grün", "G"],
+					"caseSensitive": false
+				},
+				{
+					"id": "3",
+					"correctAnswers": ["Blue", "Blau", "blue", "blau", "B"],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Wertebereich",
+			"question": "Jede RGB-Komponente hat Werte von 0 bis 255.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Pixel",
+			"question": "Was ist ein Pixel?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Ein Farbkanal"
+				},
+				{
+					"id": "2",
+					"answer": "Ein Bildpunkt mit Farbwert"
+				},
+				{
+					"id": "3",
+					"answer": "Eine Bildzeile"
+				},
+				{
+					"id": "4",
+					"answer": "Ein Dateiformat"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Bitmap-Struktur",
+			"question": "Ein Bitmap-Bild kann als 2D-Array von Pixeln dargestellt werden.",
+			"correctAnswer": true
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Farben zuordnen",
+			"question": "Ordne die RGB-Werte den Farben zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "(255, 0, 0)"
+				},
+				{
+					"id": "2",
+					"answer": "(0, 255, 0)"
+				},
+				{
+					"id": "3",
+					"answer": "(0, 0, 255)"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Rot",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Grün",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Blau",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Schwarz und Weiß",
+			"question": "Welche RGB-Werte ergeben Schwarz?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "(0, 0, 0)"
+				},
+				{
+					"id": "2",
+					"answer": "(255, 255, 255)"
+				},
+				{
+					"id": "3",
+					"answer": "(128, 128, 128)"
+				},
+				{
+					"id": "4",
+					"answer": "(0, 0, 255)"
+				}
+			]
+		}
+	]
+}

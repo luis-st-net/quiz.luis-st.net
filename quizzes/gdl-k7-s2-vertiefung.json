@@ -1,0 +1,125 @@
+{
+	"id": "gdl-k7-s2-vertiefung",
+	"name": "Verkettete Listen - Vertiefung",
+	"description": "Vertiefte Fragen zu verketteten Listen und Operationen.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 7 - Graphen und verkettete Listen/7.2 Verkettete Listen"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Einfügen am Anfang",
+			"question": "Erkläre die Schritte zum Einfügen eines Elements am Anfang einer verketteten Liste.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "O(n) Traversierung",
+			"question": "Um ein Element in der Mitte einer einfach verketteten Liste zu finden, muss man von vorne durchlaufen.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Einfügen Reihenfolge",
+			"question": "Bringe die Schritte zum Einfügen am Anfang in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Neuen Knoten erstellen",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "next des neuen Knotens auf aktuellen Head setzen",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Head auf neuen Knoten setzen",
+					"correctPosition": 2
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Linked List Fehler",
+			"question": "Klicke auf den Fehler beim Löschen des ersten Elements.",
+			"code": "void removeFirst() {\n    if (head != null) {\n        head.next = null;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 3,
+					"token": "head.next = null",
+					"explanation": "Falsch - head sollte auf head.next gesetzt werden, nicht head.next auf null"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Komplexität vergleichen",
+			"question": "Welche Operationen sind bei verketteten Listen effizienter als bei Arrays?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Einfügen am Anfang",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Löschen am Anfang",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Zugriff per Index",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Einfügen in der Mitte (wenn Position bekannt)",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Komplexität kategorisieren",
+			"question": "Ordne die Operationen ihrer Zeitkomplexität bei einfach verketteten Listen zu.",
+			"categories": [
+				{
+					"id": "o1",
+					"name": "O(1)"
+				},
+				{
+					"id": "on",
+					"name": "O(n)"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Einfügen am Anfang",
+					"correctCategory": "o1"
+				},
+				{
+					"id": "2",
+					"text": "Zugriff auf n-tes Element",
+					"correctCategory": "on"
+				},
+				{
+					"id": "3",
+					"text": "Löschen am Anfang",
+					"correctCategory": "o1"
+				},
+				{
+					"id": "4",
+					"text": "Suche nach einem Wert",
+					"correctCategory": "on"
+				}
+			]
+		}
+	]
+}

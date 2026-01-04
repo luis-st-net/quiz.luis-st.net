@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k6-s4-impl",
+	"name": "Packages und Import - Implementierung",
+	"description": "Praktische Programmieraufgabe zu Packages.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 6 - Imperatives Programmieren Teil 3/6.4 Packages und Import"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Package-Struktur",
+			"question": "Erstelle eine Klasse 'Calculator' im Package 'math.utils'. Die Klasse soll static-Methoden für Grundrechenarten (add, subtract, multiply, divide) enthalten.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

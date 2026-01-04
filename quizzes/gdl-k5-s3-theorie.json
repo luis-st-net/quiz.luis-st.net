@@ -1,0 +1,122 @@
+{
+	"id": "gdl-k5-s3-theorie",
+	"name": "Objektmethoden - Theorie",
+	"description": "Grundlegende Fragen zu Objektmethoden vs Klassenmethoden.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 5 - Objekte/5.3 Objektmethoden"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Ohne static",
+			"question": "Objektmethoden werden {{blank:1}} static deklariert.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["ohne"],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Klassenmethoden Zugriff",
+			"question": "Klassenmethoden können direkt auf Objektattribute zugreifen.",
+			"correctAnswer": false
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Zugriffsrechte",
+			"question": "Ordne die Zugriffsrechte Klassenmethoden und Objektmethoden zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Kann ohne Objektreferenz auf Klassenattribute zugreifen"
+				},
+				{
+					"id": "2",
+					"answer": "Kann auf Objektattribute über this zugreifen"
+				}
+			],
+			"matches": [
+				{
+					"id": "3",
+					"answer": "Klassenmethode und Objektmethode",
+					"matchesTo": "1"
+				},
+				{
+					"id": "4",
+					"answer": "Nur Objektmethode",
+					"matchesTo": "2"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Objektmethode aufrufen",
+			"question": "Wie ruft man eine Objektmethode auf?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Klasse.methode()"
+				},
+				{
+					"id": "2",
+					"answer": "objekt.methode()"
+				},
+				{
+					"id": "3",
+					"answer": "methode(objekt)"
+				},
+				{
+					"id": "4",
+					"answer": "methode.objekt()"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Objektmethoden Zugriff",
+			"question": "Worauf können Objektmethoden zugreifen?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Objektattribute",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Klassenattribute",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Andere Objektmethoden",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Klassenmethoden",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Objektmethode mit static",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "public class Kreis {\n    public double radius;\n    public static double flaeche() {\n        return Math.PI * radius * radius;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 3,
+					"token": "static",
+					"explanation": "Eine Klassenmethode (static) kann nicht direkt auf Objektattribute (radius) zugreifen"
+				}
+			],
+			"selectCount": 1
+		}
+	]
+}

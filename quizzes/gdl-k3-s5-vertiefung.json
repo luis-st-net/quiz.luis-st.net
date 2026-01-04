@@ -1,0 +1,115 @@
+{
+	"id": "gdl-k3-s5-vertiefung",
+	"name": "Sichtbarkeit - Vertiefung",
+	"description": "Vertiefte Fragen zu Sichtbarkeit und Methodenaufruf.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 3 - Imperativ Teil 2/3.5 Sichtbarkeit"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Warum private?",
+			"question": "Warum sollte man private für interne Hilfsmethoden verwenden?",
+			"minLength": 30,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Beide Modifier",
+			"question": "Eine Klasse kann sowohl public als auch private Methoden haben.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Methoden-Eignung",
+			"question": "Ordne Methoden den Kategorien zu.",
+			"categories": [
+				{
+					"id": "pub",
+					"name": "Sollte public sein"
+				},
+				{
+					"id": "priv",
+					"name": "Sollte private sein"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Hauptfunktion, die Benutzer aufrufen",
+					"correctCategory": "pub"
+				},
+				{
+					"id": "2",
+					"text": "Interne Hilfsberechnung",
+					"correctCategory": "priv"
+				},
+				{
+					"id": "3",
+					"text": "API-Schnittstelle",
+					"correctCategory": "pub"
+				},
+				{
+					"id": "4",
+					"text": "Temporäre Zwischenergebnisse berechnen",
+					"correctCategory": "priv"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Gültige Aufrufe",
+			"question": "Welche Aufrufe sind gültig, wenn test() public in Klasse B ist?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "B.test(); (von Klasse A aus)",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "test(); (innerhalb von B)",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "B::test(); (von Klasse A aus)",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "this.test(); (innerhalb von B)",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Test-Schritte",
+			"question": "Bringe die Schritte zum Testen einer Methode mit einer Testklasse in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Testklasse mit main-Methode erstellen",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Zu testende Methode mit verschiedenen Werten aufrufen",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Ergebnisse auf Konsole ausgeben",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "Ergebnisse mit erwarteten Werten vergleichen",
+					"correctPosition": 3
+				}
+			]
+		}
+	]
+}

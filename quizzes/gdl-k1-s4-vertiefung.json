@@ -1,0 +1,115 @@
+{
+	"id": "gdl-k1-s4-vertiefung",
+	"name": "Java und Entwicklungsumgebungen - Vertiefung",
+	"description": "Vertiefte Fragen zu Java, JVM und Bytecode.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 1 - Grundlagen/1.4 Java und IDE"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "JVM Vorteil",
+			"question": "Erkläre den Vorteil der JVM gegenüber direkter Kompilierung zu Maschinencode.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Bytecode vs Maschinencode",
+			"question": "Java Bytecode ist identisch mit Maschinencode.",
+			"correctAnswer": false
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Zeitpunkte",
+			"question": "Ordne die Begriffe den Kategorien zu.",
+			"categories": [
+				{
+					"id": "compile",
+					"name": "Kompilierzeit"
+				},
+				{
+					"id": "run",
+					"name": "Laufzeit"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Syntaxfehler werden erkannt",
+					"correctCategory": "compile"
+				},
+				{
+					"id": "2",
+					"text": "Bytecode wird in JVM ausgeführt",
+					"correctCategory": "run"
+				},
+				{
+					"id": "3",
+					"text": "Java-Code wird in Bytecode übersetzt",
+					"correctCategory": "compile"
+				},
+				{
+					"id": "4",
+					"text": "Array-Index-Fehler treten auf",
+					"correctCategory": "run"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Bytecode Eigenschaften",
+			"question": "Welche Aussagen über Java Bytecode sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Bytecode ist plattformunabhängig",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Bytecode wird direkt vom Prozessor ausgeführt",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "Bytecode wird von der JVM interpretiert/ausgeführt",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Bytecode ist menschenlesbar wie Java-Code",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Ausführungsreihenfolge",
+			"question": "Bringe die Schritte der Java-Programmausführung in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Java-Quellcode schreiben (.java)",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Compiler übersetzt in Bytecode (.class)",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "JVM lädt den Bytecode",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "JVM führt das Programm aus",
+					"correctPosition": 3
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,153 @@
+{
+	"id": "gdl-k5-s5-theorie",
+	"name": "Sichtbarkeit und Kapselung - Theorie",
+	"description": "Grundlegende Fragen zu public, private, protected und Kapselung.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 5 - Objekte/5.5 Sichtbarkeit und Kapselung"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "private",
+			"question": "{{blank:1}} bedeutet, dass nur die eigene Klasse Zugriff hat.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["private"],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "protected",
+			"question": "protected erlaubt Zugriff aus Sohnklassen.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Modifier zuordnen",
+			"question": "Ordne die Sichtbarkeitsmodifikatoren ihren Zugriffsrechten zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "public"
+				},
+				{
+					"id": "2",
+					"answer": "private"
+				},
+				{
+					"id": "3",
+					"answer": "protected"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Von überall zugreifbar",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Nur in eigener Klasse",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Eigene Klasse, Sohnklassen, gleiches Paket",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "public-Zugriff",
+			"question": "Von wo kann auf public zugegriffen werden?",
+			"correctAnswerIndex": 3,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Nur aus der eigenen Klasse"
+				},
+				{
+					"id": "2",
+					"answer": "Nur aus dem gleichen Paket"
+				},
+				{
+					"id": "3",
+					"answer": "Nur aus Sohnklassen"
+				},
+				{
+					"id": "4",
+					"answer": "Von überall"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Kapselung",
+			"question": "Welche Aussagen über Kapselung sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Trennt Schnittstelle von Implementierung",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Attribute sollten meist private sein",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Getter und Setter ermöglichen kontrollierten Zugriff",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Alle Attribute müssen public sein",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Zugriffe kategorisieren",
+			"question": "Ordne die Zugriffe den Modifikatoren zu.",
+			"categories": [
+				{
+					"id": "pub",
+					"name": "public erlaubt"
+				},
+				{
+					"id": "priv",
+					"name": "private erlaubt"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Zugriff aus anderer Klasse",
+					"correctCategory": "pub"
+				},
+				{
+					"id": "2",
+					"text": "Zugriff nur innerhalb der Klasse",
+					"correctCategory": "priv"
+				},
+				{
+					"id": "3",
+					"text": "Zugriff aus anderem Paket",
+					"correctCategory": "pub"
+				},
+				{
+					"id": "4",
+					"text": "Interne Hilfsvariable",
+					"correctCategory": "priv"
+				}
+			]
+		}
+	]
+}

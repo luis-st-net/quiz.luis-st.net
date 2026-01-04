@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k1-s2-impl",
+	"name": "Computerprogramme und Maschinensprache - Implementierung",
+	"description": "Praktische Programmieraufgabe zu den Grundlagen.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 1 - Grundlagen/1.2 Computerprogramme"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Addition",
+			"question": "Schreibe ein Java-Programm, das zwei Zahlen (z.B. 5 und 3) addiert und das Ergebnis auf der Konsole ausgibt. Verwende Variablen für die Zahlen.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

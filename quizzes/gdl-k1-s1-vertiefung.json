@@ -1,0 +1,129 @@
+{
+	"id": "gdl-k1-s1-vertiefung",
+	"name": "Programme und Eigenschaften - Vertiefung",
+	"description": "Vertiefte Fragen zu Programmen und ihren Eigenschaften.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 1 - Grundlagen/1.1 Programme und Eigenschaften"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Programmeigenschaften",
+			"question": "Welche Aussagen über Programme sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Ein Programm kann mehrdeutig sein, solange der Computer es versteht",
+					"isCorrect": false
+				},
+				{
+					"id": "2",
+					"answer": "Verschiedene Programme können das gleiche Ergebnis mit unterschiedlichem Aufwand liefern",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Der Adressat muss wissen, wie die elementaren Schritte auszuführen sind",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Programme müssen immer in derselben Sprache wie das Betriebssystem geschrieben sein",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Zuordnung Eigenschaften",
+			"question": "Ordne die Programmeigenschaften ihren Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Eindeutigkeit"
+				},
+				{
+					"id": "2",
+					"answer": "Syntaxfreiheit"
+				},
+				{
+					"id": "3",
+					"answer": "Verständlichkeit"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Keine Mehrdeutigkeiten im Programm",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Keine grammatikalischen Fehler",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Für den Adressaten nachvollziehbar",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Natürliche Sprachen",
+			"question": "Erkläre, warum natürliche Sprachen für Computerprogramme ungeeignet sind.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Äquivalenz",
+			"question": "Zwei verschiedene Programme können niemals das gleiche Ergebnis liefern.",
+			"correctAnswer": false
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Kategorisierung",
+			"question": "Ordne die Eigenschaften den Kategorien zu.",
+			"categories": [
+				{
+					"id": "muss",
+					"name": "Muss-Eigenschaft"
+				},
+				{
+					"id": "kann",
+					"name": "Kann-Eigenschaft"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Frei von Syntaxfehlern",
+					"correctCategory": "muss"
+				},
+				{
+					"id": "2",
+					"text": "Effiziente Ausführung",
+					"correctCategory": "kann"
+				},
+				{
+					"id": "3",
+					"text": "Eindeutigkeit",
+					"correctCategory": "muss"
+				},
+				{
+					"id": "4",
+					"text": "Gut kommentiert",
+					"correctCategory": "kann"
+				},
+				{
+					"id": "5",
+					"text": "Verständliche Sprache für Adressaten",
+					"correctCategory": "muss"
+				}
+			]
+		}
+	]
+}

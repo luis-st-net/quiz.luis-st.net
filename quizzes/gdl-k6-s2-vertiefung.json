@@ -1,0 +1,151 @@
+{
+	"id": "gdl-k6-s2-vertiefung",
+	"name": "Bitmaps und RGB - Vertiefung",
+	"description": "Vertiefte Fragen zu Bildverarbeitung und Farbmanipulation.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 6 - Imperatives Programmieren Teil 3/6.2 Bitmaps und RGB"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Graustufen",
+			"question": "Erkläre, wie man ein Farbbild in Graustufen umwandelt.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "24-Bit Farbe",
+			"question": "Bei 24-Bit Farbtiefe werden für jede RGB-Komponente 8 Bit verwendet.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Bildoperationen",
+			"question": "Welche Operationen können auf Bitmaps angewendet werden?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Helligkeitsanpassung",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Spiegelung",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Farbinvertierung",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Automatische Kompilierung",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Schritte Bildverarbeitung",
+			"question": "Bringe die Schritte zur Bildverarbeitung in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Bild in 2D-Array laden",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Über alle Pixel iterieren",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "RGB-Werte jedes Pixels manipulieren",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "Ergebnis speichern",
+					"correctPosition": 3
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Farbinvertierung",
+			"question": "Ordne die Operationen den Ergebnissen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "255 - r, 255 - g, 255 - b"
+				},
+				{
+					"id": "2",
+					"answer": "(r + g + b) / 3 für alle Kanäle"
+				},
+				{
+					"id": "3",
+					"answer": "r * 1.2, g * 1.2, b * 1.2"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Farbinvertierung",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Graustufenkonvertierung",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Helligkeitserhöhung",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Kategorisierung",
+			"question": "Ordne die Begriffe den Kategorien zu.",
+			"categories": [
+				{
+					"id": "pixel",
+					"name": "Pixel-Eigenschaften"
+				},
+				{
+					"id": "bild",
+					"name": "Bild-Eigenschaften"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "RGB-Farbwert",
+					"correctCategory": "pixel"
+				},
+				{
+					"id": "2",
+					"text": "Breite in Pixeln",
+					"correctCategory": "bild"
+				},
+				{
+					"id": "3",
+					"text": "Höhe in Pixeln",
+					"correctCategory": "bild"
+				},
+				{
+					"id": "4",
+					"text": "Transparenz (Alpha)",
+					"correctCategory": "pixel"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,94 @@
+{
+	"id": "gdl-k2-s5-vertiefung",
+	"name": "Ein- und Ausgabe - Vertiefung",
+	"description": "Vertiefte Fragen zur Ein- und Ausgabe.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 2 - Imperativ Teil 1/2.5 Ein- und Ausgabe"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Import-Zweck",
+			"question": "Wozu dient die Import-Anweisung bei Konsoleneingabe?",
+			"minLength": 20,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "EVA-Prinzip",
+			"question": "Bringe die Schritte eines typischen Eingabe-Verarbeitung-Ausgabe-Programms in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Daten einlesen (z.B. readInt)",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Daten verarbeiten (z.B. berechnen)",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Ergebnis ausgeben (z.B. println)",
+					"correctPosition": 2
+				}
+			]
+		},
+		{
+			"id": "3",
+			"shortQuestion": "readIntArray",
+			"question": "readIntArray() liest kommagetrennte Zahlen.",
+			"correctAnswer": true
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Syntaxfehler",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "int x = readInt\"x\";",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 1,
+					"token": "readInt\"x\"",
+					"explanation": "Die Klammern fehlen: readInt(\"x\")"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "System.out",
+			"question": "Welche Aussagen über System.out sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "System.out ist der Standard-Ausgabestrom",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "println() fügt einen Zeilenumbruch hinzu",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "print() fügt einen Zeilenumbruch hinzu",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "Zahlen werden automatisch zu String konvertiert",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Typkonvertierung",
+			"question": "Die automatische Konvertierung von int zu String bei Verkettung mit + ermöglicht einfache Ausgabe von Zahlen.",
+			"correctAnswer": true
+		}
+	]
+}

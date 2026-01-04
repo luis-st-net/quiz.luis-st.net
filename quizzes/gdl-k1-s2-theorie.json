@@ -1,0 +1,150 @@
+{
+	"id": "gdl-k1-s2-theorie",
+	"name": "Computerprogramme und Maschinensprache - Theorie",
+	"description": "Grundlegende Fragen zu Maschinenbefehlen, Maschinensprache und Assembler.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 1 - Grundlagen/1.2 Computerprogramme"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Datenwortgröße",
+			"question": "Wie viele Bit hat ein Datenwort bei modernen 64-Bit-Mikroprozessoren?",
+			"correctAnswer": 64,
+			"tolerance": 0
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Maschinensprache",
+			"question": "Verschiedene Mikroprozessoren haben die gleiche Maschinensprache.",
+			"correctAnswer": false
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Maschinenzyklus",
+			"question": "Bringe die Schritte des Maschinenzyklus in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Instruction Fetch (Befehl aus Hauptspeicher laden)",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Execution (Befehl ausführen)",
+					"correctPosition": 1
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Assembler",
+			"question": "Der {{blank:1}} übersetzt Assemblerprogramme in {{blank:2}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["Assembler"],
+					"caseSensitive": false
+				},
+				{
+					"id": "2",
+					"correctAnswers": ["Maschinensprache", "Maschinencode", "Binärcode"],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Programmspeicherort",
+			"question": "Wo befinden sich Computerprogramme während der Ausführung?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Auf der Festplatte"
+				},
+				{
+					"id": "2",
+					"answer": "Im Hauptspeicher"
+				},
+				{
+					"id": "3",
+					"answer": "Im Mikroprozessor"
+				},
+				{
+					"id": "4",
+					"answer": "In der Grafikkarte"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Nachteile Maschinensprache",
+			"question": "Welche Nachteile hat die Programmierung in Maschinensprache?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Schwer zu erlernen",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Schwer zu lesen (nur Binärdaten)",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Bei Prozessorwechsel muss neu programmiert werden",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Zu schnelle Ausführung",
+					"isCorrect": false
+				},
+				{
+					"id": "5",
+					"answer": "Nur sehr einfache Operationen möglich",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Begriffszuordnung",
+			"question": "Ordne die Begriffe den Beschreibungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Maschinenbefehl"
+				},
+				{
+					"id": "2",
+					"answer": "Datenwort"
+				},
+				{
+					"id": "3",
+					"answer": "Assembler"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Elementare Operation des Mikroprozessors",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Einheitliche Dateneinheit (z.B. 64 Bit)",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Übersetzt Assemblercode in Maschinensprache",
+					"matchesTo": "3"
+				}
+			]
+		}
+	]
+}

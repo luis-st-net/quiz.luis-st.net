@@ -1,0 +1,134 @@
+{
+	"id": "gdl-k6-s1-vertiefung",
+	"name": "Mehrdimensionale Arrays - Vertiefung",
+	"description": "Vertiefte Fragen zu mehrdimensionalen Arrays.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 6 - Imperatives Programmieren Teil 3/6.1 Mehrdimensionale Arrays"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Jagged Arrays",
+			"question": "Erkläre, was Jagged Arrays (unregelmäßige Arrays) sind und wann sie nützlich sein können.",
+			"minLength": 30,
+			"maxLength": 500
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Initialisierung Reihenfolge",
+			"question": "Bei der schrittweisen Initialisierung eines 2D-Arrays muss die erste Dimension zuerst definiert werden.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Iteration 2D",
+			"question": "Bringe die Schritte zur Iteration über ein 2D-Array in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Äußere Schleife für Zeilen (i)",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Innere Schleife für Spalten (j)",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Zugriff auf matrix[i][j]",
+					"correctPosition": 2
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "2D-Array Fehler",
+			"question": "Klicke auf den Fehler.",
+			"code": "int[][] matrix = new int[3][];\nmatrix[0][0] = 5;",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "matrix[0][0]",
+					"explanation": "Die inneren Arrays wurden nicht initialisiert. Erst matrix[0] = new int[n] ausführen."
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Array-Typen zuordnen",
+			"question": "Ordne die Dimensionen ihren Bedeutungen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "matrix.length"
+				},
+				{
+					"id": "2",
+					"answer": "matrix[i].length"
+				},
+				{
+					"id": "3",
+					"answer": "matrix[i][j]"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "Anzahl Zeilen",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Anzahl Spalten in Zeile i",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "Element in Zeile i, Spalte j",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Speicher-Layout",
+			"question": "Ordne die Konzepte den Speicherarten zu.",
+			"categories": [
+				{
+					"id": "heap",
+					"name": "Heap"
+				},
+				{
+					"id": "stack",
+					"name": "Stack"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Die Referenz auf das 2D-Array",
+					"correctCategory": "stack"
+				},
+				{
+					"id": "2",
+					"text": "Das äußere Array (Zeilen-Referenzen)",
+					"correctCategory": "heap"
+				},
+				{
+					"id": "3",
+					"text": "Die inneren Arrays (Zeilen-Daten)",
+					"correctCategory": "heap"
+				},
+				{
+					"id": "4",
+					"text": "Lokale Schleifenvariable i",
+					"correctCategory": "stack"
+				}
+			]
+		}
+	]
+}

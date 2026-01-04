@@ -1,0 +1,100 @@
+{
+	"id": "gdl-k2-s3-vertiefung",
+	"name": "Arrays - Vertiefung",
+	"description": "Vertiefte Fragen zu Arrays und deren Verwendung.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 2 - Imperativ Teil 1/2.3 Arrays"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Array-Länge ändern",
+			"question": "Die Länge eines Arrays kann nach der Erstellung geändert werden.",
+			"correctAnswer": false
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Leeres Array",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "int[] x = new int[];\nx[0] = 5;",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 1,
+					"token": "[]",
+					"explanation": "Bei new int[] muss die Größe angegeben werden, z.B. new int[5]"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Array-Bounds",
+			"question": "Was passiert bei einem Zugriff außerhalb des Array-Bereichs?",
+			"minLength": 20,
+			"maxLength": 300
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Array-Initialisierung",
+			"question": "Welche Aussagen über int[] x = new int[10] sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Das Array hat 10 Elemente",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Alle Elemente sind mit 0 initialisiert",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "x[10] ist ein gültiger Zugriff",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "x.length gibt 10 zurück",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Array-Berechnung",
+			"question": "Gegeben: int[] a = {5, 10, 15, 20}. Was ist a[2] + a[0]?",
+			"correctAnswer": 20,
+			"tolerance": 0
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Array-Schritte",
+			"question": "Bringe die Schritte zum Erstellen und Füllen eines Arrays in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Array deklarieren: int[] zahlen;",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Speicher reservieren: zahlen = new int[3];",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Werte zuweisen: zahlen[0] = 10;",
+					"correctPosition": 2
+				},
+				{
+					"id": "4",
+					"answer": "Werte auslesen: System.out.println(zahlen[0]);",
+					"correctPosition": 3
+				}
+			]
+		}
+	]
+}

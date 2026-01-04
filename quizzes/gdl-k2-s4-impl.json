@@ -1,0 +1,33 @@
+{
+	"id": "gdl-k2-s4-impl",
+	"name": "Strings - Implementierung",
+	"description": "Praktische Programmieraufgaben zu Strings.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 2 - Imperativ Teil 1/2.4 Strings"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "String zeichenweise",
+			"question": "Schreibe ein Programm, das einen String Zeichen für Zeichen ausgibt. Verwende eine for-Schleife und charAt().",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Namen zusammenfügen",
+			"question": "Schreibe ein Programm, das Vorname und Nachname zu einem vollständigen Namen zusammenfügt und ausgibt. Verwende String-Verkettung.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

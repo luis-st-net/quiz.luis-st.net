@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k5-s4-impl",
+	"name": "Speicherverwaltung - Implementierung",
+	"description": "Praktische Programmieraufgabe zur Speicherverwaltung.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 5 - Objekte/5.4 Speicherverwaltung"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Referenz-Demo",
+			"question": "Erstelle ein Programm, das den Unterschied zwischen Referenzübergabe und dem Verhalten bei primitiven Typen demonstriert. Erstelle eine Klasse mit einem Attribut, übergib ein Objekt an eine Methode, ändere das Attribut, und zeige dass die Änderung im Original sichtbar ist.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

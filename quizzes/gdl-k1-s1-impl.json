@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k1-s1-impl",
+	"name": "Programme und Eigenschaften - Implementierung",
+	"description": "Praktische Programmieraufgabe zu den Grundlagen.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 1 - Grundlagen/1.1 Programme und Eigenschaften"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Hallo Welt",
+			"question": "Schreibe ein Java-Programm, das \"Hallo Welt\" auf der Konsole ausgibt. Das Programm soll eine Klasse mit einer main-Methode enthalten.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

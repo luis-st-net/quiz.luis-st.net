@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k6-s5-impl",
+	"name": "Classpath und Libraries - Implementierung",
+	"description": "Praktische Programmieraufgabe zu Classpath und Libraries.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 6 - Imperatives Programmieren Teil 3/6.5 Classpath und Libraries"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Build-Skript",
+			"question": "Erstelle ein kurzes Batch-Skript oder Shell-Skript, das eine Java-Datei kompiliert und mit einer externen Library (z.B. mylib.jar) ausführt. Zeige die Verwendung von -cp bei javac und java.",
+			"upload": {
+				"accept": [".sh", ".bat", ".txt", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

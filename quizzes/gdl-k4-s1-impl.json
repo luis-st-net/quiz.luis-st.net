@@ -1,0 +1,33 @@
+{
+	"id": "gdl-k4-s1-impl",
+	"name": "Suchalgorithmen - Implementierung",
+	"description": "Praktische Programmieraufgaben zu Suchalgorithmen.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 4 - Algorithmen/4.1 Suchalgorithmen"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Lineare Suche",
+			"question": "Implementiere die lineare Suche als Methode: public static boolean lineareSuche(int[] arr, int wert). Die Methode soll true zurückgeben, wenn der Wert im Array gefunden wird.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Binäre Suche",
+			"question": "Implementiere die binäre Suche (iterativ oder rekursiv) als Methode: public static boolean binaereSuche(int[] arr, int wert). Das Array ist aufsteigend sortiert.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k3-s5-impl",
+	"name": "Sichtbarkeit - Implementierung",
+	"description": "Praktische Programmieraufgabe zu Sichtbarkeit.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 3 - Imperativ Teil 2/3.5 Sichtbarkeit"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Klasse mit Testklasse",
+			"question": "Erstelle zwei Klassen: 1) Eine Klasse 'Rechner' mit einer public-Methode 'berechne' und einer private-Hilfsmethode. 2) Eine Testklasse mit main-Methode, die die public-Methode testet.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain", ".zip"],
+				"maxSizeMB": 2,
+				"maxFiles": 2,
+				"required": true
+			}
+		}
+	]
+}

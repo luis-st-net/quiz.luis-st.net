@@ -1,0 +1,122 @@
+{
+	"id": "gdl-k6-s3-theorie",
+	"name": "Klassenattribute und -methoden - Theorie",
+	"description": "Grundlegende Fragen zu static-Attributen und -Methoden.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 6 - Imperatives Programmieren Teil 3/6.3 Klassenattribute und -methoden"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "static Keyword",
+			"question": "Mit dem Schlüsselwort {{blank:1}} werden Klassenattribute deklariert.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["static"],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Klassenattribut",
+			"question": "Ein Klassenattribut (static) existiert nur einmal pro Klasse, nicht pro Objekt.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Zugriff static",
+			"question": "Wie greift man auf ein Klassenattribut zu?",
+			"correctAnswerIndex": 0,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Klassenname.attribut"
+				},
+				{
+					"id": "2",
+					"answer": "this.attribut"
+				},
+				{
+					"id": "3",
+					"answer": "super.attribut"
+				},
+				{
+					"id": "4",
+					"answer": "new Klasse().attribut"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "static Methode",
+			"question": "Welche Aussagen über static-Methoden sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Können ohne Objekt aufgerufen werden",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Können auf this zugreifen",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "Können nur auf static-Attribute zugreifen",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "main() ist eine static-Methode",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Beispiel Math",
+			"question": "Die Methoden der Math-Klasse sind static.",
+			"correctAnswer": true
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Zuordnung static/nicht-static",
+			"question": "Ordne die Konzepte den Typen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Math.sqrt()"
+				},
+				{
+					"id": "2",
+					"answer": "str.length()"
+				},
+				{
+					"id": "3",
+					"answer": "System.out"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "static Methode",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "Instanz-Methode",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "static Attribut",
+					"matchesTo": "3"
+				}
+			]
+		}
+	]
+}

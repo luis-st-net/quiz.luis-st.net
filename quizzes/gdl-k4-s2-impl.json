@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k4-s2-impl",
+	"name": "O-Kalkül - Implementierung",
+	"description": "Praktische Programmieraufgabe zur Komplexitätsanalyse.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 4 - Algorithmen/4.2 O-Kalkül"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Vorkommen zählen",
+			"question": "Implementiere die Methode 'vorkommen', die zählt wie oft ein Wert im Array vorkommt: public static int vorkommen(int[] arr, int wert). Die Methode hat O(n) Komplexität.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

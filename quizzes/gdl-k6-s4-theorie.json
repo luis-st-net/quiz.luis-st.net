@@ -1,0 +1,110 @@
+{
+	"id": "gdl-k6-s4-theorie",
+	"name": "Packages und Import - Theorie",
+	"description": "Grundlegende Fragen zu Packages und Import-Anweisungen.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 6 - Imperatives Programmieren Teil 3/6.4 Packages und Import"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "package Keyword",
+			"question": "Mit welchem Schlüsselwort definiert man ein Package?",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["package"],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "package Position",
+			"question": "Die package-Anweisung muss die erste Anweisung in einer Java-Datei sein.",
+			"correctAnswer": true
+		},
+		{
+			"id": "3",
+			"shortQuestion": "import Zweck",
+			"question": "Wozu dient die import-Anweisung?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Zum Kompilieren von Code"
+				},
+				{
+					"id": "2",
+					"answer": "Zum Verwenden von Klassen aus anderen Packages"
+				},
+				{
+					"id": "3",
+					"answer": "Zum Exportieren von Klassen"
+				},
+				{
+					"id": "4",
+					"answer": "Zum Löschen von Packages"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "java.lang",
+			"question": "Das Package java.lang muss nicht importiert werden.",
+			"correctAnswer": true
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Package-Aussagen",
+			"question": "Welche Aussagen über Packages sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Organisieren Klassen hierarchisch",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Entsprechen der Verzeichnisstruktur",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Vermeiden Namenskonflikte",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Sind nur für große Projekte nötig",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Wildcard Import",
+			"question": "Was bedeutet import java.util.*;?",
+			"correctAnswerIndex": 2,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Importiert nur die Klasse util"
+				},
+				{
+					"id": "2",
+					"answer": "Importiert alle Sub-Packages"
+				},
+				{
+					"id": "3",
+					"answer": "Importiert alle Klassen aus java.util"
+				},
+				{
+					"id": "4",
+					"answer": "Ist nicht erlaubt"
+				}
+			]
+		}
+	]
+}

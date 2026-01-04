@@ -1,0 +1,174 @@
+{
+	"id": "gdl-k2-s2-theorie",
+	"name": "Variablen und Datentypen - Theorie",
+	"description": "Grundlegende Fragen zu Variablen, Datentypen und Operatoren.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 2 - Imperativ Teil 1/2.2 Variablen und Datentypen"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Variableneigenschaften",
+			"question": "Eine Variable hat einen {{blank:1}}, einen {{blank:2}} und einen {{blank:3}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["Wert", "Namen", "Typ"],
+					"caseSensitive": false
+				},
+				{
+					"id": "2",
+					"correctAnswers": ["Namen", "Wert", "Typ"],
+					"caseSensitive": false
+				},
+				{
+					"id": "3",
+					"correctAnswers": ["Typ", "Wert", "Namen"],
+					"caseSensitive": false
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "int-Speicher",
+			"question": "Wie viele Bit benötigt der Datentyp int?",
+			"correctAnswer": 32,
+			"tolerance": 0
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Datentypen zuordnen",
+			"question": "Ordne die Datentypen ihren Speichergrößen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "byte"
+				},
+				{
+					"id": "2",
+					"answer": "short"
+				},
+				{
+					"id": "3",
+					"answer": "int"
+				},
+				{
+					"id": "4",
+					"answer": "long"
+				}
+			],
+			"matches": [
+				{
+					"id": "5",
+					"answer": "8 Bit",
+					"matchesTo": "1"
+				},
+				{
+					"id": "6",
+					"answer": "16 Bit",
+					"matchesTo": "2"
+				},
+				{
+					"id": "7",
+					"answer": "32 Bit",
+					"matchesTo": "3"
+				},
+				{
+					"id": "8",
+					"answer": "64 Bit",
+					"matchesTo": "4"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Variablenwert",
+			"question": "Der Wert einer Variable kann sich während des Programmablaufs ändern.",
+			"correctAnswer": true
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Wahrheitswerte",
+			"question": "Welcher Datentyp eignet sich für Wahrheitswerte?",
+			"correctAnswerIndex": 3,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "int"
+				},
+				{
+					"id": "2",
+					"answer": "String"
+				},
+				{
+					"id": "3",
+					"answer": "char"
+				},
+				{
+					"id": "4",
+					"answer": "boolean"
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Typfehler",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "int x = 3.5;",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 1,
+					"token": "3.5",
+					"explanation": "3.5 ist ein double-Wert und kann nicht einer int-Variable zugewiesen werden"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Gültige Deklarationen",
+			"question": "Welche sind gültige Variablendeklarationen?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "int x = 5;",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "double d = 3.14;",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "int 2x = 10;",
+					"isCorrect": false
+				},
+				{
+					"id": "4",
+					"answer": "boolean b = true;",
+					"isCorrect": true
+				},
+				{
+					"id": "5",
+					"answer": "char c = \"a\";",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "8",
+			"shortQuestion": "Initialisierung",
+			"question": "Die erste Wertzuweisung einer Variable heißt {{blank:1}}.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["Initialisierung"],
+					"caseSensitive": false
+				}
+			]
+		}
+	]
+}

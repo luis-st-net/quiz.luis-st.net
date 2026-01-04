@@ -1,0 +1,136 @@
+{
+	"id": "gdl-k2-s5-theorie",
+	"name": "Ein- und Ausgabe - Theorie",
+	"description": "Grundlegende Fragen zur Konsolen-Ein- und Ausgabe in Java.",
+	"config": {
+		"order": 1,
+		"group": "Grundlagen der Programmierung/Kapitel 2 - Imperativ Teil 1/2.5 Ein- und Ausgabe"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "println",
+			"question": "System.out.{{blank:1}}() gibt Text mit Zeilenumbruch aus.",
+			"blanks": [
+				{
+					"id": "1",
+					"correctAnswers": ["println"],
+					"caseSensitive": true
+				}
+			]
+		},
+		{
+			"id": "2",
+			"shortQuestion": "print vs println",
+			"question": "System.out.print() fügt automatisch einen Zeilenumbruch hinzu.",
+			"correctAnswer": false
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Eingabemethoden",
+			"question": "Ordne die Eingabemethoden ihren Rückgabetypen zu.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "readInt()"
+				},
+				{
+					"id": "2",
+					"answer": "readString()"
+				},
+				{
+					"id": "3",
+					"answer": "readDouble()"
+				}
+			],
+			"matches": [
+				{
+					"id": "4",
+					"answer": "int",
+					"matchesTo": "1"
+				},
+				{
+					"id": "5",
+					"answer": "String",
+					"matchesTo": "2"
+				},
+				{
+					"id": "6",
+					"answer": "double",
+					"matchesTo": "3"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Ganzzahl lesen",
+			"question": "Welcher Befehl liest eine Ganzzahl von der Konsole?",
+			"correctAnswerIndex": 1,
+			"answers": [
+				{
+					"id": "1",
+					"answer": "readNumber()"
+				},
+				{
+					"id": "2",
+					"answer": "readInt()"
+				},
+				{
+					"id": "3",
+					"answer": "getInt()"
+				},
+				{
+					"id": "4",
+					"answer": "inputInt()"
+				}
+			]
+		},
+		{
+			"id": "5",
+			"shortQuestion": "E/A-Möglichkeiten",
+			"question": "Welche Möglichkeiten der Ein-/Ausgabe gibt es in Java?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Tastatur / Textbildschirm",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Dateien",
+					"isCorrect": true
+				},
+				{
+					"id": "3",
+					"answer": "Netzwerk / Internet",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "Graphische Oberfläche",
+					"isCorrect": true
+				},
+				{
+					"id": "5",
+					"answer": "Gedankenübertragung",
+					"isCorrect": false
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Verkettungsfehler",
+			"question": "Klicke auf das Token, das einen Fehler enthält.",
+			"code": "System.out.println(\"x = \" x);",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 1,
+					"token": "x",
+					"explanation": "Zwischen \"x = \" und x fehlt der Verkettungsoperator +"
+				}
+			],
+			"selectCount": 1
+		}
+	]
+}

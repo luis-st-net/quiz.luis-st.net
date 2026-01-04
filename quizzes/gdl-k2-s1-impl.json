@@ -1,0 +1,22 @@
+{
+	"id": "gdl-k2-s1-impl",
+	"name": "Sequenzen von Anweisungen - Implementierung",
+	"description": "Praktische Programmieraufgabe zu Anweisungssequenzen.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Kapitel 2 - Imperativ Teil 1/2.1 Sequenzen"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Drei Begrüßungen",
+			"question": "Schreibe ein Java-Programm, das drei verschiedene Begrüßungen nacheinander auf der Konsole ausgibt (z.B. \"Guten Morgen\", \"Guten Tag\", \"Guten Abend\"). Jede Begrüßung soll in einer eigenen Zeile stehen.",
+			"upload": {
+				"accept": [".java", "text/x-java-source", "text/plain"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

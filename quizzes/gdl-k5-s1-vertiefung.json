@@ -1,0 +1,132 @@
+{
+	"id": "gdl-k5-s1-vertiefung",
+	"name": "Objektattribute und Instanzen - Vertiefung",
+	"description": "Vertiefte Fragen zu Objekten und Referenzen.",
+	"config": {
+		"order": 2,
+		"group": "Grundlagen der Programmierung/Kapitel 5 - Objekte/5.1 Objektattribute und Instanzen"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Referenzzuweisung",
+			"question": "Was passiert wenn k = q für zwei Koordinaten-Objekte ausgeführt wird?",
+			"minLength": 30,
+			"maxLength": 400
+		},
+		{
+			"id": "2",
+			"shortQuestion": "== Vergleich",
+			"question": "k == q vergleicht den Inhalt von zwei Objekten.",
+			"correctAnswer": false
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Objektzuweisungen",
+			"question": "Welche Aussagen über Objektzuweisungen sind korrekt?",
+			"answers": [
+				{
+					"id": "1",
+					"answer": "Bei k = q zeigen beide auf dasselbe Objekt",
+					"isCorrect": true
+				},
+				{
+					"id": "2",
+					"answer": "Bei k = q wird das Objekt kopiert",
+					"isCorrect": false
+				},
+				{
+					"id": "3",
+					"answer": "Änderungen über k sind auch über q sichtbar",
+					"isCorrect": true
+				},
+				{
+					"id": "4",
+					"answer": "== prüft Objektidentität, nicht Gleichheit",
+					"isCorrect": true
+				}
+			]
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Null-Zugriff",
+			"question": "Klicke auf das Token, das einen Fehler verursacht.",
+			"code": "Koordinate k = null;\nSystem.out.println(k.x);",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 2,
+					"token": "k.x",
+					"explanation": "NullPointerException: k ist null und hat keine Attribute"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Objekterstellung",
+			"question": "Bringe die Schritte der Objekterstellung in die richtige Reihenfolge.",
+			"items": [
+				{
+					"id": "1",
+					"answer": "Variable deklarieren: Klasse var;",
+					"correctPosition": 0
+				},
+				{
+					"id": "2",
+					"answer": "Objekt erzeugen: var = new Klasse();",
+					"correctPosition": 1
+				},
+				{
+					"id": "3",
+					"answer": "Attribute zuweisen: var.attribut = wert;",
+					"correctPosition": 2
+				}
+			]
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Referenz vs Objekt",
+			"question": "Ordne die Eigenschaften Referenz oder Objekt zu.",
+			"categories": [
+				{
+					"id": "ref",
+					"name": "Referenz"
+				},
+				{
+					"id": "obj",
+					"name": "Objekt"
+				}
+			],
+			"items": [
+				{
+					"id": "1",
+					"text": "Speichert die Adresse",
+					"correctCategory": "ref"
+				},
+				{
+					"id": "2",
+					"text": "Enthält die Attributwerte",
+					"correctCategory": "obj"
+				},
+				{
+					"id": "3",
+					"text": "Liegt auf dem Heap",
+					"correctCategory": "obj"
+				},
+				{
+					"id": "4",
+					"text": "Kann null sein",
+					"correctCategory": "ref"
+				}
+			]
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Objekte zählen",
+			"question": "Wie viele Objekte werden erstellt?\nPunkt a = new Punkt();\nPunkt b = a;\nPunkt c = new Punkt();",
+			"correctAnswer": 2,
+			"tolerance": 0
+		}
+	]
+}
