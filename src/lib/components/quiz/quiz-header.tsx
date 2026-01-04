@@ -55,9 +55,6 @@ export function QuizHeader({ quizName, onCancelClick, className }: QuizHeaderPro
 					<X className="size-4 sm:mr-1" />
 					<span className="hidden sm:inline">Abbrechen</span>
 				</Button>
-
-				{/* Theme Toggle */}
-				<ThemeToggle />
 			</div>
 		</header>
 	);

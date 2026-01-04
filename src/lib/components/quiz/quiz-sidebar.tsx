@@ -80,7 +80,8 @@ interface CollapsibleQuizGroupProps {
 }
 
 function CollapsibleQuizGroup({ group, level, selectedQuizId, onSelectQuiz }: CollapsibleQuizGroupProps) {
-	const [isOpen, setIsOpen] = useState(true);
+	// Only top level (level 0) is open by default
+	const [isOpen, setIsOpen] = useState(level === 0);
 
 	return (
 		<Ui.Collapsible open={isOpen} onOpenChange={setIsOpen}>
