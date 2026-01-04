@@ -8,15 +8,13 @@ import * as Ui from "@/lib/components/ui";
 import { ScrollArea } from "@/lib/components/ui/scroll-area";
 
 interface QuizSidebarProps {
-	quizzes: Quiz[];
+	hierarchy: QuizGroup;
 	selectedQuizId: string | null;
 	onSelectQuiz: (quizId: string) => void;
 	className?: string;
 }
 
-export function QuizSidebar({ quizzes, selectedQuizId, onSelectQuiz, className }: QuizSidebarProps) {
-	const rootNode = buildGroupHierarchy(quizzes);
-
+export function QuizSidebar({ hierarchy, selectedQuizId, onSelectQuiz, className }: QuizSidebarProps) {
 	return (
 		<div className={cn("flex flex-col h-full bg-card border-r", className)}>
 			<div className="p-4 border-b">
@@ -28,7 +26,7 @@ export function QuizSidebar({ quizzes, selectedQuizId, onSelectQuiz, className }
 			<ScrollArea className="flex-1">
 				<div className="p-2">
 					<QuizGroupRenderer
-						node={rootNode}
+						node={hierarchy}
 						level={0}
 						selectedQuizId={selectedQuizId}
 						onSelectQuiz={onSelectQuiz}
@@ -138,38 +136,6 @@ function QuizListItem({ quiz, isSelected, onSelect, level }: QuizListItemProps) 
 			<span className="truncate">{quiz.name}</span>
 		</button>
 	);
-}
-
-function buildGroupHierarchy(quizzes: Quiz[]): QuizGroup {
-	const root: QuizGroup = {
-		name: "",
-		quizzes: [],
-		subgroups: new Map(),
-	};
-
-	const sortedQuizzes = [...quizzes].sort((a, b) => a.config.order - b.config.order);
-
-	for (const quiz of sortedQuizzes) {
-		const groupPath = quiz.config.group || "";
-		const parts = groupPath ? groupPath.split("/").filter(Boolean) : [];
-
-		let currentNode = root;
-
-		for (const part of parts) {
-			if (!currentNode.subgroups.has(part)) {
-				currentNode.subgroups.set(part, {
-					name: part,
-					quizzes: [],
-					subgroups: new Map(),
-				});
-			}
-			currentNode = currentNode.subgroups.get(part)!;
-		}
-
-		currentNode.quizzes.push(quiz);
-	}
-
-	return root;
 }
 
 export default QuizSidebar;

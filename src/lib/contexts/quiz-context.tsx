@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 const Context = createContext<QuizContext | undefined>(undefined);
 
 export function QuizProvider(
-	{ quizzes, onCompleteAction, children }: QuizProvider,
+	{ quizzes, hierarchy, onCompleteAction, children }: QuizProvider,
 ) {
 	const router = useRouter();
 	const { toast } = useToast();
@@ -33,6 +33,7 @@ export function QuizProvider(
 
 	const contextValue: QuizContext = {
 		quizzes,
+		hierarchy,
 		getQuizById,
 		finishQuiz,
 		selectedQuizId,

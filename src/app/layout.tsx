@@ -20,14 +20,14 @@ export const metadata: Metadata = {
 export default async function RootLayout(
 	{ children }: { children: React.ReactNode },
 ) {
-	const quizzes = await loadQuizzes();
-	
+	const { quizzes, hierarchy } = await loadQuizzes();
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 		<body className="min-w-64">
 		<Ui.ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
 			<UserProvider>
-				<QuizProvider quizzes={quizzes} onCompleteAction={sendMail}>
+				<QuizProvider quizzes={quizzes} hierarchy={hierarchy} onCompleteAction={sendMail}>
 					<div className="flex flex-col h-screen w-full">
 						<NavigationBar/>
 						<main className="flex-1 min-h-0 overflow-hidden">

@@ -20,6 +20,7 @@ export interface Message {
 
 export interface QuizContext {
 	quizzes: Quiz[];
+	hierarchy: QuizGroup;
 	getQuizById: (id: string) => Quiz | undefined;
 	finishQuiz: (quizId: string, answers: Record<string, QuestionInput>, elapsedTime: number) => Promise<void>;
 	selectedQuizId: string | null;
@@ -28,6 +29,7 @@ export interface QuizContext {
 
 export interface QuizProvider {
 	quizzes: Quiz[];
+	hierarchy: QuizGroup;
 	onCompleteAction: (name: string | undefined, mail: string | undefined, quiz: string, answers: Record<string, QuestionInput>, elapsedTime: number) => Promise<Message>;
 	children: React.ReactNode;
 }
@@ -96,13 +98,9 @@ export interface Quiz {
 	id: string;
 	name: string;
 	description: string;
-	config: QuizConfig;
-	questions: Question[];
-}
-
-export interface QuizConfig {
 	order: number;
-	group: string;
+	group: string;  // Derived from filesystem path
+	questions: Question[];
 }
 
 export interface QuizGroup {

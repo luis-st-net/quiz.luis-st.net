@@ -30,9 +30,9 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 					<div className="flex items-start justify-between gap-4">
 						<div className="space-y-1">
 							<CardTitle className="text-2xl sm:text-3xl">{quiz.name}</CardTitle>
-							{quiz.config.group && (
+							{quiz.group && (
 								<Badge variant="secondary" className="mt-2">
-									{quiz.config.group}
+									{quiz.group}
 								</Badge>
 							)}
 						</div>

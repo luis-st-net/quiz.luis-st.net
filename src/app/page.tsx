@@ -11,7 +11,7 @@ import { Menu } from "lucide-react";
 
 export default function HomePage() {
 	const router = useRouter();
-	const { quizzes, selectedQuizId, setSelectedQuizId, getQuizById } = useQuizContext();
+	const { hierarchy, selectedQuizId, setSelectedQuizId, getQuizById } = useQuizContext();
 	const { getName } = useUserContext();
 	const [showUserDialog, setShowUserDialog] = useState(false);
 	const [pendingQuizId, setPendingQuizId] = useState<string | null>(null);
@@ -47,7 +47,7 @@ export default function HomePage() {
 			{/* Desktop Sidebar */}
 			<aside className="hidden md:block w-72 lg:w-80 shrink-0">
 				<QuizSidebar
-					quizzes={quizzes}
+					hierarchy={hierarchy}
 					selectedQuizId={selectedQuizId}
 					onSelectQuiz={handleSelectQuiz}
 					className="h-full"
@@ -67,7 +67,7 @@ export default function HomePage() {
 						</SheetTrigger>
 						<SheetContent side="left" className="p-0 w-80">
 							<QuizSidebar
-								quizzes={quizzes}
+								hierarchy={hierarchy}
 								selectedQuizId={selectedQuizId}
 								onSelectQuiz={handleSelectQuiz}
 								className="h-full"
