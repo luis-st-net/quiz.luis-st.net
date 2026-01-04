@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/lib/components/ui/button";
 import { Badge } from "@/lib/components/ui/badge";
 import { Separator } from "@/lib/components/ui/separator";
-import { FileQuestion, Clock, BarChart3, ArrowRight, BookOpen } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/lib/components/ui/tooltip";
+import { FileQuestion, Clock, BarChart3, ArrowRight, BookOpen, ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utility";
 
 interface QuizInfoCardProps {
@@ -28,13 +29,11 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 			<Card className="w-full max-w-2xl">
 				<CardHeader className="space-y-4">
 					<div className="flex items-start justify-between gap-4">
-						<div className="space-y-1">
-							<CardTitle className="text-2xl sm:text-3xl">{quiz.name}</CardTitle>
+						<div className="space-y-2">
 							{quiz.group && (
-								<Badge variant="secondary" className="mt-2">
-									{quiz.group}
-								</Badge>
+								<GroupBreadcrumb group={quiz.group} />
 							)}
+							<CardTitle className="text-2xl sm:text-3xl">{quiz.name}</CardTitle>
 						</div>
 					</div>
 					{quiz.description && (
@@ -129,6 +128,59 @@ function EmptyState({ className }: { className?: string }) {
 					Wählen Sie ein Quiz aus der Seitenleiste aus, um Details anzuzeigen und zu starten.
 				</p>
 			</div>
+		</div>
+	);
+}
+
+const MAX_BREADCRUMB_LENGTH = 40;
+
+function GroupBreadcrumb({ group }: { group: string }) {
+	const segments = group.split("/").filter(Boolean);
+	const needsCollapse = group.length > MAX_BREADCRUMB_LENGTH && segments.length > 2;
+
+	if (needsCollapse) {
+		const hiddenSegments = segments.slice(1, -1);
+		return (
+			<TooltipProvider>
+				<div className="flex items-center gap-1 text-sm text-muted-foreground">
+					<span>{segments[0]}</span>
+					<ChevronRight className="size-3 shrink-0" />
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<span className="hover:bg-muted rounded px-1 py-0.5 transition-colors">
+								<MoreHorizontal className="size-3" />
+							</span>
+						</TooltipTrigger>
+						<TooltipContent>
+							<div className="flex items-center gap-1">
+								{hiddenSegments.map((segment, index) => (
+									<React.Fragment key={index}>
+										{index > 0 && <ChevronRight className="size-3 shrink-0" />}
+										<span>{segment}</span>
+									</React.Fragment>
+								))}
+							</div>
+						</TooltipContent>
+					</Tooltip>
+					<ChevronRight className="size-3 shrink-0" />
+					<span className="text-foreground font-medium">{segments[segments.length - 1]}</span>
+				</div>
+			</TooltipProvider>
+		);
+	}
+
+	return (
+		<div className="flex items-center gap-1 text-sm text-muted-foreground">
+			{segments.map((segment, index) => (
+				<React.Fragment key={index}>
+					{index > 0 && <ChevronRight className="size-3 shrink-0" />}
+					<span className={cn(
+						index === segments.length - 1 && "text-foreground font-medium"
+					)}>
+						{segment}
+					</span>
+				</React.Fragment>
+			))}
 		</div>
 	);
 }
