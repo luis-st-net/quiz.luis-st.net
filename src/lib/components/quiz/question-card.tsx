@@ -133,7 +133,7 @@ export function QuestionCard({ className }: QuestionCardProps) {
 						)}
 
 						{/* Code Block - rendered when code field is present */}
-						{currentQuestion.code && (
+						{currentQuestion.code && questionType != "syntax-error" && (
 							<CodeBlock language={currentQuestion.codeLanguage || "java"}>
 								{currentQuestion.code}
 							</CodeBlock>

@@ -201,7 +201,7 @@ export default function SyntaxErrorQuestion(
 		<div className="space-y-4">
 			<div className="flex items-center justify-between">
 				<p className="text-sm text-muted-foreground">
-					Klicken Sie auf die Token, die Syntaxfehler enthalten.
+					Klicken Sie auf das Wort oder Zeichen, das Sie als fehlerhaft identifizieren möchten.
 				</p>
 				<span className="text-sm font-medium">
 					{selectedTokens.length} / {selectCount} ausgewählt
