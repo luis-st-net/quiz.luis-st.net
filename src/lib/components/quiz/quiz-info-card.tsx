@@ -7,8 +7,8 @@ import { Button } from "@/lib/components/ui/button";
 import { Badge } from "@/lib/components/ui/badge";
 import { Separator } from "@/lib/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/lib/components/ui/tooltip";
-import { FileQuestion, Clock, BarChart3, ArrowRight, BookOpen, ChevronRight, MoreHorizontal, QrCode } from "lucide-react";
-import { QrCodeDialog } from "./qr-code-dialog";
+import { FileQuestion, Clock, BarChart3, ArrowRight, BookOpen, ChevronRight, MoreHorizontal, Share2 } from "lucide-react";
+import { ShareDialog } from "./share-dialog";
 import { cn } from "@/lib/utility";
 
 interface QuizInfoCardProps {
@@ -18,7 +18,7 @@ interface QuizInfoCardProps {
 }
 
 export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps) {
-	const [showQrDialog, setShowQrDialog] = useState(false);
+	const [showShareDialog, setShowShareDialog] = useState(false);
 
 	if (!quiz) {
 		return <EmptyState className={className} />;
@@ -86,13 +86,13 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 
 				<CardFooter className="pt-6 flex flex-col sm:flex-row gap-3 sm:justify-between">
 					<Button
-						onClick={() => setShowQrDialog(true)}
+						onClick={() => setShowShareDialog(true)}
 						variant="outline"
 						size="lg"
 						className="w-full sm:w-auto"
 					>
-						<QrCode className="mr-2 size-4" />
-						QR-Code
+						<Share2 className="mr-2 size-4" />
+						Teilen
 					</Button>
 					<Button
 						onClick={() => onStartQuiz(quiz.id)}
@@ -105,9 +105,9 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 				</CardFooter>
 			</Card>
 
-			<QrCodeDialog
-				open={showQrDialog}
-				onOpenChange={setShowQrDialog}
+			<ShareDialog
+				open={showShareDialog}
+				onOpenChange={setShowShareDialog}
 				quizId={quiz.id}
 				quizName={quiz.name}
 			/>
