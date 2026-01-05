@@ -1,0 +1,201 @@
+{
+	"id": "gdl-klausur-syntax",
+	"name": "Syntaxfehler",
+	"description": "Klausurvorbereitung: Finden Sie die syntaktischen Fehler in den Java-Programmen. Klicken Sie auf die fehlerhaften Token.",
+	"config": {
+		"order": 3,
+		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Test-Klasse Fehler 1",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class Test {\n    public int a;\n    private String b;\n    \n    public Test(int q) {\n        a = q;\n        b = true;\n        c = null;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 7,
+					"token": "true",
+					"explanation": "Typfehler: b ist vom Typ String, aber true ist ein boolean-Wert"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Test-Klasse Fehler 2",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class Test {\n    public int a;\n    \n    public boolean f(int r) {\n        int p = 4;\n        p = 7;\n        q = p + 3;\n        a = r;\n        return true;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 7,
+					"token": "q",
+					"explanation": "Variable q wurde nicht deklariert"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Statische Methode Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class Test {\n    public int a;\n    \n    public static int g(int r) {\n        if (r > 0)\n            r = g(r - 1);\n        return r * a + 3;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 7,
+					"token": "a",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut a zugreifen"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "4",
+			"shortQuestion": "If-Bedingung Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class Test {\n    public static void main(String[] args) {\n        int i = 5;\n        if (i * i + 2)\n            System.out.println(i);\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 4,
+					"token": "i * i + 2",
+					"explanation": "If-Bedingung muss boolean sein, nicht int"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Methodenaufruf Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class Test {\n    public static int g(int x) {\n        return x * x;\n    }\n    \n    public static void main(String[] args) {\n        System.out.println(g(4, 2));\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 7,
+					"token": "g(4, 2)",
+					"explanation": "Methode g erwartet nur einen Parameter, nicht zwei"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Klasse P - Mehrere Fehler",
+			"question": "Diese Klasse enthält mehrere Syntaxfehler. Finden Sie alle fehlerhaften Token.",
+			"code": "public class P {\n    public boolean b = true;\n    \n    public static int f(int x, int y) {\n        int z;\n        if (x < y)\n            return x + 2 * y - z;\n        else\n            System.out.println(\"Hallo!\");\n    }\n    \n    public static void g() {\n        boolean c = false;\n        if (b == true)\n            c = true;\n        c = c + 1;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 7,
+					"token": "z",
+					"explanation": "Variable z wurde nicht initialisiert"
+				},
+				{
+					"line": 14,
+					"token": "b",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut b zugreifen"
+				},
+				{
+					"line": 16,
+					"token": "c + 1",
+					"explanation": "Kann boolean nicht mit int addieren"
+				}
+			],
+			"selectCount": 3
+		},
+		{
+			"id": "7",
+			"shortQuestion": "While-Bedingung Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class Test {\n    public static void main(String[] args) {\n        int y = 5;\n        while (y * 3) {\n            System.out.println(y);\n            y = y - 1;\n        }\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 4,
+					"token": "y * 3",
+					"explanation": "While-Bedingung muss boolean sein, nicht int"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "8",
+			"shortQuestion": "Void Rückgabe Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class Test {\n    public static void g() {\n        System.out.println(\"Hallo\");\n    }\n    \n    public static void main(String[] args) {\n        int x = g() * 3;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 7,
+					"token": "g() * 3",
+					"explanation": "Methode g hat Rückgabetyp void, kann nicht in Berechnung verwendet werden"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "9",
+			"shortQuestion": "Double equals Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class B {\n    public static double f(double d, double e) {\n        if (d.equals(e))\n            return e;\n        return d;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 3,
+					"token": "d.equals(e)",
+					"explanation": "Primitive Datentypen (double) haben keine Methoden wie equals()"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "10",
+			"shortQuestion": "String-Double Vergleich",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class B {\n    public static double g(String a, double b) {\n        String c = \"Blume\";\n        while (c == b) {\n            System.out.println(c);\n            b = b + c.length();\n        }\n        return b;\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 4,
+					"token": "c == b",
+					"explanation": "Kann String nicht mit double vergleichen"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "11",
+			"shortQuestion": "Nested Methode Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class A {\n    private static int f(int x, String[] y) {\n        String c = \"Hase\";\n        System.out.println(c);\n        public int g(int x) {\n            return x * x;\n        }\n        return x + y[0].length();\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 5,
+					"token": "public int g",
+					"explanation": "Methoden können nicht innerhalb anderer Methoden definiert werden"
+				}
+			],
+			"selectCount": 1
+		},
+		{
+			"id": "12",
+			"shortQuestion": "Private Zugriff Fehler",
+			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
+			"code": "public class A {\n    private String a = \"Test\";\n}\n\npublic class B {\n    public static void main(String[] args) {\n        System.out.println(A.a);\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 7,
+					"token": "A.a",
+					"explanation": "Attribut a ist private und kann von außerhalb der Klasse A nicht zugegriffen werden"
+				}
+			],
+			"selectCount": 1
+		}
+	]
+}

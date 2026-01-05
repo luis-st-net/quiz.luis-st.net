@@ -1,0 +1,121 @@
+{
+	"id": "gdl-klausur-bild",
+	"name": "Bildverarbeitung",
+	"description": "Klausurvorbereitung: Bildverarbeitungsaufgaben mit 2D-Arrays. Implementieren Sie Methoden zur Manipulation von Bitmap-Bildern.",
+	"config": {
+		"order": 5,
+		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Rand schwarz färben",
+			"question": "**Aufgabe 1: Rand schwarz färben**\n\nEin Bitmap wird in einem zweidimensionalen int-Array `p` gespeichert. Jede Farbe wird durch eine Zahl vom Typ int dargestellt. `p[x][y]` steht für die Farbe an Koordinate (x,y).\n\n```\np[0][0]  p[1][0]  p[2][0]  p[3][0]  p[4][0]  p[5][0]\np[0][1]  p[1][1]  p[2][1]  p[3][1]  p[4][1]  p[5][1]\np[0][2]  p[1][2]  p[2][2]  p[3][2]  p[4][2]  p[5][2]\np[0][3]  p[1][3]  p[2][3]  p[3][3]  p[4][3]  p[5][3]\np[0][4]  p[1][4]  p[2][4]  p[3][4]  p[4][4]  p[5][4]\n```\n\n- Breite: `p.length`\n- Höhe: `p[0].length`\n- Schwarz = 0\n\nSchreiben Sie eine Methode `f`, die die Pixel am Rand des Bildes schwarz färbt.\n\n**Signatur:** `public static void f(int[][] p)`",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Kreislinie zeichnen",
+			"question": "**Aufgabe 2: Kreislinie zeichnen**\n\nSchreiben Sie eine Methode `f`, die in das Bild eine Kreislinie einzeichnet.\n\n**Parameter:**\n- Mittelpunkt: Position (250, 120)\n- Innerer Radius: 50 Pixel\n- Äußerer Radius: 70 Pixel\n- Linienbreite: 20 Pixel\n- Farbe: Schwarz (0)\n\nEin Pixel soll schwarz gefärbt werden, wenn sein Abstand zum Mittelpunkt zwischen 50 und 70 Pixeln liegt.\n\n**Signatur:** `public static void f(int[][] p)`\n\n**Hinweis:** Abstand d = sqrt((x-mx)² + (y-my)²)\n\nPrüfen Sie: 50 <= d <= 70",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Kreisförmig kopieren",
+			"question": "**Aufgabe 3: Kreisförmigen Ausschnitt kopieren**\n\nSchreiben Sie eine Methode `f`, die einen kreisförmigen Ausschnitt des Bildes an eine andere Stelle kopiert.\n\n**Parameter:**\n- Mittelpunkt Quellbereich: (150, 130)\n- Radius: 50 Pixel\n- Verschiebung: 110 Pixel nach rechts, 70 Pixel nach unten\n\nJedes Pixel innerhalb des Kreises soll an die neue Position kopiert werden.\n\n**Signatur:** `public static void f(int[][] p)`\n\n**Hinweis:** Es kann davon ausgegangen werden, dass beide Bereiche vollständig im Bild liegen.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Halbkreis zeichnen",
+			"question": "**Aufgabe 4: Halbkreisfläche zeichnen**\n\nSchreiben Sie eine Methode `f`, die eine halbkreisförmige Fläche schwarz färbt.\n\n**Parameter:**\n- Mittelpunkt: (260, 200)\n- Radius: 50 Pixel\n- Position: rechte Hälfte des Kreises (x >= Mittelpunkt-x)\n\nAlle Pixel, die:\n1. Innerhalb des Kreises liegen (Abstand <= 50) UND\n2. Sich rechts vom Mittelpunkt befinden (x >= 260)\n\nsollen schwarz (0) gefärbt werden.\n\n**Signatur:** `public static void f(int[][] p)`",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Bildhälften vertauschen",
+			"question": "**Aufgabe 5: Linke und rechte Bildhälfte vertauschen**\n\nSchreiben Sie eine Methode `f`, die die linke Hälfte des Bildes mit der rechten Hälfte vertauscht.\n\n**Signatur:** `public static void f(int[][] p)`\n\n**Beispiel:**\n```\nVorher:     Nachher:\nAAAAABBBBB  BBBBBAAAAA\nAAAAABBBBB  BBBBBAAAAA\nAAAAABBBBB  BBBBBAAAAA\n```\n\n**Hinweis:** Es kann davon ausgegangen werden, dass die Breite des Bildes eine gerade Zahl ist.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Kreisflächen vertauschen",
+			"question": "**Aufgabe 6: Zwei Kreisflächen vertauschen**\n\nSchreiben Sie eine Methode `f`, die die Inhalte zweier kreisförmiger Flächen miteinander vertauscht.\n\n**Parameter:**\n- Kreis 1: Mittelpunkt (60, 100)\n- Kreis 2: Mittelpunkt (220, 100)\n- Beide Kreise: Radius 40 Pixel\n\nFür jedes Pixel im linken Kreis soll der Farbwert mit dem entsprechenden Pixel im rechten Kreis vertauscht werden.\n\n**Signatur:** `public static void f(int[][] p)`\n\n**Hinweis:** Die Kreise überlappen sich nicht.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Bild spiegeln",
+			"question": "**Aufgabe 7: Bild horizontal spiegeln**\n\nSchreiben Sie eine Methode `spiegelnHorizontal`, die das Bild horizontal spiegelt (links-rechts Vertauschung).\n\n**Signatur:** `public static void spiegelnHorizontal(int[][] p)`\n\n**Beispiel:**\n```\nVorher:     Nachher:\nABC         CBA\nDEF         FED\nGHI         IHG\n```\n\nJede Zeile wird einzeln gespiegelt.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "8",
+			"shortQuestion": "Durchschnitt berechnen",
+			"question": "**Aufgabe 8: Durchschnittsfarbe berechnen**\n\nSchreiben Sie eine Methode `durchschnitt`, die die Durchschnittsfarbe aller Pixel im Bild berechnet und zurückgibt.\n\n**Signatur:** `public static int durchschnitt(int[][] p)`\n\n**Beispiel:**\n- Bild 2x2 mit Werten: [[10, 20], [30, 40]]\n- Durchschnitt: (10 + 20 + 30 + 40) / 4 = 25\n\n**Hinweis:** Ganzzahlige Division ist ausreichend.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "9",
+			"shortQuestion": "Rechteck zeichnen",
+			"question": "**Aufgabe 9: Gefülltes Rechteck zeichnen**\n\nSchreiben Sie eine Methode `rechteck`, die ein gefülltes Rechteck in das Bild zeichnet.\n\n**Signatur:** `public static void rechteck(int[][] p, int x1, int y1, int x2, int y2, int farbe)`\n\n**Parameter:**\n- (x1, y1): obere linke Ecke\n- (x2, y2): untere rechte Ecke\n- farbe: die zu verwendende Farbe\n\nAlle Pixel im Bereich x1 <= x <= x2 und y1 <= y <= y2 sollen auf die angegebene Farbe gesetzt werden.\n\n**Hinweis:** Die Koordinaten können außerhalb des Bildes liegen - in diesem Fall nur die sichtbaren Pixel färben.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "10",
+			"shortQuestion": "Farbe zählen",
+			"question": "**Aufgabe 10: Pixel einer Farbe zählen**\n\nSchreiben Sie eine Methode `zaehlePixel`, die zählt, wie viele Pixel im Bild eine bestimmte Farbe haben.\n\n**Signatur:** `public static int zaehlePixel(int[][] p, int farbe)`\n\n**Beispiel:**\n- Bild: [[0, 1, 0], [1, 0, 0], [0, 0, 1]]\n- zaehlePixel(p, 0) gibt 6 zurück\n- zaehlePixel(p, 1) gibt 3 zurück\n- zaehlePixel(p, 2) gibt 0 zurück",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}

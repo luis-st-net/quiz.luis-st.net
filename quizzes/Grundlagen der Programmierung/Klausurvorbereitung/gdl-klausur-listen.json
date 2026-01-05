@@ -1,0 +1,95 @@
+{
+	"id": "gdl-klausur-listen",
+	"name": "Verkettete Listen",
+	"description": "Klausurvorbereitung: Aufgaben zu verketteten Listen - Implementierung und Ausführungsverfolgung.",
+	"config": {
+		"order": 4,
+		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
+	},
+	"questions": [
+		{
+			"id": "1",
+			"shortQuestion": "Listen verketten",
+			"question": "**Aufgabe 1: Listen verketten (concat)**\n\nGegeben die Klasse Listenelement:\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n}\n```\n\nSchreiben Sie eine **Klassenmethode** `concat`, die zwei Listen verbindet.\n\n**Signatur:** `public static void concat(Listenelement a, Listenelement b)`\n\nDer Aufruf soll bewirken, dass Liste `b` an Liste `a` angehängt wird. Nach dem Aufruf soll die Liste `a` mit ihren ursprünglichen Elementen beginnen, gefolgt von den Elementen aus `b`.\n\n**Beispiel:**\n- Liste a: 1 -> 2 -> 3\n- Liste b: 4 -> 5\n- Nach concat(a, b): a zeigt auf 1 -> 2 -> 3 -> 4 -> 5",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "2",
+			"shortQuestion": "Wert zählen",
+			"question": "**Aufgabe 2: Wert in Liste zählen (count)**\n\nFügen Sie der Klasse Listenelement eine **Objektmethode** `count` hinzu.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    // Ihre Methode hier\n}\n```\n\n**Signatur:** `public int count(int v)`\n\nDie Methode soll bestimmen, wie oft der Wert `v` in der Liste vorkommt und diese Anzahl zurückgeben.\n\n**Beispiel:**\n- Liste: 1 -> 2 -> 1 -> 3 -> 1\n- count(1) gibt 3 zurück\n- count(2) gibt 1 zurück\n- count(5) gibt 0 zurück",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "3",
+			"shortQuestion": "Element einfügen",
+			"question": "**Aufgabe 3: Element nach aktuellem einfügen**\n\nVervollständigen Sie die Methode `p`, die ein neues Element direkt nach dem aktuellen Element einfügt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void p(int r) {\n        // Neues Element mit Wert r nach diesem Element einfügen\n        // Der bisherige Nachfolger wird zum Nachfolger des neuen Elements\n    }\n}\n```\n\n**Beispiel:**\n- Liste vorher: 1 -> 3 -> 4\n- Aufruf: element1.p(2) (wobei element1 auf das Element mit Wert 1 zeigt)\n- Liste nachher: 1 -> 2 -> 3 -> 4",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "4",
+			"shortQuestion": "Liste abschneiden",
+			"question": "**Aufgabe 4: Liste ab Position abschneiden**\n\nVervollständigen Sie die Methode `e`, die die Liste ab einer bestimmten Position abschneidet.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void e(int n) {\n        // Ab Position n die Liste abschneiden\n        // n=0: Nachfolger dieses Elements auf null setzen\n        // n>0: Zum Nachfolger gehen und e(n-1) aufrufen\n    }\n}\n```\n\n**Beispiel:**\n- Liste vorher: 1 -> 2 -> 3 -> 4 -> 5\n- Aufruf: element1.e(2)\n- Liste nachher: 1 -> 2 -> 3",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "5",
+			"shortQuestion": "Listenausgabe tracen",
+			"question": "**Aufgabe 5: Listenoperationen tracen**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void hinzufuegenRechts(int w) {\n        if (nachfolger == null)\n            nachfolger = new Listenelement(w);\n        else\n            nachfolger.hinzufuegenRechts(w);\n    }\n    \n    public void print() {\n        if (nachfolger == null)\n            System.out.println(wert);\n        else {\n            System.out.print(wert + \", \");\n            nachfolger.print();\n        }\n    }\n    \n    public void p(int r) {\n        Listenelement k = nachfolger;\n        nachfolger = new Listenelement(r);\n        nachfolger.nachfolger = k;\n    }\n    \n    public void e(int n) {\n        if (n == 0)\n            nachfolger = null;\n        else if (nachfolger != null)\n            nachfolger.e(n - 1);\n    }\n}\n\npublic class A {\n    public static void main(String[] args) {\n        Listenelement x1 = new Listenelement(1);\n        x1.hinzufuegenRechts(2);\n        x1.hinzufuegenRechts(3);\n        x1.hinzufuegenRechts(4);\n        x1.hinzufuegenRechts(3);\n        x1.print();\n        x1.e(2);\n        x1.print();\n        x1.p(7);\n        x1.print();\n        x1.p(8);\n        x1.print();\n    }\n}\n```\n\nGeben Sie alle 4 Ausgabezeilen an.",
+			"minLength": 10,
+			"maxLength": 200
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Liste umkehren",
+			"question": "**Aufgabe 6: Liste umkehren**\n\nSchreiben Sie eine **Klassenmethode** `reverse`, die eine verkettete Liste umkehrt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n}\n```\n\n**Signatur:** `public static Listenelement reverse(Listenelement kopf)`\n\nDie Methode soll die Liste umkehren und den neuen Kopf (ehemals letztes Element) zurückgeben.\n\n**Beispiel:**\n- Liste vorher: 1 -> 2 -> 3 -> 4\n- Nach reverse(): 4 -> 3 -> 2 -> 1\n- Rückgabe: Referenz auf Element mit Wert 4",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "7",
+			"shortQuestion": "Minimum in Liste",
+			"question": "**Aufgabe 7: Minimum finden**\n\nFügen Sie eine **Objektmethode** `min` zur Klasse Listenelement hinzu, die das Minimum aller Werte in der Liste zurückgibt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    // Ihre Methode hier\n}\n```\n\n**Signatur:** `public int min()`\n\n**Beispiel:**\n- Liste: 5 -> 2 -> 8 -> 1 -> 4\n- min() gibt 1 zurück\n\n**Hinweis:** Die Methode darf rekursiv implementiert werden.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "8",
+			"shortQuestion": "Element entfernen",
+			"question": "**Aufgabe 8: Erstes Vorkommen entfernen**\n\nSchreiben Sie eine **Klassenmethode** `removeFirst`, die das erste Element mit einem bestimmten Wert aus der Liste entfernt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n}\n```\n\n**Signatur:** `public static Listenelement removeFirst(Listenelement kopf, int v)`\n\nDie Methode soll das erste Element mit Wert `v` entfernen und den (möglicherweise neuen) Kopf zurückgeben.\n\n**Beispiele:**\n- Liste: 1 -> 2 -> 3 -> 2 -> 4, removeFirst(kopf, 2) -> 1 -> 3 -> 2 -> 4\n- Liste: 5 -> 2 -> 3, removeFirst(kopf, 5) -> 2 -> 3\n- Liste: 1 -> 2 -> 3, removeFirst(kopf, 7) -> 1 -> 2 -> 3 (unverändert)",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		}
+	]
+}
