@@ -51,6 +51,7 @@ import FillBlankQuestion from "@/lib/components/questions/fill-blank-question";
 import CategorizationQuestion from "@/lib/components/questions/categorization-question";
 import FileUploadQuestion from "@/lib/components/questions/file-upload-question";
 import SyntaxErrorQuestion from "@/lib/components/questions/syntax-error-question";
+import CodeBlock from "@/lib/components/code-block";
 
 interface QuestionCardProps {
 	className?: string;
@@ -129,6 +130,13 @@ export function QuestionCard({ className }: QuestionCardProps) {
 							<div className="text-lg sm:text-xl font-medium leading-relaxed">
 								{currentQuestion.question}
 							</div>
+						)}
+
+						{/* Code Block - rendered when code field is present */}
+						{currentQuestion.code && (
+							<CodeBlock language={currentQuestion.codeLanguage || "java"}>
+								{currentQuestion.code}
+							</CodeBlock>
 						)}
 
 						{/* Answer Component */}

@@ -1,5 +1,5 @@
 import * as Ui from "@/lib/components/ui/";
-import React, { HTMLAttributes, useEffect } from "react";
+import React, { HTMLAttributes, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import "./code-block.css";
 
@@ -15,16 +15,17 @@ export default function CodeBlock(
 	{ children, language, title, className, ...props }: HTMLAttributes<HTMLDivElement> & { language: string, title?: string, children: string },
 ) {
 	const { resolvedTheme } = useTheme();
-	
+	const codeRef = useRef<HTMLElement>(null);
+
 	useEffect(() => {
-		if (typeof window === "undefined") {
+		if (typeof window === "undefined" || !codeRef.current) {
 			return;
 		}
-		
-		const initializePrism = async () => {
+
+		const highlightCode = async () => {
 			try {
 				const { default: Prism } = await import("prismjs");
-				
+
 				if (!window.prismLanguagesLoaded) {
 					const languageImports = [
 						() => import("prismjs/components/prism-javascript"),
@@ -38,23 +39,21 @@ export default function CodeBlock(
 						() => import("prismjs/components/prism-rust"),
 						() => import("prismjs/components/prism-markup"),
 					];
-					
+
 					await Promise.all(languageImports.map(importFn => importFn()));
 					window.prismLanguagesLoaded = true;
 				}
-				
-				requestAnimationFrame(() => {
-					Prism.highlightAll();
-				});
+
+				if (codeRef.current) {
+					Prism.highlightElement(codeRef.current);
+				}
 			} catch (error) {
 				console.error("Error initializing Prism:", error);
 			}
 		};
-		
-		(async () => {
-			await initializePrism();
-		})();
-	}, [resolvedTheme]);
+
+		highlightCode();
+	}, [resolvedTheme, children, language]);
 	
 	return (
 		<div className={className} {...props}>
@@ -67,7 +66,7 @@ export default function CodeBlock(
 				<Ui.Separator className="h-[2px] bg-custom-quaternary"/>
 			)}
 			<pre className={cn("m-0 rounded-md p-2 pt-4 pb-4 bg-custom-secondary dark:bg-custom-tertiary font-code overflow-auto", "language-" + language)}>
-				<code className={cn("text-xs text-wrap sm:text-base", "language-" + language)}>
+				<code ref={codeRef} className={cn("text-xs text-wrap sm:text-base", "language-" + language)}>
 					{children}
 				</code>
 			</pre>

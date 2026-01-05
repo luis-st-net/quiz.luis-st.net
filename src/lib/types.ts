@@ -118,6 +118,8 @@ export interface Question {
 	id: string;
 	question: string;
 	shortQuestion: string;
+	code?: string;
+	codeLanguage?: string;
 }
 
 export interface Answer {

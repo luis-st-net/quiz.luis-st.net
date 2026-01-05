@@ -10,56 +10,72 @@
 		{
 			"id": "1",
 			"shortQuestion": "Rekursive Methoden f und g",
-			"question": "**Aufgabe 1: Rekursive Methoden**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class A {\n    public static int f(int x, boolean b) {\n        System.out.println(\"x = \" + x);\n        if (b == true)\n            return g(x-1);\n        return x;\n    }\n    \n    public static int g(int y) {\n        System.out.println(\"y = \" + y);\n        boolean b = false;\n        if (y < 5)\n            b = true;\n        return f(y*y, b);\n    }\n    \n    public static void main(String[] args) {\n        System.out.println(\"g(6) = \" + g(6));\n    }\n}\n```\n\nGeben Sie die vollständige Konsolenausgabe an.\n\n**Hinweis:** Kommt es zu einem Stack-Overflow?",
+			"question": "Aufgabe 1: Rekursive Methoden\n\nWas gibt dieses Programm aus?\n\nGeben Sie die vollständige Konsolenausgabe an.\n\nHinweis: Kommt es zu einem Stack-Overflow?",
+			"code": "public class A {\n    public static int f(int x, boolean b) {\n        System.out.println(\"x = \" + x);\n        if (b == true)\n            return g(x-1);\n        return x;\n    }\n    \n    public static int g(int y) {\n        System.out.println(\"y = \" + y);\n        boolean b = false;\n        if (y < 5)\n            b = true;\n        return f(y*y, b);\n    }\n    \n    public static void main(String[] args) {\n        System.out.println(\"g(6) = \" + g(6));\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 5,
 			"maxLength": 500
 		},
 		{
 			"id": "2",
 			"shortQuestion": "Rekursion mit String",
-			"question": "**Aufgabe 2: Rekursion mit String**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class A {\n    public static int f(String s, int n) {\n        if (n == 4)\n            return 2 * n;\n        if (n > 14)\n            return f(s, 11 - s.length());\n        return n;\n    }\n    \n    public static void main(String[] args) {\n        System.out.println(f(\"Hase\", 5));\n        System.out.println(f(\"Bär\", 18));\n        System.out.println(f(\"Igel\", 1899));\n        System.out.println(f(\"Maus\", -4));\n        System.out.println(f(\"Maus\", 4));\n    }\n}\n```\n\nGeben Sie die 5 Ausgabezeilen an (eine Zahl pro Zeile).",
+			"question": "Aufgabe 2: Rekursion mit String\n\nWas gibt dieses Programm aus?\n\nGeben Sie die 5 Ausgabezeilen an (eine Zahl pro Zeile).",
+			"code": "public class A {\n    public static int f(String s, int n) {\n        if (n == 4)\n            return 2 * n;\n        if (n > 14)\n            return f(s, 11 - s.length());\n        return n;\n    }\n    \n    public static void main(String[] args) {\n        System.out.println(f(\"Hase\", 5));\n        System.out.println(f(\"Bär\", 18));\n        System.out.println(f(\"Igel\", 1899));\n        System.out.println(f(\"Maus\", -4));\n        System.out.println(f(\"Maus\", 4));\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 5,
 			"maxLength": 100
 		},
 		{
 			"id": "3",
 			"shortQuestion": "Verkettete Objekte",
-			"question": "**Aufgabe 3: Verkettete Objekte**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class A {\n    public String a = \"\";\n    public A nachfolger = null;\n    \n    public A(String p) { a = p; }\n    \n    public void ausgabe() {\n        System.out.println(\"***\");\n        aus(1);\n    }\n    \n    public void aus(int i) {\n        System.out.println(i + \": \" + a);\n        if (nachfolger != null)\n            nachfolger.aus(i + 1);\n    }\n}\n\npublic class Aufgabe4 {\n    public static void main(String[] args) {\n        A p = new A(\"Katze\");\n        A q = new A(\"Hund\");\n        A r = new A(\"Maus\");\n        p.nachfolger = q;\n        q.nachfolger = r;\n        p.ausgabe();\n        q.ausgabe();\n    }\n}\n```\n\nGeben Sie die vollständige Konsolenausgabe an.",
+			"question": "Aufgabe 3: Verkettete Objekte\n\nWas gibt dieses Programm aus?\n\nGeben Sie die vollständige Konsolenausgabe an.",
+			"code": "public class A {\n    public String a = \"\";\n    public A nachfolger = null;\n    \n    public A(String p) { a = p; }\n    \n    public void ausgabe() {\n        System.out.println(\"***\");\n        aus(1);\n    }\n    \n    public void aus(int i) {\n        System.out.println(i + \": \" + a);\n        if (nachfolger != null)\n            nachfolger.aus(i + 1);\n    }\n}\n\npublic class Aufgabe4 {\n    public static void main(String[] args) {\n        A p = new A(\"Katze\");\n        A q = new A(\"Hund\");\n        A r = new A(\"Maus\");\n        p.nachfolger = q;\n        q.nachfolger = r;\n        p.ausgabe();\n        q.ausgabe();\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 20,
 			"maxLength": 500
 		},
 		{
 			"id": "4",
 			"shortQuestion": "Produkt-Objekte",
-			"question": "**Aufgabe 4: Produkt-Objekte**\n\nWas gibt dieses Programm aus (vor dem Fehler)?\n\n```java\npublic class Produkt {\n    public String bezeichnung;\n    public double masse;\n    public Produkt bestandteilVon;\n    \n    public Produkt(String b, double m) {\n        bezeichnung = b;\n        masse = m;\n        bestandteilVon = null;\n    }\n}\n\npublic class Aufgabe2 {\n    public static void main(String[] args) {\n        Produkt p1 = new Produkt(\"Schraube\", 0.02);\n        Produkt p2 = new Produkt(\"Gehäuse\", 1);\n        Produkt p3 = new Produkt(\"Motor\", 20);\n        p1.bestandteilVon = p3;\n        p2.bestandteilVon = p3;\n        p1.bestandteilVon.masse = 3;\n        System.out.println(p3.masse);\n        System.out.println(p2.masse);\n        System.out.println(p2.bestandteilVon.masse);\n        System.out.println(p1.bestandteilVon.bestandteilVon);\n    }\n}\n```\n\nGeben Sie die 4 Ausgabezeilen an.",
+			"question": "Aufgabe 4: Produkt-Objekte\n\nWas gibt dieses Programm aus (vor dem Fehler)?\n\nGeben Sie die 4 Ausgabezeilen an.",
+			"code": "public class Produkt {\n    public String bezeichnung;\n    public double masse;\n    public Produkt bestandteilVon;\n    \n    public Produkt(String b, double m) {\n        bezeichnung = b;\n        masse = m;\n        bestandteilVon = null;\n    }\n}\n\npublic class Aufgabe2 {\n    public static void main(String[] args) {\n        Produkt p1 = new Produkt(\"Schraube\", 0.02);\n        Produkt p2 = new Produkt(\"Gehäuse\", 1);\n        Produkt p3 = new Produkt(\"Motor\", 20);\n        p1.bestandteilVon = p3;\n        p2.bestandteilVon = p3;\n        p1.bestandteilVon.masse = 3;\n        System.out.println(p3.masse);\n        System.out.println(p2.masse);\n        System.out.println(p2.bestandteilVon.masse);\n        System.out.println(p1.bestandteilVon.bestandteilVon);\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 5,
 			"maxLength": 100
 		},
 		{
 			"id": "5",
 			"shortQuestion": "Rekursive Stringausgabe",
-			"question": "**Aufgabe 5: Rekursive Stringausgabe**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class X {\n    public static void f(String s, int a, int b) {\n        for (int i = a; i < b; i++) {\n            System.out.print(s.charAt(i));\n            f(s, i+1, b-1);\n            System.out.print(s.charAt(i));\n        }\n    }\n    \n    public static void g(String s) {\n        f(s, 0, s.length());\n        System.out.println(\"*\");\n    }\n    \n    public static void main(String[] args) {\n        g(\"ABC\");\n        g(\"Hund\");\n    }\n}\n```\n\n**Hinweis:** `System.out.print` gibt OHNE Zeilenumbruch aus.\n\nGeben Sie die vollständige Ausgabe an.",
+			"question": "Aufgabe 5: Rekursive Stringausgabe\n\nWas gibt dieses Programm aus?\n\nHinweis: System.out.print gibt OHNE Zeilenumbruch aus.\n\nGeben Sie die vollständige Ausgabe an.",
+			"code": "public class X {\n    public static void f(String s, int a, int b) {\n        for (int i = a; i < b; i++) {\n            System.out.print(s.charAt(i));\n            f(s, i+1, b-1);\n            System.out.print(s.charAt(i));\n        }\n    }\n    \n    public static void g(String s) {\n        f(s, 0, s.length());\n        System.out.println(\"*\");\n    }\n    \n    public static void main(String[] args) {\n        g(\"ABC\");\n        g(\"Hund\");\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 5,
 			"maxLength": 200
 		},
 		{
 			"id": "6",
 			"shortQuestion": "Rekursion mit Verzweigung",
-			"question": "**Aufgabe 6: Rekursion mit Verzweigung**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class X {\n    public static void f(int n) {\n        if (n <= 0)\n            System.out.print(\"-\");\n        else {\n            f(n - 2);\n            System.out.print(\"\" + n);\n            f(n - 1);\n        }\n    }\n    \n    public static void main(String[] args) {\n        for (int i = 0; i < 5; i++) {\n            f(i);\n            System.out.println();\n        }\n    }\n}\n```\n\n**Hinweis:** `System.out.println()` erzeugt nur einen Zeilenumbruch.\n\nGeben Sie die 5 Ausgabezeilen an.",
+			"question": "Aufgabe 6: Rekursion mit Verzweigung\n\nWas gibt dieses Programm aus?\n\nHinweis: System.out.println() erzeugt nur einen Zeilenumbruch.\n\nGeben Sie die 5 Ausgabezeilen an.",
+			"code": "public class X {\n    public static void f(int n) {\n        if (n <= 0)\n            System.out.print(\"-\");\n        else {\n            f(n - 2);\n            System.out.print(\"\" + n);\n            f(n - 1);\n        }\n    }\n    \n    public static void main(String[] args) {\n        for (int i = 0; i < 5; i++) {\n            f(i);\n            System.out.println();\n        }\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 5,
 			"maxLength": 300
 		},
 		{
 			"id": "7",
 			"shortQuestion": "While-Schleife mit Array",
-			"question": "**Aufgabe 7: While-Schleife mit Array**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class A2 {\n    public static void main(String[] args) {\n        int x[] = {2, 2, 2};\n        int p = 0;\n        while (p < x.length) {\n            if (x[p] > 0)\n                x[p] = x[p] - 1;\n            for (int i = 0; i < x.length; i++)\n                System.out.print(x[i] + \", \");\n            System.out.println(p);\n            p = p + x[0];\n            if (p >= x.length)\n                p = 0;\n        }\n    }\n}\n```\n\nGeben Sie die Konsolenausgabe an. Falls das Programm nicht terminiert, geben Sie die ersten Zeilen an und erklären Sie warum.",
+			"question": "Aufgabe 7: While-Schleife mit Array\n\nWas gibt dieses Programm aus?\n\nGeben Sie die Konsolenausgabe an. Falls das Programm nicht terminiert, geben Sie die ersten Zeilen an und erklären Sie warum.",
+			"code": "public class A2 {\n    public static void main(String[] args) {\n        int x[] = {2, 2, 2};\n        int p = 0;\n        while (p < x.length) {\n            if (x[p] > 0)\n                x[p] = x[p] - 1;\n            for (int i = 0; i < x.length; i++)\n                System.out.print(x[i] + \", \");\n            System.out.println(p);\n            p = p + x[0];\n            if (p >= x.length)\n                p = 0;\n        }\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 10,
 			"maxLength": 500
 		},
 		{
 			"id": "8",
 			"shortQuestion": "Listenoperationen",
-			"question": "**Aufgabe 8: Listenoperationen**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void hinzufuegenRechts(int w) {\n        if (nachfolger == null)\n            nachfolger = new Listenelement(w);\n        else\n            nachfolger.hinzufuegenRechts(w);\n    }\n    \n    public void print() {\n        if (nachfolger == null)\n            System.out.println(wert);\n        else {\n            System.out.print(wert + \", \");\n            nachfolger.print();\n        }\n    }\n    \n    public void e(int n) {\n        if (n == 0)\n            nachfolger = null;\n        else if (nachfolger != null)\n            nachfolger.e(n - 1);\n    }\n}\n\npublic class A {\n    public static void main(String[] args) {\n        Listenelement x1 = new Listenelement(1);\n        x1.hinzufuegenRechts(2);\n        x1.hinzufuegenRechts(3);\n        x1.hinzufuegenRechts(4);\n        x1.print();\n        x1.e(2);\n        x1.print();\n    }\n}\n```\n\nGeben Sie die Konsolenausgabe an (2 Zeilen).",
+			"question": "Aufgabe 8: Listenoperationen\n\nWas gibt dieses Programm aus?\n\nGeben Sie die Konsolenausgabe an (2 Zeilen).",
+			"code": "public class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void hinzufuegenRechts(int w) {\n        if (nachfolger == null)\n            nachfolger = new Listenelement(w);\n        else\n            nachfolger.hinzufuegenRechts(w);\n    }\n    \n    public void print() {\n        if (nachfolger == null)\n            System.out.println(wert);\n        else {\n            System.out.print(wert + \", \");\n            nachfolger.print();\n        }\n    }\n    \n    public void e(int n) {\n        if (n == 0)\n            nachfolger = null;\n        else if (nachfolger != null)\n            nachfolger.e(n - 1);\n    }\n}\n\npublic class A {\n    public static void main(String[] args) {\n        Listenelement x1 = new Listenelement(1);\n        x1.hinzufuegenRechts(2);\n        x1.hinzufuegenRechts(3);\n        x1.hinzufuegenRechts(4);\n        x1.print();\n        x1.e(2);\n        x1.print();\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 5,
 			"maxLength": 100
 		}
