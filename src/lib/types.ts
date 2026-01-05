@@ -94,6 +94,8 @@ export interface QuestionProvider {
 	storageKey?: string;
 }
 
+export type DifficultyLevel = "Einfach" | "Mittel" | "Fortgeschritten" | "Experte";
+
 export interface Quiz {
 	id: string;
 	name: string;
@@ -101,6 +103,9 @@ export interface Quiz {
 	order: number;
 	group: string;  // Derived from filesystem path
 	questions: Question[];
+	estimatedTimeSeconds: number;  // Calculated based on question types
+	difficulty: DifficultyLevel;   // Calculated relative to other quizzes
+	difficultyScore: number;       // Raw 0-100 normalized score
 }
 
 export interface QuizGroup {

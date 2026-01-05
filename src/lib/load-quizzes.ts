@@ -2,6 +2,11 @@ import { Quiz, QuizGroup } from "@/lib/types";
 import fs from "fs/promises";
 import path from "path";
 import { unstable_noStore as noStore } from "next/cache";
+import {
+	calculateQuizTime,
+	calculateAllQuizDifficulties,
+	prepareQuizForDifficultyCalculation,
+} from "./quiz-estimation";
 
 export interface LoadQuizzesResult {
 	quizzes: Quiz[];
@@ -18,6 +23,29 @@ export async function loadQuizzes(): Promise<LoadQuizzesResult> {
 		await fs.access(quizzesDir);
 		const hierarchy = await loadDirectory(quizzesDir, "", "");
 		const quizzes = flattenHierarchy(hierarchy);
+
+		// Calculate difficulty scores across all quizzes
+		const quizDataForDifficulty = quizzes.map((q) =>
+			prepareQuizForDifficultyCalculation(q.id, q.questions)
+		);
+		const difficultyResults = calculateAllQuizDifficulties(quizDataForDifficulty);
+
+		// Update quizzes with calculated values
+		for (const quiz of quizzes) {
+			quiz.estimatedTimeSeconds = calculateQuizTime(quiz.questions);
+			const diffResult = difficultyResults.get(quiz.id);
+			if (diffResult) {
+				quiz.difficulty = diffResult.difficulty;
+				quiz.difficultyScore = diffResult.difficultyScore;
+			} else {
+				quiz.difficulty = "Einfach";
+				quiz.difficultyScore = 0;
+			}
+		}
+
+		// Also update quizzes in the hierarchy
+		updateHierarchyWithCalculations(hierarchy, difficultyResults);
+
 		console.log(`Loaded ${quizzes.length} quizzes`);
 		return { quizzes, hierarchy };
 	} catch (error) {
@@ -26,6 +54,27 @@ export async function loadQuizzes(): Promise<LoadQuizzesResult> {
 			quizzes: [],
 			hierarchy: { name: "", quizzes: [], subgroups: new Map() }
 		};
+	}
+}
+
+function updateHierarchyWithCalculations(
+	group: QuizGroup,
+	difficultyResults: Map<string, { difficultyScore: number; difficulty: Quiz["difficulty"] }>
+): void {
+	for (const quiz of group.quizzes) {
+		quiz.estimatedTimeSeconds = calculateQuizTime(quiz.questions);
+		const diffResult = difficultyResults.get(quiz.id);
+		if (diffResult) {
+			quiz.difficulty = diffResult.difficulty;
+			quiz.difficultyScore = diffResult.difficultyScore;
+		} else {
+			quiz.difficulty = "Einfach";
+			quiz.difficultyScore = 0;
+		}
+	}
+
+	for (const subgroup of group.subgroups.values()) {
+		updateHierarchyWithCalculations(subgroup, difficultyResults);
 	}
 }
 
@@ -77,7 +126,11 @@ async function loadQuizFile(filePath: string, groupPath: string): Promise<Quiz |
 			description: data.description,
 			order,
 			group: groupPath,
-			questions: data.questions
+			questions: data.questions,
+			// These will be calculated after all quizzes are loaded
+			estimatedTimeSeconds: 0,
+			difficulty: "Einfach" as const,
+			difficultyScore: 0,
 		};
 	} catch (error) {
 		console.error(`Error loading quiz file ${filePath}:`, error);

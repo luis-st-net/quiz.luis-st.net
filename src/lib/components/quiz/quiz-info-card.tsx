@@ -22,7 +22,7 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 	}
 
 	const questionCount = quiz.questions.length;
-	const estimatedMinutes = Math.ceil(questionCount * 0.75); // ~45 seconds per question
+	const estimatedTimeFormatted = formatEstimatedTime(quiz.estimatedTimeSeconds);
 
 	return (
 		<div className={cn("flex items-center justify-center p-4 sm:p-8", className)}>
@@ -55,12 +55,12 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 						<QuizStat
 							icon={Clock}
 							label="Geschätzte Zeit"
-							value={`~${estimatedMinutes} Min.`}
+							value={estimatedTimeFormatted}
 						/>
 						<QuizStat
 							icon={BarChart3}
 							label="Schwierigkeit"
-							value={getDifficultyLabel(questionCount)}
+							value={quiz.difficulty}
 						/>
 					</div>
 
@@ -185,10 +185,18 @@ function GroupBreadcrumb({ group }: { group: string }) {
 	);
 }
 
-function getDifficultyLabel(questionCount: number): string {
-	if (questionCount <= 5) return "Einfach";
-	if (questionCount <= 15) return "Mittel";
-	return "Fortgeschritten";
+function formatEstimatedTime(seconds: number): string {
+	if (seconds === 0) return "—";
+	const minutes = Math.ceil(seconds / 60);
+	if (minutes < 60) {
+		return `~${minutes} Min.`;
+	}
+	const hours = Math.floor(minutes / 60);
+	const remainingMinutes = minutes % 60;
+	if (remainingMinutes === 0) {
+		return `~${hours} Std.`;
+	}
+	return `~${hours} Std. ${remainingMinutes} Min.`;
 }
 
 function getQuestionTypes(quiz: Quiz): string[] {
