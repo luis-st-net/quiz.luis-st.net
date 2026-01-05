@@ -1,13 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Quiz } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/lib/components/ui/card";
 import { Button } from "@/lib/components/ui/button";
 import { Badge } from "@/lib/components/ui/badge";
 import { Separator } from "@/lib/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/lib/components/ui/tooltip";
-import { FileQuestion, Clock, BarChart3, ArrowRight, BookOpen, ChevronRight, MoreHorizontal } from "lucide-react";
+import { FileQuestion, Clock, BarChart3, ArrowRight, BookOpen, ChevronRight, MoreHorizontal, QrCode } from "lucide-react";
+import { QrCodeDialog } from "./qr-code-dialog";
 import { cn } from "@/lib/utility";
 
 interface QuizInfoCardProps {
@@ -17,6 +18,8 @@ interface QuizInfoCardProps {
 }
 
 export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps) {
+	const [showQrDialog, setShowQrDialog] = useState(false);
+
 	if (!quiz) {
 		return <EmptyState className={className} />;
 	}
@@ -81,10 +84,19 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 
 				<Separator />
 
-				<CardFooter className="pt-6">
+				<CardFooter className="pt-6 flex flex-col sm:flex-row gap-3 sm:justify-between">
+					<Button
+						onClick={() => setShowQrDialog(true)}
+						variant="outline"
+						size="lg"
+						className="w-full sm:w-auto"
+					>
+						<QrCode className="mr-2 size-4" />
+						QR-Code
+					</Button>
 					<Button
 						onClick={() => onStartQuiz(quiz.id)}
-						className="w-full sm:w-auto sm:ml-auto"
+						className="w-full sm:w-auto"
 						size="lg"
 					>
 						Quiz starten
@@ -92,6 +104,13 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 					</Button>
 				</CardFooter>
 			</Card>
+
+			<QrCodeDialog
+				open={showQrDialog}
+				onOpenChange={setShowQrDialog}
+				quizId={quiz.id}
+				quizName={quiz.name}
+			/>
 		</div>
 	);
 }

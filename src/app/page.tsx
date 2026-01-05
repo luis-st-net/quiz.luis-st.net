@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { useUserContext } from "@/lib/contexts/user-context";
 import { QuizSidebar, QuizInfoCard, UserInfoDialog } from "@/lib/components/quiz";
@@ -13,11 +13,20 @@ import { useResizableSidebar } from "@/lib/hooks/use-resizable-sidebar";
 
 export default function HomePage() {
 	const router = useRouter();
+	const searchParams = useSearchParams();
 	const { hierarchy, selectedQuizId, setSelectedQuizId, getQuizById } = useQuizContext();
 	const { getName } = useUserContext();
 	const [showUserDialog, setShowUserDialog] = useState(false);
 	const [pendingQuizId, setPendingQuizId] = useState<string | null>(null);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+
+	// Handle quiz query parameter for QR code links
+	useEffect(() => {
+		const quizParam = searchParams.get("quiz");
+		if (quizParam && getQuizById(quizParam)) {
+			setSelectedQuizId(quizParam);
+		}
+	}, [searchParams, getQuizById, setSelectedQuizId]);
 
 	// Resizable sidebar
 	const { width: sidebarWidth, isResizing, handleMouseDown } = useResizableSidebar({

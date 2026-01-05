@@ -6,3 +6,4 @@ export { QuestionCard } from "./question-card";
 export { CancelQuizDialog } from "./cancel-quiz-dialog";
 export { QuizHeader } from "./quiz-header";
 export { KeyboardShortcutsDialog } from "./keyboard-shortcuts-dialog";
+export { QrCodeDialog } from "./qr-code-dialog";
