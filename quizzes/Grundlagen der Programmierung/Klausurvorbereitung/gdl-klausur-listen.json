@@ -2,10 +2,7 @@
 	"id": "gdl-klausur-listen",
 	"name": "Verkettete Listen",
 	"description": "Klausurvorbereitung: Aufgaben zu verketteten Listen - Implementierung und Ausführungsverfolgung.",
-	"config": {
-		"order": 4,
-		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
-	},
+	"order": 4,
 	"questions": [
 		{
 			"id": "1",

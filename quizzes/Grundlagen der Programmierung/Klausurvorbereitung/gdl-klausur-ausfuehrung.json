@@ -2,10 +2,7 @@
 	"id": "gdl-klausur-ausfuehrung",
 	"name": "Ausführung",
 	"description": "Klausurvorbereitung: Bestimmen Sie die Ausgabe der Programme. Tracen Sie den Code sorgfältig und geben Sie die exakte Konsolenausgabe an.",
-	"config": {
-		"order": 2,
-		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
-	},
+	"order": 2,
 	"questions": [
 		{
 			"id": "1",

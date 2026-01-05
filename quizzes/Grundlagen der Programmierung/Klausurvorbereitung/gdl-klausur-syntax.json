@@ -1,201 +1,613 @@
 {
 	"id": "gdl-klausur-syntax",
 	"name": "Syntaxfehler",
-	"description": "Klausurvorbereitung: Finden Sie die syntaktischen Fehler in den Java-Programmen. Klicken Sie auf die fehlerhaften Token.",
-	"config": {
-		"order": 3,
-		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
-	},
+	"description": "Klausurvorbereitung: Finden Sie die syntaktischen Fehler in den Java-Programmen.",
+	"order": 3,
 	"questions": [
 		{
 			"id": "1",
-			"shortQuestion": "Test-Klasse Fehler 1",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class Test {\n    public int a;\n    private String b;\n    \n    public Test(int q) {\n        a = q;\n        b = true;\n        c = null;\n    }\n}",
+			"shortQuestion": "Klasse mit Konstruktor und Methoden",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Person {\n    private String name;\n    private int alter;\n    public boolean aktiv;\n    \n    public Person(String n, int a) {\n        name = n;\n        alter = \"zwanzig\";\n        aktiv = 1;\n        gehalt = 1000;\n    }\n    \n    public static void druckeInfo() {\n        System.out.println(name);\n        System.out.println(alter);\n        if (aktiv)\n            System.out.println(\"Aktiv\");\n    }\n    \n    public int berechneBonus(int faktor) {\n        double bonus = faktor * 100;\n        return bonus;\n    }\n    \n    public void setName(String neu) {\n        name = neu;\n        return name;\n    }\n}",
 			"language": "java",
 			"errorTokens": [
 				{
-					"line": 7,
-					"token": "true",
-					"explanation": "Typfehler: b ist vom Typ String, aber true ist ein boolean-Wert"
-				}
-			],
-			"selectCount": 1
-		},
-		{
-			"id": "2",
-			"shortQuestion": "Test-Klasse Fehler 2",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class Test {\n    public int a;\n    \n    public boolean f(int r) {\n        int p = 4;\n        p = 7;\n        q = p + 3;\n        a = r;\n        return true;\n    }\n}",
-			"language": "java",
-			"errorTokens": [
+					"line": 8,
+					"token": "\"zwanzig\"",
+					"explanation": "Typfehler: alter ist int, aber \"zwanzig\" ist String"
+				},
 				{
-					"line": 7,
-					"token": "q",
-					"explanation": "Variable q wurde nicht deklariert"
-				}
-			],
-			"selectCount": 1
-		},
-		{
-			"id": "3",
-			"shortQuestion": "Statische Methode Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class Test {\n    public int a;\n    \n    public static int g(int r) {\n        if (r > 0)\n            r = g(r - 1);\n        return r * a + 3;\n    }\n}",
-			"language": "java",
-			"errorTokens": [
+					"line": 9,
+					"token": "1",
+					"explanation": "Typfehler: aktiv ist boolean, aber 1 ist int"
+				},
 				{
-					"line": 7,
-					"token": "a",
-					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut a zugreifen"
-				}
-			],
-			"selectCount": 1
-		},
-		{
-			"id": "4",
-			"shortQuestion": "If-Bedingung Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class Test {\n    public static void main(String[] args) {\n        int i = 5;\n        if (i * i + 2)\n            System.out.println(i);\n    }\n}",
-			"language": "java",
-			"errorTokens": [
-				{
-					"line": 4,
-					"token": "i * i + 2",
-					"explanation": "If-Bedingung muss boolean sein, nicht int"
-				}
-			],
-			"selectCount": 1
-		},
-		{
-			"id": "5",
-			"shortQuestion": "Methodenaufruf Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class Test {\n    public static int g(int x) {\n        return x * x;\n    }\n    \n    public static void main(String[] args) {\n        System.out.println(g(4, 2));\n    }\n}",
-			"language": "java",
-			"errorTokens": [
-				{
-					"line": 7,
-					"token": "g(4, 2)",
-					"explanation": "Methode g erwartet nur einen Parameter, nicht zwei"
-				}
-			],
-			"selectCount": 1
-		},
-		{
-			"id": "6",
-			"shortQuestion": "Klasse P - Mehrere Fehler",
-			"question": "Diese Klasse enthält mehrere Syntaxfehler. Finden Sie alle fehlerhaften Token.",
-			"code": "public class P {\n    public boolean b = true;\n    \n    public static int f(int x, int y) {\n        int z;\n        if (x < y)\n            return x + 2 * y - z;\n        else\n            System.out.println(\"Hallo!\");\n    }\n    \n    public static void g() {\n        boolean c = false;\n        if (b == true)\n            c = true;\n        c = c + 1;\n    }\n}",
-			"language": "java",
-			"errorTokens": [
-				{
-					"line": 7,
-					"token": "z",
-					"explanation": "Variable z wurde nicht initialisiert"
+					"line": 10,
+					"token": "gehalt",
+					"explanation": "Variable gehalt wurde nicht deklariert"
 				},
 				{
 					"line": 14,
-					"token": "b",
-					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut b zugreifen"
+					"token": "name",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut name zugreifen"
+				},
+				{
+					"line": 15,
+					"token": "alter",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut alter zugreifen"
 				},
 				{
 					"line": 16,
-					"token": "c + 1",
-					"explanation": "Kann boolean nicht mit int addieren"
+					"token": "aktiv",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut aktiv zugreifen; If-Bedingung ist bereits boolean"
+				},
+				{
+					"line": 22,
+					"token": "bonus",
+					"explanation": "Typfehler: Rückgabetyp ist int, aber bonus ist double"
+				},
+				{
+					"line": 27,
+					"token": "return name",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
 				}
 			],
-			"selectCount": 3
+			"selectCount": 8
 		},
 		{
-			"id": "7",
-			"shortQuestion": "While-Bedingung Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class Test {\n    public static void main(String[] args) {\n        int y = 5;\n        while (y * 3) {\n            System.out.println(y);\n            y = y - 1;\n        }\n    }\n}",
+			"id": "2",
+			"shortQuestion": "Rechner-Klasse",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Rechner {\n    public int ergebnis = 0;\n    private String verlauf;\n    \n    public static int addiere(int a, int b) {\n        ergebnis = a + b;\n        verlauf = \"Addition\";\n        return ergebnis;\n    }\n    \n    public void multipliziere(int x) {\n        int produkt = ergebnis * x;\n        return produkt;\n    }\n    \n    public boolean istPositiv() {\n        if (ergebnis > 0)\n            return \"ja\";\n        else\n            return \"nein\";\n    }\n    \n    public static void main(String[] args) {\n        Rechner r = Rechner();\n        r.addiere(5, 3);\n        int wert = r.multipliziere(2);\n        System.out.println(istPositiv());\n    }\n}",
 			"language": "java",
 			"errorTokens": [
 				{
-					"line": 4,
-					"token": "y * 3",
-					"explanation": "While-Bedingung muss boolean sein, nicht int"
-				}
-			],
-			"selectCount": 1
-		},
-		{
-			"id": "8",
-			"shortQuestion": "Void Rückgabe Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class Test {\n    public static void g() {\n        System.out.println(\"Hallo\");\n    }\n    \n    public static void main(String[] args) {\n        int x = g() * 3;\n    }\n}",
-			"language": "java",
-			"errorTokens": [
+					"line": 6,
+					"token": "ergebnis",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut ergebnis zugreifen"
+				},
 				{
 					"line": 7,
-					"token": "g() * 3",
-					"explanation": "Methode g hat Rückgabetyp void, kann nicht in Berechnung verwendet werden"
+					"token": "verlauf",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut verlauf zugreifen"
+				},
+				{
+					"line": 8,
+					"token": "ergebnis",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut ergebnis zugreifen"
+				},
+				{
+					"line": 13,
+					"token": "return produkt",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
+				},
+				{
+					"line": 18,
+					"token": "\"ja\"",
+					"explanation": "Typfehler: Rückgabetyp ist boolean, aber \"ja\" ist String"
+				},
+				{
+					"line": 20,
+					"token": "\"nein\"",
+					"explanation": "Typfehler: Rückgabetyp ist boolean, aber \"nein\" ist String"
+				},
+				{
+					"line": 24,
+					"token": "Rechner()",
+					"explanation": "new Schlüsselwort fehlt vor Konstruktoraufruf"
+				},
+				{
+					"line": 26,
+					"token": "r.multipliziere(2)",
+					"explanation": "Void-Methode kann nicht einer Variable zugewiesen werden"
+				},
+				{
+					"line": 27,
+					"token": "istPositiv()",
+					"explanation": "Nicht-statische Methode muss über Objekt aufgerufen werden: r.istPositiv()"
 				}
 			],
-			"selectCount": 1
+			"selectCount": 9
 		},
 		{
-			"id": "9",
-			"shortQuestion": "Double equals Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class B {\n    public static double f(double d, double e) {\n        if (d.equals(e))\n            return e;\n        return d;\n    }\n}",
+			"id": "3",
+			"shortQuestion": "Array-Operationen",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class ArrayHelper {\n    public static void main(String[] args) {\n        int[] zahlen = {1, 2, 3, 4, 5};\n        String[] namen = new String[3];\n        \n        int summe = \"0\";\n        for (int i = 0; i <= zahlen; i++) {\n            summe = summe + zahlen[i];\n        }\n        \n        while (summe) {\n            summe = summe - 1;\n        }\n        \n        namen[0] = 42;\n        namen[1] = true;\n        int laenge = namen;\n        \n        if (zahlen == namen) {\n            System.out.println(\"Gleich\");\n        }\n        \n        double[] preise;\n        preise[0] = 9.99;\n        \n        int index = \"2\";\n        System.out.println(zahlen[index]);\n    }\n}",
 			"language": "java",
 			"errorTokens": [
 				{
-					"line": 3,
-					"token": "d.equals(e)",
-					"explanation": "Primitive Datentypen (double) haben keine Methoden wie equals()"
+					"line": 6,
+					"token": "\"0\"",
+					"explanation": "Typfehler: summe ist int, aber \"0\" ist String"
+				},
+				{
+					"line": 7,
+					"token": "zahlen",
+					"explanation": "Kann int nicht mit Array vergleichen, zahlen.length verwenden"
+				},
+				{
+					"line": 11,
+					"token": "summe",
+					"explanation": "While-Bedingung muss boolean sein, nicht int"
+				},
+				{
+					"line": 15,
+					"token": "42",
+					"explanation": "Typfehler: namen ist String[], aber 42 ist int"
+				},
+				{
+					"line": 16,
+					"token": "true",
+					"explanation": "Typfehler: namen ist String[], aber true ist boolean"
+				},
+				{
+					"line": 17,
+					"token": "namen",
+					"explanation": "Typfehler: laenge ist int, aber namen ist String[]"
+				},
+				{
+					"line": 19,
+					"token": "zahlen == namen",
+					"explanation": "Kann int[] nicht mit String[] vergleichen"
+				},
+				{
+					"line": 24,
+					"token": "preise[0]",
+					"explanation": "Array preise wurde nicht initialisiert (nur deklariert)"
+				},
+				{
+					"line": 26,
+					"token": "\"2\"",
+					"explanation": "Typfehler: index ist int, aber \"2\" ist String"
 				}
 			],
-			"selectCount": 1
+			"selectCount": 9
 		},
 		{
-			"id": "10",
-			"shortQuestion": "String-Double Vergleich",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class B {\n    public static double g(String a, double b) {\n        String c = \"Blume\";\n        while (c == b) {\n            System.out.println(c);\n            b = b + c.length();\n        }\n        return b;\n    }\n}",
+			"id": "4",
+			"shortQuestion": "Verkettete Liste",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Knoten {\n    public int wert;\n    public Knoten naechster;\n    private static int anzahl = 0;\n    \n    public Knoten(int w) {\n        wert = w;\n        naechster = 0;\n        anzahl = anzahl + \"1\";\n    }\n    \n    public static void hinzufuegen(int neuerWert) {\n        Knoten neu = Knoten(neuerWert);\n        if (naechster == null) {\n            naechster = neu;\n        } else {\n            naechster.hinzufuegen(neuerWert);\n        }\n        return neu;\n    }\n    \n    public int getAnzahl() {\n        return anzahl.toString();\n    }\n    \n    public void druckeAlle() {\n        System.out.println(wert);\n        if (naechster) {\n            naechster.druckeAlle();\n        }\n    }\n    \n    public boolean equals(Knoten andere) {\n        if (wert = andere.wert)\n            return true;\n        return false;\n    }\n}",
 			"language": "java",
 			"errorTokens": [
 				{
-					"line": 4,
-					"token": "c == b",
-					"explanation": "Kann String nicht mit double vergleichen"
+					"line": 8,
+					"token": "0",
+					"explanation": "Typfehler: naechster ist Knoten, aber 0 ist int (null verwenden)"
+				},
+				{
+					"line": 9,
+					"token": "\"1\"",
+					"explanation": "Typfehler: anzahl ist int, aber \"1\" ist String"
+				},
+				{
+					"line": 13,
+					"token": "Knoten(neuerWert)",
+					"explanation": "new Schlüsselwort fehlt vor Konstruktoraufruf"
+				},
+				{
+					"line": 14,
+					"token": "naechster",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut naechster zugreifen"
+				},
+				{
+					"line": 15,
+					"token": "naechster",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut naechster zugreifen"
+				},
+				{
+					"line": 17,
+					"token": "naechster",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut naechster zugreifen"
+				},
+				{
+					"line": 19,
+					"token": "return neu",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
+				},
+				{
+					"line": 23,
+					"token": "anzahl.toString()",
+					"explanation": "Primitive Datentypen (int) haben keine Methoden; Rückgabetyp ist int nicht String"
+				},
+				{
+					"line": 28,
+					"token": "naechster",
+					"explanation": "If-Bedingung muss boolean sein, nicht Knoten (naechster != null verwenden)"
+				},
+				{
+					"line": 34,
+					"token": "wert = andere.wert",
+					"explanation": "Zuweisung statt Vergleich: == statt = verwenden"
 				}
 			],
-			"selectCount": 1
+			"selectCount": 10
 		},
 		{
-			"id": "11",
-			"shortQuestion": "Nested Methode Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class A {\n    private static int f(int x, String[] y) {\n        String c = \"Hase\";\n        System.out.println(c);\n        public int g(int x) {\n            return x * x;\n        }\n        return x + y[0].length();\n    }\n}",
+			"id": "5",
+			"shortQuestion": "Bankkonto-Klasse",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Konto {\n    private double kontostand;\n    private String inhaber;\n    public static int kontoNummer;\n    \n    public Konto(String name, double start) {\n        inhaber = name;\n        kontostand = start;\n        kontoNummer = \"12345\";\n    }\n    \n    public void einzahlen(double betrag) {\n        if (betrag) {\n            kontostand = kontostand + betrag;\n        }\n        return kontostand;\n    }\n    \n    public static double getKontostand() {\n        return kontostand;\n    }\n    \n    public boolean abheben(double betrag) {\n        if (kontostand >= betrag) {\n            kontostand = kontostand - betrag;\n            return 1;\n        }\n        return 0;\n    }\n    \n    public String getInfo() {\n        return inhaber + \": \" + kontostand.toString();\n    }\n    \n    public static void main(String[] args) {\n        Konto k = new Konto(\"Max\", 100.0);\n        k.einzahlen(\"50\");\n        double stand = einzahlen(25);\n        if (k.abheben(30) == 1) {\n            System.out.println(\"Erfolgreich\");\n        }\n    }\n}",
 			"language": "java",
 			"errorTokens": [
 				{
-					"line": 5,
-					"token": "public int g",
+					"line": 9,
+					"token": "\"12345\"",
+					"explanation": "Typfehler: kontoNummer ist int, aber \"12345\" ist String"
+				},
+				{
+					"line": 13,
+					"token": "betrag",
+					"explanation": "If-Bedingung muss boolean sein, nicht double"
+				},
+				{
+					"line": 16,
+					"token": "return kontostand",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
+				},
+				{
+					"line": 20,
+					"token": "kontostand",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut kontostand zugreifen"
+				},
+				{
+					"line": 26,
+					"token": "1",
+					"explanation": "Typfehler: Rückgabetyp ist boolean, aber 1 ist int"
+				},
+				{
+					"line": 28,
+					"token": "0",
+					"explanation": "Typfehler: Rückgabetyp ist boolean, aber 0 ist int"
+				},
+				{
+					"line": 32,
+					"token": "kontostand.toString()",
+					"explanation": "Primitive Datentypen (double) haben keine Methoden wie toString()"
+				},
+				{
+					"line": 37,
+					"token": "\"50\"",
+					"explanation": "Typfehler: Parameter ist double, aber \"50\" ist String"
+				},
+				{
+					"line": 38,
+					"token": "einzahlen(25)",
+					"explanation": "Nicht-statische Methode muss über Objekt aufgerufen werden; einzahlen ist void"
+				},
+				{
+					"line": 39,
+					"token": "k.abheben(30) == 1",
+					"explanation": "Kann boolean nicht mit int vergleichen"
+				}
+			],
+			"selectCount": 10
+		},
+		{
+			"id": "6",
+			"shortQuestion": "Rekursive Methoden",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Rekursion {\n    public static int zaehler;\n    \n    public int fakultaet(int n) {\n        if (n <= 1)\n            return \"1\";\n        return n * fakultaet(n - 1);\n    }\n    \n    public static int fibonacci(int n) {\n        zaehler = zaehler + 1;\n        if (n) {\n            return 0;\n        }\n        if (n == 1)\n            return 1;\n        int a = fibonacci(n - 1);\n        int b = fibonacci(n - 2);\n        return a + b;\n    }\n    \n    public void summe(int[] arr, int index) {\n        if (index >= arr)\n            return 0;\n        return arr[index] + summe(arr, index + 1);\n    }\n    \n    public static void main(String[] args) {\n        Rekursion r = new Rekursion();\n        int fak = r.fakultaet(\"5\");\n        int fib = fibonacci(10);\n        System.out.println(r.summe);\n        \n        public void helfer() {\n            System.out.println(\"Hilfe\");\n        }\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 6,
+					"token": "\"1\"",
+					"explanation": "Typfehler: Rückgabetyp ist int, aber \"1\" ist String"
+				},
+				{
+					"line": 12,
+					"token": "n",
+					"explanation": "If-Bedingung muss boolean sein, nicht int (n == 0 verwenden)"
+				},
+				{
+					"line": 23,
+					"token": "arr",
+					"explanation": "Kann int nicht mit Array vergleichen, arr.length verwenden"
+				},
+				{
+					"line": 24,
+					"token": "return 0",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
+				},
+				{
+					"line": 25,
+					"token": "return arr[index] + summe(arr, index + 1)",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben; summe gibt void zurück"
+				},
+				{
+					"line": 30,
+					"token": "\"5\"",
+					"explanation": "Typfehler: Parameter ist int, aber \"5\" ist String"
+				},
+				{
+					"line": 32,
+					"token": "r.summe",
+					"explanation": "Methode summe braucht Parameter und Klammern"
+				},
+				{
+					"line": 34,
+					"token": "public void helfer()",
 					"explanation": "Methoden können nicht innerhalb anderer Methoden definiert werden"
 				}
 			],
-			"selectCount": 1
+			"selectCount": 8
 		},
 		{
-			"id": "12",
-			"shortQuestion": "Private Zugriff Fehler",
-			"question": "Finden Sie den Syntaxfehler in diesem Code. Klicken Sie auf das fehlerhafte Token.",
-			"code": "public class A {\n    private String a = \"Test\";\n}\n\npublic class B {\n    public static void main(String[] args) {\n        System.out.println(A.a);\n    }\n}",
+			"id": "7",
+			"shortQuestion": "String-Operationen",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class StringHelper {\n    private String text;\n    private int laenge;\n    \n    public StringHelper(String t) {\n        text = t;\n        laenge = t;\n    }\n    \n    public static String umkehren() {\n        String ergebnis = \"\";\n        for (int i = laenge - 1; i >= 0; i--) {\n            ergebnis = ergebnis + text.charAt(i);\n        }\n        return ergebnis;\n    }\n    \n    public boolean enthaelt(String suche) {\n        for (int i = 0; i < text; i++) {\n            if (text.charAt(i).equals(suche.charAt(0))) {\n                return \"true\";\n            }\n        }\n        return \"false\";\n    }\n    \n    public int zaehleZeichen(char c) {\n        int anzahl = \"0\";\n        for (int i = 0; i <= text.length(); i++) {\n            if (text.charAt(i) == c)\n                anzahl++;\n        }\n        return anzahl;\n    }\n    \n    public void ersetzen(String alt, String neu) {\n        text = text.replace(alt, neu);\n        return text;\n    }\n    \n    public static void main(String[] args) {\n        StringHelper sh = StringHelper(\"Hallo\");\n        String rev = sh.umkehren;\n        boolean hat = enthaelt(\"a\");\n    }\n}",
 			"language": "java",
 			"errorTokens": [
 				{
 					"line": 7,
-					"token": "A.a",
-					"explanation": "Attribut a ist private und kann von außerhalb der Klasse A nicht zugegriffen werden"
+					"token": "t",
+					"explanation": "Typfehler: laenge ist int, aber t ist String (t.length() verwenden)"
+				},
+				{
+					"line": 12,
+					"token": "laenge",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut laenge zugreifen"
+				},
+				{
+					"line": 13,
+					"token": "text",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut text zugreifen"
+				},
+				{
+					"line": 19,
+					"token": "text",
+					"explanation": "Kann int nicht mit String vergleichen, text.length() verwenden"
+				},
+				{
+					"line": 20,
+					"token": "text.charAt(i).equals",
+					"explanation": "char ist primitiv und hat keine equals-Methode"
+				},
+				{
+					"line": 21,
+					"token": "\"true\"",
+					"explanation": "Typfehler: Rückgabetyp ist boolean, aber \"true\" ist String"
+				},
+				{
+					"line": 24,
+					"token": "\"false\"",
+					"explanation": "Typfehler: Rückgabetyp ist boolean, aber \"false\" ist String"
+				},
+				{
+					"line": 28,
+					"token": "\"0\"",
+					"explanation": "Typfehler: anzahl ist int, aber \"0\" ist String"
+				},
+				{
+					"line": 38,
+					"token": "return text",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
+				},
+				{
+					"line": 42,
+					"token": "StringHelper(\"Hallo\")",
+					"explanation": "new Schlüsselwort fehlt vor Konstruktoraufruf"
+				},
+				{
+					"line": 43,
+					"token": "sh.umkehren",
+					"explanation": "Methode braucht Klammern: sh.umkehren()"
+				},
+				{
+					"line": 44,
+					"token": "enthaelt(\"a\")",
+					"explanation": "Nicht-statische Methode muss über Objekt aufgerufen werden"
 				}
 			],
-			"selectCount": 1
+			"selectCount": 12
+		},
+		{
+			"id": "8",
+			"shortQuestion": "Geometrie-Klassen",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Rechteck {\n    public double breite;\n    public double hoehe;\n    private static String name = \"Rechteck\";\n    \n    public Rechteck(double b, double h) {\n        breite = b;\n        hoehe = h;\n        this = new Rechteck(1, 1);\n    }\n    \n    public double berechneFlaeche() {\n        return breite * hoehe.toString();\n    }\n    \n    public static double berechneUmfang() {\n        return 2 * (breite + hoehe);\n    }\n    \n    public boolean istQuadrat() {\n        if (breite = hoehe)\n            return true;\n        return false;\n    }\n    \n    public void skalieren(double faktor) {\n        breite = breite * faktor;\n        hoehe = hoehe * faktor;\n        return this;\n    }\n    \n    public String getName() {\n        return name.length();\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Rechteck r = new Rechteck(\"5\", 3);\n        double flaeche = r.berechneFlaeche;\n        r.breite = \"10\";\n        \n        if (r.istQuadrat) {\n            System.out.println(\"Ist Quadrat\");\n        }\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 9,
+					"token": "this = new Rechteck(1, 1)",
+					"explanation": "this kann nicht zugewiesen werden"
+				},
+				{
+					"line": 13,
+					"token": "hoehe.toString()",
+					"explanation": "Primitive Datentypen (double) haben keine Methoden wie toString()"
+				},
+				{
+					"line": 17,
+					"token": "breite",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut breite zugreifen"
+				},
+				{
+					"line": 17,
+					"token": "hoehe",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut hoehe zugreifen"
+				},
+				{
+					"line": 21,
+					"token": "breite = hoehe",
+					"explanation": "Zuweisung statt Vergleich: == statt = verwenden"
+				},
+				{
+					"line": 29,
+					"token": "return this",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
+				},
+				{
+					"line": 33,
+					"token": "name.length()",
+					"explanation": "Typfehler: Rückgabetyp ist String, aber length() gibt int zurück"
+				},
+				{
+					"line": 39,
+					"token": "\"5\"",
+					"explanation": "Typfehler: Parameter ist double, aber \"5\" ist String"
+				},
+				{
+					"line": 40,
+					"token": "r.berechneFlaeche",
+					"explanation": "Methode braucht Klammern: r.berechneFlaeche()"
+				},
+				{
+					"line": 41,
+					"token": "\"10\"",
+					"explanation": "Typfehler: breite ist double, aber \"10\" ist String"
+				},
+				{
+					"line": 43,
+					"token": "r.istQuadrat",
+					"explanation": "Methode braucht Klammern: r.istQuadrat()"
+				}
+			],
+			"selectCount": 11
+		},
+		{
+			"id": "9",
+			"shortQuestion": "Datenstruktur Stack",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Stack {\n    private int[] daten;\n    private int top;\n    private static int maxGroesse = 100;\n    \n    public Stack(int groesse) {\n        daten = new int[groesse];\n        top = -1;\n        maxGroesse = groesse.toString();\n    }\n    \n    public void push(int wert) {\n        if (top < maxGroesse) {\n            top++;\n            daten[top] = wert;\n        }\n        return true;\n    }\n    \n    public static int pop() {\n        if (top >= 0) {\n            int wert = daten[top];\n            top--;\n            return wert;\n        }\n        return null;\n    }\n    \n    public boolean isEmpty() {\n        return top == -1;\n    }\n    \n    public int peek() {\n        if (isEmpty) {\n            return \"leer\";\n        }\n        return daten[top];\n    }\n    \n    public static void main(String[] args) {\n        Stack s = Stack(10);\n        s.push(\"5\");\n        s.push(10);\n        int wert = pop();\n        \n        while (s.isEmpty() == false) {\n            System.out.println(s.pop);\n        }\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 9,
+					"token": "groesse.toString()",
+					"explanation": "Primitive Datentypen (int) haben keine Methoden; maxGroesse ist int nicht String"
+				},
+				{
+					"line": 17,
+					"token": "return true",
+					"explanation": "Void-Methode kann keinen Wert zurückgeben"
+				},
+				{
+					"line": 21,
+					"token": "top",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut top zugreifen"
+				},
+				{
+					"line": 22,
+					"token": "daten",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut daten zugreifen"
+				},
+				{
+					"line": 23,
+					"token": "top",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut top zugreifen"
+				},
+				{
+					"line": 26,
+					"token": "null",
+					"explanation": "Typfehler: Rückgabetyp ist int, aber null ist kein primitiver Wert"
+				},
+				{
+					"line": 34,
+					"token": "isEmpty",
+					"explanation": "Methode braucht Klammern: isEmpty()"
+				},
+				{
+					"line": 35,
+					"token": "\"leer\"",
+					"explanation": "Typfehler: Rückgabetyp ist int, aber \"leer\" ist String"
+				},
+				{
+					"line": 41,
+					"token": "Stack(10)",
+					"explanation": "new Schlüsselwort fehlt vor Konstruktoraufruf"
+				},
+				{
+					"line": 42,
+					"token": "\"5\"",
+					"explanation": "Typfehler: Parameter ist int, aber \"5\" ist String"
+				},
+				{
+					"line": 44,
+					"token": "pop()",
+					"explanation": "Statische Methode pop() sollte über Klasse aufgerufen werden, aber greift auf Instanzattribute zu"
+				},
+				{
+					"line": 47,
+					"token": "s.pop",
+					"explanation": "Methode braucht Klammern: s.pop()"
+				}
+			],
+			"selectCount": 12
+		},
+		{
+			"id": "10",
+			"shortQuestion": "Spieler-Verwaltung",
+			"question": "Finden Sie alle Syntaxfehler in diesem Code.",
+			"code": "public class Spieler {\n    public String name;\n    private int punkte;\n    private boolean aktiv;\n    public static Spieler bpieler;\n    \n    public Spieler(String n) {\n        name = n;\n        punkte = \"0\";\n        aktiv = \"true\";\n    }\n    \n    public void punkteHinzufuegen(int p) {\n        if (p) {\n            punkte = punkte + p;\n        }\n    }\n    \n    public static int getPunkte() {\n        return punkte;\n    }\n    \n    public boolean istBesser(Spieler anderer) {\n        return punkte > anderer.punkte;\n    }\n    \n    public void deaktivieren() {\n        aktiv = 0;\n        return;\n    }\n    \n    public String getStatus() {\n        if (aktiv = true) {\n            return punkte;\n        }\n        return \"Inaktiv\";\n    }\n}\n\npublic class Spiel {\n    public static void main(String[] args) {\n        Spieler s1 = Spieler(\"Max\");\n        Spieler s2 = new Spieler(\"Anna\");\n        \n        s1.punkteHinzufuegen(\"10\");\n        int p = s1.getPunkte;\n        \n        if (s1.istBesser) {\n            System.out.println(s1.name + \" gewinnt\");\n        }\n        \n        boolean gleich = (s1.punkte = s2.punkte);\n    }\n}",
+			"language": "java",
+			"errorTokens": [
+				{
+					"line": 9,
+					"token": "\"0\"",
+					"explanation": "Typfehler: punkte ist int, aber \"0\" ist String"
+				},
+				{
+					"line": 10,
+					"token": "\"true\"",
+					"explanation": "Typfehler: aktiv ist boolean, aber \"true\" ist String"
+				},
+				{
+					"line": 14,
+					"token": "p",
+					"explanation": "If-Bedingung muss boolean sein, nicht int"
+				},
+				{
+					"line": 20,
+					"token": "punkte",
+					"explanation": "Statische Methode kann nicht auf nicht-statisches Attribut punkte zugreifen"
+				},
+				{
+					"line": 28,
+					"token": "0",
+					"explanation": "Typfehler: aktiv ist boolean, aber 0 ist int"
+				},
+				{
+					"line": 33,
+					"token": "aktiv = true",
+					"explanation": "Zuweisung statt Vergleich: == statt = verwenden"
+				},
+				{
+					"line": 34,
+					"token": "punkte",
+					"explanation": "Typfehler: Rückgabetyp ist String, aber punkte ist int"
+				},
+				{
+					"line": 42,
+					"token": "Spieler(\"Max\")",
+					"explanation": "new Schlüsselwort fehlt vor Konstruktoraufruf"
+				},
+				{
+					"line": 45,
+					"token": "\"10\"",
+					"explanation": "Typfehler: Parameter ist int, aber \"10\" ist String"
+				},
+				{
+					"line": 46,
+					"token": "s1.getPunkte",
+					"explanation": "Methode braucht Klammern: s1.getPunkte()"
+				},
+				{
+					"line": 48,
+					"token": "s1.istBesser",
+					"explanation": "Methode braucht Klammern und Parameter: s1.istBesser(s2)"
+				},
+				{
+					"line": 52,
+					"token": "s1.punkte = s2.punkte",
+					"explanation": "Zuweisung statt Vergleich; punkte ist private"
+				}
+			],
+			"selectCount": 12
 		}
 	]
 }

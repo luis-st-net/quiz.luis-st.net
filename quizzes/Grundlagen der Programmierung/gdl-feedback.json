@@ -1,0 +1,112 @@
+{
+	"id": "bp-feedback",
+	"name": "Feedback Tutorium",
+	"description": "Kurz-Quiz, in welchem die Teilnehmer ihr Feedback zum Tutorium abgeben können.",
+	"order": 5,
+	"questions": [
+		{
+			"id": "1",
+			"question": "Wie verständlich waren meine Erklärungen im Tutorium?",
+			"shortQuestion": "Verständlichkeit der Erklärungen",
+			"answers": [
+				{
+					"id": "sehr_gut",
+					"answer": "Sehr gut verständlich"
+				},
+				{
+					"id": "gut",
+					"answer": "Gut verständlich"
+				},
+				{
+					"id": "mittel",
+					"answer": "Teilweise verständlich"
+				},
+				{
+					"id": "schlecht",
+					"answer": "Schwer verständlich"
+				},
+				{
+					"id": "sehr_schlecht",
+					"answer": "Sehr schwer verständlich"
+				}
+			],
+			"correctAnswerIndex": 0
+		},
+		{
+			"id": "2",
+			"question": "Wie empfandest du das Tempo des Tutoriums?",
+			"shortQuestion": "Tempo des Tutoriums",
+			"answers": [
+				{
+					"id": "zu_langsam",
+					"answer": "Viel zu langsam"
+				},
+				{
+					"id": "etwas_langsam",
+					"answer": "Etwas zu langsam"
+				},
+				{
+					"id": "angemessen",
+					"answer": "Genau richtig"
+				},
+				{
+					"id": "etwas_schnell",
+					"answer": "Etwas zu schnell"
+				},
+				{
+					"id": "zu_schnell",
+					"answer": "Viel zu schnell"
+				}
+			],
+			"correctAnswerIndex": 2
+		},
+		{
+			"id": "3",
+			"question": "Wie hilfreich waren die Inhalte des Tutoriums für dich?",
+			"shortQuestion": "Hilfreichigkeit der Inhalte",
+			"answers": [
+				{
+					"id": "sehr_hilfreich",
+					"answer": "Sehr hilfreich"
+				},
+				{
+					"id": "hilfreich",
+					"answer": "Hilfreich"
+				},
+				{
+					"id": "teilweise_hilfreich",
+					"answer": "Teilweise hilfreich"
+				},
+				{
+					"id": "wenig_hilfreich",
+					"answer": "Wenig hilfreich"
+				},
+				{
+					"id": "gar_nicht_hilfreich",
+					"answer": "Gar nicht hilfreich"
+				}
+			],
+			"correctAnswerIndex": 2
+		},
+		{
+			"id": "4",
+			"question": "Würdest du dieses Tutorium anderen Studierenden weiterempfehlen?",
+			"shortQuestion": "Weiterempfehlung",
+			"correctAnswer": true
+		},
+		{
+			"id": "5",
+			"question": "Was könnte ich am Tutorium verbessern?",
+			"shortQuestion": "Verbesserungsvorschläge",
+			"minLength": 1,
+			"maxLength": 500
+		},
+		{
+			"id": "6",
+			"question": "Hast du noch weitere Anmerkungen oder Fragen?",
+			"shortQuestion": "Zusätzliche Anmerkungen",
+			"minLength": 1,
+			"maxLength": 500
+		}
+	]
+}

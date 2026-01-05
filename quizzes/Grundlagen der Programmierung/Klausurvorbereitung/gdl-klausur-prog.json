@@ -2,10 +2,7 @@
 	"id": "gdl-klausur-prog",
 	"name": "Programmierung",
 	"description": "Klausurvorbereitung: Implementierungsaufgaben zu Arrays, Strings, Methoden und Objekten. Laden Sie Ihre Java-Lösungen hoch.",
-	"config": {
-		"order": 1,
-		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
-	},
+	"order": 1,
 	"questions": [
 		{
 			"id": "1",

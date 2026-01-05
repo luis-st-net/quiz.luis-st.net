@@ -2,10 +2,7 @@
 	"id": "gdl-klausur-bild",
 	"name": "Bildverarbeitung",
 	"description": "Klausurvorbereitung: Bildverarbeitungsaufgaben mit 2D-Arrays. Implementieren Sie Methoden zur Manipulation von Bitmap-Bildern.",
-	"config": {
-		"order": 5,
-		"group": "Grundlagen der Programmierung/Klausurvorbereitung"
-	},
+	"order": 5,
 	"questions": [
 		{
 			"id": "1",
