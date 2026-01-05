@@ -77,7 +77,7 @@ export default function ReviewPage() {
 			{/* Header */}
 			<header className="flex items-center justify-between px-4 py-3 border-b bg-card">
 				<h1 className="text-lg font-semibold">{quiz.name} - Überprüfung</h1>
-				<Button variant="ghost" size="sm" onClick={handleBackToQuiz}>
+				<Button variant="outline" size="sm" onClick={handleBackToQuiz}>
 					<ArrowLeft className="size-4 mr-1" />
 					Zurück zum Quiz
 				</Button>

@@ -117,7 +117,7 @@ export function UserInfoDialog({ open, onOpenChange, onSubmit }: UserInfoDialogP
 						/>
 
 						<DialogFooter className="gap-2 sm:gap-0">
-							<Button type="button" variant="ghost" onClick={handleSkip}>
+							<Button type="button" variant="outline" onClick={handleSkip}>
 								Überspringen
 							</Button>
 							<Button type="submit">
