@@ -113,24 +113,24 @@ export default function QuizPage() {
 			</div>
 
 			{/* Mobile Navigator FAB */}
-			<div className="lg:hidden fixed bottom-4 right-4 flex flex-col gap-2">
+			<div className="lg:hidden fixed bottom-3 right-3 sm:bottom-4 sm:right-4 flex flex-col gap-2 z-50">
 				<Button
 					size="icon"
 					variant="outline"
 					className="rounded-full shadow-lg"
 					onClick={() => setShowShortcuts(true)}
 				>
-					<Keyboard className="size-5" />
+					<Keyboard className="size-4 sm:size-5" />
 					<span className="sr-only">Tastaturkürzel</span>
 				</Button>
 				<Sheet open={navigatorOpen} onOpenChange={setNavigatorOpen}>
 					<SheetTrigger asChild>
-						<Button size="lg" className="rounded-full shadow-lg">
-							<LayoutGrid className="size-5 mr-2" />
-							Übersicht
+						<Button size="default" className="rounded-full shadow-lg sm:text-base">
+							<LayoutGrid className="size-4 sm:size-5 mr-1 sm:mr-2" />
+							<span className="text-sm sm:text-base">Übersicht</span>
 						</Button>
 					</SheetTrigger>
-					<SheetContent side="bottom" className="h-[70vh] p-0">
+					<SheetContent side="bottom" className="h-[70vh] max-h-[calc(100vh-4rem)] p-0">
 						<QuestionNavigator
 							onReviewClick={() => {
 								setNavigatorOpen(false);

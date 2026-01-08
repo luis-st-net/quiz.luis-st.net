@@ -5,6 +5,7 @@ import * as Icons from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
 import { type CategorizationQuestion, type CategorizationQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
+import { useIsMobile } from "@/lib/hooks/use-mobile";
 import { cn, shuffleArray } from "@/lib/utility";
 
 function useCategorizationLogic(question: CategorizationQuestion) {
@@ -169,7 +170,7 @@ function CategorizationQuestionDesktop(
 	return (
 		<div className="space-y-6">
 			{/* Category buckets */}
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
 				{question.categories.map((category) => (
 					<div
 						key={category.id}
@@ -244,25 +245,7 @@ function CategorizationQuestionDesktop(
 export default function CategorizationQuestion(
 	{ question }: { question: CategorizationQuestion },
 ) {
-	const [isMobile, setIsMobile] = useState(false);
-
-	useEffect(() => {
-		const checkIsMobile = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		checkIsMobile();
-		window.addEventListener("resize", checkIsMobile);
-
-		return () => window.removeEventListener("resize", checkIsMobile);
-	}, []);
-
-	useEffect(() => {
-		const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-		if (isTouchDevice && window.innerWidth < 1024) {
-			setIsMobile(true);
-		}
-	}, []);
+	const isMobile = useIsMobile();
 
 	return isMobile ? (
 		<CategorizationQuestionMobile question={question} />

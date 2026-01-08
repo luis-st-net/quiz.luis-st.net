@@ -38,12 +38,12 @@ export function QuizHeader({ quizName, onCancelClick, className }: QuizHeaderPro
 	};
 
 	return (
-		<header className={cn("flex items-center justify-between px-4 py-3 border-b bg-card", className)}>
-			<div className="flex items-center gap-4 min-w-0">
-				<h1 className="text-lg font-semibold truncate">{quizName}</h1>
+		<header className={cn("flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b bg-card", className)}>
+			<div className="flex items-center gap-2 sm:gap-4 min-w-0">
+				<h1 className="text-base sm:text-lg font-semibold truncate">{quizName}</h1>
 			</div>
 
-			<div className="flex items-center gap-2 sm:gap-4">
+			<div className="flex items-center gap-1.5 sm:gap-4">
 				{/* Timer */}
 				<div className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
 					<Clock className="size-4" />

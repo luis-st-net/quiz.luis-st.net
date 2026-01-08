@@ -80,8 +80,8 @@ export default function ResultPage() {
 	return (
 		<div className="flex flex-col h-full">
 			{/* Header */}
-			<header className="flex items-center justify-between px-4 py-3 border-b bg-card">
-				<h1 className="text-lg font-semibold">{quiz.name} - Ergebnisse</h1>
+			<header className="flex items-center justify-between px-3 sm:px-4 py-3 border-b bg-card">
+				<h1 className="text-base sm:text-lg font-semibold truncate">{quiz.name} - Ergebnisse</h1>
 			</header>
 
 			<ScrollArea className="flex-1">
@@ -90,9 +90,9 @@ export default function ResultPage() {
 					<Card className="overflow-hidden">
 						<CardHeader className="text-center pb-4 bg-gradient-to-b from-muted/50">
 							<div className="flex justify-center mb-4">
-								<div className="relative w-32 h-32">
+								<div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32">
 									{/* Circular Progress Background */}
-									<svg className="w-full h-full transform -rotate-90">
+									<svg className="w-full h-full transform -rotate-90" viewBox="0 0 128 128">
 										<circle
 											cx="64"
 											cy="64"
@@ -123,8 +123,8 @@ export default function ResultPage() {
 									</svg>
 									{/* Percentage Text */}
 									<div className="absolute inset-0 flex flex-col items-center justify-center">
-										<span className="text-3xl font-bold">{percentage}%</span>
-										<span className="text-sm text-muted-foreground">
+										<span className="text-2xl sm:text-2xl lg:text-3xl font-bold">{percentage}%</span>
+										<span className="text-xs sm:text-sm text-muted-foreground">
 											{correct}/{total}
 										</span>
 									</div>
@@ -142,18 +142,18 @@ export default function ResultPage() {
 						</CardHeader>
 
 						<CardContent className="pt-6">
-							<div className="grid grid-cols-3 gap-4 text-center">
-								<div className="p-3 rounded-lg bg-green-100 dark:bg-green-900/20">
-									<div className="text-2xl font-bold text-green-600">{correct}</div>
-									<div className="text-sm text-muted-foreground">Richtig</div>
+							<div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+								<div className="p-2 sm:p-3 rounded-lg bg-green-100 dark:bg-green-900/20">
+									<div className="text-xl sm:text-2xl font-bold text-green-600">{correct}</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">Richtig</div>
 								</div>
-								<div className="p-3 rounded-lg bg-red-100 dark:bg-red-900/20">
-									<div className="text-2xl font-bold text-red-600">{incorrect}</div>
-									<div className="text-sm text-muted-foreground">Falsch</div>
+								<div className="p-2 sm:p-3 rounded-lg bg-red-100 dark:bg-red-900/20">
+									<div className="text-xl sm:text-2xl font-bold text-red-600">{incorrect}</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">Falsch</div>
 								</div>
-								<div className="p-3 rounded-lg bg-amber-100 dark:bg-amber-900/20">
-									<div className="text-2xl font-bold text-amber-600">{manual}</div>
-									<div className="text-sm text-muted-foreground">Manuell</div>
+								<div className="p-2 sm:p-3 rounded-lg bg-amber-100 dark:bg-amber-900/20">
+									<div className="text-xl sm:text-2xl font-bold text-amber-600">{manual}</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">Manuell</div>
 								</div>
 							</div>
 						</CardContent>

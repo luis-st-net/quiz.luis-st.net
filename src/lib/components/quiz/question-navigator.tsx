@@ -48,7 +48,7 @@ export function QuestionNavigator({ onReviewClick, className }: QuestionNavigato
 			{/* Question Grid */}
 			<ScrollArea className="flex-1">
 				<div className="p-4">
-					<div className="grid grid-cols-4 gap-2">
+					<div className="grid grid-cols-4 gap-1.5 sm:gap-2 lg:grid-cols-5">
 						{questions.map((question, index) => {
 							const isAnswered = hasAnswer(question.id);
 							const isFlagged = isQuestionFlagged(question.id);

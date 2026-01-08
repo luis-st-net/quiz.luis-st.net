@@ -75,11 +75,11 @@ export default function ReviewPage() {
 	return (
 		<div className="flex flex-col h-full">
 			{/* Header */}
-			<header className="flex items-center justify-between px-4 py-3 border-b bg-card">
-				<h1 className="text-lg font-semibold">{quiz.name} - Überprüfung</h1>
-				<Button variant="outline" size="sm" onClick={handleBackToQuiz}>
-					<ArrowLeft className="size-4 mr-1" />
-					Zurück zum Quiz
+			<header className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b bg-card gap-2">
+				<h1 className="text-base sm:text-lg font-semibold truncate">{quiz.name} - Überprüfung</h1>
+				<Button variant="outline" size="sm" onClick={handleBackToQuiz} className="shrink-0">
+					<ArrowLeft className="size-4 sm:mr-1" />
+					<span className="hidden sm:inline">Zurück zum Quiz</span>
 				</Button>
 			</header>
 
@@ -92,24 +92,24 @@ export default function ReviewPage() {
 							<CardTitle>Zusammenfassung</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-4">
-							<div className="grid grid-cols-3 gap-4 text-center">
-								<div className="p-4 rounded-lg bg-muted/50">
-									<div className="text-2xl font-bold text-green-600">
+							<div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+								<div className="p-2 sm:p-4 rounded-lg bg-muted/50">
+									<div className="text-xl sm:text-2xl font-bold text-green-600">
 										{answeredCount}
 									</div>
-									<div className="text-sm text-muted-foreground">Beantwortet</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">Beantwortet</div>
 								</div>
-								<div className="p-4 rounded-lg bg-muted/50">
-									<div className="text-2xl font-bold text-amber-600">
+								<div className="p-2 sm:p-4 rounded-lg bg-muted/50">
+									<div className="text-xl sm:text-2xl font-bold text-amber-600">
 										{unansweredCount}
 									</div>
-									<div className="text-sm text-muted-foreground">Offen</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">Offen</div>
 								</div>
-								<div className="p-4 rounded-lg bg-muted/50">
-									<div className="text-2xl font-bold text-blue-600">
+								<div className="p-2 sm:p-4 rounded-lg bg-muted/50">
+									<div className="text-xl sm:text-2xl font-bold text-blue-600">
 										{flaggedCount}
 									</div>
-									<div className="text-sm text-muted-foreground">Markiert</div>
+									<div className="text-xs sm:text-sm text-muted-foreground">Markiert</div>
 								</div>
 							</div>
 

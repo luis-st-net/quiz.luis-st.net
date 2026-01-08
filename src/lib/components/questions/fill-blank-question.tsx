@@ -66,7 +66,7 @@ export default function FillBlankQuestion(
 						onChange={(e) => updateAnswer(blankId, e.target.value)}
 						placeholder={`Lücke ${blankId}`}
 						className={cn(
-							"inline-block min-w-[80px] max-w-[150px] px-2 py-0.5 text-sm",
+							"inline-block min-w-[60px] sm:min-w-[80px] max-w-[120px] sm:max-w-[150px] px-1 sm:px-2 py-0.5 text-xs sm:text-sm",
 							"border-b-2 border-muted-foreground/30 bg-transparent",
 							"focus:outline-none focus:border-custom-primary",
 							"placeholder:text-muted-foreground/50",

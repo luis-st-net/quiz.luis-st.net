@@ -96,7 +96,7 @@ export function QuestionCard({ className }: QuestionCardProps) {
 
 	return (
 		<div className={cn("flex flex-col h-full", className)}>
-			<Card className="flex flex-col flex-1 m-4 sm:m-6 lg:m-8">
+			<Card className="flex flex-col flex-1 m-3 sm:m-4 md:m-6 lg:m-8">
 				{/* Header */}
 				<CardHeader className="pb-4">
 					<div className="flex items-start justify-between gap-4">

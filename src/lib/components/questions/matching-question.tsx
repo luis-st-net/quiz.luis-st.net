@@ -5,6 +5,7 @@ import * as Icons from "lucide-react";
 import * as Ui from "@/lib/components/ui/";
 import { type MatchingQuestion, type MatchingQuestionInput } from "@/lib/types";
 import { useQuestionContext } from "@/lib/contexts/question-context";
+import { useIsMobile } from "@/lib/hooks/use-mobile";
 import { cn, shuffleArray } from "@/lib/utility";
 
 function useMatchingLogic(question: MatchingQuestion) {
@@ -263,26 +264,8 @@ function MatchingQuestionDesktop(
 export default function MatchingQuestion(
 	{ question }: { question: MatchingQuestion },
 ) {
-	const [isMobile, setIsMobile] = useState(false);
-	
-	useEffect(() => {
-		const checkIsMobile = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-		
-		checkIsMobile();
-		window.addEventListener("resize", checkIsMobile);
-		
-		return () => window.removeEventListener("resize", checkIsMobile);
-	}, []);
-	
-	useEffect(() => {
-		const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-		if (isTouchDevice && window.innerWidth < 1024) {
-			setIsMobile(true);
-		}
-	}, []);
-	
+	const isMobile = useIsMobile();
+
 	return isMobile ? (
 		<MatchingQuestionMobile question={question}/>
 	) : (

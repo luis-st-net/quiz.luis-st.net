@@ -66,7 +66,7 @@ export default function CodeBlock(
 				<Ui.Separator className="h-[2px] bg-custom-quaternary"/>
 			)}
 			<pre className={cn("m-0 rounded-md p-2 pt-4 pb-4 bg-custom-secondary dark:bg-custom-tertiary font-code overflow-auto", "language-" + language)}>
-				<code ref={codeRef} className={cn("text-xs text-wrap sm:text-base", "language-" + language)}>
+				<code ref={codeRef} className={cn("text-xs sm:text-sm lg:text-base", "language-" + language)}>
 					{children}
 				</code>
 			</pre>

@@ -224,7 +224,7 @@ export default function FileUploadQuestion(
 				onDragOver={handleDrag}
 				onDrop={handleDrop}
 				className={cn(
-					"relative border-2 border-dashed rounded-lg p-8 text-center transition-colors",
+					"relative border-2 border-dashed rounded-lg p-4 sm:p-6 lg:p-8 text-center transition-colors",
 					dragActive ? "border-primary bg-primary/5" : "border-muted-foreground/25",
 					files.length >= question.upload.maxFiles ? "opacity-50 pointer-events-none" : "cursor-pointer hover:border-primary"
 				)}
@@ -237,11 +237,11 @@ export default function FileUploadQuestion(
 					className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
 					disabled={files.length >= question.upload.maxFiles}
 				/>
-				<Icons.Upload className="mx-auto size-12 text-muted-foreground mb-4" />
-				<p className="text-sm font-medium">
+				<Icons.Upload className="mx-auto size-8 sm:size-10 lg:size-12 text-muted-foreground mb-2 sm:mb-4" />
+				<p className="text-xs sm:text-sm font-medium">
 					Dateien hier ablegen, einfügen oder klicken zum Auswählen
 				</p>
-				<p className="text-xs text-muted-foreground mt-2">
+				<p className="text-xs text-muted-foreground mt-1 sm:mt-2">
 					{question.upload.accept.map(type => {
 						if (type.startsWith(".")) return type;
 						if (type.startsWith("image/")) return "Bilder";

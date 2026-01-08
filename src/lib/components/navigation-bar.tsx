@@ -19,7 +19,7 @@ export default function NavigationBar() {
 
 	return (
 		<header className="h-14 flex-shrink-0 border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-			<div className="flex items-center justify-between h-full px-4 lg:px-6">
+			<div className="flex items-center justify-between h-full px-2 sm:px-4 lg:px-6">
 				{/* Logo / Brand */}
 				<Link
 					href="/"
