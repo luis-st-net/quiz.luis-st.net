@@ -7,16 +7,6 @@ import { useTimerContext } from "@/lib/contexts/timer-context";
 import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/lib/components/ui/card";
 import { Button } from "@/lib/components/ui/button";
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-} from "@/lib/components/ui/alert-dialog";
 import { ArrowLeft, Send, FileText, Clock, Loader2 } from "lucide-react";
 
 export default function SubmitPage() {
@@ -32,7 +22,6 @@ export default function SubmitPage() {
 	const { getElapsedTime } = useTimerContext();
 
 	const quiz = getQuizById(quizId);
-	const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -68,14 +57,9 @@ export default function SubmitPage() {
 		router.push(`/${quizId}/review`);
 	};
 
-	const handleSubmitClick = () => {
-		setShowConfirmDialog(true);
-	};
-
-	const handleConfirmSubmit = async () => {
+	const handleSubmit = async () => {
 		setIsSubmitting(true);
 		setPreventNavigation(true);
-		setShowConfirmDialog(false);
 
 		try {
 			await finishQuiz();
@@ -136,7 +120,7 @@ export default function SubmitPage() {
 
 				<CardFooter className="flex flex-col gap-3 pt-2">
 					<Button
-						onClick={handleSubmitClick}
+						onClick={handleSubmit}
 						className="w-full"
 						size="lg"
 						disabled={isSubmitting}
@@ -149,7 +133,7 @@ export default function SubmitPage() {
 						) : (
 							<>
 								<Send className="size-4 mr-2" />
-								Quiz einreichen
+								Jetzt einreichen
 							</>
 						)}
 					</Button>
@@ -164,25 +148,6 @@ export default function SubmitPage() {
 					</Button>
 				</CardFooter>
 			</Card>
-
-			{/* Confirmation Dialog */}
-			<AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>Quiz einreichen?</AlertDialogTitle>
-						<AlertDialogDescription>
-							Sind Sie sicher, dass Sie das Quiz einreichen möchten? Diese
-							Aktion kann nicht rückgängig gemacht werden.
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel>Abbrechen</AlertDialogCancel>
-						<AlertDialogAction onClick={handleConfirmSubmit}>
-							Einreichen
-						</AlertDialogAction>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
 		</div>
 	);
 }
