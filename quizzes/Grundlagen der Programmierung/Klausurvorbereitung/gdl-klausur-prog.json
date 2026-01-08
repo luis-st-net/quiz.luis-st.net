@@ -6,8 +6,8 @@
 	"questions": [
 		{
 			"id": "1",
-			"shortQuestion": "Array-Summenposition",
-			"question": "**Aufgabe 1: Array-Summenposition**\n\nGegeben:\n- `a`: ein Array von int-Werten\n- `b`: ein int-Wert\n\nSchreiben Sie eine Klassenmethode `f`, die prüft, ob es in dem Array `a` eine Position gibt, an der eine Zahl steht, die, wenn man sie mit der nachfolgenden Zahl im Array addiert, den Wert `b` ergibt.\n\n- Wenn es eine solche Stelle gibt, soll die Methode diese Position zurückgeben\n- Bei mehreren solchen Positionen soll die erste zurückgegeben werden\n- Wenn es keine solche Position gibt, soll -1 zurückgegeben werden\n\n**Signatur:** `public static int f(int[] a, int b)`\n\n**Beispiele:**\n| a | b | f(a,b) |\n|---|---|---|\n| {1, 5, 1, 8, 3} | 9 | 2 |\n| {3, 2, 5, 6, 1} | 7 | 1 |\n| {1, 5, 1, 8, 3} | 7 | -1 |",
+			"shortQuestion": "Array-Differenzposition",
+			"question": "Aufgabe 1: Array-Differenzposition\n\nGegeben:\n- a: ein Array von int-Werten\n- d: ein int-Wert\n\nSchreiben Sie eine Klassenmethode f, die prüft, ob es in dem Array a eine Position gibt, an der die Differenz zwischen der Zahl und ihrem Nachfolger den Wert d ergibt.\n\n- Wenn es eine solche Stelle gibt, soll die Methode diese Position zurückgeben\n- Bei mehreren solchen Positionen soll die erste zurückgegeben werden\n- Wenn es keine solche Position gibt, soll -1 zurückgegeben werden\n\nSignatur: public static int f(int[] a, int d)\n\nBeispiele:\na = {5, 2, 8, 3, 6}, d = 3  =>  f(a,d) = 0\na = {1, 4, 2, 5, 3}, d = -3  =>  f(a,d) = 1\na = {1, 2, 3, 4, 5}, d = 5  =>  f(a,d) = -1",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -17,8 +17,8 @@
 		},
 		{
 			"id": "2",
-			"shortQuestion": "Substring-Zählung",
-			"question": "**Aufgabe 2: Substring-Zählung**\n\nSchreiben Sie eine statische Methode, die zu einem String `x` und zu einem String `y` bestimmt, wie oft der String `y` in `x` als Teilstück enthalten ist.\n\n**Signatur:** `public static int countSubstring(String x, String y)`\n\n**Beispiele:**\n| x | y | Rückgabewert |\n|---|---|---|\n| \"Zement\" | \"me\" | 1 |\n| \"Besserwisser\" | \"sser\" | 2 |\n| \"Hund\" | \"Bär\" | 0 |\n\n**Hinweise:**\n- `s.length()` - Länge des Strings s\n- `s.charAt(i)` - das i-te Zeichen im String s, wobei 0 ≤ i < s.length()",
+			"shortQuestion": "Zeichen zählen",
+			"question": "Aufgabe 2: Zeichen zählen\n\nSchreiben Sie eine statische Methode, die zu einem String s und einem Zeichen c zählt, wie oft das Zeichen c in s vorkommt.\n\nSignatur: public static int countChar(String s, char c)\n\nBeispiele:\ns = \"Hallo\", c = 'l'  =>  Rückgabewert = 2\ns = \"Mississippi\", c = 's'  =>  Rückgabewert = 4\ns = \"Test\", c = 'x'  =>  Rückgabewert = 0\n\nHinweise:\n- s.length() - Länge des Strings s\n- s.charAt(i) - das i-te Zeichen im String s, wobei 0 <= i < s.length()",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -28,8 +28,8 @@
 		},
 		{
 			"id": "3",
-			"shortQuestion": "Nachbarfelder setzen",
-			"question": "**Aufgabe 3: Nachbarfelder setzen**\n\n**Teilaufgabe A)** Schreiben Sie eine Klassenmethode `f`, der als Parameter ein Array von booleschen Werten übergeben wird.\n\n**Signatur:** `public static void f(boolean[] x)`\n\nDie Methode soll den übergebenen Array verändern: Bei allen Feldern, bei denen in dem übergebenen Array der Wert `true` steht, sollen die Nachbarfelder auf `true` gesetzt werden.\n\n**Beispiel:**\n```\nVorher:  [false, false, false, false, true, true, false, false, false, true, false, true]\nNachher: [false, false, false, true, true, true, true, false, true, true, true, true]\n```\n\n**Teilaufgabe B)** Schreiben Sie eine Klassenmethode `g`, die zusätzlich einen Parameter `n` erhält.\n\n**Signatur:** `public static void g(boolean[] x, int n)`\n\nBei allen Feldern, die `true` sind, sollen alle Felder, die um nicht mehr als `n` Positionen entfernt sind, auf `true` gesetzt werden.",
+			"shortQuestion": "Negative verdoppeln",
+			"question": "Aufgabe 3: Negative Werte verdoppeln\n\nTeilaufgabe A) Schreiben Sie eine Klassenmethode f, die alle negativen Werte in einem Array verdoppelt.\n\nSignatur: public static void f(int[] x)\n\nBeispiel:\nVorher:  [3, -2, 5, -4, 1, -1, 0]\nNachher: [3, -4, 5, -8, 1, -2, 0]\n\nTeilaufgabe B) Schreiben Sie eine Klassenmethode g, die alle Werte verdoppelt, deren Index durch n teilbar ist (inkl. Index 0).\n\nSignatur: public static void g(int[] x, int n)\n\nBeispiel für n=2:\nVorher:  [1, 2, 3, 4, 5, 6, 7]\nNachher: [2, 2, 6, 4, 10, 6, 14]",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -39,8 +39,8 @@
 		},
 		{
 			"id": "4",
-			"shortQuestion": "Array verschieben",
-			"question": "**Aufgabe 4: Array verschieben**\n\nSchreiben Sie eine Klassenmethode `f`, die in einem Array von int-Werten alle Zahlen um `n` Positionen verschiebt.\n\n**Signatur:** `public static void f(int[] a, int n, int d)`\n\n**Parameter:**\n- `a`: Array von int-Werten\n- `n`: Anzahl Positionen zum Verschieben\n- `d`: Wert für die ersten n Positionen\n\nDie Zahl an Position 0 wird auf Position n verschoben, Position 1 auf n+1, etc. Die letzten n Zahlen gehen verloren. Die ersten n Positionen werden auf `d` gesetzt.\n\n**Beispiele:**\n| a | n | d | a nach Aufruf |\n|---|---|---|---|\n| [5,6,7,8,9,10,11,12] | 3 | 0 | [0,0,0,5,6,7,8,9] |\n| [6,2,1,0,1,2,6] | 5 | 8 | [8,8,8,8,8,6,2] |\n| [7,2,7,2,7,2] | 8 | 5 | [5,5,5,5,5,5] |",
+			"shortQuestion": "Array rotieren",
+			"question": "Aufgabe 4: Array rotieren\n\nSchreiben Sie eine Klassenmethode f, die die Elemente eines Arrays um k Positionen nach rechts rotiert.\n\nSignatur: public static void f(int[] a, int k)\n\nParameter:\n- a: Array von int-Werten\n- k: Anzahl Positionen zum Rotieren\n\nDie letzten k Elemente wandern an den Anfang, alle anderen rücken nach rechts.\n\nBeispiele:\na = [1,2,3,4,5], k = 2  =>  a nach Aufruf = [4,5,1,2,3]\na = [1,2,3,4,5,6], k = 3  =>  a nach Aufruf = [4,5,6,1,2,3]\na = [1,2,3], k = 5  =>  a nach Aufruf = [2,3,1]\n\nHinweis: Falls k größer als die Array-Länge ist, soll modulo gerechnet werden.",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -50,8 +50,8 @@
 		},
 		{
 			"id": "5",
-			"shortQuestion": "Vornamen prüfen",
-			"question": "**Aufgabe 5: Vornamen prüfen und korrigieren**\n\n**Teilaufgabe A)** Schreiben Sie eine Klassenmethode `istVorname`, die prüft, ob ein String in einer der beiden Vornamenlisten enthalten ist.\n\n**Signatur:** `public static boolean istVorname(String s, String[] frauennamen, String[] maennernamen)`\n\n**Teilaufgabe B)** Schreiben Sie eine Klassenmethode `korrigieren`, die vertauschte Vor- und Nachnamen korrigiert.\n\nKorrektur erfolgt, wenn:\n- Der Nachnameneintrag ein zulässiger Vorname ist UND\n- Der Vornameneintrag kein zulässiger Vorname ist\n\n**Signatur:** `public static void korrigieren(String[] vornamen, String[] nachnamen, String[] frauennamen, String[] maennernamen)`\n\n**Beispiel:**\n```java\nString[] vornamen = {\"Alex\", \"Bach\", \"Anne\"};\nString[] nachnamen = {\"Schmidt\", \"Andrea\", \"Meisner\"};\n// Nach Korrektur:\n// vornamen = {\"Alex\", \"Andrea\", \"Anne\"};\n// nachnamen = {\"Schmidt\", \"Bach\", \"Meisner\"};\n```",
+			"shortQuestion": "Palindrom prüfen",
+			"question": "Aufgabe 5: Palindrom prüfen\n\nTeilaufgabe A) Schreiben Sie eine Klassenmethode istPalindrom, die prüft, ob ein String ein Palindrom ist (vorwärts und rückwärts gleich gelesen).\n\nSignatur: public static boolean istPalindrom(String s)\n\nBeispiele:\n\"anna\" -> true\n\"otto\" -> true\n\"hallo\" -> false\n\nTeilaufgabe B) Schreiben Sie eine Klassenmethode zaehlePalindrome, die zählt, wie viele Strings in einem Array Palindrome sind.\n\nSignatur: public static int zaehlePalindrome(String[] woerter)",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -61,8 +61,8 @@
 		},
 		{
 			"id": "6",
-			"shortQuestion": "Erste Vertauschung",
-			"question": "**Aufgabe 6: Erste Zahlen vertauschen**\n\nSchreiben Sie eine statische Methode `f`, die in einem Array die erste Zahl kleiner 0 mit der ersten Zahl größer 10 vertauscht.\n\n**Signatur:** `public static void f(int[] x)`\n\n**Regeln:**\n- Vertauschung nur, wenn beide Zahlen existieren\n- Sonst bleibt der Array unverändert\n\n**Beispiele:**\n| x vorher | x nachher |\n|---|---|\n| [1,2,13,5,8,-1,-3,14] | [1,2,-1,5,8,13,-3,14] |\n| [1,5,3,5] | [1,5,3,5] |\n| [1,15,3,-5,-5] | [1,-5,3,15,-5] |\n| [12,5,3,5] | [12,5,3,5] |\n\n**Empfehlung:** Schreiben Sie Hilfsmethoden für das Finden der Positionen.",
+			"shortQuestion": "Extremwerte tauschen",
+			"question": "Aufgabe 6: Minimum und Maximum vertauschen\n\nSchreiben Sie eine statische Methode f, die in einem Array das kleinste Element mit dem größten Element vertauscht.\n\nSignatur: public static void f(int[] x)\n\nRegeln:\n- Bei mehreren Minima/Maxima: jeweils das erste verwenden\n- Sind Min und Max gleich: nichts tun\n\nBeispiele:\nx vorher = [3,1,4,1,5,9,2,6]  =>  x nachher = [3,9,4,1,5,1,2,6]\nx vorher = [5,5,5,5]  =>  x nachher = [5,5,5,5]\nx vorher = [1,9,2,8,3]  =>  x nachher = [9,1,2,8,3]\n\nEmpfehlung: Schreiben Sie Hilfsmethoden für das Finden der Positionen von Min und Max.",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -72,8 +72,8 @@
 		},
 		{
 			"id": "7",
-			"shortQuestion": "Zwischen Einsen nullen",
-			"question": "**Aufgabe 7: Werte zwischen Einsen nullen**\n\nSchreiben Sie eine statische Methode `f`, die alle Werte zwischen der ersten und zweiten Stelle mit Wert 1 auf 0 setzt.\n\n**Signatur:** `public static void f(int[] x)`\n\n**Sonderfälle:**\n- Nur eine 1 im Array: Alle folgenden Stellen auf 0 setzen\n- Keine 1: Nichts ändern\n\n**Beispiele:**\n| x vorher | x nachher |\n|---|---|\n| [2,1,3,4,1,7,7] | [2,1,0,0,1,7,7] |\n| [2,3,1,9,9,7,7,1,2,1,6,1] | [2,3,1,0,0,0,0,1,2,1,6,1] |\n| [1,1,2,2] | [1,1,2,2] |\n| [5,3,5,1,4,8] | [5,3,5,1,0,0] |",
+			"shortQuestion": "Gerade Zahlen nach vorne",
+			"question": "Aufgabe 7: Gerade Zahlen nach vorne\n\nSchreiben Sie eine statische Methode f, die alle geraden Zahlen an den Anfang des Arrays verschiebt (Reihenfolge innerhalb der Gruppen beibehalten).\n\nSignatur: public static void f(int[] x)\n\nBeispiele:\nx vorher = [1,2,3,4,5,6]  =>  x nachher = [2,4,6,1,3,5]\nx vorher = [7,8,1,2,9,4]  =>  x nachher = [8,2,4,7,1,9]\nx vorher = [1,3,5,7]  =>  x nachher = [1,3,5,7]\nx vorher = [2,4,6,8]  =>  x nachher = [2,4,6,8]\n\nHinweis: Die relative Reihenfolge innerhalb der geraden und ungeraden Gruppen soll erhalten bleiben.",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -83,8 +83,8 @@
 		},
 		{
 			"id": "8",
-			"shortQuestion": "Paarweise vertauschen",
-			"question": "**Aufgabe 8: Paarweise vertauschen**\n\nSchreiben Sie eine Klassenmethode `f`, die benachbarte Zahlen paarweise vertauscht.\n\n**Signatur:** `public static void f(int[] x)`\n\n**Regeln:**\n- x[0] mit x[1] vertauschen, x[2] mit x[3], etc.\n- Hat mindestens eine Zahl eines Paares den Wert 0: NICHT vertauschen\n- Bei ungerader Array-Länge: letzten Wert auf 0 setzen\n\n**Beispiele:**\n| x vorher | x nachher |\n|---|---|\n| {1,2,3,4} | {2,1,4,3} |\n| {8,7,4,4,4} | {7,8,4,4,0} |\n| {6,4,0,2,3,4,7,0} | {4,6,0,2,4,3,7,0} |",
+			"shortQuestion": "Nachbarn angleichen",
+			"question": "Aufgabe 8: Nachbarn angleichen\n\nSchreiben Sie eine Klassenmethode f, die jeden Wert durch den Durchschnitt von ihm selbst und seinen Nachbarn ersetzt.\n\nSignatur: public static void f(int[] x)\n\nRegeln:\n- Am Rand nur den einen Nachbarn berücksichtigen\n- Ganzzahlige Division verwenden\n- Original-Werte für die Berechnung nutzen (erst alle berechnen, dann ersetzen)\n\nBeispiele:\nx vorher = {10,20,30,40}  =>  x nachher = {15,20,30,35}\nx vorher = {4,8,4,8,4}  =>  x nachher = {6,5,6,5,6}\nx vorher = {100}  =>  x nachher = {100}",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -94,8 +94,8 @@
 		},
 		{
 			"id": "9",
-			"shortQuestion": "Gemeinsamer Buchstabe",
-			"question": "**Aufgabe 9: Gemeinsamer Buchstabe finden**\n\nImplementieren Sie drei aufeinander aufbauende Methoden:\n\n**Teilaufgabe A)** `enthaelt`\n```java\npublic static boolean enthaelt(String s, char c)\n```\nGibt `true` zurück, wenn `c` in `s` mindestens einmal vorkommt.\n\n**Teilaufgabe B)** `enthaltenAlle`\n```java\npublic static boolean enthaltenAlle(String[] x, char c)\n```\nGibt `true` zurück, wenn `c` in ALLEN Strings von `x` vorkommt.\n\n**Teilaufgabe C)** `gemeinsamerBuchstabe`\n```java\npublic static boolean gemeinsamerBuchstabe(String[] x)\n```\nGibt `true` zurück, wenn es einen Buchstaben gibt, der in allen Strings vorkommt.\n\n**Hinweise:** `s.length()`, `s.charAt(i)`",
+			"shortQuestion": "Wort im Text finden",
+			"question": "Aufgabe 9: Wort im Text finden\n\nImplementieren Sie drei aufeinander aufbauende Methoden:\n\nTeilaufgabe A) beginntMit\npublic static boolean beginntMit(String text, String prefix)\nGibt true zurück, wenn text mit prefix beginnt.\n\nTeilaufgabe B) zaehleVorkommen\npublic static int zaehleVorkommen(String text, String wort)\nZählt, wie oft wort in text vorkommt.\n\nTeilaufgabe C) enthaeltAlle\npublic static boolean enthaeltAlle(String text, String[] woerter)\nGibt true zurück, wenn alle Wörter im Text vorkommen.\n\nHinweise: s.length(), s.charAt(i)",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -105,8 +105,8 @@
 		},
 		{
 			"id": "10",
-			"shortQuestion": "Maxima summieren",
-			"question": "**Aufgabe 10: Summe der Maxima**\n\nSchreiben Sie eine Klassenmethode `f`, die für einen 2D-Array aus jedem eindimensionalen Array das Maximum bestimmt und deren Summe zurückgibt.\n\n**Signatur:** `public static int f(int[][] x)`\n\n**Regeln:**\n- Leere eindimensionale Arrays ignorieren\n\n**Beispiele:**\n| x | f(x) |\n|---|---|\n| {{2,3,5},{3,8,2},{},{2,7,4}} | 20 (5+8+7) |\n| {{2,1,2},{2,2}} | 4 (2+2) |\n| {{}} | 0 |",
+			"shortQuestion": "Zeilen-Minima",
+			"question": "Aufgabe 10: Summe der Zeilen-Minima\n\nSchreiben Sie eine Klassenmethode f, die für einen 2D-Array aus jeder Zeile das Minimum bestimmt und deren Summe zurückgibt.\n\nSignatur: public static int f(int[][] x)\n\nRegeln:\n- Leere Zeilen ignorieren\n\nBeispiele:\nx = {{5,2,8},{1,6,3},{},{9,4,7}}  =>  f(x) = 7 (2+1+4)\nx = {{3,3,3},{1,1}}  =>  f(x) = 4 (3+1)\nx = {{}}  =>  f(x) = 0",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,

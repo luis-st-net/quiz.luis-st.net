@@ -6,8 +6,8 @@
 	"questions": [
 		{
 			"id": "1",
-			"shortQuestion": "Listen verketten",
-			"question": "**Aufgabe 1: Listen verketten (concat)**\n\nGegeben die Klasse Listenelement:\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n}\n```\n\nSchreiben Sie eine **Klassenmethode** `concat`, die zwei Listen verbindet.\n\n**Signatur:** `public static void concat(Listenelement a, Listenelement b)`\n\nDer Aufruf soll bewirken, dass Liste `b` an Liste `a` angehängt wird. Nach dem Aufruf soll die Liste `a` mit ihren ursprünglichen Elementen beginnen, gefolgt von den Elementen aus `b`.\n\n**Beispiel:**\n- Liste a: 1 -> 2 -> 3\n- Liste b: 4 -> 5\n- Nach concat(a, b): a zeigt auf 1 -> 2 -> 3 -> 4 -> 5",
+			"shortQuestion": "Länge berechnen",
+			"question": "Aufgabe 1: Länge der Liste berechnen\n\nGegeben die Klasse Knoten:\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n}\n\nSchreiben Sie eine Objektmethode laenge, die die Anzahl der Elemente in der Liste zurückgibt.\n\nSignatur: public int laenge()\n\nBeispiele:\n- Liste: 5 -> 3 -> 7 -> 2\n- laenge() gibt 4 zurück\n\n- Liste: 42 (einzelnes Element)\n- laenge() gibt 1 zurück\n\nHinweis: Die Methode darf rekursiv oder iterativ implementiert werden.",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -17,8 +17,8 @@
 		},
 		{
 			"id": "2",
-			"shortQuestion": "Wert zählen",
-			"question": "**Aufgabe 2: Wert in Liste zählen (count)**\n\nFügen Sie der Klasse Listenelement eine **Objektmethode** `count` hinzu.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    // Ihre Methode hier\n}\n```\n\n**Signatur:** `public int count(int v)`\n\nDie Methode soll bestimmen, wie oft der Wert `v` in der Liste vorkommt und diese Anzahl zurückgeben.\n\n**Beispiel:**\n- Liste: 1 -> 2 -> 1 -> 3 -> 1\n- count(1) gibt 3 zurück\n- count(2) gibt 1 zurück\n- count(5) gibt 0 zurück",
+			"shortQuestion": "Summe berechnen",
+			"question": "Aufgabe 2: Summe aller Werte\n\nFügen Sie der Klasse Knoten eine Objektmethode summe hinzu.\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n    \n    // Ihre Methode hier\n}\n\nSignatur: public int summe()\n\nDie Methode soll die Summe aller Werte in der Liste berechnen und zurückgeben.\n\nBeispiel:\n- Liste: 10 -> 20 -> 30 -> 5\n- summe() gibt 65 zurück\n\nHinweis: Verwenden Sie Rekursion.",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -28,8 +28,8 @@
 		},
 		{
 			"id": "3",
-			"shortQuestion": "Element einfügen",
-			"question": "**Aufgabe 3: Element nach aktuellem einfügen**\n\nVervollständigen Sie die Methode `p`, die ein neues Element direkt nach dem aktuellen Element einfügt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void p(int r) {\n        // Neues Element mit Wert r nach diesem Element einfügen\n        // Der bisherige Nachfolger wird zum Nachfolger des neuen Elements\n    }\n}\n```\n\n**Beispiel:**\n- Liste vorher: 1 -> 3 -> 4\n- Aufruf: element1.p(2) (wobei element1 auf das Element mit Wert 1 zeigt)\n- Liste nachher: 1 -> 2 -> 3 -> 4",
+			"shortQuestion": "Am Ende einfügen",
+			"question": "Aufgabe 3: Element am Ende einfügen\n\nSchreiben Sie eine Objektmethode anhaengen, die ein neues Element mit dem gegebenen Wert am Ende der Liste einfügt.\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n    \n    // Ihre Methode hier\n}\n\nSignatur: public void anhaengen(int neuerWert)\n\nBeispiel:\n- Liste vorher: 1 -> 2 -> 3\n- Aufruf: kopf.anhaengen(4)\n- Liste nachher: 1 -> 2 -> 3 -> 4",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -39,8 +39,8 @@
 		},
 		{
 			"id": "4",
-			"shortQuestion": "Liste abschneiden",
-			"question": "**Aufgabe 4: Liste ab Position abschneiden**\n\nVervollständigen Sie die Methode `e`, die die Liste ab einer bestimmten Position abschneidet.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void e(int n) {\n        // Ab Position n die Liste abschneiden\n        // n=0: Nachfolger dieses Elements auf null setzen\n        // n>0: Zum Nachfolger gehen und e(n-1) aufrufen\n    }\n}\n```\n\n**Beispiel:**\n- Liste vorher: 1 -> 2 -> 3 -> 4 -> 5\n- Aufruf: element1.e(2)\n- Liste nachher: 1 -> 2 -> 3",
+			"shortQuestion": "Wert enthält",
+			"question": "Aufgabe 4: Wert in Liste suchen\n\nSchreiben Sie eine Objektmethode enthaelt, die prüft, ob ein bestimmter Wert in der Liste vorkommt.\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n    \n    // Ihre Methode hier\n}\n\nSignatur: public boolean enthaelt(int gesucht)\n\nBeispiele:\n- Liste: 3 -> 7 -> 2 -> 9\n- enthaelt(7) gibt true zurück\n- enthaelt(5) gibt false zurück",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -50,15 +50,17 @@
 		},
 		{
 			"id": "5",
-			"shortQuestion": "Listenausgabe tracen",
-			"question": "**Aufgabe 5: Listenoperationen tracen**\n\nWas gibt dieses Programm aus?\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    public void hinzufuegenRechts(int w) {\n        if (nachfolger == null)\n            nachfolger = new Listenelement(w);\n        else\n            nachfolger.hinzufuegenRechts(w);\n    }\n    \n    public void print() {\n        if (nachfolger == null)\n            System.out.println(wert);\n        else {\n            System.out.print(wert + \", \");\n            nachfolger.print();\n        }\n    }\n    \n    public void p(int r) {\n        Listenelement k = nachfolger;\n        nachfolger = new Listenelement(r);\n        nachfolger.nachfolger = k;\n    }\n    \n    public void e(int n) {\n        if (n == 0)\n            nachfolger = null;\n        else if (nachfolger != null)\n            nachfolger.e(n - 1);\n    }\n}\n\npublic class A {\n    public static void main(String[] args) {\n        Listenelement x1 = new Listenelement(1);\n        x1.hinzufuegenRechts(2);\n        x1.hinzufuegenRechts(3);\n        x1.hinzufuegenRechts(4);\n        x1.hinzufuegenRechts(3);\n        x1.print();\n        x1.e(2);\n        x1.print();\n        x1.p(7);\n        x1.print();\n        x1.p(8);\n        x1.print();\n    }\n}\n```\n\nGeben Sie alle 4 Ausgabezeilen an.",
+			"shortQuestion": "Listenoperationen tracen",
+			"question": "Aufgabe 5: Listenoperationen tracen\n\nWas gibt dieses Programm aus?",
+			"code": "public class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int w) {\n        wert = w;\n        next = null;\n    }\n    \n    public void hinten(int w) {\n        if (next == null)\n            next = new Knoten(w);\n        else\n            next.hinten(w);\n    }\n    \n    public void ausgabe() {\n        System.out.print(wert);\n        if (next != null) {\n            System.out.print(\" -> \");\n            next.ausgabe();\n        } else {\n            System.out.println();\n        }\n    }\n    \n    public void verdopple() {\n        Knoten neu = new Knoten(wert);\n        neu.next = next;\n        next = neu;\n        if (neu.next != null)\n            neu.next.verdopple();\n    }\n}\n\npublic class Test {\n    public static void main(String[] args) {\n        Knoten k = new Knoten(1);\n        k.hinten(2);\n        k.hinten(3);\n        k.ausgabe();\n        k.verdopple();\n        k.ausgabe();\n    }\n}",
+			"codeLanguage": "java",
 			"minLength": 10,
 			"maxLength": 200
 		},
 		{
 			"id": "6",
-			"shortQuestion": "Liste umkehren",
-			"question": "**Aufgabe 6: Liste umkehren**\n\nSchreiben Sie eine **Klassenmethode** `reverse`, die eine verkettete Liste umkehrt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n}\n```\n\n**Signatur:** `public static Listenelement reverse(Listenelement kopf)`\n\nDie Methode soll die Liste umkehren und den neuen Kopf (ehemals letztes Element) zurückgeben.\n\n**Beispiel:**\n- Liste vorher: 1 -> 2 -> 3 -> 4\n- Nach reverse(): 4 -> 3 -> 2 -> 1\n- Rückgabe: Referenz auf Element mit Wert 4",
+			"shortQuestion": "N-tes Element holen",
+			"question": "Aufgabe 6: N-tes Element zurückgeben\n\nSchreiben Sie eine Objektmethode getNtes, die den Wert des n-ten Elements zurückgibt (0-indiziert).\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n    \n    // Ihre Methode hier\n}\n\nSignatur: public int getNtes(int n)\n\nBeispiele:\n- Liste: 10 -> 20 -> 30 -> 40\n- getNtes(0) gibt 10 zurück\n- getNtes(2) gibt 30 zurück\n\nHinweis: Sie können davon ausgehen, dass n immer gültig ist (0 <= n < Listenlänge).",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -68,8 +70,8 @@
 		},
 		{
 			"id": "7",
-			"shortQuestion": "Minimum in Liste",
-			"question": "**Aufgabe 7: Minimum finden**\n\nFügen Sie eine **Objektmethode** `min` zur Klasse Listenelement hinzu, die das Minimum aller Werte in der Liste zurückgibt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n    \n    // Ihre Methode hier\n}\n```\n\n**Signatur:** `public int min()`\n\n**Beispiel:**\n- Liste: 5 -> 2 -> 8 -> 1 -> 4\n- min() gibt 1 zurück\n\n**Hinweis:** Die Methode darf rekursiv implementiert werden.",
+			"shortQuestion": "Maximum finden",
+			"question": "Aufgabe 7: Maximum finden\n\nFügen Sie eine Objektmethode max zur Klasse Knoten hinzu, die das Maximum aller Werte in der Liste zurückgibt.\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n    \n    // Ihre Methode hier\n}\n\nSignatur: public int max()\n\nBeispiel:\n- Liste: 3 -> 9 -> 1 -> 7 -> 2\n- max() gibt 9 zurück\n\nHinweis: Die Methode darf rekursiv implementiert werden. Nutzen Sie Math.max(a, b) um das Maximum zweier Zahlen zu bestimmen.",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
@@ -79,8 +81,28 @@
 		},
 		{
 			"id": "8",
-			"shortQuestion": "Element entfernen",
-			"question": "**Aufgabe 8: Erstes Vorkommen entfernen**\n\nSchreiben Sie eine **Klassenmethode** `removeFirst`, die das erste Element mit einem bestimmten Wert aus der Liste entfernt.\n\n```java\npublic class Listenelement {\n    public int wert;\n    public Listenelement nachfolger;\n    \n    public Listenelement(int wert) {\n        this.wert = wert;\n        nachfolger = null;\n    }\n}\n```\n\n**Signatur:** `public static Listenelement removeFirst(Listenelement kopf, int v)`\n\nDie Methode soll das erste Element mit Wert `v` entfernen und den (möglicherweise neuen) Kopf zurückgeben.\n\n**Beispiele:**\n- Liste: 1 -> 2 -> 3 -> 2 -> 4, removeFirst(kopf, 2) -> 1 -> 3 -> 2 -> 4\n- Liste: 5 -> 2 -> 3, removeFirst(kopf, 5) -> 2 -> 3\n- Liste: 1 -> 2 -> 3, removeFirst(kopf, 7) -> 1 -> 2 -> 3 (unverändert)",
+			"shortQuestion": "Alle Werte verdoppeln",
+			"question": "Aufgabe 8: Alle Werte verdoppeln\n\nSchreiben Sie eine Objektmethode verdoppleWerte, die alle Werte in der Liste verdoppelt.\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n    \n    // Ihre Methode hier\n}\n\nSignatur: public void verdoppleWerte()\n\nBeispiel:\n- Liste vorher: 5 -> 3 -> 8 -> 2\n- Nach verdoppleWerte(): 10 -> 6 -> 16 -> 4\n\nHinweis: Die Struktur der Liste bleibt gleich, nur die Werte ändern sich.",
+			"upload": {
+				"accept": ["text/x-java-source", "text/plain", ".java"],
+				"maxSizeMB": 1,
+				"maxFiles": 1,
+				"required": true
+			}
+		},
+		{
+			"id": "9",
+			"shortQuestion": "Rekursive Ausgabe tracen",
+			"question": "Aufgabe 9: Rekursive Listenausgabe tracen\n\nWas gibt dieses Programm aus?",
+			"code": "public class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int w) {\n        wert = w;\n        next = null;\n    }\n    \n    public void rueckwaerts() {\n        if (next != null)\n            next.rueckwaerts();\n        System.out.print(wert + \" \");\n    }\n    \n    public void vorwaerts() {\n        System.out.print(wert + \" \");\n        if (next != null)\n            next.vorwaerts();\n    }\n}\n\npublic class Test {\n    public static void main(String[] args) {\n        Knoten a = new Knoten(1);\n        Knoten b = new Knoten(2);\n        Knoten c = new Knoten(3);\n        Knoten d = new Knoten(4);\n        a.next = b;\n        b.next = c;\n        c.next = d;\n        a.vorwaerts();\n        System.out.println();\n        a.rueckwaerts();\n        System.out.println();\n    }\n}",
+			"codeLanguage": "java",
+			"minLength": 5,
+			"maxLength": 100
+		},
+		{
+			"id": "10",
+			"shortQuestion": "Letztes Element löschen",
+			"question": "Aufgabe 10: Letztes Element entfernen\n\nSchreiben Sie eine Objektmethode entferneLetztes, die das letzte Element der Liste entfernt.\n\npublic class Knoten {\n    public int wert;\n    public Knoten next;\n    \n    public Knoten(int wert) {\n        this.wert = wert;\n        next = null;\n    }\n    \n    // Ihre Methode hier\n}\n\nSignatur: public void entferneLetztes()\n\nBeispiel:\n- Liste vorher: 1 -> 2 -> 3 -> 4\n- Nach entferneLetztes(): 1 -> 2 -> 3\n\nHinweis: Diese Methode wird nur aufgerufen, wenn die Liste mindestens 2 Elemente hat. Falls next.next == null, ist next das letzte Element und soll entfernt werden.",
 			"upload": {
 				"accept": ["text/x-java-source", "text/plain", ".java"],
 				"maxSizeMB": 1,
