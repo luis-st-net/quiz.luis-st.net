@@ -6,7 +6,7 @@ import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { useUserContext } from "@/lib/contexts/user-context";
 import { QuizSidebar, QuizInfoCard, UserInfoDialog } from "@/lib/components/quiz";
 import { Button } from "@/lib/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/lib/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/lib/components/ui/sheet";
 import { ResizeHandle } from "@/lib/components/ui/resize-handle";
 import { Menu } from "lucide-react";
 import { useResizableSidebar } from "@/lib/hooks/use-resizable-sidebar";
@@ -92,6 +92,7 @@ export default function HomePage() {
 							</Button>
 						</SheetTrigger>
 						<SheetContent side="left" className="p-0 w-80">
+							<SheetTitle className="sr-only">Quiz-Menü</SheetTitle>
 							<QuizSidebar
 								hierarchy={hierarchy}
 								selectedQuizId={selectedQuizId}

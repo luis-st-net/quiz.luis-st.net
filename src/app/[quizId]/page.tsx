@@ -12,7 +12,7 @@ import {
 	KeyboardShortcutsDialog,
 } from "@/lib/components/quiz";
 import { Button } from "@/lib/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/lib/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/lib/components/ui/sheet";
 import { ResizeHandle } from "@/lib/components/ui/resize-handle";
 import { LayoutGrid, Keyboard } from "lucide-react";
 import { useKeyboardShortcuts } from "@/lib/hooks/use-keyboard-shortcuts";
@@ -131,6 +131,7 @@ export default function QuizPage() {
 						</Button>
 					</SheetTrigger>
 					<SheetContent side="bottom" className="h-[70vh] p-0">
+						<SheetTitle className="sr-only">Fragenübersicht</SheetTitle>
 						<QuestionNavigator
 							onReviewClick={() => {
 								setNavigatorOpen(false);
