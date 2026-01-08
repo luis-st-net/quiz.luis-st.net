@@ -10,6 +10,7 @@ import { Button } from "@/lib/components/ui/button";
 import { Badge } from "@/lib/components/ui/badge";
 import { ScrollArea } from "@/lib/components/ui/scroll-area";
 import {
+	FillBlankQuestionInput,
 	MatchingQuestionInput,
 	MultipleChoiceQuestionInput,
 	NumericQuestionInput,
@@ -20,6 +21,7 @@ import {
 	TextQuestionInput,
 	TrueFalseQuestionInput,
 } from "@/lib/types";
+import { isFillBlankAnswerCorrect, resolveFillBlankText } from "@/lib/question-helper";
 import { Check, X, Minus, Home, RotateCcw, Trophy, Download } from "lucide-react";
 import { cn } from "@/lib/utility";
 import { useConfetti } from "@/lib/hooks/use-confetti";
@@ -261,6 +263,13 @@ function checkAnswer(input: QuestionInput): boolean | null {
 				([item, m]) => match.correctMatches[item] === m
 			);
 		}
+		case "fill-blank": {
+			const fb = input as FillBlankQuestionInput;
+			return fb.blanks.every(blank => {
+				const userAnswer = fb.inputAnswers[blank.id] || "";
+				return isFillBlankAnswerCorrect(userAnswer, blank);
+			});
+		}
 		case "text":
 			// Text questions are not auto-gradable
 			return null;
@@ -271,6 +280,17 @@ function checkAnswer(input: QuestionInput): boolean | null {
 
 function QuestionResult({ input, index }: { input: QuestionInput; index: number }) {
 	const isCorrect = checkAnswer(input);
+
+	// Resolve fill-blank patterns in question text
+	const getQuestionText = () => {
+		if (input.type === "fill-blank") {
+			const fb = input as FillBlankQuestionInput;
+			return resolveFillBlankText(fb.question, fb.inputAnswers, fb.blanks, {
+				formatAnswer: (answer, blank, correct) => `[${answer}]`,
+			});
+		}
+		return input.question;
+	};
 
 	return (
 		<div className="border rounded-lg p-4">
@@ -311,7 +331,7 @@ function QuestionResult({ input, index }: { input: QuestionInput; index: number 
 							{isCorrect === null && "Manuell"}
 						</Badge>
 					</div>
-					<p className="text-sm text-muted-foreground mb-3">{input.question}</p>
+					<p className="text-sm text-muted-foreground mb-3">{getQuestionText()}</p>
 					<DynamicQuestionResult input={input} />
 				</div>
 			</div>
@@ -335,6 +355,8 @@ function DynamicQuestionResult({ input }: { input: QuestionInput }) {
 			return <OrderingQuestionResult {...(input as OrderingQuestionInput)} />;
 		case "matching":
 			return <MatchingQuestionResult {...(input as MatchingQuestionInput)} />;
+		case "fill-blank":
+			return <FillBlankQuestionResult {...(input as FillBlankQuestionInput)} />;
 		default:
 			return <p className="text-muted-foreground">Unbekannter Fragentyp</p>;
 	}
@@ -511,6 +533,32 @@ function MatchingQuestionResult({ inputMatches, correctMatches }: MatchingQuesti
 	);
 }
 
+function FillBlankQuestionResult({ inputAnswers, blanks }: FillBlankQuestionInput) {
+	return (
+		<div className="text-sm space-y-2">
+			<div>
+				<p className="text-muted-foreground mb-1">Ihre Antworten:</p>
+				<ul className="space-y-0.5">
+					{blanks.map(blank => {
+						const userAnswer = inputAnswers[blank.id] || "(Keine Antwort)";
+						const isCorrect = isFillBlankAnswerCorrect(userAnswer, blank);
+						return (
+							<li key={blank.id} className={isCorrect ? "text-green-600" : "text-red-600"}>
+								Lücke {blank.id}: {userAnswer}
+								{!isCorrect && (
+									<span className="text-green-600 ml-2">
+										(Richtig: {blank.correctAnswers.join(" oder ")})
+									</span>
+								)}
+							</li>
+						);
+					})}
+				</ul>
+			</div>
+		</div>
+	);
+}
+
 function generateResultsText(
 	quizName: string,
 	answers: Record<string, QuestionInput>,
@@ -556,7 +604,15 @@ function generateResultsText(
 		const status = isCorrect === true ? "[RICHTIG]" : isCorrect === false ? "[FALSCH]" : "[MANUELL]";
 
 		lines.push(`Frage ${index + 1} ${status}`);
-		lines.push(`Frage: ${input.question}`);
+		// Resolve fill-blank patterns in question text
+		let questionText = input.question;
+		if (input.type === "fill-blank") {
+			const fb = input as FillBlankQuestionInput;
+			questionText = resolveFillBlankText(fb.question, fb.inputAnswers, fb.blanks, {
+				formatAnswer: (answer, blank, correct) => `[${answer}${correct ? " ✓" : " ✗"}]`
+			});
+		}
+		lines.push(`Frage: ${questionText}`);
 		lines.push("");
 
 		switch (input.type) {
@@ -629,6 +685,20 @@ function generateResultsText(
 				lines.push("Richtige Zuordnungen:");
 				Object.entries(match.correctMatches).forEach(([item, m]) => {
 					lines.push(`  • ${item} → ${m}`);
+				});
+				break;
+			}
+			case "fill-blank": {
+				const fb = input as FillBlankQuestionInput;
+				lines.push("Ihre Antworten:");
+				fb.blanks.forEach(blank => {
+					const userAnswer = fb.inputAnswers[blank.id] || "(Keine Antwort)";
+					const correct = isFillBlankAnswerCorrect(userAnswer, blank);
+					const marker = correct ? "✓" : "✗";
+					lines.push(`  ${marker} Lücke ${blank.id}: ${userAnswer}`);
+					if (!correct) {
+						lines.push(`    Richtig: ${blank.correctAnswers.join(" oder ")}`);
+					}
 				});
 				break;
 			}

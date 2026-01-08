@@ -3,6 +3,7 @@
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 import { CategorizationQuestionInput, FillBlankQuestionInput, FileUploadQuestionInput, MatchingQuestionInput, MultipleChoiceQuestionInput, NumericQuestionInput, OrderingQuestionInput, QuestionInput, SingleChoiceQuestionInput, SyntaxErrorQuestionInput, TextQuestionInput, TrueFalseQuestionInput } from "@/lib/types";
+import { isFillBlankAnswerCorrect, resolveFillBlankText } from "@/lib/question-helper";
 
 const transporter = nodemailer.createTransport({
 	host: process.env.SMTP_HOST,
@@ -217,7 +218,15 @@ function getText(name: string, quiz: string, answers: Record<string, QuestionInp
 		const status = isCorrect === true ? "[RICHTIG]" : isCorrect === false ? "[FALSCH]" : "[MANUELL]";
 
 		lines.push(`Frage ${index + 1} ${status}`);
-		lines.push(`Frage: ${input.question}`);
+		// Resolve fill-blank patterns in question text
+		let questionText = input.question;
+		if (input.type === "fill-blank") {
+			const fb = input as FillBlankQuestionInput;
+			questionText = resolveFillBlankText(fb.question, fb.inputAnswers, fb.blanks, {
+				formatAnswer: (answer, blank, correct) => `[${answer}${correct ? " ✓" : " ✗"}]`
+			});
+		}
+		lines.push(`Frage: ${questionText}`);
 		lines.push("");
 
 		switch (input.type) {
@@ -436,7 +445,7 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			<!-- Info Row -->
 			<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 16px; font-size: 14px; color: #6b7280;">
 				<tr>
-					<td>📅 ${new Date().toLocaleDateString("de-DE")}</td>
+					<td>${new Date().toLocaleDateString("de-DE")}</td>
 					<td style="text-align: right;">⏱️ ${formatTime(elapsedTime)}</td>
 				</tr>
 			</table>
@@ -482,6 +491,19 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 			statusBg = "#fef3c7"; statusText = "#d97706"; statusBorder = "#fcd34d"; statusIcon = "−"; statusLabel = "Manuell";
 		}
 
+		// Resolve fill-blank patterns in question text for HTML display
+		let questionTextHtml = escapeHtml(input.question);
+		if (input.type === "fill-blank") {
+			const fb = input as FillBlankQuestionInput;
+			questionTextHtml = resolveFillBlankText(fb.question, fb.inputAnswers, fb.blanks, {
+				formatAnswer: (answer, blank, correct) => {
+					const color = correct ? "#16a34a" : "#dc2626";
+					const escapedAnswer = escapeHtml(answer);
+					return `<strong style="color: ${color}; text-decoration: underline;">${escapedAnswer}</strong>`;
+				}
+			});
+		}
+
 		html += `
 			<div style="${styles.questionCard}">
 				<div style="${styles.questionHeader}">
@@ -491,7 +513,7 @@ function getHtml(name: string, quiz: string, answers: Record<string, QuestionInp
 						<span style="${styles.badge} background-color: ${statusBg}; color: ${statusText}; border-color: ${statusBorder};">${statusLabel}</span>
 					</div>
 				</div>
-				<p style="${styles.questionText}">${escapeHtml(input.question)}</p>
+				<p style="${styles.questionText}">${questionTextHtml}</p>
 				<div style="${styles.answerSection}">`;
 
 		// Generate answer content based on type
