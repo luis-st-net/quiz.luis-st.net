@@ -66,7 +66,7 @@ export default function FillBlankQuestion(
 						onChange={(e) => updateAnswer(blankId, e.target.value)}
 						placeholder={`Lücke ${blankId}`}
 						className={cn(
-							"inline-block min-w-[80px] max-w-[150px] px-2 py-0.5 text-sm",
+							"inline-block min-w-20 max-w-37.5 px-2 py-0.5 text-sm",
 							"border-b-2 border-muted-foreground/30 bg-transparent",
 							"focus:outline-none focus:border-custom-primary",
 							"placeholder:text-muted-foreground/50",
@@ -81,7 +81,7 @@ export default function FillBlankQuestion(
 
 	return (
 		<div className="space-y-4">
-			<div className="text-lg sm:text-xl font-medium leading-relaxed">
+			<div className="text-lg sm:text-xl font-medium leading-relaxed whitespace-pre-line">
 				{renderQuestionWithBlanks()}
 			</div>
 			<p className="text-sm text-muted-foreground">

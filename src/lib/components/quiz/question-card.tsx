@@ -127,7 +127,7 @@ export function QuestionCard({ className }: QuestionCardProps) {
 					<div className="space-y-6">
 						{/* Question Text - hidden for fill-blank since it renders with inputs */}
 						{!isFillBlankQuestion(currentQuestion) && (
-							<div className="text-lg sm:text-xl font-medium leading-relaxed">
+							<div className="text-lg sm:text-xl font-medium leading-relaxed whitespace-pre-line">
 								{currentQuestion.question}
 							</div>
 						)}
