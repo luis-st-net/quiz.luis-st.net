@@ -81,7 +81,7 @@ export default function FillBlankQuestion(
 
 	return (
 		<div className="space-y-4">
-			<div className="text-lg sm:text-xl font-medium leading-relaxed">
+			<div className="text-lg sm:text-xl font-medium leading-relaxed whitespace-pre-line">
 				{renderQuestionWithBlanks()}
 			</div>
 			<p className="text-sm text-muted-foreground">
