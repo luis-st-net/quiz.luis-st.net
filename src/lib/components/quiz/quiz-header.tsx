@@ -4,16 +4,17 @@ import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utility";
 import { Button } from "@/lib/components/ui/button";
 import { ThemeToggle } from "@/lib/components/ui/theme";
-import { X, Clock } from "lucide-react";
+import { X, Clock, LayoutGrid } from "lucide-react";
 import { useTimerContext } from "@/lib/contexts/timer-context";
 
 interface QuizHeaderProps {
 	quizName: string;
 	onCancelClick: () => void;
+	onOverviewClick?: () => void;
 	className?: string;
 }
 
-export function QuizHeader({ quizName, onCancelClick, className }: QuizHeaderProps) {
+export function QuizHeader({ quizName, onCancelClick, onOverviewClick, className }: QuizHeaderProps) {
 	const { getElapsedTime, isTimerPaused } = useTimerContext();
 	const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -38,14 +39,25 @@ export function QuizHeader({ quizName, onCancelClick, className }: QuizHeaderPro
 	};
 
 	return (
-		<header className={cn("flex items-center justify-between px-4 py-3 border-b bg-card", className)}>
-			<div className="flex items-center gap-4 min-w-0">
+		<header className={cn("flex items-center justify-between px-4 py-3 border-b bg-card relative z-10", className)}>
+			<div className="flex items-center gap-2 sm:gap-4 min-w-0">
 				<h1 className="text-lg font-semibold truncate">{quizName}</h1>
+				{onOverviewClick && (
+					<Button
+						variant="ghost"
+						size="sm"
+						onClick={onOverviewClick}
+						className="lg:hidden shrink-0"
+					>
+						<LayoutGrid className="size-4 tiny:mr-1" />
+						<span className="hidden tiny:inline">Übersicht</span>
+					</Button>
+				)}
 			</div>
 
 			<div className="flex items-center gap-2 sm:gap-4">
 				{/* Timer */}
-				<div className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
+				<div className="hidden tiny:flex items-center gap-2 text-sm text-muted-foreground">
 					<Clock className="size-4" />
 					<span className="font-mono">{formatTime(elapsedTime)}</span>
 				</div>

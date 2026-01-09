@@ -96,14 +96,16 @@ export function QuestionCard({ className }: QuestionCardProps) {
 
 	return (
 		<div className={cn("flex flex-col h-full", className)}>
-			<Card className="flex flex-col flex-1 m-4 sm:m-6 lg:m-8">
+			<Card className="flex flex-col flex-1 mx-4 my-6 sm:m-6 lg:m-8">
 				{/* Header */}
 				<CardHeader className="pb-4">
 					<div className="flex items-start justify-between gap-4">
 						<div className="space-y-2">
-							<div className="flex items-center gap-2">
-								<Badge variant="secondary" className="text-xs">
-									Frage {currentQuestionIndex + 1} von {totalQuestions}
+							<div className="flex items-center gap-2 flex-wrap">
+								<Badge variant="secondary" className="text-xs whitespace-nowrap">
+									<span className="xxs:inline">Frage{" "}</span>
+									{currentQuestionIndex + 1}
+									<span className="xxs:inline">{" "}von{" "}{totalQuestions}</span>
 								</Badge>
 								<QuestionTypeBadge type={questionType} />
 							</div>
@@ -116,8 +118,8 @@ export function QuestionCard({ className }: QuestionCardProps) {
 								isFlagged && "bg-amber-500 hover:bg-amber-600 text-white"
 							)}
 						>
-							<Flag className="size-4 mr-1" />
-							{isFlagged ? "Markiert" : "Markieren"}
+							<Flag className="size-4 xxs:mr-1" />
+							<span className="hidden xxs:inline">{isFlagged ? "Markiert" : "Markieren"}</span>
 						</Button>
 					</div>
 				</CardHeader>
@@ -154,8 +156,8 @@ export function QuestionCard({ className }: QuestionCardProps) {
 							onClick={previousQuestion}
 							disabled={isFirst}
 						>
-							<ChevronLeft className="size-4 mr-1" />
-							Zurück
+							<ChevronLeft className="size-4 xxs:mr-1" />
+							<span className="hidden xxs:inline">Zurück</span>
 						</Button>
 						<div className="flex gap-2">
 							{/* Show "Finish Quiz" button when all answered and not on last question */}
@@ -165,13 +167,22 @@ export function QuestionCard({ className }: QuestionCardProps) {
 									onClick={handleFinishQuiz}
 									className="bg-green-600 hover:bg-green-700 text-white"
 								>
-									<CheckCircle2 className="size-4 mr-1" />
-									Quiz beenden
+									<CheckCircle2 className="size-4 xxs:mr-1" />
+									<span className="hidden xxs:inline">Quiz beenden</span>
 								</Button>
 							)}
 							<Button onClick={isLast ? handleFinishQuiz : nextQuestion}>
-								{isLast ? "Überprüfen" : "Weiter"}
-								{!isLast && <ChevronRight className="size-4 ml-1" />}
+								{isLast ? (
+									<>
+										<CheckCircle2 className="size-4 xxs:mr-1" />
+										<span className="hidden xxs:inline">Überprüfen</span>
+									</>
+								) : (
+									<>
+										<span className="hidden xxs:inline">Weiter</span>
+										<ChevronRight className="size-4 xxs:ml-1" />
+									</>
+								)}
 							</Button>
 						</div>
 					</div>
@@ -234,9 +245,9 @@ function QuestionTypeBadge({ type }: QuestionTypeBadgeProps) {
 	const { label, icon: Icon } = config[type];
 
 	return (
-		<Badge variant="outline" className="text-xs">
-			<Icon className="size-3 mr-1" />
-			{label}
+		<Badge variant="outline" className="text-xs whitespace-nowrap">
+			<Icon className="size-3 xxs:mr-1" />
+			<span className="xxs:inline">{label}</span>
 		</Badge>
 	);
 }

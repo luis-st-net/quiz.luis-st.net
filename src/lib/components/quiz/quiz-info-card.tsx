@@ -28,8 +28,8 @@ export function QuizInfoCard({ quiz, onStartQuiz, className }: QuizInfoCardProps
 	const estimatedTimeFormatted = formatEstimatedTime(quiz.estimatedTimeSeconds);
 
 	return (
-		<div className={cn("flex items-center justify-center p-4 sm:p-8", className)}>
-			<Card className="w-full max-w-2xl">
+		<div className={cn("flex justify-center items-start p-4 py-4 sm:items-center sm:p-8", className)}>
+			<Card className="w-full max-w-2xl my-2 sm:m-6 lg:m-8">
 				<CardHeader className="space-y-4">
 					<div className="flex items-start justify-between gap-4">
 						<div className="space-y-2">

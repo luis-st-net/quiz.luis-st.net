@@ -12,9 +12,9 @@ import {
 	KeyboardShortcutsDialog,
 } from "@/lib/components/quiz";
 import { Button } from "@/lib/components/ui/button";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/lib/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/lib/components/ui/sheet";
 import { ResizeHandle } from "@/lib/components/ui/resize-handle";
-import { LayoutGrid, Keyboard } from "lucide-react";
+import { Keyboard } from "lucide-react";
 import { useKeyboardShortcuts } from "@/lib/hooks/use-keyboard-shortcuts";
 import { useResizableSidebar } from "@/lib/hooks/use-resizable-sidebar";
 
@@ -79,6 +79,7 @@ export default function QuizPage() {
 			<QuizHeader
 				quizName={quiz.name}
 				onCancelClick={() => setShowCancelDialog(true)}
+				onOverviewClick={() => setNavigatorOpen(true)}
 			/>
 
 			<div className="flex flex-1 min-h-0">
@@ -106,45 +107,28 @@ export default function QuizPage() {
 
 				{/* Invisible spacer for symmetric centering - matches sidebar width */}
 				<div
-					className="hidden lg:block shrink-0"
+					className="hidden lg:block shrink-0 transition-[width] duration-300"
 					style={{ width: sidebarWidth }}
 					aria-hidden="true"
 				/>
 			</div>
 
-			{/* Mobile Navigator FAB */}
-			<div className="lg:hidden fixed bottom-4 right-4 flex flex-col gap-2">
-				<Button
-					size="icon"
-					variant="outline"
-					className="rounded-full shadow-lg"
-					onClick={() => setShowShortcuts(true)}
-				>
-					<Keyboard className="size-5" />
-					<span className="sr-only">Tastaturkürzel</span>
-				</Button>
-				<Sheet open={navigatorOpen} onOpenChange={setNavigatorOpen}>
-					<SheetTrigger asChild>
-						<Button size="lg" className="rounded-full shadow-lg">
-							<LayoutGrid className="size-5 mr-2" />
-							Übersicht
-						</Button>
-					</SheetTrigger>
-					<SheetContent side="bottom" className="h-[70vh] p-0">
-						<SheetTitle className="sr-only">Fragenübersicht</SheetTitle>
-						<QuestionNavigator
-							onReviewClick={() => {
-								setNavigatorOpen(false);
-								handleReviewClick();
-							}}
-							className="h-full"
-						/>
-					</SheetContent>
-				</Sheet>
-			</div>
+			{/* Mobile Navigator Sheet (triggered from header) */}
+			<Sheet open={navigatorOpen} onOpenChange={setNavigatorOpen}>
+				<SheetContent side="bottom" className="h-[100dvh] sm:h-[70vh] p-0">
+					<SheetTitle className="sr-only">Fragenübersicht</SheetTitle>
+					<QuestionNavigator
+						onReviewClick={() => {
+							setNavigatorOpen(false);
+							handleReviewClick();
+						}}
+						className="h-full"
+					/>
+				</SheetContent>
+			</Sheet>
 
-			{/* Desktop Keyboard Shortcut Hint */}
-			<div className="hidden lg:block fixed bottom-4 right-4">
+			{/* Keyboard Shortcut Hint - hidden on mobile, visible on md+ */}
+			<div className="hidden md:block fixed bottom-4 right-4">
 				<Button
 					variant="outline"
 					size="sm"

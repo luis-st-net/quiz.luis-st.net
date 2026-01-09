@@ -2,13 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Important Documents
-
-- **[QUIZ_REDESIGN_SUGGESTIONS.md](./QUIZ_REDESIGN_SUGGESTIONS.md)** - Complete redesign specifications with detailed requirements, layout mockups, and feature descriptions
-- **[IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md)** - Phase-by-phase implementation plan with tasks, acceptance criteria, and timeline
-
-> **Note:** The application is being redesigned. Please refer to the documents above for the new architecture and features being implemented.
-
 ## Project Overview
 
 This is a Next.js 15 quiz application built for HFU students. The application loads quiz questions from JSON files, displays them in an interactive UI with multiple question types, and emails completed quiz results via SMTP.
@@ -16,198 +9,123 @@ This is a Next.js 15 quiz application built for HFU students. The application lo
 ## Development Commands
 
 ```bash
-# Start development server (opens at http://localhost:3000)
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Open utility script (opens links from util/open-links.js)
-npm run open
-```
-
-## Project Structure
-
-```
-src/
-├── app/                          # Next.js App Router pages
-│   ├── layout.tsx                # Root layout with providers
-│   ├── page.tsx                  # Home page (quiz selection)
-│   ├── user/page.tsx             # User information form
-│   ├── actions.ts                # Server actions (email sending)
-│   └── [quizId]/                 # Dynamic quiz routes
-│       ├── layout.tsx            # Quiz layout with QuestionProvider
-│       ├── page.tsx              # Quiz overview
-│       ├── [questionId]/page.tsx # Individual question view
-│       ├── submit/page.tsx       # Quiz submission confirmation
-│       └── result/page.tsx       # Quiz completion result
-└── lib/
-    ├── types.ts                  # TypeScript type definitions
-    ├── load-quizzes.ts           # Server-side quiz loading
-    ├── question-helper.ts        # Question type guards and utilities
-    ├── utility.ts                # Utility functions (cn, etc.)
-    ├── contexts/                 # React Context providers
-    │   ├── quiz-context.tsx      # Global quiz state
-    │   ├── question-context.tsx  # Question navigation and answers
-    │   └── user-context.tsx      # User info (name/email)
-    ├── components/
-    │   ├── ui/                   # shadcn/ui components
-    │   ├── questions/            # Question type components
-    │   │   ├── question.tsx      # Main question wrapper
-    │   │   ├── true-false-question.tsx
-    │   │   ├── numeric-question.tsx
-    │   │   ├── text-question.tsx
-    │   │   ├── single-choice-question.tsx
-    │   │   ├── multiple-choice-question.tsx
-    │   │   ├── ordering-question.tsx
-    │   │   └── matching-question.tsx
-    │   ├── navigation-bar.tsx
-    │   ├── footer.tsx
-    │   └── code-block.tsx
-    └── hooks/
-        ├── use-toast.ts
-        └── use-mobile.tsx
-
-quizzes/                          # Quiz JSON files
-types/                            # Additional type definitions
-util/                             # Utility scripts
+npm run dev      # Start development server (http://localhost:3000)
+npm run build    # Build for production
+npm start        # Start production server
+npm run open     # Open utility links (util/open-links.js)
 ```
 
 ## Architecture
 
 ### Context Hierarchy
 
-The application uses three main React contexts:
+The application uses three React contexts, nested in this order:
 
 1. **QuizProvider** (`src/lib/contexts/quiz-context.tsx`)
-   - Manages global quiz data loaded from `quizzes/` directory
-   - Provides `getQuizById()` to retrieve quiz metadata
-   - Handles quiz completion via `finishQuiz()` which triggers email sending
+   - Global quiz data loaded from `quizzes/` directory
+   - Provides `getQuizById()` and `finishQuiz()` (triggers email)
 
 2. **UserProvider** (`src/lib/contexts/user-context.tsx`)
-   - Manages user information (name and email) in localStorage
-   - Used for personalizing quiz submissions
+   - User info (name/email) persisted in localStorage
 
 3. **QuestionProvider** (`src/lib/contexts/question-context.tsx`)
    - Scoped to individual quiz sessions
-   - Manages answer state in sessionStorage (survives page refreshes)
-   - Provides navigation between questions
-   - Tracks completion progress
+   - Answer state in sessionStorage (survives refreshes)
+   - Navigation, flagging, and review mode
 
 ### Quiz Data Flow
 
-1. **Loading**: `loadQuizzes()` in `src/lib/load-quizzes.ts` reads all `.json` files from the `quizzes/` directory at build time
-2. **Rendering**: Home page (`src/app/page.tsx`) displays quizzes grouped hierarchically by `config.group` path
-3. **Navigation**: Users navigate through questions using the QuestionProvider's routing logic
-4. **Submission**: Answers are collected and sent via the `sendMail()` server action in `src/app/actions.ts`
+1. `loadQuizzes()` in `src/lib/load-quizzes.ts` reads `.json` files from `quizzes/` at build time
+2. Home page groups quizzes hierarchically by `config.group` path
+3. Users navigate through questions using QuestionProvider routing
+4. Answers sent via `sendMail()` server action in `src/app/actions.ts`
 
 ### Question Types
 
-The application supports 7 question types (see `src/lib/types.ts`):
-- True/False
-- Numeric (with optional tolerance)
-- Text (open-ended)
-- Single Choice
-- Multiple Choice
-- Ordering (drag-and-drop sequence)
-- Matching (pair items)
+The application supports 11 question types (defined in `src/lib/types.ts`):
 
-Each type has:
-- A TypeScript interface in `types.ts`
-- A question component in `src/lib/components/questions/`
-- Type guards in `src/lib/question-helper.ts`
-- Email formatting logic in `src/app/actions.ts`
+| Type | Key Fields | Component |
+|------|------------|-----------|
+| True/False | `correctAnswer: boolean` | `true-false-question.tsx` |
+| Numeric | `correctAnswer: number`, `tolerance?` | `numeric-question.tsx` |
+| Text | `minLength?`, `maxLength?` | `text-question.tsx` |
+| Single Choice | `answers[]`, `correctAnswerIndex` | `single-choice-question.tsx` |
+| Multiple Choice | `answers[]` with `isCorrect` | `multiple-choice-question.tsx` |
+| Ordering | `items[]` with `correctPosition` | `ordering-question.tsx` |
+| Matching | `items[]`, `matches[]` with `matchesTo` | `matching-question.tsx` |
+| Fill-in-Blank | `blanks[]` with `correctAnswers[]` | `fill-blank-question.tsx` |
+| Categorization | `categories[]`, `items[]` with `correctCategory` | `categorization-question.tsx` |
+| File Upload | `upload: { accept, maxSizeMB, maxFiles }` | `file-upload-question.tsx` |
+| Syntax Error | `code`, `language`, `errorTokens[]` | `syntax-error-question.tsx` |
+
+Type guards in `src/lib/question-helper.ts` determine question type from JSON structure.
 
 ### Quiz JSON Format
-
-Quizzes are stored as JSON files in the `quizzes/` directory with this structure:
 
 ```json
 {
   "id": "unique-id",
   "name": "Display Name",
   "description": "Quiz description",
-  "config": {
-    "order": 0,
-    "group": "Category/Subcategory"
-  },
+  "config": { "order": 0, "group": "Category/Subcategory" },
   "questions": [
     {
       "id": "1",
-      "question": "Question text",
+      "question": "Question text (supports {{blank:1}} for fill-blank)",
       "shortQuestion": "Short text for navigation",
-      // ... type-specific fields
+      "code": "optional code block",
+      "codeLanguage": "javascript"
     }
   ]
 }
 ```
 
-Question type is inferred from the presence of specific fields (e.g., `correctAnswer: boolean` indicates true/false, `answers` array indicates choice questions).
+### Route Structure
+
+- `/` - Quiz selection
+- `/user` - User info form (`?redirect=` param supported)
+- `/[quizId]` - Quiz overview
+- `/[quizId]/[questionId]` - Individual question
+- `/[quizId]/submit` - Submission confirmation
+- `/[quizId]/result` - Completion result
 
 ## Configuration
 
 ### shadcn/ui
 
-This project uses shadcn/ui components. Configuration is in `components.json`:
-- Components are aliased to `@/lib/components`
-- UI components are in `@/lib/components/ui`
-- Uses Tailwind CSS with CSS variables
-- Icon library: lucide-react
-
-To add new shadcn components:
 ```bash
 npx shadcn@latest add <component-name>
 ```
+
+- Components: `@/lib/components/ui`
+- Icons: lucide-react
+- Config: `components.json`
 
 ### Environment Variables
 
 Required in `.env`:
 ```
 SMTP_HOST=          # SMTP server hostname
-SMTP_PORT=          # SMTP port (usually 465 for secure)
+SMTP_PORT=          # SMTP port (usually 465)
 SMTP_SECURE=        # "true" or "false"
-SMTP_USER=          # Email address for authentication and from/to
+SMTP_USER=          # Email for auth and from/to
 SMTP_PASSWORD=      # SMTP password
 ```
 
 ### TypeScript Paths
 
-Path aliases configured in `tsconfig.json`:
 - `@/*` → `./src/*`
 
-## Key Implementation Details
+## Key Files
 
-### Email Submission
+- `src/app/actions.ts` - Server actions including `sendMail()` with HTML/text formatting
+- `src/lib/load-quizzes.ts` - Quiz loading with difficulty/time estimation
+- `src/lib/question-helper.ts` - Type guards and fill-blank text resolution
+- `src/lib/types.ts` - All TypeScript interfaces
 
-Quiz results are emailed when a user completes a quiz:
-- Server action: `sendMail()` in `src/app/actions.ts`
-- Sends both plain text and HTML formatted results
-- Recipients: user's email (if provided) and `SMTP_USER`
-- Includes all answers with correctness indicators (color-coded in HTML)
+## Styling
 
-### Session Storage
-
-The QuestionProvider uses sessionStorage to persist answers during a quiz session:
-- Storage key: `"quiz-answers"` (customizable)
-- Cleared when quiz is completed
-- Allows users to refresh without losing progress
-
-### Route Structure
-
-Dynamic routes use Next.js App Router:
-- `/` - Quiz selection
-- `/user` - User info form (with `?redirect=` query param)
-- `/[quizId]` - Quiz overview
-- `/[quizId]/[questionId]` - Individual question
-- `/[quizId]/submit` - Confirmation before submission
-- `/[quizId]/result` - Completion message
-
-### Styling
-
-- Tailwind CSS with custom CSS variables
+- Tailwind CSS with CSS variables
 - Dark theme by default (next-themes)
-- Responsive breakpoints including custom `tiny` and `xxs` sizes
-- Custom colors defined in `globals.css` (custom-primary, custom-secondary, etc.)
+- Custom breakpoints: `tiny`, `xxs`
+- Custom colors in `globals.css`: `custom-primary`, `custom-secondary`, etc.

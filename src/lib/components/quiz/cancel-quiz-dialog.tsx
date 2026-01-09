@@ -92,7 +92,7 @@ export function CancelQuizDialog({
 
 				<AlertDialogFooter>
 					<AlertDialogCancel asChild>
-						<Button variant="default" onClick={handleContinue}>
+						<Button variant="outline" onClick={handleContinue}>
 							<ArrowLeft className="size-4 mr-2" />
 							Quiz fortsetzen
 						</Button>
