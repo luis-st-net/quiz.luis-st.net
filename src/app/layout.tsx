@@ -24,7 +24,7 @@ export default async function RootLayout(
 
 	return (
 		<html lang="en" suppressHydrationWarning>
-		<body className="min-w-64">
+		<body className="min-w-[300px]">
 		<Ui.ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
 			<UserProvider>
 				<QuizProvider quizzes={quizzes} hierarchy={hierarchy} onCompleteAction={sendMail}>

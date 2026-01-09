@@ -103,9 +103,7 @@ export function QuestionCard({ className }: QuestionCardProps) {
 						<div className="space-y-2">
 							<div className="flex items-center gap-2 flex-wrap">
 								<Badge variant="secondary" className="text-xs whitespace-nowrap">
-									<span className="xxs:inline">Frage{" "}</span>
-									{currentQuestionIndex + 1}
-									<span className="xxs:inline">{" "}von{" "}{totalQuestions}</span>
+									Frage {currentQuestionIndex + 1} von {totalQuestions}
 								</Badge>
 								<QuestionTypeBadge type={questionType} />
 							</div>

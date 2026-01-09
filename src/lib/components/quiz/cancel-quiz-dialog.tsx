@@ -63,13 +63,13 @@ export function CancelQuizDialog({
 				<div className="flex flex-col gap-3 py-4">
 					<Button
 						variant="outline"
-						className="justify-start h-auto py-3 px-4"
+						className="justify-start h-auto py-3 px-3 xs:px-4 whitespace-normal text-left"
 						onClick={handleSaveAndExit}
 					>
-						<Save className="size-5 mr-3 text-green-600" />
-						<div className="text-left">
+						<Save className="size-5 mr-2 xs:mr-3 shrink-0 self-start mt-0.5 text-green-600" />
+						<div className="min-w-0">
 							<div className="font-medium">Speichern & Beenden</div>
-							<div className="text-xs text-muted-foreground">
+							<div className="text-xs text-muted-foreground hidden tiny:block">
 								Ihr Fortschritt wird gespeichert und kann später fortgesetzt werden.
 							</div>
 						</div>
@@ -77,13 +77,13 @@ export function CancelQuizDialog({
 
 					<Button
 						variant="outline"
-						className="justify-start h-auto py-3 px-4"
+						className="justify-start h-auto py-3 px-3 xs:px-4 whitespace-normal text-left"
 						onClick={handleDiscardAndExit}
 					>
-						<Trash2 className="size-5 mr-3 text-red-600" />
-						<div className="text-left">
+						<Trash2 className="size-5 mr-2 xs:mr-3 shrink-0 self-start mt-0.5 text-red-600" />
+						<div className="min-w-0">
 							<div className="font-medium">Verwerfen & Beenden</div>
-							<div className="text-xs text-muted-foreground">
+							<div className="text-xs text-muted-foreground hidden tiny:block">
 								Alle Antworten werden gelöscht.
 							</div>
 						</div>
@@ -93,7 +93,7 @@ export function CancelQuizDialog({
 				<AlertDialogFooter>
 					<AlertDialogCancel asChild>
 						<Button variant="outline" onClick={handleContinue}>
-							<ArrowLeft className="size-4 mr-2" />
+							<ArrowLeft className="hidden tiny:inline size-4 mr-2" />
 							Quiz fortsetzen
 						</Button>
 					</AlertDialogCancel>
