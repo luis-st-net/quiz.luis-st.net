@@ -1,4 +1,4 @@
-import { CategorizationQuestion, FillBlankQuestion, FileUploadQuestion, MatchingQuestion, MultipleChoiceQuestion, NumericQuestion, OrderingQuestion, Question, SingleChoiceQuestion, SyntaxErrorQuestion, TextQuestion, TrueFalseQuestion } from "./types";
+import { CategorizationQuestion, FillBlankItem, FillBlankQuestion, FileUploadQuestion, MatchingQuestion, MultipleChoiceQuestion, NumericQuestion, OrderingQuestion, Question, SingleChoiceQuestion, SyntaxErrorQuestion, TextQuestion, TrueFalseQuestion } from "./types";
 
 export function isTrueFalseQuestion(question: Question): question is TrueFalseQuestion {
 	return "correctAnswer" in question && typeof (question as any).correctAnswer === "boolean";
@@ -42,4 +42,50 @@ export function isFileUploadQuestion(question: Question): question is FileUpload
 
 export function isSyntaxErrorQuestion(question: Question): question is SyntaxErrorQuestion {
 	return "code" in question && "language" in question && "errorTokens" in question && Array.isArray((question as any).errorTokens);
+}
+
+/**
+ * Checks if a single fill-blank answer is correct
+ */
+export function isFillBlankAnswerCorrect(
+	userAnswer: string,
+	blank: FillBlankItem
+): boolean {
+	return blank.correctAnswers.some(correct =>
+		blank.caseSensitive
+			? userAnswer === correct
+			: userAnswer.toLowerCase() === correct.toLowerCase()
+	);
+}
+
+/**
+ * Resolves {{blank:\d}} patterns in a fill-blank question text with actual answers
+ */
+export function resolveFillBlankText(
+	questionText: string,
+	answers: Record<string, string>,
+	blanks: FillBlankItem[],
+	options?: {
+		placeholder?: string;
+		formatAnswer?: (answer: string, blank: FillBlankItem, isCorrect: boolean) => string;
+	}
+): string {
+	const placeholder = options?.placeholder ?? "___";
+	const blankMap = new Map(blanks.map(b => [b.id, b]));
+
+	return questionText.replace(/{{blank:(\d+)}}/g, (_, blankId) => {
+		const userAnswer = answers[blankId] || "";
+		const blank = blankMap.get(blankId);
+
+		if (!userAnswer) {
+			return placeholder;
+		}
+
+		if (options?.formatAnswer && blank) {
+			const isCorrect = isFillBlankAnswerCorrect(userAnswer, blank);
+			return options.formatAnswer(userAnswer, blank, isCorrect);
+		}
+
+		return userAnswer;
+	});
 }

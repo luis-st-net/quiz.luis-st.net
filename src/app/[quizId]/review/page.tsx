@@ -75,8 +75,8 @@ export default function ReviewPage() {
 	return (
 		<div className="flex flex-col h-full">
 			{/* Header */}
-			<header className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b bg-card gap-2">
-				<h1 className="text-base sm:text-lg font-semibold truncate">{quiz.name} - Überprüfung</h1>
+			<header className="flex items-center justify-between gap-2 px-4 py-3 border-b bg-card">
+				<h1 className="text-lg font-semibold truncate min-w-0">{quiz.name} - Überprüfung</h1>
 				<Button variant="outline" size="sm" onClick={handleBackToQuiz} className="shrink-0">
 					<ArrowLeft className="size-4 sm:mr-1" />
 					<span className="hidden sm:inline">Zurück zum Quiz</span>
@@ -92,24 +92,24 @@ export default function ReviewPage() {
 							<CardTitle>Zusammenfassung</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-4">
-							<div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
-								<div className="p-2 sm:p-4 rounded-lg bg-muted/50">
-									<div className="text-xl sm:text-2xl font-bold text-green-600">
+							<div className="grid grid-cols-3 gap-4 text-center">
+								<div className="p-4 rounded-lg bg-muted/50">
+									<div className="text-2xl font-bold text-green-600">
 										{answeredCount}
 									</div>
-									<div className="text-xs sm:text-sm text-muted-foreground">Beantwortet</div>
+									<div className="text-sm text-muted-foreground">Beantwortet</div>
 								</div>
-								<div className="p-2 sm:p-4 rounded-lg bg-muted/50">
-									<div className="text-xl sm:text-2xl font-bold text-amber-600">
+								<div className="p-4 rounded-lg bg-muted/50">
+									<div className="text-2xl font-bold text-amber-600">
 										{unansweredCount}
 									</div>
-									<div className="text-xs sm:text-sm text-muted-foreground">Offen</div>
+									<div className="text-sm text-muted-foreground">Offen</div>
 								</div>
-								<div className="p-2 sm:p-4 rounded-lg bg-muted/50">
-									<div className="text-xl sm:text-2xl font-bold text-blue-600">
+								<div className="p-4 rounded-lg bg-muted/50">
+									<div className="text-2xl font-bold text-blue-600">
 										{flaggedCount}
 									</div>
-									<div className="text-xs sm:text-sm text-muted-foreground">Markiert</div>
+									<div className="text-sm text-muted-foreground">Markiert</div>
 								</div>
 							</div>
 
@@ -140,7 +140,7 @@ export default function ReviewPage() {
 									<div key={question.id}>
 										<div
 											className={cn(
-												"flex items-start gap-3 p-3 rounded-lg transition-colors",
+												"flex items-start gap-3 p-3 rounded-lg transition-colors min-w-0",
 												!answered && "bg-amber-50 dark:bg-amber-950/20",
 												answered && "hover:bg-muted/50"
 											)}
@@ -192,9 +192,10 @@ export default function ReviewPage() {
 												variant="ghost"
 												size="sm"
 												onClick={() => handleEditQuestion(index)}
+												className="shrink-0"
 											>
-												<Edit2 className="size-4 mr-1" />
-												{answered ? "Bearbeiten" : "Beantworten"}
+												<Edit2 className="size-4 sm:mr-1" />
+												<span className="hidden sm:inline">{answered ? "Bearbeiten" : "Beantworten"}</span>
 											</Button>
 										</div>
 										{index < questions.length - 1 && <Separator className="my-2" />}
@@ -208,12 +209,12 @@ export default function ReviewPage() {
 
 			{/* Footer Actions */}
 			<div className="border-t bg-card p-4">
-				<div className="max-w-3xl mx-auto flex justify-between gap-4">
-					<Button variant="outline" onClick={handleBackToQuiz}>
+				<div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
+					<Button variant="outline" onClick={handleBackToQuiz} className="w-full sm:w-auto">
 						<ArrowLeft className="size-4 mr-2" />
 						Zurück zum Quiz
 					</Button>
-					<Button onClick={handleSubmit} disabled={unansweredCount > 0}>
+					<Button onClick={handleSubmit} disabled={unansweredCount > 0} className="w-full sm:w-auto">
 						Antworten einreichen
 						<ArrowRight className="size-4 ml-2" />
 					</Button>

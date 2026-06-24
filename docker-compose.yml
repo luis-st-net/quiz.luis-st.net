@@ -1,5 +1,6 @@
 services:
   web:
+    build: .
     image: quiz-web:latest
     container_name: quiz-web
     healthcheck:

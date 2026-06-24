@@ -9,7 +9,7 @@ import { useIsMobile } from "@/lib/hooks/use-mobile";
 import { Button } from "@/lib/components/ui/button";
 import { Input } from "@/lib/components/ui/input";
 import { Separator } from "@/lib/components/ui/separator";
-import { Sheet, SheetContent } from "@/lib/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/lib/components/ui/sheet";
 import { Skeleton } from "@/lib/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/lib/components/ui/tooltip";
 import Link from "next/link";
@@ -202,6 +202,7 @@ const Sidebar = React.forwardRef<
 						}
 						side={side}
 					>
+						<SheetTitle className="sr-only">Sidebar Navigation</SheetTitle>
 						<div className="flex h-full w-full flex-col">{children}</div>
 					</SheetContent>
 				</Sheet>

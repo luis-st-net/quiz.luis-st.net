@@ -33,15 +33,11 @@ export function QuestionNavigator({ onReviewClick, className }: QuestionNavigato
 		<div className={cn("flex flex-col h-full bg-card border-r", className)}>
 			{/* Progress Section */}
 			<div className="p-4 border-b space-y-3">
-				<div className="flex items-center justify-between text-sm">
-					<span className="font-medium">Fortschritt</span>
-					<span className="text-muted-foreground">
-						{answeredCount}/{totalQuestions}
-					</span>
-				</div>
+				<span className="font-medium text-sm">Fortschritt</span>
 				<Progress value={progressPercentage} className="h-2" />
-				<div className="text-xs text-muted-foreground text-center">
-					{progressPercentage}% beantwortet
+				<div className="flex items-center justify-between text-xs text-muted-foreground">
+					<span>{answeredCount}/{totalQuestions} beantwortet</span>
+					<span>{progressPercentage}%</span>
 				</div>
 			</div>
 

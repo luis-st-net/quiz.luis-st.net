@@ -6,7 +6,7 @@ import { useQuizContext } from "@/lib/contexts/quiz-context";
 import { useUserContext } from "@/lib/contexts/user-context";
 import { QuizSidebar, QuizInfoCard, UserInfoDialog } from "@/lib/components/quiz";
 import { Button } from "@/lib/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/lib/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/lib/components/ui/sheet";
 import { ResizeHandle } from "@/lib/components/ui/resize-handle";
 import { Menu } from "lucide-react";
 import { useResizableSidebar } from "@/lib/hooks/use-resizable-sidebar";
@@ -83,7 +83,7 @@ export default function HomePage() {
 			{/* Main Content Container - True viewport centering */}
 			<div className={`flex flex-col flex-1 min-w-0 ${isResizing ? "select-none" : ""}`}>
 				{/* Mobile Header with Sheet */}
-				<div className="md:hidden flex items-center gap-2 p-4 border-b bg-card">
+				<div className="md:hidden flex items-center gap-2 p-4 border-b bg-card relative z-10">
 					<Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
 						<SheetTrigger asChild>
 							<Button variant="outline" size="icon">
@@ -91,7 +91,8 @@ export default function HomePage() {
 								<span className="sr-only">Quiz-Menü öffnen</span>
 							</Button>
 						</SheetTrigger>
-						<SheetContent side="left" className="p-0 w-80">
+						<SheetContent side="left" className="p-0 w-full sm:w-80">
+							<SheetTitle className="sr-only">Quiz-Menü</SheetTitle>
 							<QuizSidebar
 								hierarchy={hierarchy}
 								selectedQuizId={selectedQuizId}
@@ -111,7 +112,6 @@ export default function HomePage() {
 						<QuizInfoCard
 							quiz={selectedQuiz || null}
 							onStartQuiz={handleStartQuiz}
-							className="h-full"
 						/>
 					</div>
 				</div>
@@ -119,7 +119,7 @@ export default function HomePage() {
 
 			{/* Invisible spacer for symmetric centering - matches sidebar width */}
 			<div
-				className="hidden md:block shrink-0"
+				className="hidden md:block shrink-0 transition-[width] duration-300"
 				style={{ width: sidebarWidth }}
 				aria-hidden="true"
 			/>
