@@ -1,36 +1,31 @@
-# Build image on host (windows only):
-#  docker buildx build --load --platform linux/arm64 -t quiz-web:<version> .
-#  docker save -o D:\Programmieren\Docker\Images\Quiz-Website\quiz-web-<version>.tar quiz-web
-#  docker load -i ./quiz-web-<version>.tar
-# Build image on remote:
-#  docker build -t quiz-web:<version> .
-# Update the container:
-#  docker stop quiz-web
-#  docker rm quiz-web
-#  docker run -d -p 3000:3000 --restart unless-stopped --name quiz-web quiz-web:<version>
-# With docker compose:
-#  docker compose up -d --build
-
-FROM node:lts-alpine
-
+FROM node:lts-alpine AS deps
 WORKDIR /app
-
 COPY package.json package-lock.json ./
-
 RUN npm ci
 
+FROM node:lts-alpine AS builder
+WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
 RUN npm run build
-RUN npm prune --omit=dev
 
-RUN mkdir -p /app/quizzes
+FROM node:lts-alpine AS runner
+WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+RUN mkdir -p .next/cache /app/quizzes && chown node:node .next/cache /app/quizzes
 VOLUME ["/app/quizzes"]
+
+USER node
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["node", "server.js"]
